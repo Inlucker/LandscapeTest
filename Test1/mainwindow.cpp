@@ -16,3 +16,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::on_gen_btn_clicked()
+{
+    canvas->generateNewLandscape();
+}
+
+void MainWindow::on_clean_btn_clicked()
+{
+    canvas->clean();
+}
+

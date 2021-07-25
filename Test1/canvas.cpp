@@ -7,8 +7,13 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     setStyleSheet("background-color:white;");
 
     reset_heights_map();
-    print_heights_map();
+    //print_heights_map();
 
+    camera = make_unique<Camera>(); // (Point(460, 400, -200), Point(-45, -45, 20));
+    //camera = make_unique<Camera>(Point(460, 400, -200), Point(-45, -45, 20));
+
+    painter.reset();
+    my_pixmap.reset();
     clean();
 }
 
@@ -18,16 +23,91 @@ Canvas::~Canvas()
         painter->end();
 }
 
-void Canvas::mousePressEvent(QMouseEvent *event)
+void Canvas::generateNewLandscape()
 {
-    //DrawLineBrezenheimFloat(0, 0, 100, 100);
+    clean();
     randomizeHeightsMap();
-    print_heights_map();
+    //print_heights_map();
 
     smoothHeightsMap();
-    print_heights_map();
+    //print_heights_map();
+
+    drawHeightsMap();
 
     update();
+}
+
+void Canvas::clean()
+{
+    if (painter)
+        painter->end();
+    my_pixmap = make_unique<QPixmap>(2000, 2000);
+    my_pixmap->fill(QColor(0, 0, 0, 0));
+    painter = make_unique<QPainter>(&(*my_pixmap));
+    painter->setPen(Qt::black);
+
+    update();
+}
+
+void Canvas::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        LMB_is_pressed = false;
+    }
+
+    if (event->button() == Qt::RightButton)
+    {
+        RMB_is_pressed = false;
+    }
+    //cout << camera->getAngles().getX() << "; " << camera->getAngles().getY() << "; " << camera->getAngles().getZ() << endl;
+    //cout << camera->getPosition().getX() << "; " << camera->getPosition().getY() << "; " << camera->getPosition().getZ() << endl;
+}
+
+void Canvas::mousePressEvent(QMouseEvent *event)
+{
+    previous_x = event->position().x();
+    previous_y = event->position().y();
+    if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->rect().contains(event->pos()))
+    {
+        LMB_is_pressed = true;
+    }
+    if (event->button() == Qt::RightButton && !RMB_is_pressed && this->rect().contains(event->pos()))
+    {
+        RMB_is_pressed = true;
+    }
+}
+
+#define ROTATE_SPEED 5
+#define MOVE_SPEED 2
+
+void Canvas::mouseMoveEvent(QMouseEvent *event)
+{
+    if (LMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
+        double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
+
+        camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+
+        clean();
+        drawHeightsMap();
+    }
+    else if (RMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / MOVE_SPEED;
+        double y = double(previous_y - event->position().y()) / MOVE_SPEED;
+
+        camera->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+
+        clean();
+        drawHeightsMap();
+    }
+
+    update();
+
+    previous_x = event->position().x();
+    previous_y = event->position().y();
 }
 
 void Canvas::paintEvent(QPaintEvent *event)
@@ -61,18 +141,7 @@ void Canvas::randomizeHeightsMap()
 {
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
-            heights_map[i][j] = rand() % 11;
-}
-
-double Canvas::checkIds(int i, int j)
-{
-    if (i >= 0 && i <= MAX_X && j >= 0 && j <= MAX_Y)
-    {
-        //cout << "+ " << heights_map[i][j] << " ";
-        return heights_map[i][j];
-    }
-    else
-        return -1;
+            heights_map[i][j] = (rand() % 11);
 }
 
 void Canvas::smoothHeightsMap()
@@ -84,63 +153,63 @@ void Canvas::smoothHeightsMap()
             int tmp_n = 0;
 
             //cout << "(";
-            double tmp = checkIds(i-1, j-1);
+            double tmp = getHeight(i-1, j-1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i-1, j);
+            tmp = getHeight(i-1, j);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i-1, j+1);
+            tmp = getHeight(i-1, j+1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i, j-1);
+            tmp = getHeight(i, j-1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i, j);
+            tmp = getHeight(i, j);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i, j+1);
+            tmp = getHeight(i, j+1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i+1, j-1);
+            tmp = getHeight(i+1, j-1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i+1, j);
+            tmp = getHeight(i+1, j);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
                 tmp_n++;
             }
 
-            tmp = checkIds(i+1, j+1);
+            tmp = getHeight(i+1, j+1);
             if (tmp >= 0)
             {
                 tmp_sum += tmp;
@@ -152,21 +221,71 @@ void Canvas::smoothHeightsMap()
         }
 }
 
+double Canvas::getHeight(int i, int j)
+{
+    if (i >= 0 && i <= MAX_X && j >= 0 && j <= MAX_Y)
+    {
+        //cout << "+ " << heights_map[i][j] << " ";
+        return heights_map[i][j];
+    }
+    else
+        return -1;
+}
+
+#define SCALE 25
+
+void Canvas::drawHeightsMap()
+{
+    painter->setPen(Qt::red);
+    for (int i = 0; i < MAX_X; i++)
+        for (int j = 0; j < MAX_Y; j++)
+        {
+            Point tmp_point(i * SCALE, heights_map[i][j] * SCALE, j * SCALE);
+            tmp_point = getProection(tmp_point, camera->getPosition(), camera->getAngles());
+
+            painter->drawEllipse(QPoint(camera->getPosition().getX() + tmp_point.getX(),
+                                        camera->getPosition().getY() + tmp_point.getY()), 5, 5);
+            //plot(tmp_point.getX() * SCALE, tmp_point.getY() * SCALE);
+        }
+    painter->setPen(Qt::black);
+    for (int i = 0; i < MAX_X; i++)
+        for (int j = 1; j < MAX_Y; j++)
+        {
+            Point tmp_point1(i * SCALE, heights_map[i][j-1] * SCALE, (j-1) * SCALE);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2(i * SCALE, heights_map[i][j] * SCALE, j * SCALE);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+    for (int i = 1; i < MAX_X; i++)
+        for (int j = 0; j < MAX_Y; j++)
+        {
+            Point tmp_point1((i-1) * SCALE, heights_map[i-1][j] * SCALE, j * SCALE);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2(i * SCALE, heights_map[i][j] * SCALE, j * SCALE);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+}
+
+Point Canvas::getProection(Point &_point, Point cameraPosition, Point angles)
+{
+    Point proection(_point);
+    proection.transform(cameraPosition, Point(1, 1, 1), Point(0, 0, 0));
+
+    proection.transform(Point(0, 0, 0), Point(1, 1, 1), Point(-angles.getX(), -angles.getY(), -angles.getZ()));
+
+    return proection;
+}
+
 void Canvas::plot(int x, int y)
 {
     //p->setPen(semiPen);
     painter->drawPoint(x, y);
-}
-
-void Canvas::clean()
-{
-    my_pixmap = make_unique<QPixmap>(2000, 2000);
-    my_pixmap->fill(QColor(0, 0, 0, 0));
-
-    painter = make_unique<QPainter>(&(*my_pixmap));
-    painter->setPen(Qt::black);
-
-    update();
 }
 
 int sign(double val)

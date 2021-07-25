@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>983</width>
+    <height>618</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,13 +25,39 @@
     </property>
     <layout class="QGridLayout" name="gridLayout"/>
    </widget>
+   <widget class="QPushButton" name="clean_btn">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>510</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clean</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="gen_btn">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>330</y>
+      <width>181</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GenerateNewLandscape</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>983</width>
      <height>25</height>
     </rect>
    </property>
