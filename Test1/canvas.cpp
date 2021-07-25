@@ -21,8 +21,10 @@ Canvas::~Canvas()
 void Canvas::mousePressEvent(QMouseEvent *event)
 {
     //DrawLineBrezenheimFloat(0, 0, 100, 100);
-    randomize_heights_map();
-    smooth_heights_map(); //TODO
+    randomizeHeightsMap();
+    print_heights_map();
+
+    smoothHeightsMap();
     print_heights_map();
 
     update();
@@ -55,22 +57,98 @@ void Canvas::print_heights_map()
     cout << endl;
 }
 
-void Canvas::randomize_heights_map()
+void Canvas::randomizeHeightsMap()
 {
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
             heights_map[i][j] = rand() % 11;
 }
 
-void Canvas::smooth_heights_map()
+double Canvas::checkIds(int i, int j)
+{
+    if (i >= 0 && i <= MAX_X && j >= 0 && j <= MAX_Y)
+    {
+        //cout << "+ " << heights_map[i][j] << " ";
+        return heights_map[i][j];
+    }
+    else
+        return -1;
+}
+
+void Canvas::smoothHeightsMap()
 {
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
-            int tmp_sum = 0;
+            double tmp_sum = 0;
             int tmp_n = 0;
-            //TODO
-            //for (int )
+
+            //cout << "(";
+            double tmp = checkIds(i-1, j-1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i-1, j);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i-1, j+1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i, j-1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i, j);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i, j+1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i+1, j-1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i+1, j);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            tmp = checkIds(i+1, j+1);
+            if (tmp >= 0)
+            {
+                tmp_sum += tmp;
+                tmp_n++;
+            }
+
+            heights_map[i][j] = tmp_sum / tmp_n;
+            //cout  << ")/" << tmp_n << " = "<< tmp_sum << "/" << tmp_n << " = " << heights_map[i][j] << endl;
         }
 }
 

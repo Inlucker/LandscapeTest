@@ -39,8 +39,9 @@ private:
 private:
     void reset_heights_map();
     void print_heights_map();
-    void randomize_heights_map();
-    void smooth_heights_map();
+    void randomizeHeightsMap();
+    void smoothHeightsMap();
+    double checkIds(int i, int j);
 
     void plot(int x, int y);
     void DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end);
