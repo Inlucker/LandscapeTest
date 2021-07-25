@@ -141,7 +141,7 @@ void Canvas::randomizeHeightsMap()
 {
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
-            heights_map[i][j] = (rand() % 11);
+            heights_map[i][j] = (rand() % 16);
 }
 
 void Canvas::smoothHeightsMap()
@@ -243,9 +243,7 @@ void Canvas::drawHeightsMap()
             Point tmp_point(i * SCALE, heights_map[i][j] * SCALE, j * SCALE);
             tmp_point = getProection(tmp_point, camera->getPosition(), camera->getAngles());
 
-            painter->drawEllipse(QPoint(camera->getPosition().getX() + tmp_point.getX(),
-                                        camera->getPosition().getY() + tmp_point.getY()), 5, 5);
-            //plot(tmp_point.getX() * SCALE, tmp_point.getY() * SCALE);
+            painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
         }
     painter->setPen(Qt::black);
     for (int i = 0; i < MAX_X; i++)
