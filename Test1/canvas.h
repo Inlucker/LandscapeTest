@@ -16,6 +16,9 @@ using namespace std;
 #define MAX_X 20
 #define MAX_Y 20
 
+//#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
+#include "heightsmap.h"
+
 int sign(double val);
 
 //void print_mtrx(int x, int y, int mtrx[x][y]);
@@ -37,6 +40,7 @@ protected:
 
 public:
     double heights_map[MAX_X][MAX_Y];
+    unique_ptr<HeightsMap> heights_map2;
 
 private:
     unique_ptr<QPainter> painter = nullptr;
@@ -56,6 +60,7 @@ private:
     double getHeight(int i, int j);
 
     void drawHeightsMap();
+    void drawHeightsMap2();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);

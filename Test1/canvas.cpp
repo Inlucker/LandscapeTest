@@ -7,6 +7,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     setStyleSheet("background-color:white;");
 
     reset_heights_map();
+    heights_map2 = make_unique<HeightsMap>(20);
     //print_heights_map();
 
     camera = make_unique<Camera>(); // (Point(460, 400, -200), Point(-45, -45, 20));
@@ -27,12 +28,15 @@ void Canvas::generateNewLandscape()
 {
     clean();
     randomizeHeightsMap();
+    heights_map2->randomizeHeightsMap();
     //print_heights_map();
 
     smoothHeightsMap();
+    heights_map2->smoothHeightsMap();
     //print_heights_map();
 
-    drawHeightsMap();
+    //drawHeightsMap();
+    drawHeightsMap2();
 
     update();
 }
@@ -91,7 +95,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
 
         clean();
-        drawHeightsMap();
+        //drawHeightsMap();
+        drawHeightsMap2();
     }
     else if (RMB_is_pressed)
     {
@@ -101,7 +106,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         camera->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
 
         clean();
-        drawHeightsMap();
+        //drawHeightsMap();
+        drawHeightsMap2();
     }
 
     update();
@@ -264,6 +270,42 @@ void Canvas::drawHeightsMap()
             tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
 
             Point tmp_point2(i * SCALE, heights_map[i][j] * SCALE, j * SCALE);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+}
+
+void Canvas::drawHeightsMap2()
+{
+    painter->setPen(Qt::red);
+    for (int i = 0; i < MAX_X; i++)
+        for (int j = 0; j < MAX_Y; j++)
+        {
+            Point tmp_point(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            tmp_point = getProection(tmp_point, camera->getPosition(), camera->getAngles());
+
+            painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
+        }
+    painter->setPen(Qt::black);
+    for (int i = 0; i < MAX_X; i++)
+        for (int j = 1; j < MAX_Y; j++)
+        {
+            Point tmp_point1(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j-1] * SCALE, (j-1) * SCALE);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+    for (int i = 1; i < MAX_X; i++)
+        for (int j = 0; j < MAX_Y; j++)
+        {
+            Point tmp_point1((i-1) * SCALE, (*heights_map2)[(i-1)*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
