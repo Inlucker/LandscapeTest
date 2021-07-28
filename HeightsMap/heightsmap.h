@@ -34,11 +34,24 @@ public:
 
     bool isEmpty() const noexcept;
     int getSize() const noexcept;
+    int elemsNum() const noexcept;
 
     Iterator<height_t> begin() noexcept;
     Iterator<height_t> end() noexcept;
     ConstIterator<height_t> cbegin() const noexcept;
     ConstIterator<height_t> cend() const noexcept;
+
+    void resetHeightsmap();
+    void randomizeHeightsMap();
+    void smoothHeightsMap();
+    double getHeight(int i, int j);
+
+    height_t& getElem(int id);
+    const height_t& getElem(int id) const;
+    height_t& operator [](int id);
+    const height_t& operator [](int id) const;
+
+    void drawHeightsMap();
 
 private:
     void alloc_data();

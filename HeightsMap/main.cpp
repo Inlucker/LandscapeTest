@@ -20,6 +20,12 @@ int main()
         HeightsMap zero_map(4);
         cout << "zero_map: " << zero_map << endl;
 
+        zero_map.randomizeHeightsMap();
+        cout << "randomizeHeightsMap: " << zero_map << endl;
+
+        zero_map.smoothHeightsMap();
+        cout << "smoothHeightsMap: " << zero_map << endl;
+
         cout << endl;
 
         cout << "ITERATOR TESTS:" << endl;
@@ -31,6 +37,10 @@ int main()
         cout << "it3 = it1; *it3 = " << *it1 << endl;
         it3++;
         cout << "it3++; *it1 = " << *it1 << "; *it3 = " << *it3 << endl;
+
+        cout << "OPERATORS TESTS:" << endl;
+        cout << "zero_map[0] = " << zero_map[0] << endl;
+        cout << "zero_map[6] = " << zero_map[6] << endl;
     }
     catch (BaseError& err)
     {

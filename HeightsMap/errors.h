@@ -46,6 +46,17 @@ public:
     }
 };
 
+class MappIndexError : public BaseError
+{
+public:
+    MappIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class IteratorWeakPtrError : public BaseError
 {
 public:
@@ -90,16 +101,6 @@ public:
     }
 };
 
-class IndexError : public BaseError
-{
-public:
-    IndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
-        : BaseError(info, filename, line, time, error) {};
-    virtual const char* what() const noexcept
-    {
-        return err_info.c_str();
-    }
-};
 
 class DifSizeError : public BaseError
 {
