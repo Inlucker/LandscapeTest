@@ -7,7 +7,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     setStyleSheet("background-color:white;");
 
     reset_heights_map();
-    heights_map2 = make_unique<HeightsMap>(20);
+    heights_map2 = make_unique<HeightsMap>(MAX_X);
     //print_heights_map();
 
     camera = make_unique<Camera>(); // (Point(460, 400, -200), Point(-45, -45, 20));
@@ -238,7 +238,7 @@ double Canvas::getHeight(int i, int j)
         return -1;
 }
 
-#define SCALE 25
+//#define SCALE 25
 
 void Canvas::drawHeightsMap()
 {

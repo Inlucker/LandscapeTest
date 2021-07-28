@@ -46,6 +46,7 @@ public:
     void smoothHeightsMap();
     double getHeight(int i, int j);
 
+    //ToDo operator[][] (maybe reorganisate the shole structure of caontainer and make it container of container)
     height_t& getElem(int id);
     const height_t& getElem(int id) const;
     height_t& operator [](int id);
