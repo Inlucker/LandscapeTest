@@ -14,6 +14,7 @@ typedef double height_t;
 
 //class HeightsArray;
 //#include "heightsarray.h"
+class HeightsMapPoints;
 
 class HeightsMap
 {
@@ -34,6 +35,7 @@ public:
     void randomizeHeightsMap();
     void smoothHeightsMap();
     double getHeight(int i, int j);
+    shared_ptr<HeightsMapPoints> createPoints();
 
     //ToDo operator[][] (maybe reorganisate the shole structure of caontainer and make it container of container)
     height_t& getElem(int id);

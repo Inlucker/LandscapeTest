@@ -5,6 +5,7 @@ using namespace std;
 
 //#include "constiterator.h"
 #include "heightsmap.h"
+#include "heightsmappoints.h"
 
 int main()
 {
@@ -59,6 +60,16 @@ int main()
         cout << "const zero_map2(0, 0) = " << zero_map2(0, 0) << endl;
         cout << "const zero_map2(4, 4) = " << zero_map2(4, 4) << endl;
         //cout << "const zero_map2(4, 5) = " << zero_map2(4, 5) << endl;
+
+        cout << endl;
+
+        cout << "HEIGHTSMAPPOINTS TESTS:" << endl;
+
+        HeightsMapPoints points1(4);
+        cout << "points1: " << points1 << endl;
+
+        shared_ptr<HeightsMapPoints> points2 = zero_map.createPoints();
+        cout << "zero_map.createPoints(): " << (*points2) << endl;
 
         /*cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
         cout << "zero_map[1][2] = " << zero_map[1][2] << endl;

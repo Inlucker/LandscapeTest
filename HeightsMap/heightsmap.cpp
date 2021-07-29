@@ -5,6 +5,7 @@
 
 #include "errors.h"
 //#include "heightsarray.h"
+#include "heightsmappoints.h"
 
 HeightsMap::HeightsMap()
 {
@@ -172,6 +173,20 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
+shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
+{
+    shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
+    ConstIterator<height_t> map_it = this->cbegin();
+    int i = 0;
+    for (auto& points_it : *new_points_map)
+    {
+        points_it = Point(i / size, *map_it, i % size); // x <-> z
+        map_it++;
+        i++;
+    }
+    return new_points_map;
+}
+
 height_t& HeightsMap::getElem(int id)
 {
     time_t t_time = time(NULL);
@@ -296,7 +311,6 @@ void HeightsMap::alloc_data()
         data_ptr = new_ptr;
     }
 }
-
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
 {

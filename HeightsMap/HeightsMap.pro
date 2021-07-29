@@ -7,7 +7,9 @@ SOURCES += \
         abstractiterator.cpp \
         heightsarray.cpp \
         heightsmap.cpp \
-        main.cpp
+        heightsmappoints.cpp \
+        main.cpp \
+        point.cpp
 
 HEADERS += \
     abstractiterator.h \
@@ -18,5 +20,7 @@ HEADERS += \
     errors.h \
     heightsarray.h \
     heightsmap.h \
+    heightsmappoints.h \
     iterator.h \
-    iterator.hpp
+    iterator.hpp \
+    point.h
