@@ -172,7 +172,7 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-/*height_t& HeightsMap::getElem(int id)
+height_t& HeightsMap::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -198,7 +198,17 @@ height_t& HeightsMap::operator [](int id)
 const height_t& HeightsMap::operator [](int id) const
 {
     return getElem(id);
-}*/
+}
+
+height_t &HeightsMap::operator()(int i, int j)
+{
+    return getElem(i*size+j);
+}
+
+const height_t &HeightsMap::operator()(const int &i, const int &j) const
+{
+    return getElem(i*size+j);
+}
 
 /*shared_ptr<HeightsArray> HeightsMap::getElem(int id)
 {
@@ -214,7 +224,7 @@ shared_ptr<HeightsArray> HeightsMap::operator [](int id)
     return getElem(id);
 }*/
 
-shared_ptr<height_t[]> HeightsMap::getElem(int id)
+/*shared_ptr<height_t[]> HeightsMap::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= size)
@@ -269,7 +279,7 @@ shared_ptr<height_t[]> HeightsMap::operator [](int id)
 const shared_ptr<height_t[]> HeightsMap::operator [](int id) const
 {
     return getElem(id);
-}
+}*/
 
 void HeightsMap::alloc_data()
 {

@@ -26,7 +26,7 @@ int main()
         zero_map.smoothHeightsMap();
         cout << "smoothHeightsMap: " << zero_map << endl;
 
-        cout << endl;
+        //cout << endl;
 
         cout << "ITERATOR TESTS:" << endl;
         ConstIterator<height_t> it1 = zero_map.cbegin();
@@ -41,8 +41,26 @@ int main()
         cout << endl;
 
         cout << "OPERATORS TESTS:" << endl;
-        //shared_ptr<HeightsArray> = (zero_map[0]);
-        cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
+        cout << "zero_map[0] = " << zero_map[0] << endl;
+        cout << "zero_map[6] = " << zero_map[6] << endl;
+
+        cout << endl;
+
+        cout << "zero_map(0, 0) = " << zero_map(0, 0) << endl;
+        cout << "zero_map(1, 2) = " << zero_map(1, 2) << endl;
+        //cout << "zero_map(3, 5) = " << zero_map(3, 5) << endl;
+        zero_map(1, 2) = 50;
+        cout << "zero_map(1, 2) = " << zero_map(1, 2)  << endl;
+
+        cout << endl;
+
+        const HeightsMap zero_map2(5);
+        cout << "const zero_map2: " << zero_map2 << endl;
+        cout << "const zero_map2(0, 0) = " << zero_map2(0, 0) << endl;
+        cout << "const zero_map2(4, 4) = " << zero_map2(4, 4) << endl;
+        //cout << "const zero_map2(4, 5) = " << zero_map2(4, 5) << endl;
+
+        /*cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
         cout << "zero_map[1][2] = " << zero_map[1][2] << endl;
         cout << "zero_map[3][5] = " << zero_map[3][5]
              << " can't check if shared_ptr<height_t[]> out of range" << endl;
@@ -53,7 +71,7 @@ int main()
         cout << "const zero_map2: " << zero_map2 << endl;
         cout << "const zero_map2[0][0] = " << zero_map2[0][0] << endl;
         cout << "const zero_map2[4][5] = " << zero_map2[4][5]
-             << " can't check if shared_ptr<height_t[]> out of range" << endl;
+             << " can't check if shared_ptr<height_t[]> out of range" << endl;*/
     }
     catch (BaseError& err)
     {
@@ -63,5 +81,6 @@ int main()
     {
         cout << "Unexpected Error" << endl;
     }
+    cout << "\n-------------------\nEverything is Ok!!!" << endl;
     return 0;
 }
