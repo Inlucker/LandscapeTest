@@ -1,5 +1,8 @@
 #include "heightsarray.h"
 
+#include "errors.h"
+//#include "heightsmap.h"
+
 HeightsArray::HeightsArray()
 {
     elems_num = 0;
@@ -27,12 +30,60 @@ HeightsArray::HeightsArray(int new_size)
     }
 }
 
+/*HeightsArray::HeightsArray(HeightsMap& map, int id)
+{
+    int new_size = map.getSize();
+    time_t t_time = time(NULL);
+    if (new_size < 0)
+        throw NegativeMapSizeError("map.getSize() < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    if (new_size == 0)
+    {
+        elems_num = 0;
+        data_ptr.reset();
+    }
+    else
+    {
+        elems_num = new_size;
+        alloc_data();
+
+        for (auto &elem:*this)
+        {
+            elem = 0;
+        }
+        Iterator<height_t> arr_it = begin();
+        int i = 0;
+        for (auto& elem : map)
+        {
+            if (i/elems_num == id)
+            {
+                *arr_it = elem;
+                arr_it++;
+            }
+            i++;
+        }
+    }
+}*/
+
+/*HeightsArray::HeightsArray(const HeightsArray &arr)
+{
+    time_t t_time = time(NULL);
+    if (arr.size() < 0)
+        throw NegativeArraySizeError("arr elements_number < 0", __FILE__, __LINE__, ctime(&t_time));
+    elems_num = arr.size();
+
+    alloc_data();
+
+    for (int i = 0; i < elems_num; i++)
+        data_ptr[i] = arr[i];
+}*/
+
 bool HeightsArray::isEmpty() const noexcept
 {
     return !elems_num;
 }
 
-int HeightsArray::elemsNum() const noexcept
+int HeightsArray::size() const noexcept
 {
     return elems_num;
 }
@@ -98,4 +149,22 @@ void HeightsArray::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+
+ostream& operator <<(ostream& os, const HeightsArray& arr)
+{
+    if (arr.isEmpty())
+    {
+        os << "HeightsArr is empty." << endl;
+        return os;
+    }
+
+    ConstIterator<height_t> It = arr.cbegin();
+    os << '[' << *It++;
+    for (; It != arr.cend(); It++)
+        os << "; " << *It ;
+    os << ']' << endl;
+
+    return os;
 }

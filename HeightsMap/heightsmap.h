@@ -8,10 +8,11 @@ using namespace std;
 
 #include "iterator.hpp"
 #include "constiterator.hpp"
-#include "errors.h"
+//#include "errors.h"
 
 typedef double height_t;
 
+//class HeightsArray;
 //#include "heightsarray.h"
 
 class HeightsMap
@@ -35,19 +36,30 @@ public:
     double getHeight(int i, int j);
 
     //ToDo operator[][] (maybe reorganisate the shole structure of caontainer and make it container of container)
-    height_t& getElem(int id);
+    /*height_t& getElem(int id);
     const height_t& getElem(int id) const;
     height_t& operator [](int id);
-    const height_t& operator [](int id) const;
-    //HeightsArray& operator [](int id);
+    const height_t& operator [](int id) const;*/
 
-    void drawHeightsMap();
+    //shared_ptr<HeightsArray> getElem(int id);
+    //const shared_ptr<HeightsArray> getElem(int id) const;
+    //shared_ptr<HeightsArray> operator [](int id);
+    //const shared_ptr<HeightsArray> operator [](int id) const;
+
+    //Done operator[][] (ToDo above)
+    shared_ptr<height_t[]> getElem(int id);
+    const shared_ptr<height_t[]> getElem(int id) const;
+    shared_ptr<height_t[]> operator [](int id);
+    const shared_ptr<height_t[]> operator [](int id) const;
+
+    //void drawHeightsMap();
 
 private:
     void alloc_data();
 
 private:
     shared_ptr<height_t[]> data_ptr;
+    //shared_ptr<HeightsArray[]> data_ptr;
     int size;
     int elems_num;
 };

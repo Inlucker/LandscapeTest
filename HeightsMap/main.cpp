@@ -38,9 +38,22 @@ int main()
         it3++;
         cout << "it3++; *it1 = " << *it1 << "; *it3 = " << *it3 << endl;
 
+        cout << endl;
+
         cout << "OPERATORS TESTS:" << endl;
-        cout << "zero_map[0] = " << zero_map[0] << endl;
-        cout << "zero_map[6] = " << zero_map[6] << endl;
+        //shared_ptr<HeightsArray> = (zero_map[0]);
+        cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
+        cout << "zero_map[1][2] = " << zero_map[1][2] << endl;
+        cout << "zero_map[3][5] = " << zero_map[3][5]
+             << " can't check if shared_ptr<height_t[]> out of range" << endl;
+
+        cout << endl;
+
+        const HeightsMap zero_map2(5);
+        cout << "const zero_map2: " << zero_map2 << endl;
+        cout << "const zero_map2[0][0] = " << zero_map2[0][0] << endl;
+        cout << "const zero_map2[4][5] = " << zero_map2[4][5]
+             << " can't check if shared_ptr<height_t[]> out of range" << endl;
     }
     catch (BaseError& err)
     {

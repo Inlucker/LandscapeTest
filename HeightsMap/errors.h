@@ -27,7 +27,7 @@ protected:
 class HeightsArrayAllocError : public BaseError
 {
 public:
-    HeightsArrayAllocError(string info, string filename, int line, const char *time, string error = "Alloc error")
+    HeightsArrayAllocError(string info, string filename, int line, const char *time, string error = "HeightsArray alloc error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -38,7 +38,7 @@ public:
 class NegativeArraySizeError : public BaseError
 {
 public:
-    NegativeArraySizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
+    NegativeArraySizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsArray with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -49,7 +49,40 @@ public:
 class HeightsArrayIndexError : public BaseError
 {
 public:
-    HeightsArrayIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
+    HeightsArrayIndexError(string info, string filename, int line, const char *time, string error = "HeightsArray index out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class HeightsMapAllocError : public BaseError
+{
+public:
+    HeightsMapAllocError(string info, string filename, int line, const char *time, string error = "HeightsMap alloc error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class NegativeMapSizeError : public BaseError
+{
+public:
+    NegativeMapSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class HeightsMapIndexError : public BaseError
+{
+public:
+    HeightsMapIndexError(string info, string filename, int line, const char *time, string error = "HeightsMap index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

@@ -3,7 +3,8 @@
 #include <time.h>
 #include <random>
 
-//#include "errors.h"
+#include "errors.h"
+//#include "heightsarray.h"
 
 HeightsMap::HeightsMap()
 {
@@ -16,7 +17,7 @@ HeightsMap::HeightsMap(int new_size)
 {
     time_t t_time = time(NULL);
     if (new_size < 0)
-        throw NegativeArraySizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw NegativeMapSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
     if (new_size == 0)
     {
@@ -28,6 +29,7 @@ HeightsMap::HeightsMap(int new_size)
     {
         size = new_size;
         elems_num = size*size;
+        //elems_num = new_size;
         alloc_data();
 
         for (auto &elem:*this)
@@ -78,6 +80,7 @@ void HeightsMap::resetHeightsmap()
 
 void HeightsMap::randomizeHeightsMap()
 {
+    srand(time(0));
     for (auto &elem:*this)
         elem = (rand() % 16);
 }
@@ -169,11 +172,11 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-height_t &HeightsMap::getElem(int id)
+/*height_t& HeightsMap::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
-        throw HeightsArrayIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return data_ptr[id];
 }
@@ -182,7 +185,7 @@ const height_t& HeightsMap::getElem(int id) const
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
-        throw HeightsArrayIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return data_ptr[id];
 }
@@ -192,7 +195,78 @@ height_t& HeightsMap::operator [](int id)
     return getElem(id);
 }
 
-const height_t &HeightsMap::operator [](int id) const
+const height_t& HeightsMap::operator [](int id) const
+{
+    return getElem(id);
+}*/
+
+/*shared_ptr<HeightsArray> HeightsMap::getElem(int id)
+{
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= elems_num)
+        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
+    return make_shared<HeightsArray>(*this, id);
+}
+
+shared_ptr<HeightsArray> HeightsMap::operator [](int id)
+{
+    return getElem(id);
+}*/
+
+shared_ptr<height_t[]> HeightsMap::getElem(int id)
+{
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= size)
+        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
+    shared_ptr<height_t[]> height_arr(new height_t[elems_num]);
+
+    int j = 0;
+    int i = 0;
+    for (auto& elem : *this)
+    {
+        if (i/size == id)
+        {
+            height_arr[j] = elem;
+            j++;
+        }
+        i++;
+    }
+
+    return height_arr;
+}
+
+const shared_ptr<height_t[]> HeightsMap::getElem(int id) const
+{
+    time_t t_time = time(NULL);
+    if (id < 0 || id >= size)
+        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+
+    shared_ptr<height_t[]> height_arr(new height_t[elems_num]);
+
+    int j = 0;
+    int i = 0;
+    for (ConstIterator<height_t> It = this->cbegin(); It != this->cend(); ++It)
+    {
+        if (i/size == id)
+        {
+            height_arr[j] = *It;
+            j++;
+        }
+        i++;
+    }
+
+    return height_arr;
+    //return getElem(id);
+}
+
+shared_ptr<height_t[]> HeightsMap::operator [](int id)
+{
+    return getElem(id);
+}
+
+const shared_ptr<height_t[]> HeightsMap::operator [](int id) const
 {
     return getElem(id);
 }
@@ -200,13 +274,14 @@ const height_t &HeightsMap::operator [](int id) const
 void HeightsMap::alloc_data()
 {
     data_ptr.reset();
-    if (size != 0)
+    if (elems_num != 0)
     {
-        shared_ptr<height_t[]> new_ptr(new height_t[size*size]);
+        shared_ptr<height_t[]> new_ptr(new height_t[elems_num]);
+        //shared_ptr<HeightsArray[]> new_ptr(new HeightsArray[elems_num]);
 
         time_t t_time = time(NULL);
         if (!new_ptr)
-            throw HeightsArrayAllocError("Allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
+            throw HeightsMapAllocError("Allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
 
         data_ptr = new_ptr;
     }
@@ -230,6 +305,15 @@ ostream& operator <<(ostream& os, const HeightsMap& map)
         os << ']';
     }
     cout << endl;
+
+    /*ConstIterator<HeightsArray> map_it = map.cbegin();
+    cout << endl;
+    for (; map_it != map.cend(); map_it++)
+    {
+        //ConstIterator<height_t> arr_it = map_it->cbegin();
+        cout << *map_it;
+    }
+    cout << endl;*/
 
     return os;
 }
