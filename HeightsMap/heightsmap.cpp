@@ -173,9 +173,25 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
+shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
+    ConstIterator<height_t> map_it = this->cbegin();
+    int i = 0;
+    for (auto& points_it : *new_points_map)
+    {
+        points_it = Point((i/size) * kx, (*map_it) * ky, (i % size) * kz); // x <-> z
+        map_it++;
+        i++;
+    }
+    new_points_map->updateCenter();
+    return new_points_map;
+}
+
+shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
+{
+    return createPoints(1, 1, 1);
+    /*shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
     ConstIterator<height_t> map_it = this->cbegin();
     int i = 0;
     for (auto& points_it : *new_points_map)
@@ -184,7 +200,8 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
         map_it++;
         i++;
     }
-    return new_points_map;
+    new_points_map->updateCenter();
+    return new_points_map;*/
 }
 
 height_t& HeightsMap::getElem(int id)

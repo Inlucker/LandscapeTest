@@ -71,6 +71,12 @@ int main()
         shared_ptr<HeightsMapPoints> points2 = zero_map.createPoints();
         cout << "zero_map.createPoints(): " << (*points2) << endl;
 
+        shared_ptr<HeightsMapPoints> points3 = zero_map.createPoints(15, 7, 15);
+        cout << "zero_map.createPoints(15, 7, 15): " << (*points3) << endl;
+
+        points3->transform(Point(100, 50, -50), Point(1, 1, 1), Point(0, 0, 0));
+        cout << "points3 move(100, 50, -50): " << (*points3) << endl;
+
         /*cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
         cout << "zero_map[1][2] = " << zero_map[1][2] << endl;
         cout << "zero_map[3][5] = " << zero_map[3][5]

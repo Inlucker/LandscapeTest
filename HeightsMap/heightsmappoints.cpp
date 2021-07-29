@@ -4,6 +4,7 @@ HeightsMapPoints::HeightsMapPoints()
 {
     size = 0;
     elems_num = 0;
+    map_points_center = Point();
 }
 
 HeightsMapPoints::HeightsMapPoints(int new_size)
@@ -24,6 +25,8 @@ HeightsMapPoints::HeightsMapPoints(int new_size)
         elems_num = size*size;
         alloc_data();
     }
+    map_points_center = Point();
+    //updateCenter();
 }
 
 bool HeightsMapPoints::isEmpty() const noexcept
@@ -99,6 +102,25 @@ const Point &HeightsMapPoints::operator()(const int &i, const int &j) const
     return getElem(i*size+j);
 }
 
+void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center)
+{
+    for (auto& point : *this)
+    {
+        point.transform(moveK, scaleK, rotateK, center);
+    }
+    updateCenter();
+}
+
+void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Point rotateK)
+{
+    for (auto& point : *this)
+    {
+        //point.transform(moveK, scaleK, rotateK, map_points_center);
+        point.transform(moveK, scaleK, rotateK);
+    }
+    updateCenter();
+}
+
 void HeightsMapPoints::alloc_data()
 {
     data_ptr.reset();
@@ -113,6 +135,23 @@ void HeightsMapPoints::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+void HeightsMapPoints::updateCenter()
+{
+    int i = 0;
+    Point rez(0, 0, 0);
+    for (auto point : *this)
+    {
+        rez.setX(rez.getX() + point.getX());
+        rez.setY(rez.getY() + point.getY());
+        rez.setZ(rez.getZ() + point.getZ());
+        i++;
+    }
+    rez.setX(rez.getX()/i);
+    rez.setY(rez.getY()/i);
+    rez.setZ(rez.getZ()/i);
+    map_points_center = rez;
 }
 
 ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
@@ -132,6 +171,7 @@ ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
         os << ']';
     }
     cout << endl;
+    cout << "Center = " << points_map.map_points_center << endl;
 
     return os;
 }

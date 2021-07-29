@@ -35,13 +35,21 @@ public:
     Point& operator()(int i, int j);
     const Point& operator()(const int &i, const int &j) const;
 
+    void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center);
+    void transform(const Point moveK, const Point scaleK, const Point rotateK);
+
+    void updateCenter();
+
 private:
     void alloc_data();
+    //void updateCenter();
+    friend ostream& operator <<(ostream& os, const HeightsMapPoints& map);
 
 private:
     shared_ptr<Point[]> data_ptr;
     int size;
     int elems_num;
+    Point map_points_center;
 };
 
 ostream& operator <<(ostream& os, const HeightsMapPoints& map);
