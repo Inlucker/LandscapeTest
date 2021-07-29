@@ -24,10 +24,10 @@ protected:
     string err_info;
 };
 
-class HeightsMapAllocError : public BaseError
+class HeightsArrayAllocError : public BaseError
 {
 public:
-    HeightsMapAllocError(string info, string filename, int line, const char *time, string error = "Alloc error")
+    HeightsArrayAllocError(string info, string filename, int line, const char *time, string error = "Alloc error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -35,10 +35,10 @@ public:
     }
 };
 
-class NegativeMapSizeError : public BaseError
+class NegativeArraySizeError : public BaseError
 {
 public:
-    NegativeMapSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
+    NegativeArraySizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -46,10 +46,10 @@ public:
     }
 };
 
-class MappIndexError : public BaseError
+class HeightsArrayIndexError : public BaseError
 {
 public:
-    MappIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
+    HeightsArrayIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

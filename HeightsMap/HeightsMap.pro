@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         abstractiterator.cpp \
+        heightsarray.cpp \
         heightsmap.cpp \
         main.cpp
 
@@ -15,6 +16,7 @@ HEADERS += \
     constiterator.h \
     constiterator.hpp \
     errors.h \
+    heightsarray.h \
     heightsmap.h \
     iterator.h \
     iterator.hpp

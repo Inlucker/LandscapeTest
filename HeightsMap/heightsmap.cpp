@@ -16,7 +16,7 @@ HeightsMap::HeightsMap(int new_size)
 {
     time_t t_time = time(NULL);
     if (new_size < 0)
-        throw NegativeMapSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw NegativeArraySizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
     if (new_size == 0)
     {
@@ -169,11 +169,11 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-height_t &HeightsMap::  getElem(int id)
+height_t &HeightsMap::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
-        throw MappIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsArrayIndexError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return data_ptr[id];
 }
@@ -182,7 +182,7 @@ const height_t& HeightsMap::getElem(int id) const
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
-        throw MappIndexError("id", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsArrayIndexError("id", __FILE__, __LINE__, ctime(&t_time));
 
     return data_ptr[id];
 }
@@ -206,7 +206,7 @@ void HeightsMap::alloc_data()
 
         time_t t_time = time(NULL);
         if (!new_ptr)
-            throw HeightsMapAllocError("Allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
+            throw HeightsArrayAllocError("Allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
 
         data_ptr = new_ptr;
     }
