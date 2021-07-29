@@ -282,7 +282,8 @@ void Canvas::drawHeightsMap2()
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
-            Point tmp_point(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            //Point tmp_point(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            Point tmp_point(i * SCALE, (*heights_map2)(i, j) * SCALE, j * SCALE);
             tmp_point = getProection(tmp_point, camera->getPosition(), camera->getAngles());
 
             painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
@@ -291,10 +292,12 @@ void Canvas::drawHeightsMap2()
     for (int i = 0; i < MAX_X; i++)
         for (int j = 1; j < MAX_Y; j++)
         {
-            Point tmp_point1(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j-1] * SCALE, (j-1) * SCALE);
+            //Point tmp_point1(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j-1] * SCALE, (j-1) * SCALE);
+            Point tmp_point1(i * SCALE, (*heights_map2)(i, j-1) * SCALE, (j-1) * SCALE);
             tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
 
-            Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            //Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            Point tmp_point2(i * SCALE, (*heights_map2)(i, j) * SCALE, j * SCALE);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
@@ -302,10 +305,12 @@ void Canvas::drawHeightsMap2()
     for (int i = 1; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
-            Point tmp_point1((i-1) * SCALE, (*heights_map2)[(i-1)*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            //Point tmp_point1((i-1) * SCALE, (*heights_map2)[(i-1)*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            Point tmp_point1((i-1) * SCALE, (*heights_map2)(i-1, j) * SCALE, j * SCALE);
             tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
 
-            Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            //Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
+            Point tmp_point2(i * SCALE, (*heights_map2)(i, j) * SCALE, j * SCALE);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());

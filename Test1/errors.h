@@ -27,7 +27,7 @@ protected:
 class HeightsMapAllocError : public BaseError
 {
 public:
-    HeightsMapAllocError(string info, string filename, int line, const char *time, string error = "Alloc error")
+    HeightsMapAllocError(string info, string filename, int line, const char *time, string error = "HeightsMap alloc error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -46,10 +46,10 @@ public:
     }
 };
 
-class MappIndexError : public BaseError
+class HeightsMapIndexError : public BaseError
 {
 public:
-    MappIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
+    HeightsMapIndexError(string info, string filename, int line, const char *time, string error = "HeightsMap index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
