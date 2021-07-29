@@ -77,6 +77,10 @@ int main()
         points3->transform(Point(100, 50, -50), Point(1, 1, 1), Point(0, 0, 0));
         cout << "points3 move(100, 50, -50): " << (*points3) << endl;
 
+        points3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(1244, 345, 537));
+        cout << "points3 rotate(1244, 345, 537): " << (*points3)
+             << "Works correctly only in Debug" << endl;
+
         /*cout << "zero_map[0][0] = " << zero_map[0][0] << endl;
         cout << "zero_map[1][2] = " << zero_map[1][2] << endl;
         cout << "zero_map[3][5] = " << zero_map[3][5]

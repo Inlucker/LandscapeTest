@@ -115,8 +115,8 @@ void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Po
 {
     for (auto& point : *this)
     {
-        //point.transform(moveK, scaleK, rotateK, map_points_center);
-        point.transform(moveK, scaleK, rotateK);
+        point.transform(moveK, scaleK, rotateK, map_points_center);
+        //point.transform(moveK, scaleK, rotateK);
     }
     updateCenter();
 }
