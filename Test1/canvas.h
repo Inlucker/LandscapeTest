@@ -20,6 +20,7 @@ using namespace std;
 
 //#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
 #include "heightsmap.h"
+#include "heightsmappoints.h" //?
 
 int sign(double val);
 
@@ -43,6 +44,7 @@ protected:
 public:
     double heights_map[MAX_X][MAX_Y];
     unique_ptr<HeightsMap> heights_map2;
+    shared_ptr<HeightsMapPoints> heights_map3;
 
 private:
     unique_ptr<QPainter> painter = nullptr;
@@ -63,6 +65,7 @@ private:
 
     void drawHeightsMap();
     void drawHeightsMap2();
+    void drawHeightsMap3();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);

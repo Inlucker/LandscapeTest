@@ -13,6 +13,7 @@ SOURCES += \
     camera.cpp \
     canvas.cpp \
     heightsmap.cpp \
+    heightsmappoints.cpp \
     main.cpp \
     mainwindow.cpp \
     point.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     constiterator.hpp \
     errors.h \
     heightsmap.h \
+    heightsmappoints.h \
     iterator.h \
     iterator.hpp \
     mainwindow.h \

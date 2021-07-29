@@ -35,8 +35,11 @@ void Canvas::generateNewLandscape()
     heights_map2->smoothHeightsMap();
     //print_heights_map();
 
+    heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
+
     //drawHeightsMap();
-    drawHeightsMap2();
+    //drawHeightsMap2();
+    drawHeightsMap3();
 
     update();
 }
@@ -92,22 +95,27 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
         double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
 
-        camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+        //camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+        heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+        //heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, x, y));
 
         clean();
         //drawHeightsMap();
-        drawHeightsMap2();
+        //drawHeightsMap2();
+        drawHeightsMap3();
     }
     else if (RMB_is_pressed)
     {
         double x = double(previous_x - event->position().x()) / MOVE_SPEED;
         double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
-        camera->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+        //camera->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+        heights_map3->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
 
         clean();
         //drawHeightsMap();
-        drawHeightsMap2();
+        //drawHeightsMap2();
+        drawHeightsMap3();
     }
 
     update();
@@ -311,6 +319,33 @@ void Canvas::drawHeightsMap2()
 
             //Point tmp_point2(i * SCALE, (*heights_map2)[i*heights_map2->getSize()+j] * SCALE, j * SCALE);
             Point tmp_point2(i * SCALE_XZ, (*heights_map2)(i, j) * SCALE_Y, j * SCALE_XZ);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+}
+
+void Canvas::drawHeightsMap3()
+{
+    painter->setPen(Qt::black);
+    for (int i = 0; i < MAX_X; i++)
+        for (int j = 1; j < MAX_Y; j++)
+        {
+            Point tmp_point1 = (*heights_map3)(i, j-1);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2 = (*heights_map3)(i, j);
+            tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
+
+            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+        }
+    for (int i = 1; i < MAX_X; i++)
+        for (int j = 0; j < MAX_Y; j++)
+        {
+            Point tmp_point1 = (*heights_map3)(i-1, j);
+            tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
+
+            Point tmp_point2 = (*heights_map3)(i, j);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
