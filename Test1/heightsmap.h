@@ -38,7 +38,7 @@ public:
     void smoothHeightsMap();
     double getHeight(int i, int j);
 
-    void diamondSquare(int max);
+    void diamondSquare();
     void diamondSquare1();
     void diamondSquare2();
 
@@ -65,16 +65,18 @@ private:
     //variant2
     void squareStep(int sideLength, int halfSide);
     void diamondStep(int sideLength, int halfSide);
+    double dRand(double d_min, double d_max);
 
-    height_t dRand(height_t d_min, height_t d_max);
-
-    void DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
+    //variant3
+    void DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
+    double GetRnd();
 
 private:
     shared_ptr<height_t[]> data_ptr;
     int size = -1;
     int elems_num = -1;
 
+    //no need yet
     double roughness = -1;
     int iteration = -1;
 

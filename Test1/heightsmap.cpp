@@ -173,18 +173,19 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-void HeightsMap::diamondSquare(int max)
+void HeightsMap::diamondSquare()//variant3
 {
     resetHeightsmap();
 
-    (*this)(0, 0) = dRand(0, max);
-    (*this)(0, size - 1) = dRand(0, max);
-    (*this)(size - 1, 0) = dRand(0, max);
-    (*this)(size - 1, size - 1) = dRand(0, max);
+    (*this)(0, 0) = 0;
+    (*this)(0, size - 1) = 0;
+    (*this)(size - 1, 0) = 0;
+    (*this)(size - 1, size - 1) = 0;
 
-    roughness = dRand(0, 1);
-    iteration = 1;
+    //roughness = dRand(0, 1);
+    //iteration = 1;
     //ToDo
+    DiamondSquare3(0, 0, size-1, size-1, 64, size-1);
 }
 
 void HeightsMap::diamondSquare1()
@@ -412,40 +413,48 @@ void HeightsMap::diamondStep(int sideLength, int halfSide)
     }
 }
 
-height_t HeightsMap::dRand(height_t d_min, height_t d_max)
+double HeightsMap::dRand(double d_min, double d_max)
 {
-    height_t d = (height_t)rand() / RAND_MAX;
+    double d = (double)rand() / RAND_MAX;
     return d_min + d * (d_max - d_min);
 }
 
-void HeightsMap::DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
+//ToFigureOut and Understand how it works
+void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
 {
     if (level < 1) return;
 
     // diamonds
     for (unsigned i = x1 + level; i < x2; i += level)
-        for (unsigned j = y1 + level; j < y2; j += level) {
-            float a = m_heightmap[i - level][j - level];
-            float b = m_heightmap[i][j - level];
-            float c = m_heightmap[i - level][j];
-            float d = m_heightmap[i][j];
-            float e = m_heightmap[i - level / 2][j - level / 2] = (a + b + c + d) / 4 + GetRnd() * range;
+        for (unsigned j = y1 + level; j < y2; j += level)
+        {
+            float a = (*this)(i - level, j - level);
+            float b = (*this)(i, j - level);
+            float c = (*this)(i - level, j);
+            float d = (*this)(i, j);
+            float e = (*this)(i - level / 2, j - level / 2) = (a + b + c + d) / 4 + (GetRnd() * range);
         }
 
     // squares
     for (unsigned i = x1 + 2 * level; i < x2; i += level)
-        for (unsigned j = y1 + 2 * level; j < y2; j += level) {
-            float a = m_heightmap[i - level][j - level];
-            float b = m_heightmap[i][j - level];
-            float c = m_heightmap[i - level][j];
-            float d = m_heightmap[i][j];
-            float e = m_heightmap[i - level / 2][j - level / 2];
+        for (unsigned j = y1 + 2 * level; j < y2; j += level)
+        {
+            float a = (*this)(i - level, j - level);
+            float b = (*this)(i, j - level);
+            float c = (*this)(i - level, j);
+            float d = (*this)(i, j);
+            float e = (*this)(i - level / 2, j - level / 2);
 
-            float f = m_heightmap[i - level][j - level / 2] = (a + c + e + m_heightmap[i - 3 * level / 2][j - level / 2]) / 4 + GetRnd() * range;
-            float g = m_heightmap[i - level / 2][j - level] = (a + b + e + m_heightmap[i - level / 2][j - 3 * level / 2]) / 4 + GetRnd() * range;
+            float f = (*this)(i - level, j - level / 2) = (a + c + e + (*this)(i - 3 * level / 2, j - level / 2)) / 4 + (GetRnd() * range);
+            float g = (*this)(i - level / 2, j - level) = (a + b + e + (*this)(i - level / 2, j - 3 * level / 2)) / 4 + (GetRnd() * range);
         }
 
-    DiamondSquare(x1, y1, x2, y2, range / 2, level / 2);
+    DiamondSquare3(x1, y1, x2, y2, range / 2, level / 2);
+}
+
+double HeightsMap::GetRnd()
+{
+    return (double)rand() / RAND_MAX;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
