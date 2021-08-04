@@ -7,6 +7,8 @@
 //#include "heightsarray.h"
 #include "heightsmappoints.h"
 
+#define RAND (rand() % 10)
+
 HeightsMap::HeightsMap()
 {
     size = 0;
@@ -167,14 +169,12 @@ void HeightsMap::diamondSquare()
 {
     resetHeightsmap();
     srand(time(0));
-    (*this)(0, 0) = (rand() % 16);
-    (*this)(0, size - 1) = (rand() % 16);
-    (*this)(size - 1, 0) = (rand() % 16);
-    (*this)(size - 1, size - 1) = (rand() % 16);
+    (*this)(0, 0) = RAND;
+    (*this)(0, size - 1) = RAND;
+    (*this)(size - 1, 0) = RAND;
+    (*this)(size - 1, size - 1) = RAND;
     diamondSquare(0, size - 1, 0, size - 1);
 }
-
-
 
 double HeightsMap::getHeight(int i, int j)
 {
@@ -298,8 +298,8 @@ void HeightsMap::diamond(int left_x, int bot_y, int right_x, int top_y)
     height_t d = (*this)(right_x, bot_y);
 
     //(*this)(mid_x, mid_y) = (a + b + c + d) / 4; //+random
-    (*this)(mid_x, mid_y) = (a + b + c + d) / 4 + (rand() % 3 - 1);
-    (*this)(mid_x, mid_y) = (a + b + c + d) / 4 + (rand() % 3 + 1);
+    //(*this)(mid_x, mid_y) = (a + b + c + d) / 4 + (rand() % 3 - 1);
+    (*this)(mid_x, mid_y) = (a + b + c + d) / 4 + RAND;
 }
 
 void HeightsMap::square(int x, int y, int l)
@@ -322,9 +322,9 @@ void HeightsMap::square(int x, int y, int l)
     if (x + l <= 0)
         d = (*this)(x + l, y);
 
-    //(*this)(mid_x, mid_y) = (a + b + c + d) / 4; //+random
-    (*this)(x, y) = (a + b + c + d) / 4 + (rand() % 3 - 1);
-    (*this)(x, y) = (a + b + c + d) / 4 + (rand() % 3 + 1);
+    //(*this)(x, y) = (a + b + c + d) / 4; //+random
+    //(*this)(x, y) = (a + b + c + d) / 4 + (rand() % 3 - 1);
+    (*this)(x, y) = (a + b + c + d) / 4 + RAND;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
