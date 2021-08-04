@@ -10,6 +10,9 @@ using namespace std;
 #include "constiterator.hpp"
 //#include "errors.h"
 
+//#define RAND dRand(0, 9)
+#define RAND (rand() % 10)
+
 typedef double height_t;
 
 class HeightsMapPoints;
@@ -53,6 +56,7 @@ private:
     void diamondSquare(int left_x, int right_x, int bot_y, int top_y);
     void diamond(int lx, int ly, int rx, int ry);
     void square(int x, int y, int l);
+    height_t dRand(height_t d_min, height_t d_max);
 
 private:
     shared_ptr<height_t[]> data_ptr;

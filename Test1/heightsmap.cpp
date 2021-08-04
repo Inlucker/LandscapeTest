@@ -7,8 +7,6 @@
 //#include "heightsarray.h"
 #include "heightsmappoints.h"
 
-#define RAND (rand() % 10)
-
 HeightsMap::HeightsMap()
 {
     size = 0;
@@ -325,6 +323,12 @@ void HeightsMap::square(int x, int y, int l)
     //(*this)(x, y) = (a + b + c + d) / 4; //+random
     //(*this)(x, y) = (a + b + c + d) / 4 + (rand() % 3 - 1);
     (*this)(x, y) = (a + b + c + d) / 4 + RAND;
+}
+
+height_t HeightsMap::dRand(height_t d_min, height_t d_max)
+{
+    height_t d = (height_t)rand() / RAND_MAX;
+    return d_min + d * (d_max - d_min);
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
