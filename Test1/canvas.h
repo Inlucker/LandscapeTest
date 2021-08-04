@@ -16,7 +16,7 @@ using namespace std;
 #define MAX_X 37//5//37
 #define MAX_Y 37//5//37
 #define SCALE_XZ 15//120//15
-#define SCALE_Y 7//40//5//7
+#define SCALE_Y 5//40//5//7
 
 //#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
 #include "heightsmap.h"

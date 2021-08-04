@@ -11,7 +11,8 @@ using namespace std;
 //#include "errors.h"
 
 //#define RAND dRand(0, 9)
-#define RAND (rand() % 10)
+//#define RAND (rand() % 11) - 5
+#define RAND (dRand(-5,5))
 
 typedef double height_t;
 
@@ -35,8 +36,11 @@ public:
     void resetHeightsmap();
     void randomizeHeightsMap();
     void smoothHeightsMap();
-    void diamondSquare();
     double getHeight(int i, int j);
+
+    void diamondSquare(int max);
+    void diamondSquare1();
+    void diamondSquare2();
 
     shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
     shared_ptr<HeightsMapPoints> createPoints();
@@ -53,15 +57,30 @@ public:
 private:
     void alloc_data();
 
+    //variant1
     void diamondSquare(int left_x, int right_x, int bot_y, int top_y);
     void diamond(int lx, int ly, int rx, int ry);
     void square(int x, int y, int l);
+
+    //variant2
+    void squareStep(int sideLength, int halfSide);
+    void diamondStep(int sideLength, int halfSide);
+
     height_t dRand(height_t d_min, height_t d_max);
+
+    void DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
 
 private:
     shared_ptr<height_t[]> data_ptr;
-    int size;
-    int elems_num;
+    int size = -1;
+    int elems_num = -1;
+
+    double roughness = -1;
+    int iteration = -1;
+
+    //for diamondSquare variant2
+    int range;
+    //int i;
 };
 
 ostream& operator <<(ostream& os, const HeightsMap& map);

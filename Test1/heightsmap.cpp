@@ -163,17 +163,6 @@ void HeightsMap::smoothHeightsMap()
         }
 }
 
-void HeightsMap::diamondSquare()
-{
-    resetHeightsmap();
-    srand(time(0));
-    (*this)(0, 0) = RAND;
-    (*this)(0, size - 1) = RAND;
-    (*this)(size - 1, 0) = RAND;
-    (*this)(size - 1, size - 1) = RAND;
-    diamondSquare(0, size - 1, 0, size - 1);
-}
-
 double HeightsMap::getHeight(int i, int j)
 {
     if (i >= 0 && i <= size && j >= 0 && j <= size)
@@ -182,6 +171,60 @@ double HeightsMap::getHeight(int i, int j)
     }
     else
         return -1;
+}
+
+void HeightsMap::diamondSquare(int max)
+{
+    resetHeightsmap();
+
+    (*this)(0, 0) = dRand(0, max);
+    (*this)(0, size - 1) = dRand(0, max);
+    (*this)(size - 1, 0) = dRand(0, max);
+    (*this)(size - 1, size - 1) = dRand(0, max);
+
+    roughness = dRand(0, 1);
+    iteration = 1;
+    //ToDo
+}
+
+void HeightsMap::diamondSquare1()
+{
+    resetHeightsmap();
+
+    srand(time(0));
+    (*this)(0, 0) = RAND;
+    (*this)(0, size - 1) = RAND;
+    (*this)(size - 1, 0) = RAND;
+    (*this)(size - 1, size - 1) = RAND;
+    diamondSquare(0, size - 1, 0, size - 1);
+}
+
+//#define START_VALUE dRand(0, 20)
+#define START_VALUE 100
+
+void HeightsMap::diamondSquare2()
+{
+    resetHeightsmap();
+
+    (*this)(0, 0) = START_VALUE;
+    (*this)(0, size - 1) = START_VALUE;
+    (*this)(size - 1, 0) = START_VALUE;
+    (*this)(size - 1, size - 1) = START_VALUE;
+    //cout << (*this) << endl;
+
+    srand(time(NULL));
+
+    //roughness = dRand(0, 1);
+    range = 5;
+    //cout << "roughness = " << roughness << endl;
+    //i = 1;
+    for (int sideLength = size-1; sideLength >= 2; sideLength /= 2, range/2)
+    {
+        int halfSide = sideLength/2;
+
+        squareStep(sideLength, halfSide);
+        diamondStep(sideLength, halfSide);
+    }
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
@@ -325,10 +368,84 @@ void HeightsMap::square(int x, int y, int l)
     (*this)(x, y) = (a + b + c + d) / 4 + RAND;
 }
 
+void HeightsMap::squareStep(int sideLength, int halfSide)
+{
+    for (int x = 0; x < size-1; x += sideLength)
+    {
+        for (int y = 0; y < size-1; y += sideLength)
+        {
+            //double avg = map[x][y] + map[x+sideLength][y] + map[x][y+sideLength] + map[x+sideLength][y+sideLength];
+            double avg = (*this)(x, y) +
+                         (*this)(x+sideLength, y) +
+                         (*this)(x, y+sideLength) +
+                         (*this)(x+sideLength, y+sideLength);
+            avg /= 4.0;
+            (*this)(x+halfSide, y+halfSide) = avg + dRand(-range, range);
+            //+ RAND;//dRand(-range, range);
+
+            //cout << (*this) << endl;
+        }
+    }
+}
+
+void HeightsMap::diamondStep(int sideLength, int halfSide)
+{
+    for (int x = 0; x < size-1; x += halfSide)
+    {
+        for (int y = (x+halfSide)%sideLength; y < size -1; y +=sideLength)
+        {
+            double avg = (*this)((x-halfSide+size-1)%(size-1), y) +
+                (*this)((x+halfSide)%(size-1), y) +
+                (*this)(x, (y+halfSide)%(size-1)) +
+                (*this)(x, (y-halfSide+size-1)%(size-1));
+            avg /= 4.0;
+            (*this)(x, y) = avg + dRand(-range, range);
+            //+ RAND;//dRand(-range, range);
+
+            if (x == 0)
+                (*this)(size-1, y) = avg;
+            if (y == 0)
+                (*this)(x, size-1) = avg;
+
+            //cout << (*this) << endl;
+        }
+    }
+}
+
 height_t HeightsMap::dRand(height_t d_min, height_t d_max)
 {
     height_t d = (height_t)rand() / RAND_MAX;
     return d_min + d * (d_max - d_min);
+}
+
+void HeightsMap::DiamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
+{
+    if (level < 1) return;
+
+    // diamonds
+    for (unsigned i = x1 + level; i < x2; i += level)
+        for (unsigned j = y1 + level; j < y2; j += level) {
+            float a = m_heightmap[i - level][j - level];
+            float b = m_heightmap[i][j - level];
+            float c = m_heightmap[i - level][j];
+            float d = m_heightmap[i][j];
+            float e = m_heightmap[i - level / 2][j - level / 2] = (a + b + c + d) / 4 + GetRnd() * range;
+        }
+
+    // squares
+    for (unsigned i = x1 + 2 * level; i < x2; i += level)
+        for (unsigned j = y1 + 2 * level; j < y2; j += level) {
+            float a = m_heightmap[i - level][j - level];
+            float b = m_heightmap[i][j - level];
+            float c = m_heightmap[i - level][j];
+            float d = m_heightmap[i][j];
+            float e = m_heightmap[i - level / 2][j - level / 2];
+
+            float f = m_heightmap[i - level][j - level / 2] = (a + c + e + m_heightmap[i - 3 * level / 2][j - level / 2]) / 4 + GetRnd() * range;
+            float g = m_heightmap[i - level / 2][j - level] = (a + b + e + m_heightmap[i - level / 2][j - 3 * level / 2]) / 4 + GetRnd() * range;
+        }
+
+    DiamondSquare(x1, y1, x2, y2, range / 2, level / 2);
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)

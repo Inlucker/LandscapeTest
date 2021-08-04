@@ -19,7 +19,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_gen_btn_clicked()
 {
     canvas->generateNewLandscape();
-    //cout << *(canvas->heights_map2);
 }
 
 void MainWindow::on_clean_btn_clicked()

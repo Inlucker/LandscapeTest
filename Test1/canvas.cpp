@@ -35,12 +35,14 @@ void Canvas::generateNewLandscape()
     heights_map2->smoothHeightsMap();
     //print_heights_map();
 
-    heights_map2->diamondSquare();
+    heights_map2->diamondSquare(20);
+    //cout << *heights_map2 << endl;
 
     heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
     //drawHeightsMap();
     //drawHeightsMap2();
+
     drawHeightsMap3();
 
     update();
