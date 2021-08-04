@@ -35,6 +35,8 @@ void Canvas::generateNewLandscape()
     heights_map2->smoothHeightsMap();
     //print_heights_map();
 
+    heights_map2->diamondSquare();
+
     heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
     //drawHeightsMap();
@@ -350,6 +352,11 @@ void Canvas::drawHeightsMap3()
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
         }
+}
+
+void Canvas::drawHeightsMapWithoutInvisibleLines()
+{
+    // TODO
 }
 
 Point Canvas::getProection(Point &_point, Point cameraPosition, Point angles)

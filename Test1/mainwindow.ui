@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
-    <height>618</height>
+    <width>1046</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>771</width>
-      <height>551</height>
+      <width>841</width>
+      <height>601</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout"/>
@@ -28,8 +28,8 @@
    <widget class="QPushButton" name="clean_btn">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>510</y>
+      <x>860</x>
+      <y>560</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -41,8 +41,8 @@
    <widget class="QPushButton" name="gen_btn">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>330</y>
+      <x>860</x>
+      <y>360</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -57,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>983</width>
+     <width>1046</width>
      <height>25</height>
     </rect>
    </property>

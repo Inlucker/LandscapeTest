@@ -12,8 +12,6 @@ using namespace std;
 
 typedef double height_t;
 
-//class HeightsArray;
-//#include "heightsarray.h"
 class HeightsMapPoints;
 
 class HeightsMap
@@ -34,12 +32,12 @@ public:
     void resetHeightsmap();
     void randomizeHeightsMap();
     void smoothHeightsMap();
+    void diamondSquare();
     double getHeight(int i, int j);
 
     shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
-    //ToDo operator[][] (maybe reorganisate the shole structure of caontainer and make it container of container)
     height_t& getElem(int id);
     const height_t& getElem(int id) const;
     height_t& operator [](int id);
@@ -49,26 +47,15 @@ public:
     height_t& operator()(int i, int j);
     const height_t& operator()(const int &i, const int &j) const;
 
-    /*shared_ptr<HeightsArray> getElem(int id);
-    const shared_ptr<HeightsArray> getElem(int id) const;
-    shared_ptr<HeightsArray> operator [](int id);
-    const shared_ptr<HeightsArray> operator [](int id) const;*/
-
-    //Done operator[][] (ToDo above)
-    //This is bad, because of creating shared_ptr every time we use operator[]
-    /*shared_ptr<height_t[]> getElem(int id);
-    const shared_ptr<height_t[]> getElem(int id) const;
-    shared_ptr<height_t[]> operator [](int id);
-    const shared_ptr<height_t[]> operator [](int id) const;*/
-
-    //void drawHeightsMap();
-
 private:
     void alloc_data();
 
+    void diamondSquare(int left_x, int right_x, int bot_y, int top_y);
+    void diamond(int lx, int ly, int rx, int ry);
+    void square(int x, int y, int l);
+
 private:
     shared_ptr<height_t[]> data_ptr;
-    //shared_ptr<HeightsArray[]> data_ptr;
     int size;
     int elems_num;
 };
