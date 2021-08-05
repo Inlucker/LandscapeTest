@@ -36,6 +36,8 @@ public:
     void smoothHeightsMap();
     double getHeight(int i, int j);
 
+    void diamondSquare();
+
     shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
@@ -65,6 +67,10 @@ public:
 
 private:
     void alloc_data();
+
+    //variant3
+    void DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
+    double GetRnd();
 
 private:
     shared_ptr<height_t[]> data_ptr;

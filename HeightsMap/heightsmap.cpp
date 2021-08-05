@@ -173,6 +173,21 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
+void HeightsMap::diamondSquare()
+{
+    resetHeightsmap();
+
+    (*this)(0, 0) = 0;
+    (*this)(0, size - 1) = 0;
+    (*this)(size - 1, 0) = 0;
+    (*this)(size - 1, size - 1) = 0;
+
+    //roughness = dRand(0, 1);
+    //iteration = 1;
+    //ToDo
+    DiamondSquare3(0, 0, size-1, size-1, (size-1)/2, size-1);
+}
+
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
@@ -327,6 +342,44 @@ void HeightsMap::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+//ToFigureOut and Understand how it works
+void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
+{
+    if (level < 1) return;
+
+    // diamonds
+    for (unsigned i = x1 + level; i < x2; i += level)
+        for (unsigned j = y1 + level; j < y2; j += level)
+        {
+            float a = (*this)(i - level, j - level);
+            float b = (*this)(i, j - level);
+            float c = (*this)(i - level, j);
+            float d = (*this)(i, j);
+            float e = (*this)(i - level / 2, j - level / 2) = (a + b + c + d) / 4 + (GetRnd() * range);
+        }
+
+    // squares
+    for (unsigned i = x1 + 2 * level; i < x2; i += level)
+        for (unsigned j = y1 + 2 * level; j < y2; j += level)
+        {
+            float a = (*this)(i - level, j - level);
+            float b = (*this)(i, j - level);
+            float c = (*this)(i - level, j);
+            float d = (*this)(i, j);
+            float e = (*this)(i - level / 2, j - level / 2);
+
+            float f = (*this)(i - level, j - level / 2) = (a + c + e + (*this)(i - 3 * level / 2, j - level / 2)) / 4 + (GetRnd() * range);
+            float g = (*this)(i - level / 2, j - level) = (a + b + e + (*this)(i - level / 2, j - 3 * level / 2)) / 4 + (GetRnd() * range);
+        }
+
+    DiamondSquare3(x1, y1, x2, y2, range / 2, level / 2);
+}
+
+double HeightsMap::GetRnd()
+{
+    return (double)rand() / RAND_MAX;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)

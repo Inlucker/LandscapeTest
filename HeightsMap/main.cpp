@@ -21,11 +21,16 @@ int main()
         HeightsMap zero_map(4);
         cout << "zero_map: " << zero_map << endl;
 
+        cout << "METHODS TESTS:" << endl;
+
         zero_map.randomizeHeightsMap();
         cout << "randomizeHeightsMap: " << zero_map << endl;
 
         zero_map.smoothHeightsMap();
         cout << "smoothHeightsMap: " << zero_map << endl;
+
+        zero_map.diamondSquare();
+        cout << "diamondSquare: " << zero_map << endl;
 
         //cout << endl;
 
