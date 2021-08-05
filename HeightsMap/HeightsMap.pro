@@ -5,16 +5,19 @@ CONFIG -= qt
 
 SOURCES += \
         abstractiterator.cpp \
+        basevector.cpp \
         heightsarray.cpp \
         heightsmap.cpp \
         heightsmappoints.cpp \
         main.cpp \
-        point.cpp
+        point.cpp \
+        triangularpolygon.cpp
 
 HEADERS += \
     abstractiterator.h \
     baseiterator.h \
     baseiterator.hpp \
+    basevector.h \
     constiterator.h \
     constiterator.hpp \
     errors.h \
@@ -23,4 +26,7 @@ HEADERS += \
     heightsmappoints.h \
     iterator.h \
     iterator.hpp \
-    point.h
+    point.h \
+    triangularpolygon.h \
+    vector.h \
+    vector.hpp

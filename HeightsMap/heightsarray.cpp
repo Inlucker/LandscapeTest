@@ -13,7 +13,7 @@ HeightsArray::HeightsArray(int new_size)
 {
     time_t t_time = time(NULL);
     if (new_size < 0)
-        throw NegativeArraySizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsArrayNegativeSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
     if (new_size == 0)
     {

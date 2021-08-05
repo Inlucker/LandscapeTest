@@ -24,6 +24,8 @@ protected:
     string err_info;
 };
 
+//HeightsArray
+
 class HeightsArrayAllocError : public BaseError
 {
 public:
@@ -35,10 +37,10 @@ public:
     }
 };
 
-class NegativeArraySizeError : public BaseError
+class HeightsArrayNegativeSizeError : public BaseError
 {
 public:
-    NegativeArraySizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsArray with negative size")
+    HeightsArrayNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsArray with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -57,6 +59,8 @@ public:
     }
 };
 
+//HeightsMap
+
 class HeightsMapAllocError : public BaseError
 {
 public:
@@ -68,10 +72,10 @@ public:
     }
 };
 
-class NegativeMapSizeError : public BaseError
+class HeightsMapNegativeSizeError : public BaseError
 {
 public:
-    NegativeMapSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
+    HeightsMapNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMap with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -90,6 +94,8 @@ public:
     }
 };
 
+//HeightsMapPoints
+
 class HeightsMapPointsAllocError : public BaseError
 {
 public:
@@ -101,10 +107,10 @@ public:
     }
 };
 
-class NegativeMapPointsSizeError : public BaseError
+class HeightsMapPointsNegativeSizeError : public BaseError
 {
 public:
-    NegativeMapPointsSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMapPoints with negative size")
+    HeightsMapPointsNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create HeightsMapPoints with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -122,6 +128,8 @@ public:
         return err_info.c_str();
     }
 };
+
+//ITERATOR
 
 class IteratorWeakPtrError : public BaseError
 {
@@ -145,10 +153,12 @@ public:
     }
 };
 
-/*class EmptyError : public BaseError
+//VECTOR
+
+class VectorEmptyError : public BaseError
 {
 public:
-    EmptyError(string info, string filename, int line, const char *time, string error = "Trying to use empty vector")
+    VectorEmptyError(string info, string filename, int line, const char *time, string error = "Trying to use empty vector")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -156,10 +166,10 @@ public:
     }
 };
 
-class MemoryError : public BaseError
+class VectorNegativeSizeError : public BaseError
 {
 public:
-    MemoryError(string info, string filename, int line, const char *time, string error = "Memory error")
+    VectorNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create vector with negative size")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -167,11 +177,10 @@ public:
     }
 };
 
-
-class DifSizeError : public BaseError
+class VectorMemoryError : public BaseError
 {
 public:
-    DifSizeError(string info, string filename, int line, const char *time, string error = "Opearation with different sized vectors")
+    VectorMemoryError(string info, string filename, int line, const char *time, string error = "Memory error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -179,10 +188,10 @@ public:
     }
 };
 
-class ZeroDivError : public BaseError
+class VectorIndexError : public BaseError
 {
 public:
-    ZeroDivError(string info, string filename, int line, const char *time, string error = "Division on zero")
+    VectorIndexError(string info, string filename, int line, const char *time, string error = "Index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
@@ -190,15 +199,37 @@ public:
     }
 };
 
-class SizeError : public BaseError
+class VectorDifSizeError : public BaseError
 {
 public:
-    SizeError(string info, string filename, int line, const char *time, string error = "Wrong size for vector multiplicationg")
+    VectorDifSizeError(string info, string filename, int line, const char *time, string error = "Opearation with different sized vectors")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
         return err_info.c_str();
     }
-};*/
+};
+
+class VectorZeroDivError : public BaseError
+{
+public:
+    VectorZeroDivError(string info, string filename, int line, const char *time, string error = "Division on zero")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class VectorSizeError : public BaseError
+{
+public:
+    VectorSizeError(string info, string filename, int line, const char *time, string error = "Wrong size for vector multiplicationg")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
 
 #endif // ERRORS_H

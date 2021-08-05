@@ -10,7 +10,7 @@ using namespace std;
 #include "constiterator.hpp"
 #include "point.h"
 
-typedef double height_t;
+//typedef double height_t;
 
 class HeightsMapPoints
 {
