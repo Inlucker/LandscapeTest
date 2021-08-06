@@ -232,4 +232,16 @@ public:
     }
 };
 
+//TriPolMas
+class TriPolMasNegativeSizeError : public BaseError
+{
+public:
+    TriPolMasNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create TriPolMas with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 #endif // ERRORS_H

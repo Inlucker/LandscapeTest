@@ -11,7 +11,8 @@ SOURCES += \
         heightsmappoints.cpp \
         main.cpp \
         point.cpp \
-        triangularpolygon.cpp
+        triangularpolygon.cpp \
+        tripolmas.cpp
 
 HEADERS += \
     abstractiterator.h \
@@ -28,5 +29,6 @@ HEADERS += \
     iterator.hpp \
     point.h \
     triangularpolygon.h \
+    tripolmas.h \
     vector.h \
     vector.hpp
