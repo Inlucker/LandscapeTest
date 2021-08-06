@@ -1,5 +1,8 @@
 #include "heightsmappoints.h"
 
+#include "tripolmas.h"
+#include "triangularpolygon.h"
+
 HeightsMapPoints::HeightsMapPoints()
 {
     size = 0;
@@ -62,6 +65,22 @@ ConstIterator<Point> HeightsMapPoints::cbegin() const noexcept
 ConstIterator<Point> HeightsMapPoints::cend() const noexcept
 {
     return ConstIterator<Point>(data_ptr, elems_num, elems_num);
+}
+
+shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
+{
+    shared_ptr<TriPolMas> new_tri_pol_mas = make_shared<TriPolMas>((size-1)*(size-1));
+    //ConstIterator<Point> points_it = this->cbegin();
+    Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
+    for (int i = 0; i < (size-1); i++)
+    {
+        for (int j = 0; j < (size-1); j++, mas_it++)
+        {
+            *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j));
+        }
+    }
+
+    return new_tri_pol_mas;
 }
 
 Point &HeightsMapPoints::getElem(int id)

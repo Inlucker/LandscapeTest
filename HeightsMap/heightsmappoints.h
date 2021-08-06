@@ -10,6 +10,8 @@ using namespace std;
 #include "constiterator.hpp"
 #include "point.h"
 
+class TriPolMas;
+
 //typedef double height_t;
 
 class HeightsMapPoints
@@ -26,6 +28,8 @@ public:
     Iterator<Point> end() noexcept;
     ConstIterator<Point> cbegin() const noexcept;
     ConstIterator<Point> cend() const noexcept;
+
+    shared_ptr<TriPolMas> createTriPolMas();
 
     Point& getElem(int id);
     const Point& getElem(int id) const;

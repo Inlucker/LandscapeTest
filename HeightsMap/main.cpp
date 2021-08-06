@@ -7,6 +7,7 @@ using namespace std;
 #include "heightsmap.h"
 #include "heightsmappoints.h"
 #include "triangularpolygon.h"
+#include "tripolmas.h"
 
 int main()
 {
@@ -129,7 +130,11 @@ int main()
         cout << "tp3.isInTriangle(6, 5) = " << tp3.isInTriangle(6, 5) << endl;
         cout << "tp3.isInTriangle(3, 0) = " << tp3.isInTriangle(3, 0) << endl;
 
-        tp3.getMaxX();
+        cout << endl;
+
+        cout << "TRIPOLMAS TESTS:" << endl;
+        shared_ptr<TriPolMas> tpm1 = points3->createTriPolMas();
+
     }
     catch (BaseError& err)
     {
