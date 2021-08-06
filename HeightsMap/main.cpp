@@ -6,6 +6,7 @@ using namespace std;
 //#include "constiterator.h"
 #include "heightsmap.h"
 #include "heightsmappoints.h"
+#include "triangularpolygon.h"
 
 int main()
 {
@@ -98,6 +99,11 @@ int main()
         cout << "const zero_map2[0][0] = " << zero_map2[0][0] << endl;
         cout << "const zero_map2[4][5] = " << zero_map2[4][5]
              << " can't check if shared_ptr<height_t[]> out of range" << endl;*/
+
+        cout << endl;
+
+        cout << "TRIANGULARPOLYGON TESTS:" << endl;
+        TriangularPolygon tp1(Point(0, 0, 0), Point(0, 5, 0), Point(5, 0, 0));
     }
     catch (BaseError& err)
     {
