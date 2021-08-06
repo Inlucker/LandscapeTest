@@ -55,6 +55,12 @@ ConstIterator<TriangularPolygon> TriPolMas::cend() const noexcept
     return ConstIterator<TriangularPolygon>(data_ptr, elems_num, elems_num);
 }
 
+void TriPolMas::zBuffer()
+{
+    //HERE
+
+}
+
 TriangularPolygon& TriPolMas::getElem(int id)
 {
     time_t t_time = time(NULL);
