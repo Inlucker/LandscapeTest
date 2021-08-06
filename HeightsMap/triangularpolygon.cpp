@@ -15,6 +15,17 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
     calcSurface();
 }
 
+double TriangularPolygon::getZ(double x, double y)
+{
+    //Ax+By+Cz+D=0 => Cz = -Ax-By-D => z = (-Ax-By-D)/C
+    if (C != 0)
+        return (-A*x-B*y-D)/C;
+    else
+    {
+        return 0;//ToDo
+    }
+}
+
 void TriangularPolygon::calcRect()
 {
     min_x = p1.getX();
@@ -40,7 +51,7 @@ void TriangularPolygon::calcRect()
     if (p3.getY() > max_y)
         max_y = p3.getY();
 
-    cout << "min_x = " << min_x << "; max_x = " << max_x << "; min_y = " << min_y << "; max_y = " << max_y << endl;
+    //cout << "min_x = " << min_x << "; max_x = " << max_x << "; min_y = " << min_y << "; max_y = " << max_y << endl;
 
     /*min_x = points[0].getX();
     max_x = points[0].getX();
@@ -96,10 +107,19 @@ void TriangularPolygon::calcNormals()
     else
         norm_vec3 = {0, 1};
 
-    cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
+    //cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
 }
 
 void TriangularPolygon::calcSurface()
 {
     //Here ToDo: Find A, B, C, D!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    double x1 = p1.getX(), y1 = p1.getY(), z1 = p1.getZ();
+    double x2 = p2.getX(), y2 = p2.getY(), z2 = p2.getZ();
+    double x3 = p3.getX(), y3 = p3.getY(), z3 = p3.getZ();
+    A = y1 *(z2 - z3) + y2 *(z3 - z1) + y3* (z1 - z2) ;
+    B = z1 *(x2 - x3) + z2 *(x3 - x1) + z3 *(x1 - x2);
+    C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2) ;
+    D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
+
+    cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
 }

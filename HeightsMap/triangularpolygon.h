@@ -16,11 +16,13 @@ public:
 private:
     void calcRect();
     void calcNormals();
+    void calcSurface();
 
 private:
     Point p1, p2, p3;
     //Point points[3];
     double min_x, max_x, min_y, max_y;
+    //double max_z;
     Vector<double> norm_vec1, norm_vec2, norm_vec3;
     double A, B, C, D;
 };
