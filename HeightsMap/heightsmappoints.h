@@ -16,7 +16,7 @@ class HeightsMapPoints
 {
 public:
     HeightsMapPoints();
-    HeightsMapPoints(int new_size);
+    explicit HeightsMapPoints(int new_size);
 
     bool isEmpty() const noexcept;
     int getSize() const noexcept;

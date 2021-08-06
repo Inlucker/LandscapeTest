@@ -20,7 +20,7 @@ class HeightsMap
 {
 public:
     HeightsMap();
-    HeightsMap(int new_size);
+    explicit HeightsMap(int new_size);
 
     bool isEmpty() const noexcept;
     int getSize() const noexcept;

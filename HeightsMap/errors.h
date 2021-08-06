@@ -233,10 +233,33 @@ public:
 };
 
 //TriPolMas
+
+class TriPolMasAllocError : public BaseError
+{
+public:
+    TriPolMasAllocError(string info, string filename, int line, const char *time, string error = "TriPolMas alloc error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 class TriPolMasNegativeSizeError : public BaseError
 {
 public:
     TriPolMasNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create TriPolMas with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class TriPolMasIndexError : public BaseError
+{
+public:
+    TriPolMasIndexError(string info, string filename, int line, const char *time, string error = "HeightsMapPoints index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {

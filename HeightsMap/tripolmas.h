@@ -15,14 +15,26 @@ class TriPolMas
 {
 public:
     TriPolMas();
+    explicit TriPolMas(int elements_number);
+
+    bool isEmpty() const noexcept;
+    int size() const noexcept;
+
+    Iterator<TriangularPolygon> begin() noexcept;
+    Iterator<TriangularPolygon> end() noexcept;
+    ConstIterator<TriangularPolygon> cbegin() const noexcept;
+    ConstIterator<TriangularPolygon> cend() const noexcept;
+
+    TriangularPolygon& getElem(int id);
+    const TriangularPolygon& getElem(int id) const;
+    TriangularPolygon& operator [](int id);
+    const TriangularPolygon& operator [](int id) const;
 
 private:
     void alloc_data();
 
 private:
     shared_ptr<TriangularPolygon[]> data_ptr;
-    //shared_ptr<HeightsArray[]> data_ptr;
-    int size;
     int elems_num;
 };
 
