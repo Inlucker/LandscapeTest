@@ -13,6 +13,9 @@ public:
 
     double getZ(double x, double y);
 
+    bool isInRect(double x, double y);
+    bool isInTriangle(double x, double y);
+
 private:
     void calcRect();
     void calcNormals();

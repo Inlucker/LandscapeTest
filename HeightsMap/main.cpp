@@ -103,13 +103,31 @@ int main()
         cout << endl;
 
         cout << "TRIANGULARPOLYGON TESTS:" << endl;
+
         TriangularPolygon tp1(Point(0, 0, 0), Point(0, 5, 0), Point(5, 0, 0));
         TriangularPolygon tp2(Point(5, 0, 0), Point(0, 5, 0), Point(0, 0, 0));
-        cout << tp1.getZ(124, 25) << endl;
         TriangularPolygon tp3(Point(0, 0, 0), Point(0, 5, 5), Point(5, 5, 0));
+
+        cout << endl;
+
+        cout << "tp1.getZ(124, 25)" << tp1.getZ(124, 25) << endl;
         cout << "tp3.getZ(0, 1) = " << tp3.getZ(0, 1) << endl;
         cout << "tp3.getZ(1, 1) = "<< tp3.getZ(1, 1) << endl;
         cout << "tp3.getZ(1, 0) = "<< tp3.getZ(1, 0) << endl;
+
+        cout << endl;
+
+        cout << "tp3.isInRect(0, 0) = " << tp3.isInRect(0, 0) << endl;
+        cout << "tp3.isInRect(5, 5) = " << tp3.isInRect(5, 5) << endl;
+        cout << "tp3.isInRect(6, 5) = " << tp3.isInRect(6, 5) << endl;
+        cout << "tp3.isInRect(3, 0) = " << tp3.isInRect(3, 0) << endl;
+
+        cout << endl;
+
+        cout << "tp3.isInTriangle(0, 0) = " << tp3.isInTriangle(0, 0) << endl;
+        cout << "tp3.isInTriangle(5, 5) = " << tp3.isInTriangle(5, 5) << endl;
+        cout << "tp3.isInTriangle(6, 5) = " << tp3.isInTriangle(6, 5) << endl;
+        cout << "tp3.isInTriangle(3, 0) = " << tp3.isInTriangle(3, 0) << endl;
     }
     catch (BaseError& err)
     {
