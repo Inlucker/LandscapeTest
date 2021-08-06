@@ -12,7 +12,8 @@ SOURCES += \
         main.cpp \
         point.cpp \
         triangularpolygon.cpp \
-        tripolmas.cpp
+        tripolmas.cpp \
+        zbuffer.cpp
 
 HEADERS += \
     abstractiterator.h \
@@ -31,4 +32,5 @@ HEADERS += \
     triangularpolygon.h \
     tripolmas.h \
     vector.h \
-    vector.hpp
+    vector.hpp \
+    zbuffer.h

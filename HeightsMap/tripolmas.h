@@ -25,9 +25,6 @@ public:
     ConstIterator<TriangularPolygon> cbegin() const noexcept;
     ConstIterator<TriangularPolygon> cend() const noexcept;
 
-    //HERE
-    void zBuffer();
-
     TriangularPolygon& getElem(int id);
     const TriangularPolygon& getElem(int id) const;
     TriangularPolygon& operator [](int id);
