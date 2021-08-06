@@ -189,8 +189,8 @@ ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
             os << "; " << *It ;
         os << ']';
     }
-    cout << endl;
-    cout << "Center = " << points_map.map_points_center << endl;
+    os << endl;
+    os << "Center = " << points_map.map_points_center << endl;
 
     return os;
 }

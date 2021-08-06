@@ -135,6 +135,8 @@ int main()
         cout << "TRIPOLMAS TESTS:" << endl;
         shared_ptr<TriPolMas> tpm1 = points3->createTriPolMas();
 
+        cout << (*tpm1) << endl;
+
     }
     catch (BaseError& err)
     {

@@ -26,6 +26,8 @@ private:
     void calcNormals();
     void calcSurface();
 
+    friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
+
 private:
     Point p1, p2, p3;
     //Point points[3];
@@ -34,5 +36,7 @@ private:
     Vector<double> norm_vec1, norm_vec2, norm_vec3;
     double A, B, C, D;
 };
+
+ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 
 #endif // TRIANGULARPOLYGON_H

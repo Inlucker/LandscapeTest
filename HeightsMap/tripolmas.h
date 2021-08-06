@@ -38,4 +38,6 @@ private:
     int elems_num;
 };
 
+ostream& operator <<(ostream& os, const TriPolMas& pol);
+
 #endif // TRIPOLMAS_H

@@ -96,3 +96,19 @@ void TriPolMas::alloc_data()
         data_ptr = new_ptr;
     }
 }
+
+ostream& operator <<(ostream& os, const TriPolMas& mas)
+{
+    if (mas.isEmpty())
+    {
+        os << "TriPolMas is empty." << endl;
+        return os;
+    }
+
+    ConstIterator<TriangularPolygon> It = mas.cbegin();
+    os << '[' << *It++;
+    for (; It != mas.cend(); It++)
+        os << "; \n" << *It ;
+    os << ']' << endl;
+    return os;
+}

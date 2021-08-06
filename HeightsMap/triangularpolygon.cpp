@@ -166,5 +166,11 @@ void TriangularPolygon::calcSurface()
     C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2) ;
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
 
-    cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
+    //cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
+}
+
+ostream& operator <<(ostream& os, const TriangularPolygon& pol)
+{
+    os << pol.p1 << pol.p2 << pol.p3;
+    return os;
 }
