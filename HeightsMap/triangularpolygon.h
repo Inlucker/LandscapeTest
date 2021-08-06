@@ -22,6 +22,7 @@ private:
     //Point points[3];
     double min_x, max_x, min_y, max_y;
     Vector<double> norm_vec1, norm_vec2, norm_vec3;
+    double A, B, C, D;
 };
 
 #endif // TRIANGULARPOLYGON_H

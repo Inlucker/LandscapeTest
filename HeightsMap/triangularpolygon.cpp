@@ -12,6 +12,7 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
     points[2] = new_p3;*/
     calcRect();
     calcNormals();
+    calcSurface();
 }
 
 void TriangularPolygon::calcRect()
@@ -60,10 +61,11 @@ void TriangularPolygon::calcRect()
 
 void TriangularPolygon::calcNormals()
 {
+    // Пока что ?обязательно? по часовой, чтобы получить внутренние нормали
     Vector vec1 = {p2.getX() - p1.getX(), p2.getY() - p1.getY()};
     Vector vec2 = {p3.getX() - p2.getX(), p3.getY() - p2.getY()};
     Vector vec3 = {p1.getX() - p3.getX(), p1.getY() - p3.getY()};
-    cout << vec1 << vec2 << vec3 << endl;
+    //cout << vec1 << vec2 << vec3 << endl;
     if (vec1[1] != 0)
     {
         norm_vec1 = {1, -vec1[0]/vec1[1]};
@@ -95,4 +97,9 @@ void TriangularPolygon::calcNormals()
         norm_vec3 = {0, 1};
 
     cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
+}
+
+void TriangularPolygon::calcSurface()
+{
+    //Here ToDo: Find A, B, C, D!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

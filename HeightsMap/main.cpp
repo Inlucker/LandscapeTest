@@ -104,6 +104,7 @@ int main()
 
         cout << "TRIANGULARPOLYGON TESTS:" << endl;
         TriangularPolygon tp1(Point(0, 0, 0), Point(0, 5, 0), Point(5, 0, 0));
+        TriangularPolygon tp2(Point(5, 0, 0), Point(0, 5, 0), Point(0, 0, 0));
     }
     catch (BaseError& err)
     {
