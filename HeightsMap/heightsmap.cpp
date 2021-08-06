@@ -3,6 +3,8 @@
 #include <time.h>
 #include <random>
 
+#include "iterator.hpp"
+#include "constiterator.hpp"
 #include "errors.h"
 //#include "heightsarray.h"
 #include "heightsmappoints.h"

@@ -1,5 +1,8 @@
 #include "heightsmappoints.h"
 
+#include "iterator.hpp"
+#include "constiterator.hpp"
+#include "errors.h"
 #include "tripolmas.h"
 #include "triangularpolygon.h"
 

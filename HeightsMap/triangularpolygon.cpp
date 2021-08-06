@@ -1,5 +1,7 @@
 #include "triangularpolygon.h"
 
+// Add Errors?
+
 TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Point())
 {
 

@@ -6,8 +6,12 @@
 
 using namespace std;
 
-#include "iterator.hpp"
-#include "constiterator.hpp"
+template<typename Type>
+class Iterator;
+template<typename Type>
+class ConstIterator;
+//#include "iterator.hpp"
+//#include "constiterator.hpp"
 //#include "errors.h"
 
 typedef double height_t;

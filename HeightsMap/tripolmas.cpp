@@ -1,5 +1,8 @@
 #include "tripolmas.h"
 
+#include "iterator.hpp"
+#include "constiterator.hpp"
+#include "errors.h"
 #include "triangularpolygon.h"
 
 TriPolMas::TriPolMas()
