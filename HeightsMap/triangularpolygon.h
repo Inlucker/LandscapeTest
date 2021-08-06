@@ -11,10 +11,15 @@ public:
     TriangularPolygon(Point new_p1, Point new_p2, Point new_p3);
     ~TriangularPolygon() = default;
 
-    double getZ(double x, double y);
+    double getZ(double x, double y) const;
 
-    bool isInRect(double x, double y);
-    bool isInTriangle(double x, double y);
+    bool isInRect(double x, double y) const;
+    bool isInTriangle(double x, double y) const;
+
+    double getMinX() const;
+    double getMaxX() const;
+    double getMinY() const;
+    double getMaxY() const;
 
 private:
     void calcRect();

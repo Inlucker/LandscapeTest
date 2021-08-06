@@ -15,7 +15,7 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
     calcSurface();
 }
 
-double TriangularPolygon::getZ(double x, double y)
+double TriangularPolygon::getZ(double x, double y) const
 {
     //Ax+By+Cz+D=0 => Cz = -Ax-By-D => z = (-Ax-By-D)/C
     if (C != 0)
@@ -26,12 +26,12 @@ double TriangularPolygon::getZ(double x, double y)
     }
 }
 
-bool TriangularPolygon::isInRect(double x, double y)
+bool TriangularPolygon::isInRect(double x, double y) const
 {
     return (x >= min_x && x <= max_x && y >= min_y && y <= max_y);
 }
 
-bool TriangularPolygon::isInTriangle(double x, double y)
+bool TriangularPolygon::isInTriangle(double x, double y) const
 {
     Vector tmp1 = {x - p1.getX(), y - p1.getY()};
     Vector tmp2 = {x - p2.getX(), y - p2.getY()};
@@ -53,6 +53,26 @@ bool TriangularPolygon::isInTriangle(double x, double y)
     else
         return true;;
 
+}
+
+double TriangularPolygon::getMinX() const
+{
+    return min_x;
+}
+
+double TriangularPolygon::getMaxX() const
+{
+    return max_x;
+}
+
+double TriangularPolygon::getMinY() const
+{
+    return min_y;
+}
+
+double TriangularPolygon::getMaxY() const
+{
+    return max_y;
 }
 
 void TriangularPolygon::calcRect()

@@ -128,6 +128,8 @@ int main()
         cout << "tp3.isInTriangle(5, 5) = " << tp3.isInTriangle(5, 5) << endl;
         cout << "tp3.isInTriangle(6, 5) = " << tp3.isInTriangle(6, 5) << endl;
         cout << "tp3.isInTriangle(3, 0) = " << tp3.isInTriangle(3, 0) << endl;
+
+        tp3.getMaxX();
     }
     catch (BaseError& err)
     {
