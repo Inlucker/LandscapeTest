@@ -12,7 +12,7 @@
 #include "constiterator.hpp"
 #include "errors.h"
 
-#define EPS 1e-6
+#define EPS 1e-8 //1e-6
 
 using namespace std;
 

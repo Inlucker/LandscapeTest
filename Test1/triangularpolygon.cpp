@@ -236,24 +236,35 @@ void TriangularPolygon::calcSurface()
     C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2) ;
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
 
-    //cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
+    /*if (A <= EPS && B <= EPS && C <= EPS)
+    {
+        //cout << *this << endl;
+    }*/
+    //cout << "A  = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
 }
 
 void TriangularPolygon::calcColor()
 {
-    Vector<double> normal = {A, B, C};
+    /*Vector<double> normal = {A, B, C};
+    if (normal * Vector<double>{1, 0, 0} == 0)
+    {
+        normal = normal*(-1);
+    }
     Vector<double> beam = {0, 1, 0};
-    double cosinus = fabs((normal*beam)/(normal.len()*beam.len()));
-    color = QColor(200, 200, 200);
+    double cosinus = fabs((normal*beam)/(normal.len()*beam.len()));*/
+
+    double cosinus = fabs(B/sqrt(A*A+B*B+C*C));
+
+    color = Qt::darkGreen;//QColor(200, 200, 200);
     float h, s, l;
     color.getHslF(&h, &s, &l);
     //cout << h << "; " << s << "; " << l << endl;
-    if (cosinus > 1)
+    /*if (cosinus > 1)
     {
         cout << normal << endl;
         cout << beam << endl;
         cout << cosinus << endl;
-    }
+    }*/
     color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.25+float(cosinus/4)); //1? = lightness, 0? = drakness
 }
 
