@@ -2,14 +2,16 @@
 
 // Add Errors?
 
-TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Point(), 0)
+TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Point(), QColor())
 {
 
 }
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) : p1(new_p1), p2(new_p2), p3(new_p3)
 {
-    color = rand()%128+64;
+    //int c = rand()%128+64;
+    //color = QColor(c, c, c);
+    calcColor();
     calcRect();
     calcNormals();
     calcSurface();
@@ -84,15 +86,12 @@ color_t TriangularPolygon::getColor(double x, double y) const
         return 1;*/
 
     if (pointInSegment(Point(x, y, 0), p1, p2))
-        return 1;
+        return Qt::black;
     else if (pointInSegment(Point(x, y, 0), p2, p3))
-        return 1;
+        return Qt::black;
     else if (pointInSegment(Point(x, y, 0), p3, p1))
-        return 1;
-    return 0;
-
-
-    return 0;
+        return Qt::black;
+    return Qt::white;
 }
 
 bool TriangularPolygon::isInRect(double x, double y) const
@@ -238,6 +237,19 @@ void TriangularPolygon::calcSurface()
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
 
     //cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
+}
+
+void TriangularPolygon::calcColor()
+{
+    Vector<double> normal = {A, B, C};
+    Vector<double> beam = {0, 1, 0};
+    double cosinus = fabs((normal*beam)/(normal.len()*beam.len()));
+    color = QColor(128, 255, 128);
+    float h, s, l;
+    color.getHslF(&h, &s, &l);
+    //cout << h << "; " << s << "; " << l << endl;
+    //cout << cosinus << endl;
+    color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.1+float(cosinus/2)); //1? = lightness, 0? = drakness
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)

@@ -3,8 +3,9 @@
 
 #include "point.h"
 #include "vector.hpp"
+#include <QColor>
 
-typedef int color_t;
+typedef QColor color_t;
 
 class TriangularPolygon
 {
@@ -32,6 +33,7 @@ private:
     void calcRect();
     void calcNormals();
     void calcSurface();
+    void calcColor();
 
     bool pointInBox(Point t, Point p1, Point p2) const;
     bool pointInSegment(Point t, Point p1, Point p2) const;

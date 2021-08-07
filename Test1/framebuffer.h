@@ -11,7 +11,9 @@ class Iterator;
 template<typename Type>
 class ConstIterator;
 
-typedef int color_t;
+#include <QColor>
+
+typedef QColor color_t;
 
 class FrameBuffer
 {

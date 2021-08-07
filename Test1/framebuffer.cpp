@@ -32,7 +32,7 @@ FrameBuffer::FrameBuffer(int new_width, int new_height)
         alloc_data();
 
         for (auto &elem:*this)
-            elem = 0;
+            elem = Qt::white;
     }
 }
 
@@ -172,7 +172,7 @@ ostream& operator <<(ostream& os, const FrameBuffer& buf)
         return os;
     }
 
-    ConstIterator<color_t> It = buf.cbegin();
+    /*ConstIterator<color_t> It = buf.cbegin();
     for (int i = 0; i < buf.getHeight() && It != buf.cend(); i++)
     {
         os << '\n' << '[' << *It++;
@@ -180,7 +180,7 @@ ostream& operator <<(ostream& os, const FrameBuffer& buf)
             os << "; " << *It ;
         os << ']';
     }
-    os << endl;
+    os << endl;*/
 
     return os;
 }
