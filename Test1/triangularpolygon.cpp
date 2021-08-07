@@ -116,6 +116,16 @@ bool TriangularPolygon::isInTriangle(double x, double y) const
 
 }
 
+void TriangularPolygon::setPoints(Point new_p1, Point new_p2, Point new_p3)
+{
+    p1 = new_p1;
+    p2 = new_p2;
+    p3 = new_p3;
+    calcRect();
+    calcNormals();
+    calcSurface();
+}
+
 /*double TriangularPolygon::getMinX() const
 {
     return min_x;

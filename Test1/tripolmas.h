@@ -14,6 +14,7 @@ class ConstIterator;
 //#include "constiterator.hpp"
 
 class TriangularPolygon;
+class HeightsMapPoints;
 
 class TriPolMas
 {
@@ -28,6 +29,8 @@ public:
     Iterator<TriangularPolygon> end() noexcept;
     ConstIterator<TriangularPolygon> cbegin() const noexcept;
     ConstIterator<TriangularPolygon> cend() const noexcept;
+
+    void updatePoints(HeightsMapPoints &map);
 
     TriangularPolygon& getElem(int id);
     const TriangularPolygon& getElem(int id) const;

@@ -26,6 +26,8 @@ public:
     double getMinY() const;
     double getMaxY() const;
 
+    void setPoints(Point new_p1, Point new_p2, Point new_p3);
+
 private:
     void calcRect();
     void calcNormals();

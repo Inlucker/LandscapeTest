@@ -4,6 +4,7 @@
 #include "constiterator.hpp"
 #include "errors.h"
 #include "triangularpolygon.h"
+#include "heightsmappoints.h"
 
 TriPolMas::TriPolMas()
 {
@@ -56,6 +57,36 @@ ConstIterator<TriangularPolygon> TriPolMas::cbegin() const noexcept
 ConstIterator<TriangularPolygon> TriPolMas::cend() const noexcept
 {
     return ConstIterator<TriangularPolygon>(data_ptr, elems_num, elems_num);
+}
+
+void TriPolMas::updatePoints(HeightsMapPoints &map)
+{
+    Iterator<TriangularPolygon> mas_it = this->begin();
+    int c = 0;
+    for (int i = 0; i < (map.getSize()-1); i++)
+    {
+        for (int j = 0; j < (map.getSize()-1); j++)
+        {
+            if ((j+i) % 2 == 1)
+            {
+                mas_it->setPoints(map(i, j), map(i, j+1), map(i+1, j));
+                c+=10;
+                mas_it++;
+                mas_it->setPoints(map(i+1, j), map(i, j+1), map(i+1, j+1));
+                c+=10;
+                mas_it++;
+            }
+            else
+            {
+                mas_it->setPoints(map(i, j), map(i+1, j+1), map(i, j+1));
+                c+=10;
+                mas_it++;
+                mas_it->setPoints(map(i, j), map(i+1, j), map(i+1, j+1));
+                c+=10;
+                mas_it++;
+            }
+        }
+    }
 }
 
 TriangularPolygon& TriPolMas::getElem(int id)

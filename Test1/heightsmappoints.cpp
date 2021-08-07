@@ -75,27 +75,27 @@ shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
     shared_ptr<TriPolMas> new_tri_pol_mas = make_shared<TriPolMas>((size-1)*2*(size-1));
     //ConstIterator<Point> points_it = this->cbegin();
     Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
-    int c = 0;
+    //int c = 0;
     for (int i = 0; i < (size-1); i++)
     {
         for (int j = 0; j < (size-1); j++)
         {
             if ((j+i) % 2 == 1)
             {
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), c);//++c);
-                c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), rand()%128+64);//c);//++c);
+                //c+=10;
                 mas_it++;
-                *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), c);//++c);
-                c+=10;
+                *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), rand()%128+64);//c);//++c);
+                //c+=10;
                 mas_it++;
             }
             else
             {
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j+1), (*this)(i, j+1), c);//++c);
-                c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j+1), (*this)(i, j+1), rand()%128+64);//c);//++c);
+                //c+=10;
                 mas_it++;
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j), (*this)(i+1, j+1), c);//++c);
-                c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j), (*this)(i+1, j+1), rand()%128+64);//c);//++c);
+                //c+=10;
                 mas_it++;
             }
         }

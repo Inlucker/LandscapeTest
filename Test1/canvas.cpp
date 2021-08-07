@@ -42,6 +42,7 @@ void Canvas::generateNewLandscape()
 
     zbuffer_alg = make_unique<ZBufferAlg>(200, 300); //(500, 500);
 
+    tri_pol_mas = heights_map3->createTriPolMas();
     drawHeightsMap();
 
     update();
@@ -427,7 +428,8 @@ void Canvas::drawHeightsMap5()
     painter->setPen(Qt::black);
     //Check time HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     clock_t start = clock();
-    tri_pol_mas = heights_map3->createTriPolMas();
+    //tri_pol_mas = heights_map3->createTriPolMas();
+    tri_pol_mas->updatePoints(*heights_map3);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
@@ -450,13 +452,12 @@ void Canvas::drawHeightsMap5()
             {
                 painter->drawPoint(i, j);
             }*/
-            /*int c = (*frame_buffer)(i, j);
-            painter->setPen(QColor(255-c, 255-c, 255-c));
-            painter->drawPoint(i, j);*/
             int c = (*frame_buffer)(i, j);
-            painter->setPen(QColor(255 - c%255, 255 - (c*4)%255, 255 - (c*5)%255));
-            //painter->drawPoint(i, j);
+            painter->setPen(QColor(255-c, 255-c, 255-c));
             plotX4(i, j);
+            /*int c = (*frame_buffer)(i, j);
+            painter->setPen(QColor(255 - c%255, 255 - (c*4)%255, 255 - (c*5)%255));
+            plotX4(i, j);*/
         }
     }
     end = clock();
@@ -485,7 +486,7 @@ void Canvas::plot(int x, int y)
     painter->drawPoint(x, y);
 }
 
-#define MULT 5
+#define MULT 4
 
 void Canvas::plotX4(int x, int y)
 {

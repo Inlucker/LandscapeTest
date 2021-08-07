@@ -22,6 +22,7 @@ using namespace std;
 #include "heightsmap.h"
 #include "heightsmappoints.h" //?
 #include "zbufferalg.h"
+#include "tripolmas.h"
 //#include "zbuffer.h"
 //#include "framebuffer.h"
 
