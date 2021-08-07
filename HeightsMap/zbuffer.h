@@ -20,7 +20,7 @@ class ZBuffer
 public:
     ZBuffer();
     ZBuffer(int new_width, int new_height);
-    explicit ZBuffer(TriPolMas mas);
+    //explicit ZBuffer(TriPolMas mas);
 
     bool isEmpty() const noexcept;
     int size() const noexcept;
@@ -43,16 +43,15 @@ public:
     const double& operator()(const int &i, const int &j) const;
 
 private:
-
     void alloc_data();
 
 private:
+    //ZBuffer
     shared_ptr<double[]> data_ptr;
     int width;
     int height;
     int elems_num;
     //CadrBuffer
-    //ZBuffer
 };
 
 #endif // ZBUFFER_H

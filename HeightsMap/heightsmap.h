@@ -35,9 +35,9 @@ public:
     ConstIterator<height_t> cbegin() const noexcept;
     ConstIterator<height_t> cend() const noexcept;
 
-    void resetHeightsmap();
-    void randomizeHeightsMap();
-    void smoothHeightsMap();
+    void resetHeightsmap() noexcept;
+    void randomizeHeightsMap() noexcept;
+    void smoothHeightsMap() noexcept;
     double getHeight(int i, int j);
 
     void diamondSquare();
@@ -76,7 +76,7 @@ private:
 
     //variant3
     void DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
-    double GetRnd();
+    double GetRnd() noexcept;
 
 private:
     shared_ptr<height_t[]> data_ptr;

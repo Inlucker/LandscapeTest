@@ -75,13 +75,13 @@ ConstIterator<height_t> HeightsMap::cend() const noexcept
     return ConstIterator<height_t>(data_ptr, elems_num, elems_num);
 }
 
-void HeightsMap::resetHeightsmap()
+void HeightsMap::resetHeightsmap() noexcept
 {
     for (auto &elem:*this)
         elem = 0;
 }
 
-void HeightsMap::randomizeHeightsMap()
+void HeightsMap::randomizeHeightsMap() noexcept
 {
     srand(time(0));
     for (auto &elem:*this)
@@ -169,7 +169,8 @@ double HeightsMap::getHeight(int i, int j)
 {
     if (i >= 0 && i <= size && j >= 0 && j <= size)
     {
-        return data_ptr[i*size+j];
+        //return data_ptr[i*size+j];
+        return getElem(i, j);
     }
     else
         return -1;
