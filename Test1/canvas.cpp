@@ -42,10 +42,7 @@ void Canvas::generateNewLandscape()
 
     zbuffer_alg = make_unique<ZBufferAlg>(700, 1000);
 
-    //drawHeightsMap();
-    //drawHeightsMap2();
-    //drawHeightsMap3();
-    drawHeightsMap4();
+    drawHeightsMap();
 
     update();
 }
@@ -102,14 +99,11 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
 
         //camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
-        heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
+        heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
         //heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, x, y));
 
         clean();
-        //drawHeightsMap();
-        //drawHeightsMap2();
-        //drawHeightsMap3();
-        drawHeightsMap4();
+        drawHeightsMap();
     }
     else if (RMB_is_pressed)
     {
@@ -120,16 +114,27 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         heights_map3->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
 
         clean();
-        //drawHeightsMap();
-        //drawHeightsMap2();
-        //drawHeightsMap3();
-        drawHeightsMap4();
+        drawHeightsMap();
     }
 
     update();
 
     previous_x = event->position().x();
     previous_y = event->position().y();
+}
+
+#define SCALE_SPEED 10
+
+void Canvas::wheelEvent(QWheelEvent *event)
+{
+
+    QPoint numDegrees = event->angleDelta() / 120;
+    double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
+
+    heights_map3->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+
+    clean();
+    drawHeightsMap();
 }
 
 void Canvas::paintEvent(QPaintEvent *event)
@@ -254,9 +259,14 @@ double Canvas::getHeight(int i, int j)
         return -1;
 }
 
+void Canvas::drawHeightsMap()
+{
+    drawHeightsMap4();
+}
+
 //#define SCALE 25
 
-void Canvas::drawHeightsMap()
+void Canvas::drawHeightsMap1()
 {
     painter->setPen(Qt::red);
     for (int i = 0; i < MAX_X; i++)
@@ -399,6 +409,20 @@ void Canvas::drawHeightsMap4()
             {
                 painter->drawPoint(i, j);
                 cur = (*frame_buffer)(i, j);
+            }
+        }
+    }
+
+    cur = 0;
+    It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getWidth() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getHeight() && It != frame_buffer->cend(); It++, j++)
+        {
+            if ((*frame_buffer)(j, i) != cur)
+            {
+                painter->drawPoint(j, i);
+                cur = (*frame_buffer)(j, i);
             }
         }
     }

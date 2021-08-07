@@ -42,6 +42,7 @@ protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
     virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void wheelEvent(QWheelEvent *event);
     void paintEvent(QPaintEvent *);
 
 public:
@@ -71,6 +72,7 @@ private:
     double getHeight(int i, int j);
 
     void drawHeightsMap();
+    void drawHeightsMap1();
     void drawHeightsMap2();
     void drawHeightsMap3();
     void drawHeightsMap4();

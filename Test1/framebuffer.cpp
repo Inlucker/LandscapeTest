@@ -106,22 +106,46 @@ const color_t &FrameBuffer::operator [](int id) const
 
 color_t &FrameBuffer::getElem(int i, int j)
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
+    //return getElem(i*height+j);
 }
 
 const color_t &FrameBuffer::getElem(int i, int j) const
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
+    //return getElem(i*height+j);
 }
 
 color_t &FrameBuffer::operator()(int i, int j)
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
+    //return getElem(i*height+j);
 }
 
 const color_t &FrameBuffer::operator()(const int &i, const int &j) const
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
+    //return getElem(i*height+j);
 }
 
 void FrameBuffer::alloc_data()
