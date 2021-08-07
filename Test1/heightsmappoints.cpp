@@ -82,20 +82,20 @@ shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
         {
             if ((j+i) % 2 == 1)
             {
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), ++c);
-                //c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), c);//++c);
+                c+=10;
                 mas_it++;
-                *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), ++c);
-                //c+=10;
+                *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), c);//++c);
+                c+=10;
                 mas_it++;
             }
             else
             {
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j+1), (*this)(i, j+1), ++c);
-                //c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j+1), (*this)(i, j+1), c);//++c);
+                c+=10;
                 mas_it++;
-                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j), (*this)(i+1, j+1), ++c);
-                //c+=10;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j), (*this)(i+1, j+1), c);//++c);
+                c+=10;
                 mas_it++;
             }
         }

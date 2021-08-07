@@ -76,10 +76,12 @@ private:
     void drawHeightsMap2();
     void drawHeightsMap3();
     void drawHeightsMap4();
+    void drawHeightsMap5();
     void drawHeightsMapWithoutInvisibleLines();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);
+    void plotX4(int x, int y);
     void DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end);
 
 };
