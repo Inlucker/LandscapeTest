@@ -10,6 +10,7 @@ class TriangularPolygon
 {
 public:
     TriangularPolygon();
+    TriangularPolygon(Point new_p1, Point new_p2, Point new_p3);
     TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c);
     ~TriangularPolygon() = default;
 

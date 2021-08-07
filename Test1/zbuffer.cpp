@@ -35,7 +35,7 @@ ZBuffer::ZBuffer(int new_width, int new_height)
         alloc_data();
 
         for (auto &elem:*this)
-            elem = -100000;
+            elem = INT_MIN;
     }
 }
 
@@ -55,7 +55,7 @@ int ZBuffer::size() const noexcept
     return elems_num;
 }
 
-bool ZBuffer::getWidth() const noexcept
+int ZBuffer::getWidth() const noexcept
 {
     return width;
 }
@@ -147,4 +147,25 @@ void ZBuffer::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+ostream& operator <<(ostream& os, const ZBuffer& buf)
+{
+    if (buf.isEmpty())
+    {
+        os << "ZBuffer is empty.";
+        return os;
+    }
+
+    ConstIterator<double> It = buf.cbegin();
+    for (int i = 0; i < buf.getHeight() && It != buf.cend(); i++)
+    {
+        os << '\n' << '[' << *It++;
+        for (int j = 1; j < buf.getWidth() && It != buf.cend(); It++, j++)
+            os << "; " << *It ;
+        os << ']';
+    }
+    os << endl;
+
+    return os;
 }

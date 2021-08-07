@@ -13,8 +13,8 @@
 
 using namespace std;
 
-#define MAX_X 33//129//65//33//5//33
-#define MAX_Y 33//129//65//33//5//33
+#define MAX_X 17//129//65//33//5//33
+#define MAX_Y 17//129//65//33//5//33
 #define SCALE_XZ 30//7//15//120//15
 #define SCALE_Y 30//7//40//5//7
 

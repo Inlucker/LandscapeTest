@@ -40,7 +40,7 @@ void Canvas::generateNewLandscape()
 
     heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
-    zbuffer_alg = make_unique<ZBufferAlg>(1500, 1500);
+    zbuffer_alg = make_unique<ZBufferAlg>(700, 1000);
 
     //drawHeightsMap();
     //drawHeightsMap2();
@@ -384,12 +384,15 @@ void Canvas::drawHeightsMap4()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            if ((*frame_buffer)(i, j) == 1)
+            /*if ((*frame_buffer)(i, j) == 1)
             {
                 painter->drawPoint(i, j);
-            }
-            /*int c = (*frame_buffer)(i, j);
+            }*/
+            int c = (*frame_buffer)(i, j);
             painter->setPen(QColor(255-c, 255-c, 255-c));
+            painter->drawPoint(i, j);
+            /*int c = (*frame_buffer)(i, j);
+            painter->setPen(QColor(255 - c%255, 255 - (c*4)%255, 255 - (c*5)%255));
             painter->drawPoint(i, j);*/
         }
     } 

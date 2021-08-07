@@ -7,6 +7,14 @@ TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Poi
 
 }
 
+TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) : p1(new_p1), p2(new_p2), p3(new_p3)
+{
+    color = rand()%128+64;
+    calcRect();
+    calcNormals();
+    calcSurface();
+}
+
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c) : p1(new_p1), p2(new_p2), p3(new_p3), color(c)
 {
     /*points[0] = new_p1;

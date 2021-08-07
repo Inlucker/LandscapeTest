@@ -31,12 +31,13 @@ void ZBufferAlg::execute(TriPolMas &mas)
                     if ((*zbuffer)(x, y) < elem.getZ(x, y))
                     {
                         (*zbuffer)(x, y) = elem.getZ(x, y);
-                        (*frame_buffer)(x, y) = elem.getColor(x, y);//elem.getColor(x, y);
+                        (*frame_buffer)(x, y) = elem.getColor();//elem.getColor(x, y);
                     }
                 }
             }
         }
     }
+    //cout << *zbuffer << endl;
 
 }
 

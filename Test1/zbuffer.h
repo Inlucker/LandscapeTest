@@ -27,7 +27,7 @@ public:
 
     bool isEmpty() const noexcept;
     int size() const noexcept;
-    bool getWidth() const noexcept;
+    int getWidth() const noexcept;
     int getHeight() const noexcept;
 
     Iterator<double> begin() noexcept;
@@ -57,5 +57,7 @@ private:
     //CadrBuffer
     //shared_ptr<FrameBuffer> frame_buffer;
 };
+
+ostream& operator <<(ostream& os, const ZBuffer& buf);
 
 #endif // ZBUFFER_H

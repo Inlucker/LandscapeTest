@@ -75,13 +75,16 @@ shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
     shared_ptr<TriPolMas> new_tri_pol_mas = make_shared<TriPolMas>((size-1)*2*(size-1));
     //ConstIterator<Point> points_it = this->cbegin();
     Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
+    //int c = 10;
     for (int i = 0; i < (size-1); i++)
     {
         for (int j = 0; j < (size-1); j++)
         {
-            *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), (j+1)*10);
+            *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j));
+            //c+=10;
             mas_it++;
-            *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), (i+1)*10);
+            *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1));
+            //c+=10;
             mas_it++;
         }
     }
