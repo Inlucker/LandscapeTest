@@ -246,14 +246,17 @@ void TriangularPolygon::calcSurface()
 void TriangularPolygon::calcColor()
 {
     /*Vector<double> normal = {A, B, C};
-    if (normal * Vector<double>{1, 0, 0} == 0)
-    {
-        normal = normal*(-1);
-    }
+    normal = normal.get_unit();
+    //if (normal * Vector<double>{1, 0, 0} == 0)
+    //    normal = normal*(-1);
     Vector<double> beam = {0, 1, 0};
+    beam = beam.get_unit();
     double cosinus = fabs((normal*beam)/(normal.len()*beam.len()));*/
 
-    double cosinus = fabs(B/sqrt(A*A+B*B+C*C));
+    double cosinus = fabs(B/sqrt(A*A+B*B+C*C)); //max(B/sqrt(A*A+B*B+C*C), 0.);
+
+    //if (cosinus - cosinus2 > EPS)
+    //    cout << "Not equal cosinuses" << endl;
 
     color = Qt::green;//QColor(200, 200, 200);
     /*float h, s, l;
