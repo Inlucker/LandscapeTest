@@ -379,6 +379,7 @@ void Canvas::drawHeightsMap4()
     frame_buffer = zbuffer_alg->getFrameBuffer();
 
     start = clock();
+    int cur = 0;
     ConstIterator<color_t> It = frame_buffer->cbegin();
     for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
     {
@@ -388,14 +389,19 @@ void Canvas::drawHeightsMap4()
             {
                 painter->drawPoint(i, j);
             }*/
-            int c = (*frame_buffer)(i, j);
+            /*int c = (*frame_buffer)(i, j);
             painter->setPen(QColor(255-c, 255-c, 255-c));
-            painter->drawPoint(i, j);
+            painter->drawPoint(i, j);*/
             /*int c = (*frame_buffer)(i, j);
             painter->setPen(QColor(255 - c%255, 255 - (c*4)%255, 255 - (c*5)%255));
             painter->drawPoint(i, j);*/
+            if ((*frame_buffer)(i, j) != cur)
+            {
+                painter->drawPoint(i, j);
+                cur = (*frame_buffer)(i, j);
+            }
         }
-    } 
+    }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "paint time = " << seconds << " secs" << endl;
