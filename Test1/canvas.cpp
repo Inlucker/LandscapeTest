@@ -40,7 +40,7 @@ void Canvas::generateNewLandscape()
 
     heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
-    zbuffer_alg = make_unique<ZBufferAlg>(400, 500); //(500, 500);
+    zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT); //(500, 500);
 
     tri_pol_mas = heights_map3->createTriPolMas();
     drawHeightsMap();
@@ -263,7 +263,6 @@ double Canvas::getHeight(int i, int j)
 void Canvas::drawHeightsMap()
 {
     drawHeightsMap5();
-    drawHeightsMap4();
 }
 
 //#define SCALE 25
@@ -427,6 +426,7 @@ void Canvas::drawHeightsMap4()
     //cout << "paint time = " << seconds << " secs" << endl;
 }
 
+//FillDraw
 void Canvas::drawHeightsMap5()
 {
     painter->setPen(Qt::black);
@@ -471,6 +471,75 @@ void Canvas::drawHeightsMap5()
     //cout << "paint time = " << seconds << " secs" << endl;
 }
 
+//EdgeDraw + FillDraw
+void Canvas::drawHeightsMap6()
+{
+    clock_t start = clock();
+    tri_pol_mas->updatePoints(*heights_map3);
+    clock_t end = clock();
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
+
+    start = clock();
+    zbuffer_alg->execute(*tri_pol_mas);
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+
+    start = clock();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            QColor c = (*frame_buffer)(i, j);
+            painter->setPen(c);
+            plotX4(i, j);
+        }
+    }
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "paint time = " << seconds << " secs" << endl;
+
+    painter->setPen(Qt::black);
+
+    start = clock();
+    QColor cur = Qt::white;
+    It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            if ((*frame_buffer)(i, j) != cur)
+            {
+                //painter->drawPoint(i, j);
+                plotX4(i, j);
+                cur = (*frame_buffer)(i, j);
+            }
+        }
+    }
+
+    cur = Qt::white;
+    It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getWidth() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getHeight() && It != frame_buffer->cend(); It++, j++)
+        {
+            if ((*frame_buffer)(j, i) != cur)
+            {
+                //painter->drawPoint(j, i);
+                plotX4(j, i);
+                cur = (*frame_buffer)(j, i);
+            }
+        }
+    }
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "paint time = " << seconds << " secs" << endl;
+}
+
 void Canvas::drawHeightsMapWithoutInvisibleLines()
 {
     // TODO
@@ -491,8 +560,6 @@ void Canvas::plot(int x, int y)
     //p->setPen(semiPen);
     painter->drawPoint(x, y);
 }
-
-#define MULT 2
 
 void Canvas::plotX4(int x, int y)
 {

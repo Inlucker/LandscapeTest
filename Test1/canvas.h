@@ -13,10 +13,11 @@
 
 using namespace std;
 
-#define MAX_X 17//129//65//33//5//33
-#define MAX_Y 17//129//65//33//5//33
-#define SCALE_XZ 30//7//15//120//15
-#define SCALE_Y 30//7//40//5//7
+#define MAX_X 65//129//65//33//5//33
+#define MAX_Y 65//129//65//33//5//33
+#define SCALE_XZ 15//7//15//120//15
+#define SCALE_Y 15//7//40//5//7
+#define MULT 2
 
 //#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
 #include "heightsmap.h"
@@ -78,6 +79,7 @@ private:
     void drawHeightsMap3();
     void drawHeightsMap4();
     void drawHeightsMap5();
+    void drawHeightsMap6();
     void drawHeightsMapWithoutInvisibleLines();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
