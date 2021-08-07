@@ -8,15 +8,32 @@ FrameBuffer::FrameBuffer()
 {
     width = 0;
     height = 0;
-    elems_num = width * height;
+    elems_num = 0;
 }
 
 FrameBuffer::FrameBuffer(int new_width, int new_height)
 {
-    width = new_width;
-    height = new_height;
-    elems_num = width * height;
-    alloc_data();
+    time_t t_time = time(NULL);
+    if (new_width < 0 || new_height < 0)
+        throw FrameBufferNegativeSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    if (new_width == 0 || new_width == 0)
+    {
+        width = 0;
+        height = 0;
+        elems_num = 0;
+        data_ptr.reset();
+    }
+    else
+    {
+        width = new_width;
+        height = new_height;
+        elems_num = width * height;
+        alloc_data();
+
+        for (auto &elem:*this)
+            elem = 0;
+    }
 }
 
 bool FrameBuffer::isEmpty() const noexcept

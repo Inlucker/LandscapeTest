@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//class FrameBuffer
+//#include "framebuffer.h"
+
 template<typename Type>
 class Iterator;
 template<typename Type>
@@ -52,6 +55,7 @@ private:
     int height;
     int elems_num;
     //CadrBuffer
+    //shared_ptr<FrameBuffer> frame_buffer;
 };
 
 #endif // ZBUFFER_H
