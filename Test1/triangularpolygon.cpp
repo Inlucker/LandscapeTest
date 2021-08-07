@@ -255,7 +255,7 @@ void TriangularPolygon::calcColor()
 
     double cosinus = fabs(B/sqrt(A*A+B*B+C*C));
 
-    color = Qt::darkGreen;//QColor(200, 200, 200);
+    color = Qt::green;//QColor(200, 200, 200);
     /*float h, s, l;
     color.getHslF(&h, &s, &l);
     //cout << h << "; " << s << "; " << l << endl;
@@ -265,8 +265,8 @@ void TriangularPolygon::calcColor()
         cout << beam << endl;
         cout << cosinus << endl;
     }*/
-    //color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.25+float(cosinus/4)); //1? = lightness, 0? = drakness
-    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.25+float(cosinus/4)); //1? = lightness, 0? = drakness
+    //color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.25+float(cosinus/4)); //1 = lightness, 0 = drakness
+    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.25+float(cosinus/2.5)); //1? = brightness, 0? = drakness
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)
