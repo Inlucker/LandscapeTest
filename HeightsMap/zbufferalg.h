@@ -14,6 +14,7 @@ class ZbufferAlg
 {
 public:
     ZbufferAlg() = delete;
+    ZbufferAlg(int new_width, int new_height);
     ZbufferAlg(TriPolMas mas);
 
     shared_ptr<FrameBuffer> getFrameBuffer() const noexcept;
