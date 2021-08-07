@@ -88,7 +88,7 @@ void HeightsMap::randomizeHeightsMap() noexcept
         elem = (rand() % 16);
 }
 
-void HeightsMap::smoothHeightsMap()
+void HeightsMap::smoothHeightsMap() noexcept
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
@@ -167,7 +167,7 @@ void HeightsMap::smoothHeightsMap()
 
 double HeightsMap::getHeight(int i, int j)
 {
-    if (i >= 0 && i <= size && j >= 0 && j <= size)
+    if (i >= 0 && i < size && j >= 0 && j < size)
     {
         //return data_ptr[i*size+j];
         return getElem(i, j);
@@ -390,7 +390,7 @@ void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned 
     DiamondSquare3(x1, y1, x2, y2, range / 2, level / 2);
 }
 
-double HeightsMap::GetRnd()
+double HeightsMap::GetRnd() noexcept
 {
     return (double)rand() / RAND_MAX;
 }

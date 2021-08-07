@@ -21,11 +21,11 @@ ZBuffer::ZBuffer(int new_width, int new_height)
     alloc_data();
 }
 
-ZBuffer::ZBuffer(TriPolMas mas)
+/*ZBuffer::ZBuffer(TriPolMas mas)
 {
     //HERE
 
-}
+}*/
 
 bool ZBuffer::isEmpty() const noexcept
 {
@@ -90,6 +90,11 @@ double &ZBuffer::operator [](int id)
     return getElem(id);
 }
 
+const double &ZBuffer::operator [](int id) const
+{
+    return getElem(id);
+}
+
 double &ZBuffer::getElem(int i, int j)
 {
     return getElem(i*width+j);
@@ -110,11 +115,6 @@ const double &ZBuffer::operator()(const int &i, const int &j) const
     return getElem(i*width+j);
 }
 
-const double &ZBuffer::operator [](int id) const
-{
-    return getElem(id);
-}
-
 void ZBuffer::alloc_data()
 {
     data_ptr.reset();
@@ -130,4 +130,3 @@ void ZBuffer::alloc_data()
         data_ptr = new_ptr;
     }
 }
-

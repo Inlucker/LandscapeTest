@@ -6,6 +6,7 @@ CONFIG -= qt
 SOURCES += \
         abstractiterator.cpp \
         basevector.cpp \
+        framebuffer.cpp \
         heightsarray.cpp \
         heightsmap.cpp \
         heightsmappoints.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     constiterator.h \
     constiterator.hpp \
     errors.h \
+    framebuffer.h \
     heightsarray.h \
     heightsmap.h \
     heightsmappoints.h \

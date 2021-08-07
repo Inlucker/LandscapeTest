@@ -25,7 +25,6 @@ protected:
 };
 
 //HeightsArray
-
 class HeightsArrayAllocError : public BaseError
 {
 public:
@@ -60,7 +59,6 @@ public:
 };
 
 //HeightsMap
-
 class HeightsMapAllocError : public BaseError
 {
 public:
@@ -95,7 +93,6 @@ public:
 };
 
 //HeightsMapPoints
-
 class HeightsMapPointsAllocError : public BaseError
 {
 public:
@@ -130,7 +127,6 @@ public:
 };
 
 //ITERATOR
-
 class IteratorWeakPtrError : public BaseError
 {
 public:
@@ -154,7 +150,6 @@ public:
 };
 
 //VECTOR
-
 class VectorEmptyError : public BaseError
 {
 public:
@@ -233,7 +228,6 @@ public:
 };
 
 //TriPolMas
-
 class TriPolMasAllocError : public BaseError
 {
 public:
@@ -268,7 +262,6 @@ public:
 };
 
 //ZBuffer
-
 class ZBufferAllocError : public BaseError
 {
 public:
@@ -295,6 +288,40 @@ class ZBufferIndexError : public BaseError
 {
 public:
     ZBufferIndexError(string info, string filename, int line, const char *time, string error = "ZBuffer index out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+//FrameBuffer
+class FrameBufferAllocError : public BaseError
+{
+public:
+    FrameBufferAllocError(string info, string filename, int line, const char *time, string error = "FrameBuffer alloc error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class FrameBufferNegativeSizeError : public BaseError
+{
+public:
+    FrameBufferNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create FrameBuffer with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class FrameBufferIndexError : public BaseError
+{
+public:
+    FrameBufferIndexError(string info, string filename, int line, const char *time, string error = "FrameBuffer index out of range")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
