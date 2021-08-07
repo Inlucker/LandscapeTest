@@ -249,6 +249,16 @@ const height_t& HeightsMap::operator [](int id) const
     return getElem(id);
 }
 
+height_t &HeightsMap::getElem(int i, int j)
+{
+    return getElem(i*size+j);
+}
+
+const height_t &HeightsMap::getElem(int i, int j) const
+{
+    return getElem(i*size+j);
+}
+
 height_t &HeightsMap::operator()(int i, int j)
 {
     return getElem(i*size+j);

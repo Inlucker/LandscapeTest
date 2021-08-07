@@ -52,6 +52,8 @@ public:
     const height_t& operator [](int id) const;
 
     //Done instead of operator[][]
+    height_t& getElem(int i, int j);
+    const height_t& getElem(int i, int j) const;
     height_t& operator()(int i, int j);
     const height_t& operator()(const int &i, const int &j) const;
 

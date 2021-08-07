@@ -117,6 +117,16 @@ const Point &HeightsMapPoints::operator [](int id) const
     return getElem(id);
 }
 
+Point &HeightsMapPoints::getElem(int i, int j)
+{
+    return getElem(i*size+j);
+}
+
+const Point &HeightsMapPoints::getElem(int i, int j) const
+{
+    return getElem(i*size+j);
+}
+
 Point &HeightsMapPoints::operator()(int i, int j)
 {
     return getElem(i*size+j);

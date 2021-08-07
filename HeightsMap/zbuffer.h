@@ -18,13 +18,39 @@ class TriPolMas;
 class ZBuffer
 {
 public:
-    ZBuffer() = delete;
-    ZBuffer(TriPolMas mas);
+    ZBuffer();
+    ZBuffer(int new_width, int new_height);
+    explicit ZBuffer(TriPolMas mas);
+
+    bool isEmpty() const noexcept;
+    int size() const noexcept;
+    bool getWidth() const noexcept;
+    int getHeight() const noexcept;
+
+    Iterator<double> begin() noexcept;
+    Iterator<double> end() noexcept;
+    ConstIterator<double> cbegin() const noexcept;
+    ConstIterator<double> cend() const noexcept;
+
+    double& getElem(int id);
+    const double& getElem(int id) const;
+    double& operator [](int id);
+    const double& operator [](int id) const;
+
+    double& getElem(int i, int j);
+    const double& getElem(int i, int j) const;
+    double& operator()(int i, int j);
+    const double& operator()(const int &i, const int &j) const;
 
 private:
-    shared_ptr<int[]> data_ptr;
+
+    void alloc_data();
+
+private:
+    shared_ptr<double[]> data_ptr;
     int width;
     int height;
+    int elems_num;
     //CadrBuffer
     //ZBuffer
 };

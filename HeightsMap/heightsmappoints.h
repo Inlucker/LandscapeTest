@@ -40,6 +40,8 @@ public:
     Point& operator [](int id);
     const Point& operator [](int id) const;
 
+    Point& getElem(int i, int j);
+    const Point& getElem(int i, int j) const;
     Point& operator()(int i, int j);
     const Point& operator()(const int &i, const int &j) const;
 

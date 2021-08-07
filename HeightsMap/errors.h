@@ -267,4 +267,39 @@ public:
     }
 };
 
+//ZBuffer
+
+class ZBufferAllocError : public BaseError
+{
+public:
+    ZBufferAllocError(string info, string filename, int line, const char *time, string error = "ZBuffer alloc error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class ZBufferNegativeSizeError : public BaseError
+{
+public:
+    ZBufferNegativeSizeError(string info, string filename, int line, const char *time, string error = "Trying to create ZBuffer with negative size")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class ZBufferIndexError : public BaseError
+{
+public:
+    ZBufferIndexError(string info, string filename, int line, const char *time, string error = "ZBuffer index out of range")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
 #endif // ERRORS_H
