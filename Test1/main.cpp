@@ -9,3 +9,11 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
+
+/*
+ * ToDo:
+ * 1) Boost time
+ * 2) Fix different brightness
+ *
+ *
+ * */

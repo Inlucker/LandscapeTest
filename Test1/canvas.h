@@ -18,7 +18,7 @@ using namespace std;
 #define SCALE 15//7//15
 #define SCALE_XZ SCALE//7//15//120//15
 #define SCALE_Y SCALE//7//40//5//7
-#define MULT 2
+#define MULT 1
 
 //#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
 #include "heightsmap.h"
@@ -81,7 +81,6 @@ private:
     void drawHeightsMap4();
     void drawHeightsMap5();
     void drawHeightsMap6();
-    void drawHeightsMapWithoutInvisibleLines();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);

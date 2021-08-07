@@ -430,22 +430,24 @@ void Canvas::drawHeightsMap4()
 void Canvas::drawHeightsMap5()
 {
     painter->setPen(Qt::black);
-    //Check time HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
     tri_pol_mas->updatePoints(*heights_map3);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
+    cout << "updatePoints() time = " << seconds << " secs" << endl;
 
+    //Z-BUFFER ALGORITHM
     start = clock();
     zbuffer_alg->execute(*tri_pol_mas);
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+    cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
 
     frame_buffer = zbuffer_alg->getFrameBuffer();
 
+    //PAINT
     start = clock();
     ConstIterator<color_t> It = frame_buffer->cbegin();
     for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
@@ -468,7 +470,7 @@ void Canvas::drawHeightsMap5()
     }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "paint time = " << seconds << " secs" << endl;
+    cout << "paint time = " << seconds << " secs" << endl;
 }
 
 //EdgeDraw + FillDraw
@@ -478,7 +480,7 @@ void Canvas::drawHeightsMap6()
     tri_pol_mas->updatePoints(*heights_map3);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
+    //cout << "updatePoints() time = " << seconds << " secs" << endl;
 
     start = clock();
     zbuffer_alg->execute(*tri_pol_mas);
@@ -538,11 +540,6 @@ void Canvas::drawHeightsMap6()
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "paint time = " << seconds << " secs" << endl;
-}
-
-void Canvas::drawHeightsMapWithoutInvisibleLines()
-{
-    // TODO
 }
 
 Point Canvas::getProection(Point &_point, Point cameraPosition, Point angles)
