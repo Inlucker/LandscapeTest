@@ -1,5 +1,11 @@
 #include "heightsmappoints.h"
 
+#include "iterator.hpp"
+#include "constiterator.hpp"
+#include "errors.h"
+#include "tripolmas.h"
+#include "triangularpolygon.h"
+
 HeightsMapPoints::HeightsMapPoints()
 {
     size = 0;
@@ -11,7 +17,7 @@ HeightsMapPoints::HeightsMapPoints(int new_size)
 {
     time_t t_time = time(NULL);
     if (new_size < 0)
-        throw NegativeMapPointsSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
+        throw HeightsMapPointsNegativeSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
     if (new_size == 0)
     {
@@ -64,6 +70,25 @@ ConstIterator<Point> HeightsMapPoints::cend() const noexcept
     return ConstIterator<Point>(data_ptr, elems_num, elems_num);
 }
 
+shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
+{
+    shared_ptr<TriPolMas> new_tri_pol_mas = make_shared<TriPolMas>((size-1)*2*(size-1));
+    //ConstIterator<Point> points_it = this->cbegin();
+    Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
+    for (int i = 0; i < (size-1); i++)
+    {
+        for (int j = 0; j < (size-1); j++)
+        {
+            *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j), (j+1)*10);
+            mas_it++;
+            *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1), (i+1)*10);
+            mas_it++;
+        }
+    }
+
+    return new_tri_pol_mas;
+}
+
 Point &HeightsMapPoints::getElem(int id)
 {
     time_t t_time = time(NULL);
@@ -90,6 +115,16 @@ Point &HeightsMapPoints::operator [](int id)
 const Point &HeightsMapPoints::operator [](int id) const
 {
     return getElem(id);
+}
+
+Point &HeightsMapPoints::getElem(int i, int j)
+{
+    return getElem(i*size+j);
+}
+
+const Point &HeightsMapPoints::getElem(int i, int j) const
+{
+    return getElem(i*size+j);
 }
 
 Point &HeightsMapPoints::operator()(int i, int j)
@@ -137,7 +172,7 @@ void HeightsMapPoints::alloc_data()
     }
 }
 
-void HeightsMapPoints::updateCenter()
+void HeightsMapPoints::updateCenter() noexcept
 {
     int i = 0;
     Point rez(0, 0, 0);
@@ -170,8 +205,8 @@ ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
             os << "; " << *It ;
         os << ']';
     }
-    cout << endl;
-    cout << "Center = " << points_map.map_points_center << endl;
+    os << endl;
+    os << "Center = " << points_map.map_points_center << endl;
 
     return os;
 }

@@ -6,17 +6,23 @@
 
 using namespace std;
 
-#include "iterator.hpp"
-#include "constiterator.hpp"
+template<typename Type>
+class Iterator;
+template<typename Type>
+class ConstIterator;
+//#include "iterator.hpp"
+//#include "constiterator.hpp"
 #include "point.h"
 
-typedef double height_t;
+class TriPolMas;
+
+//typedef double height_t;
 
 class HeightsMapPoints
 {
 public:
     HeightsMapPoints();
-    HeightsMapPoints(int new_size);
+    explicit HeightsMapPoints(int new_size);
 
     bool isEmpty() const noexcept;
     int getSize() const noexcept;
@@ -27,18 +33,22 @@ public:
     ConstIterator<Point> cbegin() const noexcept;
     ConstIterator<Point> cend() const noexcept;
 
+    shared_ptr<TriPolMas> createTriPolMas();
+
     Point& getElem(int id);
     const Point& getElem(int id) const;
     Point& operator [](int id);
     const Point& operator [](int id) const;
 
+    Point& getElem(int i, int j);
+    const Point& getElem(int i, int j) const;
     Point& operator()(int i, int j);
     const Point& operator()(const int &i, const int &j) const;
 
     void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center);
     void transform(const Point moveK, const Point scaleK, const Point rotateK);
 
-    void updateCenter();
+    void updateCenter() noexcept;
 
 private:
     void alloc_data();

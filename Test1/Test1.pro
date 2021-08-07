@@ -10,29 +10,43 @@ CONFIG += c++11
 
 SOURCES += \
     abstractiterator.cpp \
+    basevector.cpp \
     camera.cpp \
     canvas.cpp \
+    framebuffer.cpp \
     heightsmap.cpp \
     heightsmappoints.cpp \
     main.cpp \
     mainwindow.cpp \
-    point.cpp
+    point.cpp \
+    triangularpolygon.cpp \
+    tripolmas.cpp \
+    zbuffer.cpp \
+    zbufferalg.cpp
 
 HEADERS += \
     abstractiterator.h \
     baseiterator.h \
     baseiterator.hpp \
+    basevector.h \
     camera.h \
     canvas.h \
     constiterator.h \
     constiterator.hpp \
     errors.h \
+    framebuffer.h \
     heightsmap.h \
     heightsmappoints.h \
     iterator.h \
     iterator.hpp \
     mainwindow.h \
-    point.h
+    point.h \
+    triangularpolygon.h \
+    tripolmas.h \
+    vector.h \
+    vector.hpp \
+    zbuffer.h \
+    zbufferalg.h
 
 FORMS += \
     mainwindow.ui

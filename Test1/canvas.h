@@ -13,14 +13,17 @@
 
 using namespace std;
 
-#define MAX_X 129//65//33//5//33
-#define MAX_Y 129//65//33//5//33
-#define SCALE_XZ 7//15//120//15
-#define SCALE_Y 7//40//5//7
+#define MAX_X 33//129//65//33//5//33
+#define MAX_Y 33//129//65//33//5//33
+#define SCALE_XZ 30//7//15//120//15
+#define SCALE_Y 30//7//40//5//7
 
 //#include "C:\GitRepositys\LandscapeTest\HeightsMap\heightsmap.h"
 #include "heightsmap.h"
 #include "heightsmappoints.h" //?
+#include "zbufferalg.h"
+//#include "zbuffer.h"
+//#include "framebuffer.h"
 
 int sign(double val);
 
@@ -46,6 +49,10 @@ public:
     unique_ptr<HeightsMap> heights_map2;
     shared_ptr<HeightsMapPoints> heights_map3;
 
+    shared_ptr<TriPolMas> tri_pol_mas;
+    unique_ptr<ZBufferAlg> zbuffer_alg;
+    shared_ptr<FrameBuffer> frame_buffer;
+
 private:
     unique_ptr<QPainter> painter = nullptr;
     unique_ptr<QPixmap> my_pixmap = nullptr;
@@ -66,6 +73,7 @@ private:
     void drawHeightsMap();
     void drawHeightsMap2();
     void drawHeightsMap3();
+    void drawHeightsMap4();
     void drawHeightsMapWithoutInvisibleLines();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);

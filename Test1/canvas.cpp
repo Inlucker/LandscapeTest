@@ -40,10 +40,12 @@ void Canvas::generateNewLandscape()
 
     heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
+    zbuffer_alg = make_unique<ZBufferAlg>(1500, 1500);
+
     //drawHeightsMap();
     //drawHeightsMap2();
-
-    drawHeightsMap3();
+    //drawHeightsMap3();
+    drawHeightsMap4();
 
     update();
 }
@@ -106,7 +108,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         clean();
         //drawHeightsMap();
         //drawHeightsMap2();
-        drawHeightsMap3();
+        //drawHeightsMap3();
+        drawHeightsMap4();
     }
     else if (RMB_is_pressed)
     {
@@ -119,7 +122,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         clean();
         //drawHeightsMap();
         //drawHeightsMap2();
-        drawHeightsMap3();
+        //drawHeightsMap3();
+        drawHeightsMap4();
     }
 
     update();
@@ -354,6 +358,44 @@ void Canvas::drawHeightsMap3()
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
         }
+}
+
+void Canvas::drawHeightsMap4()
+{
+    painter->setPen(Qt::black);
+    //Check time HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    clock_t start = clock();
+    tri_pol_mas = heights_map3->createTriPolMas();
+    clock_t end = clock();
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
+
+    start = clock();
+    zbuffer_alg->execute(*tri_pol_mas);
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+
+    start = clock();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            if ((*frame_buffer)(i, j) == 1)
+            {
+                painter->drawPoint(i, j);
+            }
+            /*int c = (*frame_buffer)(i, j);
+            painter->setPen(QColor(255-c, 255-c, 255-c));
+            painter->drawPoint(i, j);*/
+        }
+    } 
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "paint time = " << seconds << " secs" << endl;
 }
 
 void Canvas::drawHeightsMapWithoutInvisibleLines()

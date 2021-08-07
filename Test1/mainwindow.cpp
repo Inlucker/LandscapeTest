@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     canvas = make_unique<Canvas>(new Canvas());
     ui->gridLayout->addWidget(&(*canvas));
+    //cout << "canvas width = " << canvas->width() << endl;
+    //cout << "canvas height = " << canvas->height() << endl;
 }
 
 MainWindow::~MainWindow()
