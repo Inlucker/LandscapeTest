@@ -28,6 +28,27 @@ double TriangularPolygon::getZ(double x, double y) const
     }
 }
 
+bool TriangularPolygon::isInEdge(double x, double y, Point edge_p1, Point edge_p2) const
+{
+    Vector<double> tmp = {x, y};
+    Vector<double> edge = {edge_p2.getX() - edge_p1.getX(), edge_p2.getY() - edge_p2.getY()};
+    if (x*edge[1]-edge[0]*y <= EPS && tmp * edge <= 0)
+        return true;
+    else
+        return false;
+}
+
+color_t TriangularPolygon::getColor(double x, double y) const
+{
+    if (isInEdge(x, y, p1, p2))
+        return 1;
+    else if (isInEdge(x, y, p2, p3))
+        return 1;
+    else if (isInEdge(x, y, p3, p1))
+        return 1;
+    return 0;
+}
+
 bool TriangularPolygon::isInRect(double x, double y) const
 {
     return (x >= min_x && x <= max_x && y >= min_y && y <= max_y);

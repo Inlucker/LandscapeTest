@@ -5,27 +5,31 @@
 #include "tripolmas.h"
 #include "triangularpolygon.h"
 
-ZbufferAlg::ZbufferAlg(int new_width, int new_height)
+#include <math.h>
+
+ZBufferAlg::ZBufferAlg(int new_width, int new_height)
 {
     zbuffer = make_shared<ZBuffer>(new_width, new_height);
     frame_buffer = make_shared<FrameBuffer>(new_width, new_height);
+    width = new_width;
+    height = new_height;
 }
 
-void ZbufferAlg::execute(TriPolMas mas)
+void ZBufferAlg::execute(TriPolMas &mas)
 {
     //HERE
     for (auto& elem : mas)
     {
-        for (int y = elem.getMinY(); y <= elem.getMaxY(); y++)
+        for (int y = max(elem.getMinY(), 0.); y <= min(elem.getMaxY(), height); y++)
         {
-            for (int x = elem.getMinX(); x <= elem.getMaxX(); x++)
+            for (int x = max(elem.getMinX(), 0.); x <= min(elem.getMaxX(), width); x++)
             {
                 if (elem.isInTriangle(x, y))
                 {
                     if ((*zbuffer)(x, y) < elem.getZ(x, y))
                     {
                         (*zbuffer)(x, y) = elem.getZ(x, y);
-                        //(*frame_buffer)(x, y) = elem.getColor(x, y); ToDo
+                        (*frame_buffer)(x, y) = elem.getColor(x, y); //ToDo
                     }
                 }
             }
@@ -34,7 +38,7 @@ void ZbufferAlg::execute(TriPolMas mas)
 
 }
 
-shared_ptr<FrameBuffer> ZbufferAlg::getFrameBuffer() const noexcept
+shared_ptr<FrameBuffer> ZBufferAlg::getFrameBuffer() const noexcept
 {
     return frame_buffer;
 }

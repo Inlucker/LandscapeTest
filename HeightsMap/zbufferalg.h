@@ -10,17 +10,20 @@ class ZBuffer;
 class FrameBuffer;
 class TriPolMas;
 
-class ZbufferAlg
+class ZBufferAlg
 {
 public:
-    ZbufferAlg() = delete;
-    ZbufferAlg(int new_width, int new_height);
-    ZbufferAlg(TriPolMas mas);
+    ZBufferAlg() = delete;
+    ZBufferAlg(int new_width, int new_height);
+
+    void execute(TriPolMas &mas);
 
     shared_ptr<FrameBuffer> getFrameBuffer() const noexcept;
 private:
     shared_ptr<ZBuffer> zbuffer;
     shared_ptr<FrameBuffer> frame_buffer;
+    double width;
+    double height;
 };
 
 #endif // ZBUFFERALG_H

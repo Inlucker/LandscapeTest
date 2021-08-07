@@ -21,7 +21,7 @@ public:
 
     bool isEmpty() const noexcept;
     int size() const noexcept;
-    bool getWidth() const noexcept;
+    int getWidth() const noexcept;
     int getHeight() const noexcept;
 
     Iterator<color_t> begin() noexcept;
@@ -49,5 +49,7 @@ private:
     int height;
     int elems_num;
 };
+
+ostream& operator <<(ostream& os, const FrameBuffer& map);
 
 #endif // FRAMEBUFFER_H

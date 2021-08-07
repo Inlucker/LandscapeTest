@@ -109,9 +109,9 @@ ostream& operator <<(ostream& os, const TriPolMas& mas)
     }
 
     ConstIterator<TriangularPolygon> It = mas.cbegin();
-    os << '[' << *It++;
+    os << "\n[" << *It++;
     for (; It != mas.cend(); It++)
         os << "; \n" << *It ;
-    os << ']' << endl;
+    os << "]" << endl;
     return os;
 }

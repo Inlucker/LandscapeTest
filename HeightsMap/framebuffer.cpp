@@ -46,7 +46,7 @@ int FrameBuffer::size() const noexcept
     return elems_num;
 }
 
-bool FrameBuffer::getWidth() const noexcept
+int FrameBuffer::getWidth() const noexcept
 {
     return width;
 }
@@ -138,4 +138,25 @@ void FrameBuffer::alloc_data()
 
         data_ptr = new_ptr;
     }
+}
+
+ostream& operator <<(ostream& os, const FrameBuffer& buf)
+{
+    if (buf.isEmpty())
+    {
+        os << "FrameBuffer is empty.";
+        return os;
+    }
+
+    ConstIterator<color_t> It = buf.cbegin();
+    for (int i = 0; i < buf.getHeight() && It != buf.cend(); i++)
+    {
+        os << '\n' << '[' << *It++;
+        for (int j = 1; j < buf.getWidth() && It != buf.cend(); It++, j++)
+            os << "; " << *It ;
+        os << ']';
+    }
+    os << endl;
+
+    return os;
 }

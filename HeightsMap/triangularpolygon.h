@@ -4,6 +4,8 @@
 #include "point.h"
 #include "vector.hpp"
 
+typedef int color_t;
+
 class TriangularPolygon
 {
 public:
@@ -12,6 +14,7 @@ public:
     ~TriangularPolygon() = default;
 
     double getZ(double x, double y) const;
+    color_t getColor(double x, double y) const;
 
     bool isInRect(double x, double y) const;
     bool isInTriangle(double x, double y) const;
@@ -25,6 +28,8 @@ private:
     void calcRect();
     void calcNormals();
     void calcSurface();
+
+    bool isInEdge(double x, double y, Point edge_p1, Point edge_p2) const;
 
     friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 

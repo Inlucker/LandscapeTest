@@ -8,6 +8,9 @@ using namespace std;
 #include "heightsmappoints.h"
 #include "triangularpolygon.h"
 #include "tripolmas.h"
+#include "zbufferalg.h"
+#include "zbuffer.h"
+#include "framebuffer.h"
 
 int main()
 {
@@ -133,9 +136,19 @@ int main()
         cout << endl;
 
         cout << "TRIPOLMAS TESTS:" << endl;
-        shared_ptr<TriPolMas> tpm1 = points3->createTriPolMas();
 
-        cout << (*tpm1) << endl;
+        shared_ptr<TriPolMas> tpm1 = points3->createTriPolMas();
+        cout << "points3->createTriPolMas(): " << (*tpm1) << endl;
+
+        shared_ptr<TriPolMas> tpm2 = points2->createTriPolMas();
+        cout << "points2->createTriPolMas(): " << (*tpm2) << endl;
+
+        cout << "ZBufferAlg TESTS:" << endl;
+
+        ZBufferAlg alg1(25, 25);
+        cout << (*alg1.getFrameBuffer());
+        alg1.execute(*tpm2);
+        cout << (*alg1.getFrameBuffer());
 
     }
     catch (BaseError& err)
