@@ -172,7 +172,7 @@ void HeightsMapPoints::alloc_data()
     }
 }
 
-void HeightsMapPoints::updateCenter()
+void HeightsMapPoints::updateCenter() noexcept
 {
     int i = 0;
     Point rez(0, 0, 0);

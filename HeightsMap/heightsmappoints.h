@@ -48,7 +48,7 @@ public:
     void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center);
     void transform(const Point moveK, const Point scaleK, const Point rotateK);
 
-    void updateCenter();
+    void updateCenter() noexcept;
 
 private:
     void alloc_data();
