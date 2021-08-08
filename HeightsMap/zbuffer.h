@@ -6,15 +6,10 @@
 
 using namespace std;
 
-//class FrameBuffer
-//#include "framebuffer.h"
-
 template<typename Type>
 class Iterator;
 template<typename Type>
 class ConstIterator;
-//#include "iterator.hpp"
-//#include "constiterator.hpp"
 
 class TriPolMas;
 
@@ -23,7 +18,6 @@ class ZBuffer
 public:
     ZBuffer();
     ZBuffer(int new_width, int new_height);
-    //explicit ZBuffer(TriPolMas mas);
 
     bool isEmpty() const noexcept;
     int size() const noexcept;
@@ -54,8 +48,6 @@ private:
     int width;
     int height;
     int elems_num;
-    //CadrBuffer
-    //shared_ptr<FrameBuffer> frame_buffer;
 };
 
 ostream& operator <<(ostream& os, const ZBuffer& buf);

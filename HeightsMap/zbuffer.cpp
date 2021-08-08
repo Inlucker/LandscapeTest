@@ -35,15 +35,9 @@ ZBuffer::ZBuffer(int new_width, int new_height)
         alloc_data();
 
         for (auto &elem:*this)
-            elem = 0;
+            elem = INT_MIN;
     }
 }
-
-/*ZBuffer::ZBuffer(TriPolMas mas)
-{
-    //HERE
-
-}*/
 
 bool ZBuffer::isEmpty() const noexcept
 {
@@ -115,21 +109,47 @@ const double &ZBuffer::operator [](int id) const
 
 double &ZBuffer::getElem(int i, int j)
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
 }
 
 const double &ZBuffer::getElem(int i, int j) const
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
     return getElem(i*width+j);
 }
 
 double &ZBuffer::operator()(int i, int j)
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+    {
+        cout << j << endl;
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
+    }
     return getElem(i*width+j);
 }
 
 const double &ZBuffer::operator()(const int &i, const int &j) const
 {
+    time_t t_time = time(NULL);
+    if (i < 0 || i >= height)
+        throw ZBufferIndexError("i", __FILE__, __LINE__, ctime(&t_time));
+    if (j < 0 || j >= width)
+    {
+        cout << j << endl;
+        throw ZBufferIndexError("j", __FILE__, __LINE__, ctime(&t_time));
+    }
     return getElem(i*width+j);
 }
 
