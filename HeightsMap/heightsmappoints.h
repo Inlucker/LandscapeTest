@@ -10,8 +10,6 @@ template<typename Type>
 class Iterator;
 template<typename Type>
 class ConstIterator;
-//#include "iterator.hpp"
-//#include "constiterator.hpp"
 #include "point.h"
 
 class TriPolMas;
