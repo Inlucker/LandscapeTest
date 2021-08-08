@@ -12,9 +12,9 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
     calcRect();
     calcNormals();
     calcSurface();
-    //calcColor();
+    calcColor();
     //int c = rand()%128+64;
-    color = QColor(rand()%128+64, rand()%128+64, rand()%128+64);
+    //color = QColor(rand()%128+64, rand()%128+64, rand()%128+64);
 }
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c) : p1(new_p1), p2(new_p2), p3(new_p3), color(c)
@@ -191,7 +191,7 @@ void TriangularPolygon::calcRect()
 
 void TriangularPolygon::calcNormals()
 {
-    // Пока что ?обязательно? по часовой, чтобы получить внутренние нормали
+    // Пока-что ?обязательно? по часовой, чтобы получить внутренние нормали
     Vector vec1 = {p2.getX() - p1.getX(), p2.getY() - p1.getY()};
     Vector vec2 = {p3.getX() - p2.getX(), p3.getY() - p2.getY()};
     Vector vec3 = {p1.getX() - p3.getX(), p1.getY() - p3.getY()};
