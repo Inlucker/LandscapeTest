@@ -443,14 +443,14 @@ void Canvas::drawHeightsMap5()
     tri_pol_mas->updatePoints(*heights_map3);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "updatePoints() time = " << seconds << " secs" << endl;
+    //cout << "updatePoints() time = " << seconds << " secs" << endl;
 
     //Z-BUFFER ALGORITHM
     start = clock();
     zbuffer_alg->execute(*tri_pol_mas);
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+    //cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
 
     frame_buffer = zbuffer_alg->getFrameBuffer();
 
@@ -469,7 +469,7 @@ void Canvas::drawHeightsMap5()
     }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "paint time = " << seconds << " secs" << endl;
+    //cout << "paint time = " << seconds << " secs" << endl;
 }
 
 //EdgeDraw + FillDraw

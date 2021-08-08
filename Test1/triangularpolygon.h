@@ -60,7 +60,7 @@ inline double TriangularPolygon::getZ(double x, double y) const
         return (-A*x-B*y-D)/C;
     else
     {
-        return 0;//ToDo
+        return INT_MIN;//ToDo?
     }
 }
 

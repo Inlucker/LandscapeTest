@@ -9,12 +9,12 @@ TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Poi
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) : p1(new_p1), p2(new_p2), p3(new_p3)
 {
-    //int c = rand()%128+64;
-    //color = QColor(c, c, c);
     calcRect();
     calcNormals();
     calcSurface();
-    calcColor();
+    //calcColor();
+    //int c = rand()%128+64;
+    color = QColor(rand()%128+64, rand()%128+64, rand()%128+64);
 }
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c) : p1(new_p1), p2(new_p2), p3(new_p3), color(c)
