@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
 /*
  * ToDo:
  * 1) Boost time
- * 2) Fix different brightness (on bottom sides)
+ * 2) Check and Understand Diamond-Square alg
+ * 3) Make interface to change params
+ *    And transform Points
  *
  * */
