@@ -14,6 +14,6 @@ int main(int argc, char *argv[])
  * ToDo:
  * 1) Boost time
  * 2) Fix different brightness
- *
+ * 3) QImage::setPixelColor: color is invalid?????
  *
  * */
