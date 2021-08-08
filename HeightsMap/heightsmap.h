@@ -10,14 +10,11 @@ template<typename Type>
 class Iterator;
 template<typename Type>
 class ConstIterator;
-//#include "iterator.hpp"
-//#include "constiterator.hpp"
-//#include "errors.h"
+
+#define RAND (dRand(-5,5))
 
 typedef double height_t;
 
-//class HeightsArray;
-//#include "heightsarray.h"
 class HeightsMapPoints;
 
 class HeightsMap
@@ -41,42 +38,27 @@ public:
     double getHeight(int i, int j);
 
     void diamondSquare();
+    void diamondSquare(float r, unsigned int l);
 
     shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
-    //ToDo operator[][] (maybe reorganisate the shole structure of caontainer and make it container of container)
     height_t& getElem(int id);
     const height_t& getElem(int id) const;
     height_t& operator [](int id);
     const height_t& operator [](int id) const;
 
-    //Done instead of operator[][]
     height_t& getElem(int i, int j);
     const height_t& getElem(int i, int j) const;
     height_t& operator()(int i, int j);
     const height_t& operator()(const int &i, const int &j) const;
 
-    /*shared_ptr<HeightsArray> getElem(int id);
-    const shared_ptr<HeightsArray> getElem(int id) const;
-    shared_ptr<HeightsArray> operator [](int id);
-    const shared_ptr<HeightsArray> operator [](int id) const;*/
-
-    //Done operator[][] (ToDo above)
-    //This is bad, because of creating shared_ptr every time we use operator[]
-    /*shared_ptr<height_t[]> getElem(int id);
-    const shared_ptr<height_t[]> getElem(int id) const;
-    shared_ptr<height_t[]> operator [](int id);
-    const shared_ptr<height_t[]> operator [](int id) const;*/
-
-    //void drawHeightsMap();
-
 private:
     void alloc_data();
 
     //variant3
-    void DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
-    double GetRnd() noexcept;
+    void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
+    double GetRnd() const noexcept;
 
 private:
     shared_ptr<height_t[]> data_ptr;

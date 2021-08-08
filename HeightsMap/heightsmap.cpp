@@ -6,7 +6,6 @@
 #include "iterator.hpp"
 #include "constiterator.hpp"
 #include "errors.h"
-//#include "heightsarray.h"
 #include "heightsmappoints.h"
 
 HeightsMap::HeightsMap()
@@ -185,10 +184,19 @@ void HeightsMap::diamondSquare()
     (*this)(size - 1, 0) = 0;
     (*this)(size - 1, size - 1) = 0;
 
-    //roughness = dRand(0, 1);
-    //iteration = 1;
-    //ToDo
-    DiamondSquare3(0, 0, size-1, size-1, (size-1)/2, size-1);
+    diamondSquare(0, 0, size-1, size-1, (size-1)/2, size-1);
+}
+
+void HeightsMap::diamondSquare(float r, unsigned int l)
+{
+    resetHeightsmap();
+
+    (*this)(0, 0) = 0;
+    (*this)(0, size - 1) = 0;
+    (*this)(size - 1, 0) = 0;
+    (*this)(size - 1, size - 1) = 0;
+
+    diamondSquare(0, 0, size-1, size-1, r, l);
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
@@ -209,17 +217,6 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 {
     return createPoints(1, 1, 1);
-    /*shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
-    ConstIterator<height_t> map_it = this->cbegin();
-    int i = 0;
-    for (auto& points_it : *new_points_map)
-    {
-        points_it = Point(i / size, *map_it, i % size); // x <-> z
-        map_it++;
-        i++;
-    }
-    new_points_map->updateCenter();
-    return new_points_map;*/
 }
 
 height_t& HeightsMap::getElem(int id)
@@ -270,84 +267,12 @@ const height_t &HeightsMap::operator()(const int &i, const int &j) const
     return getElem(i*size+j);
 }
 
-/*shared_ptr<HeightsArray> HeightsMap::getElem(int id)
-{
-    time_t t_time = time(NULL);
-    if (id < 0 || id >= elems_num)
-        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
-
-    return make_shared<HeightsArray>(*this, id);
-}
-
-shared_ptr<HeightsArray> HeightsMap::operator [](int id)
-{
-    return getElem(id);
-}*/
-
-/*shared_ptr<height_t[]> HeightsMap::getElem(int id)
-{
-    time_t t_time = time(NULL);
-    if (id < 0 || id >= size)
-        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
-
-    shared_ptr<height_t[]> height_arr(new height_t[elems_num]);
-
-    int j = 0;
-    int i = 0;
-    for (auto& elem : *this)
-    {
-        if (i/size == id)
-        {
-            height_arr[j] = elem;
-            j++;
-        }
-        i++;
-    }
-
-    return height_arr;
-}
-
-const shared_ptr<height_t[]> HeightsMap::getElem(int id) const
-{
-    time_t t_time = time(NULL);
-    if (id < 0 || id >= size)
-        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
-
-    shared_ptr<height_t[]> height_arr(new height_t[elems_num]);
-
-    int j = 0;
-    int i = 0;
-    for (ConstIterator<height_t> It = this->cbegin(); It != this->cend(); ++It)
-    {
-        if (i/size == id)
-        {
-            height_arr[j] = *It;
-            j++;
-        }
-        i++;
-    }
-
-    return height_arr;
-    //return getElem(id);
-}
-
-shared_ptr<height_t[]> HeightsMap::operator [](int id)
-{
-    return getElem(id);
-}
-
-const shared_ptr<height_t[]> HeightsMap::operator [](int id) const
-{
-    return getElem(id);
-}*/
-
 void HeightsMap::alloc_data()
 {
     data_ptr.reset();
     if (elems_num != 0)
     {
         shared_ptr<height_t[]> new_ptr(new height_t[elems_num]);
-        //shared_ptr<HeightsArray[]> new_ptr(new HeightsArray[elems_num]);
 
         time_t t_time = time(NULL);
         if (!new_ptr)
@@ -358,7 +283,7 @@ void HeightsMap::alloc_data()
 }
 
 //ToFigureOut and Understand how it works
-void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
+void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
 {
     if (level < 1) return;
 
@@ -387,10 +312,10 @@ void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned 
             float g = (*this)(i - level / 2, j - level) = (a + b + e + (*this)(i - level / 2, j - 3 * level / 2)) / 4 + (GetRnd() * range);
         }
 
-    DiamondSquare3(x1, y1, x2, y2, range / 2, level / 2);
+    diamondSquare(x1, y1, x2, y2, range / 2, level / 2);
 }
 
-double HeightsMap::GetRnd() noexcept
+double HeightsMap::GetRnd() const noexcept
 {
     return (double)rand() / RAND_MAX;
 }
@@ -412,15 +337,6 @@ ostream& operator <<(ostream& os, const HeightsMap& map)
         os << ']';
     }
     cout << endl;
-
-    /*ConstIterator<HeightsArray> map_it = map.cbegin();
-    cout << endl;
-    for (; map_it != map.cend(); map_it++)
-    {
-        //ConstIterator<height_t> arr_it = map_it->cbegin();
-        cout << *map_it;
-    }
-    cout << endl;*/
 
     return os;
 }
