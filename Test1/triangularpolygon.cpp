@@ -247,6 +247,8 @@ void TriangularPolygon::calcSurface()
     //cout << "A  = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
 }
 
+//#define BRIGHTNESS 0.5 // (0.0; 1.0)
+
 void TriangularPolygon::calcColor()
 {
     /*Vector<double> normal = {A, B, C};
@@ -277,7 +279,9 @@ void TriangularPolygon::calcColor()
         cout << cosinus << endl;
     }*/
     //color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.25+float(cosinus/4)); //1 = lightness, 0 = drakness
-    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.25+float(cosinus/2.5)); //1? = brightness, 0? = drakness
+    //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.25+float(cosinus/2.5)); //1? = brightness, 0? = drakness
+    //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), (1-BRIGHTNESS)/2+float(cosinus*BRIGHTNESS));
+    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)
