@@ -11,10 +11,10 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
 {
     //int c = rand()%128+64;
     //color = QColor(c, c, c);
-    calcColor();
     calcRect();
     calcNormals();
     calcSurface();
+    calcColor();
 }
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c) : p1(new_p1), p2(new_p2), p3(new_p3), color(c)
@@ -231,14 +231,18 @@ void TriangularPolygon::calcSurface()
     double x1 = p1.getX(), y1 = p1.getY(), z1 = p1.getZ();
     double x2 = p2.getX(), y2 = p2.getY(), z2 = p2.getZ();
     double x3 = p3.getX(), y3 = p3.getY(), z3 = p3.getZ();
-    A = y1 *(z2 - z3) + y2 *(z3 - z1) + y3* (z1 - z2) ;
+    A = y1 *(z2 - z3) + y2 *(z3 - z1) + y3 *(z1 - z2);
     B = z1 *(x2 - x3) + z2 *(x3 - x1) + z3 *(x1 - x2);
-    C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2) ;
+    C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2);
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
 
-    /*if (A <= EPS && B <= EPS && C <= EPS)
+    /*if (fabs(A) <= EPS && fabs(B) <= EPS && fabs(C) <= EPS && (x1 != 0 || x2 != 0 || x3 != 0 || y1 != 0 || y2 != 0 || y3 != 0 || z1 != 0 || z2 != 0 || z3 != 0))
     {
-        //cout << *this << endl;
+        cout << *this << endl;
+    }
+    if (x1 == 0 && x2 == 15 && x3 == 0 && z1 == 0 && z2 == 15 && z3 == 15)
+    {
+        cout << *this << endl;
     }*/
     //cout << "A  = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
 }
@@ -254,6 +258,10 @@ void TriangularPolygon::calcColor()
     double cosinus = fabs((normal*beam)/(normal.len()*beam.len()));*/
 
     double cosinus = fabs(B/sqrt(A*A+B*B+C*C)); //max(B/sqrt(A*A+B*B+C*C), 0.);
+    /*if (cosinus > 1)
+    {
+        cout << *this << endl;
+    }*/
 
     //if (cosinus - cosinus2 > EPS)
     //    cout << "Not equal cosinuses" << endl;
@@ -274,6 +282,9 @@ void TriangularPolygon::calcColor()
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)
 {
-    os << pol.p1 << pol.p2 << pol.p3;
+    os << pol.p1 << pol.p2 << pol.p3 << endl;
+    os << "A  = " << pol.A << "; B = " << pol.B << "; C = " << pol.C << "; D = " << pol.D << endl;
+    //cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
+    //cout << "min_x = " << min_x << "; max_x = " << max_x << "; min_y = " << min_y << "; max_y = " << max_y << endl;
     return os;
 }

@@ -406,7 +406,8 @@ void Canvas::drawHeightsMap4()
             if ((*frame_buffer)(i, j) != cur)
             {
                 //painter->drawPoint(i, j);
-                plotX4(i, j);
+                //plotX4(i, j);
+                plotX4Img(i, j, Qt::black);
                 cur = (*frame_buffer)(i, j);
             }
         }
@@ -421,7 +422,8 @@ void Canvas::drawHeightsMap4()
             if ((*frame_buffer)(j, i) != cur)
             {
                 //painter->drawPoint(j, i);
-                plotX4(j, i);
+                //plotX4(j, i);
+                plotX4Img(j, i, Qt::black);
                 cur = (*frame_buffer)(j, i);
             }
         }
@@ -474,6 +476,7 @@ void Canvas::drawHeightsMap5()
 void Canvas::drawHeightsMap6()
 {
     clock_t start = clock();
+    //tri_pol_mas = heights_map3->createTriPolMas();
     tri_pol_mas->updatePoints(*heights_map3);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
@@ -532,7 +535,7 @@ void Canvas::drawHeightsMap6()
             {
                 //painter->drawPoint(j, i);
                 //plotX4(j, i);
-                plotX4Img(i, j, Qt::black);
+                plotX4Img(j, i, Qt::black);
                 cur = (*frame_buffer)(j, i);
             }
         }
