@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QImage>
 
 #include <memory>
 #include <iostream>
@@ -60,6 +61,7 @@ public:
 private:
     unique_ptr<QPainter> painter = nullptr;
     unique_ptr<QPixmap> my_pixmap = nullptr;
+    unique_ptr<QImage> my_img = nullptr;
 
     bool LMB_is_pressed = false;
     bool RMB_is_pressed = false;
@@ -85,6 +87,7 @@ private:
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);
     void plotX4(int x, int y);
+    void plotX4Img(int x, int y, QColor c);
     void DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end);
 
 };

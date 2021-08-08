@@ -15,13 +15,14 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
 
     painter.reset();
     my_pixmap.reset();
+    my_img.reset();
     clean();
 }
 
 Canvas::~Canvas()
 {
-    if (painter->isActive())
-        painter->end();
+    /*if (painter->isActive())
+        painter->end();*/
 }
 
 void Canvas::generateNewLandscape()
@@ -50,12 +51,15 @@ void Canvas::generateNewLandscape()
 
 void Canvas::clean()
 {
-    if (painter)
+    /*if (painter)
         painter->end();
-    my_pixmap = make_unique<QPixmap>(2000, 2000);
+    my_pixmap = make_unique<QPixmap>(1200, 1200);
     my_pixmap->fill(QColor(0, 0, 0, 0));
     painter = make_unique<QPainter>(&(*my_pixmap));
-    painter->setPen(Qt::black);
+    painter->setPen(Qt::black);*/
+
+    my_img = make_unique<QImage>(1200, 1200, QImage::Format_RGB32);
+    my_img->fill(Qt::white);
 
     update();
 }
@@ -142,7 +146,8 @@ void Canvas::paintEvent(QPaintEvent *event)
 {
     QPainter pixmap_painter(this);
 
-    pixmap_painter.drawPixmap(0, 0, *my_pixmap);
+    //pixmap_painter.drawPixmap(0, 0, *my_pixmap);
+    pixmap_painter.drawImage(0, 0, *my_img);
 }
 
 void Canvas::reset_heights_map()
@@ -269,16 +274,16 @@ void Canvas::drawHeightsMap()
 
 void Canvas::drawHeightsMap1()
 {
-    painter->setPen(Qt::red);
+    //painter->setPen(Qt::red);
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
             Point tmp_point(i * SCALE_XZ, heights_map[i][j] * SCALE_Y, j * SCALE_XZ);
             tmp_point = getProection(tmp_point, camera->getPosition(), camera->getAngles());
 
-            painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
+            //painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
         }
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     for (int i = 0; i < MAX_X; i++)
         for (int j = 1; j < MAX_Y; j++)
         {
@@ -305,7 +310,7 @@ void Canvas::drawHeightsMap1()
 
 void Canvas::drawHeightsMap2()
 {
-    painter->setPen(Qt::red);
+    //painter->setPen(Qt::red);
     for (int i = 0; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
@@ -315,7 +320,7 @@ void Canvas::drawHeightsMap2()
 
             //painter->drawEllipse(QPointF(tmp_point.getX(), tmp_point.getY()), 5, 5);
         }
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     for (int i = 0; i < MAX_X; i++)
         for (int j = 1; j < MAX_Y; j++)
         {
@@ -346,7 +351,7 @@ void Canvas::drawHeightsMap2()
 
 void Canvas::drawHeightsMap3()
 {
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     for (int i = 0; i < MAX_X; i++)
         for (int j = 1; j < MAX_Y; j++)
         {
@@ -374,7 +379,7 @@ void Canvas::drawHeightsMap3()
 //EdgeDraw
 void Canvas::drawHeightsMap4()
 {
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     //Check time HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
@@ -429,7 +434,7 @@ void Canvas::drawHeightsMap4()
 //FillDraw
 void Canvas::drawHeightsMap5()
 {
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
@@ -454,18 +459,10 @@ void Canvas::drawHeightsMap5()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            /*if ((*frame_buffer)(i, j) == 1)
-            {
-                painter->drawPoint(i, j);
-            }*/
-            //int c = (*frame_buffer)(i, j);
-            QColor c = (*frame_buffer)(i, j);
-            //painter->setPen(QColor(255-c, 255-c, 255-c));
+            /*QColor c = (*frame_buffer)(i, j);
             painter->setPen(c);
-            plotX4(i, j);
-            /*int c = (*frame_buffer)(i, j);
-            painter->setPen(QColor(255 - c%255, 255 - (c*4)%255, 255 - (c*5)%255));
             plotX4(i, j);*/
+            plotX4Img(i, j, (*frame_buffer)(i, j));
         }
     }
     end = clock();
@@ -496,16 +493,17 @@ void Canvas::drawHeightsMap6()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            QColor c = (*frame_buffer)(i, j);
+            /*QColor c = (*frame_buffer)(i, j);
             painter->setPen(c);
-            plotX4(i, j);
+            plotX4(i, j);*/
+            plotX4Img(i, j, (*frame_buffer)(i, j));
         }
     }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "paint time = " << seconds << " secs" << endl;
 
-    painter->setPen(Qt::black);
+    //painter->setPen(Qt::black);
 
     start = clock();
     QColor cur = Qt::white;
@@ -517,7 +515,8 @@ void Canvas::drawHeightsMap6()
             if ((*frame_buffer)(i, j) != cur)
             {
                 //painter->drawPoint(i, j);
-                plotX4(i, j);
+                //plotX4(i, j);
+                plotX4Img(i, j, Qt::black);
                 cur = (*frame_buffer)(i, j);
             }
         }
@@ -532,7 +531,8 @@ void Canvas::drawHeightsMap6()
             if ((*frame_buffer)(j, i) != cur)
             {
                 //painter->drawPoint(j, i);
-                plotX4(j, i);
+                //plotX4(j, i);
+                plotX4Img(i, j, Qt::black);
                 cur = (*frame_buffer)(j, i);
             }
         }
@@ -555,7 +555,8 @@ Point Canvas::getProection(Point &_point, Point cameraPosition, Point angles)
 void Canvas::plot(int x, int y)
 {
     //p->setPen(semiPen);
-    painter->drawPoint(x, y);
+    //painter->drawPoint(x, y);
+    //my_img->setPixelColor(x, y, Qt::black);
 }
 
 void Canvas::plotX4(int x, int y)
@@ -565,11 +566,16 @@ void Canvas::plotX4(int x, int y)
     {
         for (int j = 0; j <= MULT; j++)
         {
-            //painter->drawPoint((MULT*x)+i, MULT*y);
-            //painter->drawPoint(MULT*x, (MULT*y)+j);
-            painter->drawPoint((MULT*x)+i, (MULT*y)+j);
+            //painter->drawPoint((MULT*x)+i, (MULT*y)+j);
         }
     }
+}
+
+void Canvas::plotX4Img(int x, int y, QColor c)
+{
+    for (int i = 0; i <= MULT; i++)
+        for (int j = 0; j <= MULT; j++)
+            my_img->setPixelColor((MULT*x)+i, (MULT*y)+j, c);
 }
 
 int sign(double val)
@@ -607,7 +613,8 @@ void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_
     //QPainter painter(&my_pixmap);
     //painter.setPen(pen);
 
-    painter->drawPoint(X, Y);
+    //painter->drawPoint(X, Y);
+    my_img->setPixelColor(X, Y, Qt::black);
     while (X != X_end || Y != Y_end)
     {
         if (er >= 0)
@@ -629,7 +636,8 @@ void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_
             //st += 1
             er += tg; // отличие от целого
         }
-        painter->drawPoint(X, Y);
+        //painter->drawPoint(X, Y);
+        my_img->setPixelColor(X, Y, Qt::black);
     }
 }
 
