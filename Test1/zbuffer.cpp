@@ -39,12 +39,6 @@ ZBuffer::ZBuffer(int new_width, int new_height)
     }
 }
 
-/*ZBuffer::ZBuffer(TriPolMas mas)
-{
-    //HERE
-
-}*/
-
 bool ZBuffer::isEmpty() const noexcept
 {
     return !elems_num;

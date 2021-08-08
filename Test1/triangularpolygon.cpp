@@ -190,8 +190,8 @@ void TriangularPolygon::calcRect()
 }
 
 void TriangularPolygon::calcNormals()
-{
-    // Пока-что ?обязательно? по часовой, чтобы получить внутренние нормали
+    {
+        // Обязательно? по часовой, чтобы получить внутренние нормали
     Vector vec1 = {p2.getX() - p1.getX(), p2.getY() - p1.getY()};
     Vector vec2 = {p3.getX() - p2.getX(), p3.getY() - p2.getY()};
     Vector vec3 = {p1.getX() - p3.getX(), p1.getY() - p3.getY()};
@@ -236,14 +236,6 @@ void TriangularPolygon::calcSurface()
     C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2);
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
 
-    /*if (fabs(A) <= EPS && fabs(B) <= EPS && fabs(C) <= EPS && (x1 != 0 || x2 != 0 || x3 != 0 || y1 != 0 || y2 != 0 || y3 != 0 || z1 != 0 || z2 != 0 || z3 != 0))
-    {
-        cout << *this << endl;
-    }
-    if (x1 == 0 && x2 == 15 && x3 == 0 && z1 == 0 && z2 == 15 && z3 == 15)
-    {
-        cout << *this << endl;
-    }*/
     //cout << "A  = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
 }
 

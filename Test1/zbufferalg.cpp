@@ -22,9 +22,9 @@ void ZBufferAlg::execute(TriPolMas &mas)
     frame_buffer = make_shared<FrameBuffer>(width, height);
     for (auto& elem : mas)
     {
-        for (int i = max(elem.getMinX(), 0.); i < min(elem.getMaxX(), double(height-1)); i++)
+        for (int i = max(elem.getMinX(), 0.); i < min(elem.getMaxX(), double(height)); i++)
         {
-            for (int j = max(elem.getMinY(), 0.); j < min(elem.getMaxY(), double(width-1)); j++)
+            for (int j = max(elem.getMinY(), 0.); j < min(elem.getMaxY(), double(width)); j++)
             {
                     if (elem.isInTriangle(i, j))
                     {

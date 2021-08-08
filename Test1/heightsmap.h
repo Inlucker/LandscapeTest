@@ -6,14 +6,13 @@
 
 using namespace std;
 
+template<typename Type>
+class Iterator;
+template<typename Type>
+class ConstIterator;
+
 #include "defines.h"
 
-#include "iterator.hpp"
-#include "constiterator.hpp"
-//#include "errors.h"
-
-//#define RAND dRand(0, 9)
-//#define RAND (rand() % 11) - 5
 #define RAND (dRand(-5,5))
 
 typedef double height_t;
@@ -24,7 +23,7 @@ class HeightsMap
 {
 public:
     HeightsMap();
-    HeightsMap(int new_size);
+    explicit HeightsMap(int new_size);
 
     bool isEmpty() const noexcept;
     int getSize() const noexcept;
@@ -35,9 +34,9 @@ public:
     ConstIterator<height_t> cbegin() const noexcept;
     ConstIterator<height_t> cend() const noexcept;
 
-    void resetHeightsmap();
-    void randomizeHeightsMap();
-    void smoothHeightsMap();
+    void resetHeightsmap() noexcept;
+    void randomizeHeightsMap() noexcept;
+    void smoothHeightsMap() noexcept;
     double getHeight(int i, int j);
 
     void diamondSquare();
@@ -71,7 +70,7 @@ private:
 
     //variant3
     void DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
-    double GetRnd();
+    double GetRnd() const noexcept;
 
 private:
     shared_ptr<height_t[]> data_ptr;

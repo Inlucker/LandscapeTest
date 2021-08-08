@@ -1,5 +1,8 @@
 #include "canvas.h"
 
+#include "constiterator.h"
+#include "iterator.h"
+
 #include "random"
 
 Canvas::Canvas(QWidget *parent) : QWidget(parent)

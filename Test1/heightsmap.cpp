@@ -3,8 +3,9 @@
 #include <time.h>
 #include <random>
 
+#include "iterator.hpp"
+#include "constiterator.hpp"
 #include "errors.h"
-//#include "heightsarray.h"
 #include "heightsmappoints.h"
 
 HeightsMap::HeightsMap()
@@ -73,20 +74,20 @@ ConstIterator<height_t> HeightsMap::cend() const noexcept
     return ConstIterator<height_t>(data_ptr, elems_num, elems_num);
 }
 
-void HeightsMap::resetHeightsmap()
+void HeightsMap::resetHeightsmap() noexcept
 {
     for (auto &elem:*this)
         elem = 0;
 }
 
-void HeightsMap::randomizeHeightsMap()
+void HeightsMap::randomizeHeightsMap() noexcept
 {
     srand(time(0));
     for (auto &elem:*this)
         elem = (rand() % 16);
 }
 
-void HeightsMap::smoothHeightsMap()
+void HeightsMap::smoothHeightsMap() noexcept
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
@@ -173,7 +174,7 @@ double HeightsMap::getHeight(int i, int j)
         return -1;
 }
 
-void HeightsMap::diamondSquare()//variant3
+void HeightsMap::diamondSquare()
 {
     resetHeightsmap();
 
@@ -182,9 +183,6 @@ void HeightsMap::diamondSquare()//variant3
     (*this)(size - 1, 0) = 0;
     (*this)(size - 1, size - 1) = 0;
 
-    //roughness = dRand(0, 1);
-    //iteration = 1;
-    //ToDo
     DiamondSquare3(0, 0, size-1, size-1, RANGE, LEVEL);
 }
 
@@ -452,7 +450,7 @@ void HeightsMap::DiamondSquare3(unsigned x1, unsigned y1, unsigned x2, unsigned 
     DiamondSquare3(x1, y1, x2, y2, range / 2, level / 2);
 }
 
-double HeightsMap::GetRnd()
+double HeightsMap::GetRnd() const noexcept
 {
     return (double)rand() / RAND_MAX;
 }

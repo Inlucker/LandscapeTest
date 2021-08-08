@@ -3,6 +3,7 @@
 
 #include "point.h"
 #include "vector.hpp"
+
 #include <QColor>
 
 typedef QColor color_t;
