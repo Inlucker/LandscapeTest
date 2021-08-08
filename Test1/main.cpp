@@ -14,6 +14,5 @@ int main(int argc, char *argv[])
  * ToDo:
  * 1) Boost time
  * 2) Fix different brightness (on bottom sides)
- * 3) Fix paint bug right after generation - DONE
  *
  * */
