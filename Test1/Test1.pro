@@ -33,6 +33,7 @@ HEADERS += \
     canvas.h \
     constiterator.h \
     constiterator.hpp \
+    defines.h \
     errors.h \
     framebuffer.h \
     heightsmap.h \

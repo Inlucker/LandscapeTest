@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#include "defines.h"
+
 #include "iterator.hpp"
 #include "constiterator.hpp"
 //#include "errors.h"

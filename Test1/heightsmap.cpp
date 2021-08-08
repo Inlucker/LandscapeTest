@@ -185,7 +185,7 @@ void HeightsMap::diamondSquare()//variant3
     //roughness = dRand(0, 1);
     //iteration = 1;
     //ToDo
-    DiamondSquare3(0, 0, size-1, size-1, (size-1), size-1);
+    DiamondSquare3(0, 0, size-1, size-1, RANGE, LEVEL);
 }
 
 void HeightsMap::diamondSquare1()
