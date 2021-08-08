@@ -9,9 +9,14 @@ TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Poi
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) : p1(new_p1), p2(new_p2), p3(new_p3)
 {
-    /*points[0] = new_p1;
-    points[1] = new_p2;
-    points[2] = new_p3;*/
+    calcRect();
+    calcNormals();
+    calcSurface();
+    calcColor();
+}
+
+TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c) : p1(new_p1), p2(new_p2), p3(new_p3), color(c)
+{
     calcRect();
     calcNormals();
     calcSurface();
@@ -24,78 +29,59 @@ double TriangularPolygon::getZ(double x, double y) const
         return (-A*x-B*y-D)/C;
     else
     {
-        return 0;//ToDo
+        return INT_MIN; //ToDo? Parallel to Oz
     }
 }
 
-bool TriangularPolygon::isInEdge(double x, double y, Point edge_p1, Point edge_p2) const
+color_t TriangularPolygon::getColor() const noexcept
 {
-    Vector<double> tmp = {x, y};
-    Vector<double> edge = {edge_p2.getX() - edge_p1.getX(), edge_p2.getY() - edge_p2.getY()};
-    if (x*edge[1]-edge[0]*y <= EPS && tmp * edge <= 0)
-        return true;
-    else
-        return false;
+    return color;
 }
 
-color_t TriangularPolygon::getColor(double x, double y) const
-{
-    if (isInEdge(x, y, p1, p2))
-        return 1;
-    else if (isInEdge(x, y, p2, p3))
-        return 1;
-    else if (isInEdge(x, y, p3, p1))
-        return 1;
-    return 0;
-}
-
-bool TriangularPolygon::isInRect(double x, double y) const
+bool TriangularPolygon::isInRect(double x, double y) const noexcept
 {
     return (x >= min_x && x <= max_x && y >= min_y && y <= max_y);
 }
 
 bool TriangularPolygon::isInTriangle(double x, double y) const
 {
-    Vector tmp1 = {x - p1.getX(), y - p1.getY()};
-    Vector tmp2 = {x - p2.getX(), y - p2.getY()};
-    Vector tmp3 = {x - p3.getX(), y - p3.getY()};
-
-    /*Vector vec1 = {p2.getX() - p1.getX(), p2.getY() - p1.getY()};
-    Vector vec2 = {p3.getX() - p2.getX(), p3.getY() - p2.getY()};
-    Vector vec3 = {p1.getX() - p3.getX(), p1.getY() - p3.getY()};*/
-
-    if (tmp1 * norm_vec1 < 0)
-        return false;
-    else if (tmp2 * norm_vec2 < 0)
-        return false;
-    else if (tmp3 * norm_vec3 < 0)
-        return false;
-
-    if (tmp1 * norm_vec1 < 0 || tmp2 * norm_vec2 < 0 || tmp3 * norm_vec3 < 0)
+    if ((x - p1.getX())*norm_vec1[0] + (y - p1.getY())*norm_vec1[1] < 0 ||
+        (x - p2.getX())*norm_vec2[0] + (y - p2.getY())*norm_vec2[1] < 0 ||
+        (x - p3.getX())*norm_vec3[0] + (y - p3.getY())*norm_vec3[1] < 0)
         return false;
     else
         return true;;
 
 }
 
-double TriangularPolygon::getMinX() const
+double TriangularPolygon::getMinX() const noexcept
 {
     return min_x;
 }
 
-double TriangularPolygon::getMaxX() const
+double TriangularPolygon::getMaxX() const noexcept
 {
     return max_x;
 }
 
-double TriangularPolygon::getMinY() const
+double TriangularPolygon::getMinY() const noexcept
 {
     return min_y;
 }
 
-double TriangularPolygon::getMaxY() const
+double TriangularPolygon::getMaxY() const noexcept
 {
     return max_y;
+}
+
+void TriangularPolygon::setPoints(Point new_p1, Point new_p2, Point new_p3)
+{
+    p1 = new_p1;
+    p2 = new_p2;
+    p3 = new_p3;
+    calcRect();
+    calcNormals();
+    calcSurface();
 }
 
 void TriangularPolygon::calcRect()
@@ -122,29 +108,11 @@ void TriangularPolygon::calcRect()
         min_y = p3.getY();
     if (p3.getY() > max_y)
         max_y = p3.getY();
-
-    //cout << "min_x = " << min_x << "; max_x = " << max_x << "; min_y = " << min_y << "; max_y = " << max_y << endl;
-
-    /*min_x = points[0].getX();
-    max_x = points[0].getX();
-    min_y = points[0].getY();
-    max_y = points[0].getY();
-    for (int i = 1; i < 3; i++)
-    {
-        if (points[i].getX() < min_x)
-            min_x = points[i].getX();
-        if (points[i].getX() > max_x)
-            max_x = points[i].getX();
-        if (points[i].getY() < min_y)
-            min_y = points[i].getY();
-        if (points[i].getY() > max_y)
-            max_y = points[i].getY();
-    }*/
 }
 
 void TriangularPolygon::calcNormals()
 {
-    // Пока что ?обязательно? по часовой, чтобы получить внутренние нормали
+    // Обязательно? по часовой, чтобы получить внутренние нормали
     Vector vec1 = {p2.getX() - p1.getX(), p2.getY() - p1.getY()};
     Vector vec2 = {p3.getX() - p2.getX(), p3.getY() - p2.getY()};
     Vector vec3 = {p1.getX() - p3.getX(), p1.getY() - p3.getY()};
@@ -174,8 +142,6 @@ void TriangularPolygon::calcNormals()
     //Зависит от того, идут ли точки по часовой, или против.
     if (norm_vec3 * vec1 < 0)
         norm_vec3 = norm_vec3*(-1.);
-
-    //cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
 }
 
 void TriangularPolygon::calcSurface()
@@ -188,12 +154,20 @@ void TriangularPolygon::calcSurface()
     B = z1 *(x2 - x3) + z2 *(x3 - x1) + z3 *(x1 - x2);
     C = x1 *(y2 - y3) + x2 *(y3 - y1) + x3 *(y1 - y2) ;
     D = -(x1 * (y2 * z3 - y3 * z2) + x2 * (y3 * z1 - y1 * z3) + x3 * (y1 * z2 - y2 * z1));
+}
 
-    //cout << "A = " << A << "; B = " << B << "; C = " << C << "; D = " << D << endl;
+void TriangularPolygon::calcColor()
+{
+    double cosinus = fabs(B/sqrt(A*A+B*B+C*C));
+    color = Qt::green;
+    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)
 {
-    os << pol.p1 << pol.p2 << pol.p3;
+    os << pol.p1 << pol.p2 << pol.p3 << endl;
+    os << "A  = " << pol.A << "; B = " << pol.B << "; C = " << pol.C << "; D = " << pol.D << endl;
+    //cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
+    //cout << "min_x = " << min_x << "; max_x = " << max_x << "; min_y = " << min_y << "; max_y = " << max_y << endl;
     return os;
 }

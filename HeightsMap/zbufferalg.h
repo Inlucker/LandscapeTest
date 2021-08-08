@@ -6,8 +6,8 @@
 
 using namespace std;
 
-class ZBuffer;
-class FrameBuffer;
+#include "zbuffer.h"
+#include "framebuffer.h"
 class TriPolMas;
 
 class ZBufferAlg
@@ -22,8 +22,8 @@ public:
 private:
     shared_ptr<ZBuffer> zbuffer;
     shared_ptr<FrameBuffer> frame_buffer;
-    double width;
-    double height;
+    int width;
+    int height;
 };
 
 #endif // ZBUFFERALG_H

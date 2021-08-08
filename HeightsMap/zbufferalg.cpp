@@ -17,21 +17,22 @@ ZBufferAlg::ZBufferAlg(int new_width, int new_height)
 
 void ZBufferAlg::execute(TriPolMas &mas)
 {
-    //HERE
+    zbuffer = make_shared<ZBuffer>(width, height); //reset
+    frame_buffer = make_shared<FrameBuffer>(width, height); //reset
     for (auto& elem : mas)
     {
-        for (int y = max(elem.getMinY(), 0.); y <= min(elem.getMaxY(), height); y++)
+        for (int i = max(elem.getMinX(), 0.); i < min(elem.getMaxX(), double(height)); i++)
         {
-            for (int x = max(elem.getMinX(), 0.); x <= min(elem.getMaxX(), width); x++)
+            for (int j = max(elem.getMinY(), 0.); j < min(elem.getMaxY(), double(width)); j++)
             {
-                if (elem.isInTriangle(x, y))
-                {
-                    if ((*zbuffer)(x, y) < elem.getZ(x, y))
+                    if (elem.isInTriangle(i, j))
                     {
-                        (*zbuffer)(x, y) = elem.getZ(x, y);
-                        (*frame_buffer)(x, y) = elem.getColor(x, y); //ToDo
+                        if ((*zbuffer)(i, j) < elem.getZ(i, j))
+                        {
+                            (*zbuffer)(i, j) = elem.getZ(i, j);
+                            (*frame_buffer)(i, j) = elem.getColor();//elem.getColor(x, y);
+                        }
                     }
-                }
             }
         }
     }

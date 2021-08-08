@@ -32,7 +32,7 @@ FrameBuffer::FrameBuffer(int new_width, int new_height)
         alloc_data();
 
         for (auto &elem:*this)
-            elem = 0;
+            elem = Qt::white;
     }
 }
 
@@ -148,13 +148,18 @@ ostream& operator <<(ostream& os, const FrameBuffer& buf)
         return os;
     }
 
+    os << "Width = " << buf.getWidth() << " Height = " << buf.getHeight();
+
     ConstIterator<color_t> It = buf.cbegin();
     for (int i = 0; i < buf.getHeight() && It != buf.cend(); i++)
     {
-        os << '\n' << '[' << *It++;
-        for (int j = 1; j < buf.getWidth() && It != buf.cend(); It++, j++)
-            os << "; " << *It ;
-        os << ']';
+        float h, s, v;
+        for (int j = 0; j < buf.getWidth() && It != buf.cend(); It++, j++)
+        {
+            It->getHsvF(&h, &s, &v);
+            os << "In pixel (" << i << ", " << j << ") Hue = " << h << "; Saturation = " << s << "; Value = " << v << ";\n";
+        }
+        os << '\n';
     }
     os << endl;
 

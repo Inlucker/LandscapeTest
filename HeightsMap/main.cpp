@@ -145,7 +145,7 @@ int main()
 
         cout << "ZBufferAlg TESTS:" << endl;
 
-        ZBufferAlg alg1(25, 25);
+        ZBufferAlg alg1(5, 5);
         cout << (*alg1.getFrameBuffer());
         alg1.execute(*tpm2);
         cout << (*alg1.getFrameBuffer());
