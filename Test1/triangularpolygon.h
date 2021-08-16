@@ -19,7 +19,7 @@ public:
     double getZ(double x, double y) const;
     double getZ2(double x, double y) const;
     color_t getColor(double x, double y) const;
-    color_t getColor() const;
+    color_t &getColor();
 
     bool isInRect(double x, double y) const;
     bool isInTriangle(double x, double y) const;
@@ -72,7 +72,7 @@ inline double TriangularPolygon::getZ(double x, double y) const
     }
 }
 
-inline color_t TriangularPolygon::getColor() const
+inline color_t &TriangularPolygon::getColor()
 {
     return color;
 }

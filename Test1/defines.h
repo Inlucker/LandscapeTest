@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 //Generating
-#define SIZE 65//257//129//65//33//17//9
+#define SIZE 65//257//129//65//33//17//9//5
 #define MAX_X SIZE//257//129//65//33//17//9
 #define MAX_Y SIZE//257//129//65//33//17//9
 #define RANGE (size-1)*0.75

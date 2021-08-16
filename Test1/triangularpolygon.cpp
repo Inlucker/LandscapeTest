@@ -25,7 +25,7 @@ TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) :
     calcNormals();
     calcSurface();
     calcColor();
-    //int c = rand()%128+64;
+    //color = Qt::gray;
     //color = QColor(rand()%128+64, rand()%128+64, rand()%128+64);
 }
 

@@ -100,6 +100,8 @@ shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
             }
         }
     }
+    /*color_t &c = (*new_tri_pol_mas)[2].getColor();
+    c = Qt::black;*/
 
     return new_tri_pol_mas;
 }

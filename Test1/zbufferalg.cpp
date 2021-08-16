@@ -51,6 +51,10 @@ void ZBufferAlg::execute2(TriPolMas &mas)
         Point &p1 = elem.getP1();
         Point &p2 = elem.getP2();
         Point &p3 = elem.getP3();
+        if (elem.getColor() == Qt::black)
+        {
+            cout << "Here:" << endl;
+        }
 
         //Сортировка точек так, что y0 <= y1 <= y2
         if (p2.getY() < p1.getY())
@@ -60,9 +64,9 @@ void ZBufferAlg::execute2(TriPolMas &mas)
         if (p3.getY() < p2.getY())
             swap(p3, p2);
 
-        int x0 = p1.getX(), x1 = p2.getX(), x2 = p3.getX();
-        int y0 = p1.getY(), y1 = p2.getY(), y2 = p3.getY();
-        int z0 = p1.getZ(), z1 = p2.getZ(), z2 = p3.getZ();
+        int x0 = round(p1.getX()), x1 = round(p2.getX()), x2 = round(p3.getX());
+        int y0 = round(p1.getY()), y1 = round(p2.getY()), y2 = round(p3.getY());
+        int z0 = round(p1.getZ()), z1 = round(p2.getZ()), z2 = round(p3.getZ());
 
         //Вычисление координат x и значений h для рёбер треугольника
         vector<double> x01 = interpolate(y0, x0, y1, x1);
@@ -88,33 +92,75 @@ void ZBufferAlg::execute2(TriPolMas &mas)
         //Определяем, какая из сторон левая и правая
         size_t m = x012.size()/2;
 
-        vector<double> &x_left = x02;
+        /*vector<double> &x_left = x02;
         vector<double> &x_right = x012;
 
         vector<double> &z_left = z02;
-        vector<double> &z_right = z012;
+        vector<double> &z_right = z012;*/
 
         if (x02[m] < x012[m])
         {
-            /*vector<double> &x_left = x02;
+            vector<double> &x_left = x02;
             vector<double> &x_right = x012;
 
             vector<double> &z_left = z02;
-            vector<double> &z_right = z012;*/
+            vector<double> &z_right = z012;
+
+            //Отрисовка горизонтальных отрезков
+            for (int y = max(y0, 0); y < min(y2, width); y++)
+            {
+                double x_l = x_left[y - y0]; //x_left[y - y0];
+                double x_r = min(x_right[y - y0], double(height)); //x_right[y - y0];
+
+
+                vector<double> z_segment = interpolate(x_l, z_left[y - y0], x_r, z_right[y - y0]);
+                for (int x = max(x_l, 0.); x < x_r; x++)
+                {
+                    double z = z_segment[x - x_l];
+                    if (elem.getColor() == Qt::black)
+                        cout << "x, y = (" << x << "; " << y << ") z = " << z << endl;
+                    if ((*zbuffer)(x, y) < z)
+                    {
+                        (*zbuffer)(x, y) = z;
+                        (*frame_buffer)(x, y) = elem.getColor();
+                    }
+                }
+            }
         }
         else
         {
-            x_left = x012;
-            x_right = x02;
+            vector<double> &x_left = x012;
+            vector<double> &x_right = x02;
 
-            z_left = z012;
-            z_right = z02;
+            vector<double> &z_left = z012;
+            vector<double> &z_right = z02;
+            //Отрисовка горизонтальных отрезков
+            for (int y = max(y0, 0); y < min(y2, width); y++)
+            {
+                double x_l = x_left[y - y0]; //x_left[y - y0];
+                double x_r = min(x_right[y - y0], double(height)); //x_right[y - y0];
+
+
+                vector<double> z_segment = interpolate(x_l, z_left[y - y0], x_r, z_right[y - y0]);
+                for (int x = max(x_l, 0.); x < x_r; x++)
+                {
+                    double z = z_segment[x - x_l];
+                    if (elem.getColor() == Qt::black)
+                        cout << "x, y = (" << x << "; " << y << ") z = " << z << endl;
+                    if ((*zbuffer)(x, y) < z)
+                    {
+                        (*zbuffer)(x, y) = z;
+                        (*frame_buffer)(x, y) = elem.getColor();
+                    }
+                }
+            }
         }
+        // fixed bug when after choosing x_left x_right (x_left = x_right)
 
         //Отрисовка горизонтальных отрезков
-        for (int y = max(y0, 0); y < min(y2, width); y++)
+        /*for (int y = max(y0, 0); y < min(y2, width); y++)
         {
-            double x_l = min(x_left[y - y0], double(height)); //x_left[y - y0];
+            double x_l = x_left[y - y0]; //x_left[y - y0];
             double x_r = min(x_right[y - y0], double(height)); //x_right[y - y0];
 
 
@@ -122,13 +168,16 @@ void ZBufferAlg::execute2(TriPolMas &mas)
             for (int x = max(x_l, 0.); x < x_r; x++)
             {
                 double z = z_segment[x - x_l];
+                if (elem.getColor() == Qt::black)
+                    cout << "x, y = (" << x << "; " << y << ") z = " << z << endl;
                 if ((*zbuffer)(x, y) < z)
                 {
                     (*zbuffer)(x, y) = z;
                     (*frame_buffer)(x, y) = elem.getColor();
                 }
             }
-        }
+        }*/
+
     }
 
 }
