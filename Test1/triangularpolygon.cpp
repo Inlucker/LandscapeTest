@@ -9,6 +9,18 @@ TriangularPolygon::TriangularPolygon() : TriangularPolygon(Point(), Point(), Poi
 
 TriangularPolygon::TriangularPolygon(Point new_p1, Point new_p2, Point new_p3) : p1(new_p1), p2(new_p2), p3(new_p3)
 {
+    //Сортировка точек так, что y0 <= y1 <= y2
+    /*double y1 = p1.getY();
+    double y2 = p2.getY();
+    double y3 = p3.getY();
+
+    if (y2 < y1)
+        swap(p2, p1);
+    if (y3 < y1)
+        swap(p3, p1);
+    if (y3 < y2)
+        swap(p3, p2);*/
+
     calcRect();
     calcNormals();
     calcSurface();
@@ -68,6 +80,13 @@ bool TriangularPolygon::isInEdge(double x, double y, Point edge_p1, Point edge_p
         return false;
 }
 
+void TriangularPolygon::swap(Point &p1, Point &p2)
+{
+    Point tmp = p1;
+    p1 = p2;
+    p2 = tmp;
+}
+
 color_t TriangularPolygon::getColor(double x, double y) const
 {
     /*if (isInEdge(x, y, p1, p2))
@@ -115,11 +134,39 @@ bool TriangularPolygon::isInTriangle(double x, double y) const
 
 }
 
+Point& TriangularPolygon::getP1()
+{
+    return p1;
+}
+
+Point& TriangularPolygon::getP2()
+{
+    return p2;
+}
+
+Point& TriangularPolygon::getP3()
+{
+    return p3;
+}
+
 void TriangularPolygon::setPoints(Point new_p1, Point new_p2, Point new_p3)
 {
     p1 = new_p1;
     p2 = new_p2;
     p3 = new_p3;
+
+    //Сортировка точек так, что y0 <= y1 <= y2
+    /*double y1 = p1.getY();
+    double y2 = p2.getY();
+    double y3 = p3.getY();
+
+    if (y2 < y1)
+        swap(p2, p1);
+    if (y3 < y1)
+        swap(p3, p1);
+    if (y3 < y2)
+        swap(p3, p2);*/
+
     calcRect();
     calcNormals();
     calcSurface();
@@ -260,7 +307,7 @@ void TriangularPolygon::calcColor()
     //if (cosinus - cosinus2 > EPS)
     //    cout << "Not equal cosinuses" << endl;
 
-    color = Qt::green;//QColor(200, 200, 200);
+    color = QColor(20, 150, 20);//Qt::darkGreen;//Qt::green;//QColor(200, 200, 200);
     /*float h, s, l;
     color.getHslF(&h, &s, &l);
     //cout << h << "; " << s << "; " << l << endl;
@@ -273,7 +320,8 @@ void TriangularPolygon::calcColor()
     //color.setHslF(color.hslHueF(), color.hslSaturationF(), 0.25+float(cosinus/4)); //1 = lightness, 0 = drakness
     //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.25+float(cosinus/2.5)); //1? = brightness, 0? = drakness
     //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), (1-BRIGHTNESS)/2+float(cosinus*BRIGHTNESS));
-    color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
+    //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
+    color = QColor(color.red()*cosinus, color.green()*cosinus, color.blue()*cosinus);
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)

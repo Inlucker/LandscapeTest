@@ -17,6 +17,7 @@ public:
     ~TriangularPolygon() = default;
 
     double getZ(double x, double y) const;
+    double getZ2(double x, double y) const;
     color_t getColor(double x, double y) const;
     color_t getColor() const;
 
@@ -27,6 +28,10 @@ public:
     double getMaxX() const;
     double getMinY() const;
     double getMaxY() const;
+
+    Point& getP1();
+    Point& getP2();
+    Point& getP3();
 
     void setPoints(Point new_p1, Point new_p2, Point new_p3);
 
@@ -41,6 +46,8 @@ private:
     bool isInEdge(double x, double y, Point edge_p1, Point edge_p2) const;
 
     bool isInEdge(double x, double y, double x1, double y1, double x2, double y2) const;
+
+    void swap(Point &p1, Point &p2);
 
     friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 

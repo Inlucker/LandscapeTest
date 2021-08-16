@@ -78,6 +78,7 @@ private:
     void drawHeightsMap4();
     void drawHeightsMap5();
     void drawHeightsMap6();
+    void drawHeightsMap7();
 
     Point getProection(Point &_point, Point cameraPosition, Point angles);
     void plot(int x, int y);
