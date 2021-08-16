@@ -107,14 +107,14 @@ void ZBufferAlg::execute2(TriPolMas &mas)
             vector<double> &z_right = z012;
 
             //Отрисовка горизонтальных отрезков
-            for (int y = max(y0, 0); y < min(y2, width); y++)
+            for (int y = max(y0, 0); y <= min(y2, width-1); y++)
             {
                 double x_l = x_left[y - y0]; //x_left[y - y0];
-                double x_r = min(x_right[y - y0], double(height)); //x_right[y - y0];
+                double x_r = min(x_right[y - y0], double(height-1)); //x_right[y - y0];
 
 
                 vector<double> z_segment = interpolate(x_l, z_left[y - y0], x_r, z_right[y - y0]);
-                for (int x = max(x_l, 0.); x < x_r; x++)
+                for (int x = max(x_l, 0.); x <= x_r; x++)
                 {
                     double z = z_segment[x - x_l];
                     if (elem.getColor() == Qt::black)
