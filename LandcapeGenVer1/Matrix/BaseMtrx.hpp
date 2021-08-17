@@ -1,57 +1,10 @@
-#ifndef MTRX_H
-#define MTRX_H
+#ifndef BASEMTRX_HPP
+#define BASEMTRX_HPP
 
-#include <memory>
-#include <iostream>
-#include <time.h>
-
-using namespace std;
-
-#include "AbstractMtrx.h"
-#include "Iterator/Iterator.hpp"
-#include "Iterator/ConstIterator.hpp"
-#include "Errors/MtrxErrors.h"
+#include "BaseMtrx.h"
 
 template<typename Type>
-class Mtrx : public AbstractMtrx
-{
-public:
-    Mtrx();
-    explicit Mtrx(int new_size);
-
-    virtual ~AbstractMtrx() = default;
-
-    virtual bool isEmpty() const noexcept;
-    virtual int getSize() const noexcept;
-    virtual int elemsNum() const noexcept;
-
-    Iterator<Type> begin() noexcept;
-    Iterator<Type> end() noexcept;
-    ConstIterator<Type> cbegin() const noexcept;
-    ConstIterator<Type> cend() const noexcept;
-    ConstIterator<Type> begin() const noexcept;
-    ConstIterator<Type> end() const noexcept;
-
-    Type& getElem(int id);
-    const Type& getElem(int id) const;
-    Type& operator [](int id);
-    const Type& operator [](int id) const;
-
-    //Done instead of operator[][]
-    Type& getElem(int i, int j);
-    const Type& getElem(int i, int j) const;
-    Type& operator()(int i, int j);
-    const Type& operator()(const int &i, const int &j) const;
-
-protected:
-    virtual void alloc_data();
-
-protected:
-    shared_ptr<Type[]> data_ptr;
-};
-
-template<typename Type>
-Mtrx<Type>::Mtrx()
+BaseMtrx<Type>::BaseMtrx()
 {
     size = 0;
     elems_num = 0;
@@ -59,7 +12,7 @@ Mtrx<Type>::Mtrx()
 }
 
 template<typename Type>
-Mtrx<Type>::Mtrx(int new_size)
+BaseMtrx<Type>::BaseMtrx(int new_size)
 {
     time_t t_time = time(NULL);
     if (new_size < 0)
@@ -78,66 +31,66 @@ Mtrx<Type>::Mtrx(int new_size)
         alloc_data();
 
         for (auto &elem:*this)
-            elem = 0;
+            elem = Type();
     }
 }
 
 template<typename Type>
-bool Mtrx<Type>::isEmpty() const noexcept
+bool BaseMtrx<Type>::isEmpty() const noexcept
 {
     return !elems_num;
 }
 
 template<typename Type>
-int Mtrx<Type>::getSize() const noexcept
+int BaseMtrx<Type>::getSize() const noexcept
 {
     return size;
 }
 
 template<typename Type>
-int Mtrx<Type>::elemsNum() const noexcept
+int BaseMtrx<Type>::elemsNum() const noexcept
 {
     return elems_num;
 }
 
 template<typename Type>
-Iterator<Type> Mtrx<Type>::begin() noexcept
+Iterator<Type> BaseMtrx<Type>::begin() noexcept
 {
     return Iterator<Type>(data_ptr, elems_num, 0);
 }
 
 template<typename Type>
-Iterator<Type> Mtrx<Type>::end() noexcept
+Iterator<Type> BaseMtrx<Type>::end() noexcept
 {
     return Iterator<Type>(data_ptr, elems_num, elems_num);
 }
 
 template<typename Type>
-ConstIterator<Type> Mtrx<Type>::cbegin() const noexcept
+ConstIterator<Type> BaseMtrx<Type>::cbegin() const noexcept
 {
     return ConstIterator<Type>(data_ptr, elems_num, 0);
 }
 
 template<typename Type>
-ConstIterator<Type> Mtrx<Type>::cend() const noexcept
+ConstIterator<Type> BaseMtrx<Type>::cend() const noexcept
 {
     return ConstIterator<Type>(data_ptr, elems_num, elems_num);
 }
 
 template<typename Type>
-ConstIterator<Type> Mtrx<Type>::begin() const noexcept
+ConstIterator<Type> BaseMtrx<Type>::begin() const noexcept
 {
     return ConstIterator<Type>(data_ptr, elems_num, 0);
 }
 
 template<typename Type>
-ConstIterator<Type> Mtrx<Type>::end() const noexcept
+ConstIterator<Type> BaseMtrx<Type>::end() const noexcept
 {
     return ConstIterator<Type>(data_ptr, elems_num, elems_num);
 }
 
 template<typename Type>
-Type &Mtrx<Type>::getElem(int id)
+Type &BaseMtrx<Type>::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -147,7 +100,7 @@ Type &Mtrx<Type>::getElem(int id)
 }
 
 template<typename Type>
-const Type &Mtrx<Type>::getElem(int id) const
+const Type &BaseMtrx<Type>::getElem(int id) const
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -157,43 +110,43 @@ const Type &Mtrx<Type>::getElem(int id) const
 }
 
 template<typename Type>
-Type &Mtrx<Type>::operator [](int id)
+Type &BaseMtrx<Type>::operator [](int id)
 {
     return getElem(id);
 }
 
 template<typename Type>
-const Type &Mtrx<Type>::operator [](int id) const
+const Type &BaseMtrx<Type>::operator [](int id) const
 {
     return getElem(id);
 }
 
 template<typename Type>
-Type &Mtrx<Type>::getElem(int i, int j)
+Type &BaseMtrx<Type>::getElem(int i, int j)
 {
     return getElem(i*size+j);
 }
 
 template<typename Type>
-const Type &Mtrx<Type>::getElem(int i, int j) const
+const Type &BaseMtrx<Type>::getElem(int i, int j) const
 {
     return getElem(i*size+j);
 }
 
 template<typename Type>
-Type &Mtrx<Type>::operator()(int i, int j)
+Type &BaseMtrx<Type>::operator()(int i, int j)
 {
     return getElem(i*size+j);
 }
 
 template<typename Type>
-const Type &Mtrx<Type>::operator()(const int &i, const int &j) const
+const Type &BaseMtrx<Type>::operator()(const int &i, const int &j) const
 {
     return getElem(i*size+j);
 }
 
 template<typename Type>
-void Mtrx<Type>::alloc_data()
+void BaseMtrx<Type>::alloc_data()
 {
     data_ptr.reset();
     if (elems_num != 0)
@@ -208,4 +161,4 @@ void Mtrx<Type>::alloc_data()
     }
 }
 
-#endif // MTRX_H
+#endif // BASEMTRX_HPP

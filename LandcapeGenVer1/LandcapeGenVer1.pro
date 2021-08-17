@@ -36,8 +36,8 @@ HEADERS += \
     Iterator/Iterator.h \
     Iterator/Iterator.hpp \
     Matrix/AbstractMtrx.h \
-    Matrix/Mtrx.h \
-    Matrix/Mtrx.hpp \
+    Matrix/BaseMtrx.h \
+    Matrix/BaseMtrx.hpp \
     mainwindow.h
 
 FORMS += \

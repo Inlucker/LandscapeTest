@@ -8,15 +8,15 @@
 
 HeightsMapPoints::HeightsMapPoints()
 {
-    size = 0;
-    elems_num = 0;
+    //size = 0;
+    //elems_num = 0;
     map_points_center = Point();
-    data_ptr.reset();
+    //data_ptr.reset();
 }
 
-HeightsMapPoints::HeightsMapPoints(int new_size)
+HeightsMapPoints::HeightsMapPoints(int new_size) : BaseType(new_size)//BaseMtrx<Point>(new_size)
 {
-    time_t t_time = time(NULL);
+    /*time_t t_time = time(NULL);
     if (new_size < 0)
         throw HeightsMapPointsNegativeSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
@@ -33,10 +33,10 @@ HeightsMapPoints::HeightsMapPoints(int new_size)
         alloc_data();
     }
     map_points_center = Point();
-    //updateCenter();
+    //updateCenter();*/
 }
 
-bool HeightsMapPoints::isEmpty() const noexcept
+/*bool HeightsMapPoints::isEmpty() const noexcept
 {
     return !elems_num;
 }
@@ -69,7 +69,7 @@ ConstIterator<Point> HeightsMapPoints::cbegin() const noexcept
 ConstIterator<Point> HeightsMapPoints::cend() const noexcept
 {
     return ConstIterator<Point>(data_ptr, elems_num, elems_num);
-}
+}*/
 
 /*shared_ptr<TriPolMas> HeightsMapPoints::createTriPolMas()
 {
@@ -105,7 +105,7 @@ ConstIterator<Point> HeightsMapPoints::cend() const noexcept
     return new_tri_pol_mas;
 }*/
 
-Point &HeightsMapPoints::getElem(int id)
+/*Point &HeightsMapPoints::getElem(int id)
 {
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -151,7 +151,7 @@ Point &HeightsMapPoints::operator()(int i, int j)
 const Point &HeightsMapPoints::operator()(const int &i, const int &j) const
 {
     return getElem(i*size+j);
-}
+}*/
 
 /*void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center)
 {
@@ -164,12 +164,18 @@ const Point &HeightsMapPoints::operator()(const int &i, const int &j) const
 
 void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Point rotateK)
 {
-    for (auto& point : *this)
+    if (!isEmpty())
     {
-        point.transform(moveK, scaleK, rotateK, map_points_center);
-        //point.transform(moveK, scaleK, rotateK);
+        for (auto& point : *this)
+        {
+            point.transform(moveK, scaleK, rotateK, map_points_center);
+        }
+        updateCenter();
     }
-    updateCenter();
+    else
+    {
+        //add error (exception)
+    }
 }
 
 void HeightsMapPoints::updateCenter() noexcept
@@ -189,7 +195,7 @@ void HeightsMapPoints::updateCenter() noexcept
     map_points_center = rez;
 }
 
-void HeightsMapPoints::alloc_data()
+/*void HeightsMapPoints::alloc_data()
 {
     data_ptr.reset();
     if (elems_num != 0)
@@ -203,7 +209,7 @@ void HeightsMapPoints::alloc_data()
 
         data_ptr = new_ptr;
     }
-}
+}*/
 
 ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
 {

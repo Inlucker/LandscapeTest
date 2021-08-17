@@ -1,7 +1,9 @@
 #ifndef HEIGHTSMAP_H
 #define HEIGHTSMAP_H
 
-#include <iostream>
+#include "Matrix/BaseMtrx.hpp"
+
+/*#include <iostream>
 #include <memory>
 
 using namespace std;
@@ -9,7 +11,7 @@ using namespace std;
 template<typename Type>
 class Iterator;
 template<typename Type>
-class ConstIterator;
+class ConstIterator;*/
 
 #define DS_RANGE (size-1)*0.75
 #define DS_LEVEL (size-1)
@@ -18,20 +20,21 @@ typedef double height_t;
 
 class HeightsMapPoints;
 
-class HeightsMap
+class HeightsMap : public BaseMtrx<height_t>
 {
 public:
+    using BaseType = BaseMtrx<height_t>;  //alias, will be useful someday
     HeightsMap();
     explicit HeightsMap(int new_size);
 
-    bool isEmpty() const noexcept;
+    /*bool isEmpty() const noexcept;
     int getSize() const noexcept;
     int elemsNum() const noexcept;
 
     Iterator<height_t> begin() noexcept;
     Iterator<height_t> end() noexcept;
     ConstIterator<height_t> cbegin() const noexcept;
-    ConstIterator<height_t> cend() const noexcept;
+    ConstIterator<height_t> cend() const noexcept;*/
 
     void resetHeightsmap() noexcept;
 
@@ -41,26 +44,26 @@ public:
     shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
-    height_t& getElem(int id);
+    /*height_t& getElem(int id);
     const height_t& getElem(int id) const;
     height_t& operator [](int id);
     const height_t& operator [](int id) const;
 
     //Done instead of operator[][]
     height_t& operator()(int i, int j);
-    const height_t& operator()(const int &i, const int &j) const;
+    const height_t& operator()(const int &i, const int &j) const;*/
 
 private:
-    void alloc_data();
+    //void alloc_data();
 
     //ToFigureOut and Understand how it works
     void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
     double getRnd() const noexcept;
 
 private:
-    shared_ptr<height_t[]> data_ptr;
+    /*shared_ptr<height_t[]> data_ptr;
     int size = -1;
-    int elems_num = -1;
+    int elems_num = -1;*/
 };
 
 ostream& operator <<(ostream& os, const HeightsMap& map);
