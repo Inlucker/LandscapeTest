@@ -12,7 +12,8 @@ template<typename Type>
 class ConstIterator;
 #include "Point.h"
 
-class TriPolMas;
+#include "HeightsMap.h"
+//class TriPolMas;
 
 class HeightsMapPoints
 {
@@ -44,11 +45,12 @@ public:
     //void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center); //no need?
     void transform(const Point moveK, const Point scaleK, const Point rotateK);
 
-    void updateCenter() noexcept; //make it private?
+    //void updateCenter() noexcept; //make it private?
 
 private:
     void alloc_data();
-    //void updateCenter() noexcept;
+    void updateCenter() noexcept;
+    friend shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz);
     friend ostream& operator <<(ostream& os, const HeightsMapPoints& map);
 
 private:
