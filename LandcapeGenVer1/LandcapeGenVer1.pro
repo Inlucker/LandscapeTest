@@ -11,7 +11,9 @@ CONFIG += c++11
 SOURCES += \
     Canvas.cpp \
     HeightsMap/HeightsMap.cpp \
-    Iterators/AbstractIterator.cpp \
+    HeightsMap/HeightsMapPoints.cpp \
+    HeightsMap/Point.cpp \
+    Iterator/AbstractIterator.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -19,15 +21,18 @@ HEADERS += \
     Canvas.h \
     Errors/BaseError.h \
     Errors/HeightsMapErrors.h \
+    Errors/HeightsMapPointsErrors.h \
     Errors/IteratorErrors.h \
     HeightsMap/HeightsMap.h \
-    Iterators/AbstractIterator.h \
-    Iterators/BaseIterator.h \
-    Iterators/BaseIterator.hpp \
-    Iterators/ConstIterator.h \
-    Iterators/ConstIterator.hpp \
-    Iterators/Iterator.h \
-    Iterators/Iterator.hpp \
+    HeightsMap/HeightsMapPoints.h \
+    HeightsMap/Point.h \
+    Iterator/AbstractIterator.h \
+    Iterator/BaseIterator.h \
+    Iterator/BaseIterator.hpp \
+    Iterator/ConstIterator.h \
+    Iterator/ConstIterator.hpp \
+    Iterator/Iterator.h \
+    Iterator/Iterator.hpp \
     mainwindow.h
 
 FORMS += \

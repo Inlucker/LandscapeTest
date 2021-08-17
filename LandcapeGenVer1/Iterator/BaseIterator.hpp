@@ -36,14 +36,6 @@ BaseIterator<Type>::BaseIterator(shared_ptr<Type[]> ptr, int num, int index)
     data_ptr = ptr;
 }
 
-/*template<typename Type>
-BaseIterator<Type>::BaseIterator(const Vector<Type> &vec, int index)
-{
-    id = index;
-    elems_num = vec.size();
-    data_ptr = vec.get_data_ptr();
-}*/
-
 template<typename Type>
 int BaseIterator<Type>::get_id() const
 {
@@ -194,7 +186,7 @@ const Type &BaseIterator<Type>::operator [](int index) const
 template<typename Type>
 const Type *BaseIterator<Type>::operator ->() const
 {
-    check_ptr(__LINE__); //РџСЂРѕСЃС‚Рѕ Р·Р°Р±С‹Р» (: РІ РґСЂСѓРіРёС… РјРµСЃС‚Р°С… Р±С‹Р»Р° РїСЂРѕРІРµСЂРєР°
+    check_ptr(__LINE__);
 
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -234,7 +226,7 @@ bool BaseIterator<Type>::check_ptr(int line) const
         return true;
 
     time_t t_time = time(NULL);
-    throw IteratorWeakPtrError("Iterator with no ptr", __FILE__, line, ctime(&t_time)); //Р’С‹РґРµР»РёС‚СЊ РѕС‚РґРµР»СЊРЅРѕ DONE
+    throw IteratorWeakPtrError("Iterator with no ptr", __FILE__, line, ctime(&t_time));
     return false;
 }
 

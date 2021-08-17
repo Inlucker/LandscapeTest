@@ -280,7 +280,7 @@ double Canvas::getHeight(int i, int j)
 
 void Canvas::drawHeightsMap()
 {
-    drawHeightsMap5();
+    drawHeightsMap3();
 }
 
 //#define SCALE 25

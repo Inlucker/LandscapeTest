@@ -3,16 +3,16 @@
 #include <time.h>
 #include <random>
 
-#include "Iterators/Iterator.hpp"
-#include "Iterators/ConstIterator.hpp"
+#include "Iterator/Iterator.hpp"
+#include "Iterator/ConstIterator.hpp"
 #include "Errors/HeightsMapErrors.h"
-//#include "heightsmappoints.h"
+#include "HeightsMapPoints.h"
 
 HeightsMap::HeightsMap()
 {
     size = 0;
     elems_num = 0;
-    //alloc_data();
+    data_ptr.reset();
 }
 
 HeightsMap::HeightsMap(int new_size)
@@ -31,7 +31,6 @@ HeightsMap::HeightsMap(int new_size)
     {
         size = new_size;
         elems_num = size*size;
-        //elems_num = new_size;
         alloc_data();
 
         for (auto &elem:*this)
@@ -104,25 +103,28 @@ void HeightsMap::diamondSquare(float r, unsigned int l)
     diamondSquare(0, 0, size-1, size-1, r, l);
 }
 
-/*shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
+shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
-    ConstIterator<height_t> map_it = this->cbegin();
-    int i = 0;
-    for (auto& points_it : *new_points_map)
+    if (size > 0)
     {
-        points_it = Point((i/size) * kx, (*map_it) * ky, (i % size) * kz); // x <-> z
-        map_it++;
-        i++;
+        ConstIterator<height_t> map_it = this->cbegin();
+        int i = 0;
+        for (auto& points_it : *new_points_map)
+        {
+            points_it = Point((i/size) * kx, (*map_it) * ky, (i % size) * kz); // x <-> z
+            map_it++;
+            i++;
+        }
+        new_points_map->updateCenter();
     }
-    new_points_map->updateCenter();
     return new_points_map;
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 {
     return createPoints(1, 1, 1);
-}*/
+}
 
 height_t& HeightsMap::getElem(int id)
 {

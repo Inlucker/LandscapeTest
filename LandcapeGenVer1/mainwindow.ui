@@ -39,6 +39,11 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="text">
      <string>Clean</string>
     </property>
@@ -52,8 +57,13 @@
       <height>171</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
     <property name="title">
-     <string>GenerateLandscape Parameters</string>
+     <string>GenLandscape Parameters</string>
     </property>
     <widget class="QPushButton" name="gen_btn">
      <property name="geometry">
@@ -101,7 +111,7 @@
       </font>
      </property>
      <property name="text">
-      <string>3</string>
+      <string>33</string>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -134,6 +144,39 @@
      </property>
      <property name="text">
       <string>▼</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="draw_variant_box">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>10</y>
+      <width>201</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>DrawVariant</string>
+    </property>
+    <widget class="QComboBox" name="draw_variant_comboBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
     </widget>
    </widget>

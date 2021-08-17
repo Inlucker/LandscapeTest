@@ -38,8 +38,8 @@ public:
     void diamondSquare();
     void diamondSquare(float r, unsigned int l);
 
-    //shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
-    //shared_ptr<HeightsMapPoints> createPoints();
+    shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
+    shared_ptr<HeightsMapPoints> createPoints();
 
     height_t& getElem(int id);
     const height_t& getElem(int id) const;

@@ -18,7 +18,6 @@ public:
     BaseIterator<Type>& operator =(const BaseIterator<Type>& it);
 
     explicit BaseIterator(shared_ptr<Type[]> ptr, int num, int index = 0); //init
-    //explicit BaseIterator(const Vector<Type>& vec, int index = 0); //init
 
     int get_id() const;
     int get_els_num() const;
@@ -43,15 +42,13 @@ public:
     int operator -(const BaseIterator<Type>& it) const;
 
     const Type& operator *() const;
-    const Type& operator [](int index) const; //added const[]
+    const Type& operator [](int index) const;
     const Type* operator ->() const;
 
     bool operator <(const BaseIterator<Type>& it) const;
     bool operator <=(const BaseIterator<Type>& it) const;
     bool operator >(const BaseIterator<Type>& it) const;
     bool operator >=(const BaseIterator<Type>& it) const;
-private:
-    //weak_ptr<Type[]> data_ptr;
 
 protected:
     weak_ptr<Type[]> data_ptr;

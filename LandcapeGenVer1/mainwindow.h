@@ -31,6 +31,8 @@ private slots:
 
     void on_size_down_btn_released();
 
+    void on_draw_variant_comboBox_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 
