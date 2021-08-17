@@ -52,23 +52,75 @@ void Canvas::resetHeightsMap()
     heights_map_points = heights_map->createPoints();
 }
 
-void Canvas::setDrawAlg(int id)
-{
-    draw_alg = static_cast<DrawAlg>(id);
-    /*switch (id)
-    {
-        case 0:
-            drawAlgId = CARCAS;
-            break;
-        default:
-            //???
-            break;
-    }*/
-}
-
 void Canvas::setDrawAlg(DrawAlg alg)
 {
     draw_alg = alg;
+}
+
+void Canvas::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+        LMB_is_pressed = false;
+
+    if (event->button() == Qt::RightButton)
+        RMB_is_pressed = false;
+}
+
+void Canvas::mousePressEvent(QMouseEvent *event)
+{
+    previous_x = event->position().x();
+    previous_y = event->position().y();
+    if (event->button() == Qt::LeftButton && !LMB_is_pressed && this->rect().contains(event->pos()))
+        LMB_is_pressed = true;
+
+    if (event->button() == Qt::RightButton && !RMB_is_pressed && this->rect().contains(event->pos()))
+        RMB_is_pressed = true;
+}
+
+#define ROTATE_SPEED 5
+#define MOVE_SPEED 2
+
+void Canvas::mouseMoveEvent(QMouseEvent *event)
+{
+    if (LMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
+        double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
+
+        heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
+
+        cleanQImage();
+        drawLandScape();
+    }
+    else if (RMB_is_pressed)
+    {
+        double x = double(previous_x - event->position().x()) / MOVE_SPEED;
+        double y = double(previous_y - event->position().y()) / MOVE_SPEED;
+
+        heights_map_points->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+
+        cleanQImage();
+        drawLandScape();
+    }
+
+    update();
+
+    previous_x = event->position().x();
+    previous_y = event->position().y();
+}
+
+#define SCALE_SPEED 10
+
+void Canvas::wheelEvent(QWheelEvent *event)
+{
+
+    QPoint numDegrees = event->angleDelta() / 120;
+    double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
+
+    heights_map_points->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+
+    cleanQImage();
+    drawLandScape();
 }
 
 void Canvas::paintEvent(QPaintEvent *)
@@ -151,7 +203,6 @@ void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_
 }
 
 void Canvas::drawLandScape()
-//QMessageBox::information(this, "Error", "No such AlgId");
 {
     switch (draw_alg)
     {
@@ -159,8 +210,7 @@ void Canvas::drawLandScape()
             carcasDraw();
             break;
         default:
-            //QMessageBox::information(this, "Error", "No such AlgId");//?
-            cout << "No such AlgId" << endl; //?
+            QMessageBox::information(this, "Error", "No such DrawAlg");//?
             break;
     }
 }

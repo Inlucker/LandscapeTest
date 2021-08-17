@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     ui->draw_variant_comboBox->addItem("Каркасный");
-    //ui->draw_variant_comboBox->addItem("Заполненный");
+    ui->draw_variant_comboBox->addItem("Заполненный");
 
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
 
@@ -60,13 +60,14 @@ void MainWindow::on_size_down_btn_released()
 
 void MainWindow::on_draw_variant_comboBox_activated(int index)
 {
-    if (index >= 1)
+    switch (index)
     {
-        QMessageBox::information(this, "Error", "No such DrawAlg");
-        return;
+        case 0:
+            canvas->setDrawAlg(CARCAS);
+            break;
+        default:
+            QMessageBox::information(this, "Error", "No such DrawAlg");
+            ui->draw_variant_comboBox->setCurrentIndex(0);
+            break;
     }
-    DrawAlg new_alg = static_cast<DrawAlg>(index);
-    canvas->setDrawAlg(new_alg);
-    //canvas->setDrawAlg(index);
 }
-
