@@ -55,8 +55,8 @@ private:
 
 private:
     shared_ptr<Point[]> data_ptr;
-    int size;
-    int elems_num;
+    int size = -1;
+    int elems_num = -1;
     Point map_points_center;
 };
 

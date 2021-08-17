@@ -14,6 +14,7 @@ SOURCES += \
     HeightsMap/HeightsMapPoints.cpp \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
+    Matrix/AbstractMtrx.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -23,6 +24,7 @@ HEADERS += \
     Errors/HeightsMapErrors.h \
     Errors/HeightsMapPointsErrors.h \
     Errors/IteratorErrors.h \
+    Errors/MtrxErrors.h \
     HeightsMap/HeightsMap.h \
     HeightsMap/HeightsMapPoints.h \
     HeightsMap/Point.h \
@@ -33,6 +35,9 @@ HEADERS += \
     Iterator/ConstIterator.hpp \
     Iterator/Iterator.h \
     Iterator/Iterator.hpp \
+    Matrix/AbstractMtrx.h \
+    Matrix/Mtrx.h \
+    Matrix/Mtrx.hpp \
     mainwindow.h
 
 FORMS += \
