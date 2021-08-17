@@ -4,7 +4,7 @@
 #include <time.h>
 #include <iostream>
 
-#include "abstractiterator.h"
+#include "AbstractIterator.h"
 
 using namespace std;
 

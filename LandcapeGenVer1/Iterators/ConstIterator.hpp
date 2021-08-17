@@ -1,7 +1,7 @@
 #ifndef CONSTITERATOR_HPP
 #define CONSTITERATOR_HPP
 
-#include "constiterator.h"
+#include "ConstIterator.h"
 
 template<typename Type>
 ConstIterator<Type>::ConstIterator()// : BaseIterator<Type>()

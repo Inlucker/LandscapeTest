@@ -1,7 +1,7 @@
 #ifndef BASEITERATOR_HPP
 #define BASEITERATOR_HPP
 
-#include "baseiterator.h"
+#include "BaseIterator.h"
 #include "Errors/IteratorErrors.h"
 
 template<typename Type>
@@ -194,7 +194,7 @@ const Type &BaseIterator<Type>::operator [](int index) const
 template<typename Type>
 const Type *BaseIterator<Type>::operator ->() const
 {
-    check_ptr(__LINE__); //Просто забыл (: в других местах была проверка
+    check_ptr(__LINE__); //РџСЂРѕСЃС‚Рѕ Р·Р°Р±С‹Р» (: РІ РґСЂСѓРіРёС… РјРµСЃС‚Р°С… Р±С‹Р»Р° РїСЂРѕРІРµСЂРєР°
 
     time_t t_time = time(NULL);
     if (id < 0 || id >= elems_num)
@@ -234,7 +234,7 @@ bool BaseIterator<Type>::check_ptr(int line) const
         return true;
 
     time_t t_time = time(NULL);
-    throw IteratorWeakPtrError("Iterator with no ptr", __FILE__, line, ctime(&t_time)); //Выделить отдельно DONE
+    throw IteratorWeakPtrError("Iterator with no ptr", __FILE__, line, ctime(&t_time)); //Р’С‹РґРµР»РёС‚СЊ РѕС‚РґРµР»СЊРЅРѕ DONE
     return false;
 }
 

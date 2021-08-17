@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#include <canvas.h>
+#include <Canvas.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

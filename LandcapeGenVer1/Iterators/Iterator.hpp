@@ -1,7 +1,7 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
-#include "iterator.h"
+#include "Iterator.h"
 
 template<typename Type>
 Iterator<Type>::Iterator()//: BaseIterator<Type>()

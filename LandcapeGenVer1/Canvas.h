@@ -10,7 +10,7 @@
 
 using namespace std;
 
-#include "HeightsMap/heightsmap.h"
+#include "HeightsMap/HeightsMap.h"
 
 class Canvas : public QWidget
 {

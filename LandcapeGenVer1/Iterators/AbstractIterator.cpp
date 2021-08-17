@@ -1,4 +1,4 @@
-#include "abstractiterator.h"
+#include "AbstractIterator.h"
 
 AbstractIterator::AbstractIterator()
 {

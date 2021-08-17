@@ -1,10 +1,10 @@
-#include "heightsmap.h"
+#include "HeightsMap.h"
 
 #include <time.h>
 #include <random>
 
-#include "Iterators/iterator.hpp"
-#include "Iterators/constiterator.hpp"
+#include "Iterators/Iterator.hpp"
+#include "Iterators/ConstIterator.hpp"
 #include "Errors/HeightsMapErrors.h"
 //#include "heightsmappoints.h"
 

@@ -1,7 +1,7 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include "baseiterator.hpp"
+#include "BaseIterator.hpp"
 
 using namespace std;
 
