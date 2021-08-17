@@ -3,7 +3,7 @@
 
 #include "BaseError.h"
 //HeightsMapPoints
-class HeightsMapPointsAllocError : public BaseError
+/*class HeightsMapPointsAllocError : public BaseError
 {
 public:
     HeightsMapPointsAllocError(string info, string filename, int line, const char *time, string error = "HeightsMapPoints alloc error")
@@ -34,6 +34,6 @@ public:
     {
         return err_info.c_str();
     }
-};
+};*/
 
 #endif // HEIGHTSMAPPOINTSERRORS_H
