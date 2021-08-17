@@ -81,14 +81,7 @@ void HeightsMap::resetHeightsmap() noexcept
 
 void HeightsMap::diamondSquare()
 {
-    resetHeightsmap();
-
-    (*this)(0, 0) = 0;
-    (*this)(0, size - 1) = 0;
-    (*this)(size - 1, 0) = 0;
-    (*this)(size - 1, size - 1) = 0;
-
-    diamondSquare(0, 0, size-1, size-1, RANGE, LEVEL);
+    diamondSquare(DS_RANGE, DS_LEVEL);
 }
 
 void HeightsMap::diamondSquare(float r, unsigned int l)

@@ -11,8 +11,8 @@ class Iterator;
 template<typename Type>
 class ConstIterator;
 
-#define RANGE (size-1)*0.75
-#define LEVEL (size-1)
+#define DS_RANGE (size-1)*0.75
+#define DS_LEVEL (size-1)
 
 typedef double height_t;
 
