@@ -11,6 +11,7 @@ HeightsMapPoints::HeightsMapPoints()
     size = 0;
     elems_num = 0;
     map_points_center = Point();
+    data_ptr.reset();
 }
 
 HeightsMapPoints::HeightsMapPoints(int new_size)

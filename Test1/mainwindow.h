@@ -21,6 +21,10 @@ private slots:
 
     void on_clean_btn_clicked();
 
+    void on_size_up_btn_released();
+
+    void on_size_down_btn_released();
+
 private:
     Ui::MainWindow *ui;
 

@@ -10,7 +10,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     setStyleSheet("background-color:white;");
 
     reset_heights_map();
-    heights_map2 = make_unique<HeightsMap>(MAX_X);
+    resetHeightsMap();
     //print_heights_map();
 
     camera = make_unique<Camera>(); // (Point(460, 400, -200), Point(-45, -45, 20));
@@ -19,7 +19,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     painter.reset();
     my_pixmap.reset();
     my_img.reset();
-    clean();
+    cleanQtCanvas();
 }
 
 Canvas::~Canvas()
@@ -28,31 +28,32 @@ Canvas::~Canvas()
         painter->end();*/
 }
 
-void Canvas::generateNewLandscape()
+void Canvas::generateNewLandscape(int size)
 {
-    clean();
-    randomizeHeightsMap();
+    cleanQtCanvas();
+    heights_map2 = make_unique<HeightsMap>(size);
+    //randomizeHeightsMap();
     heights_map2->randomizeHeightsMap();
     //print_heights_map();
 
-    smoothHeightsMap();
+    //smoothHeightsMap();
     heights_map2->smoothHeightsMap();
     //print_heights_map();
 
     heights_map2->diamondSquare();
     //cout << *heights_map2 << endl;
 
-    heights_map3 = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
+    heights_map_points = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
 
     zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT); //(500, 500);
 
-    tri_pol_mas = heights_map3->createTriPolMas();
+    tri_pol_mas = heights_map_points->createTriPolMas();
     drawHeightsMap();
 
     update();
 }
 
-void Canvas::clean()
+void Canvas::cleanQtCanvas()
 {
     /*if (painter)
         painter->end();
@@ -65,6 +66,14 @@ void Canvas::clean()
     my_img->fill(Qt::white);
 
     update();
+}
+
+void Canvas::resetHeightsMap()
+{
+    heights_map2 = make_unique<HeightsMap>(SIZE);
+    heights_map_points = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
+    zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT);
+    tri_pol_mas = heights_map_points->createTriPolMas();
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
@@ -107,10 +116,10 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
 
         //camera->transform(Point(0, 0, 0), Point(1, 1, 1), Point(y, x, 0));
-        heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
+        heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
         //heights_map3->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, x, y));
 
-        clean();
+        cleanQtCanvas();
         drawHeightsMap();
     }
     else if (RMB_is_pressed)
@@ -119,9 +128,9 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
         //camera->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
-        heights_map3->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+        heights_map_points->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
 
-        clean();
+        cleanQtCanvas();
         drawHeightsMap();
     }
 
@@ -139,9 +148,9 @@ void Canvas::wheelEvent(QWheelEvent *event)
     QPoint numDegrees = event->angleDelta() / 120;
     double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
 
-    heights_map3->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+    heights_map_points->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
 
-    clean();
+    cleanQtCanvas();
     drawHeightsMap();
 }
 
@@ -270,7 +279,7 @@ double Canvas::getHeight(int i, int j)
 
 void Canvas::drawHeightsMap()
 {
-    drawHeightsMap7();
+    drawHeightsMap5();
 }
 
 //#define SCALE 25
@@ -358,10 +367,10 @@ void Canvas::drawHeightsMap3()
     for (int i = 0; i < MAX_X; i++)
         for (int j = 1; j < MAX_Y; j++)
         {
-            Point tmp_point1 = (*heights_map3)(i, j-1);
+            Point tmp_point1 = (*heights_map_points)(i, j-1);
             tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
 
-            Point tmp_point2 = (*heights_map3)(i, j);
+            Point tmp_point2 = (*heights_map_points)(i, j);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
@@ -369,10 +378,10 @@ void Canvas::drawHeightsMap3()
     for (int i = 1; i < MAX_X; i++)
         for (int j = 0; j < MAX_Y; j++)
         {
-            Point tmp_point1 = (*heights_map3)(i-1, j);
+            Point tmp_point1 = (*heights_map_points)(i-1, j);
             tmp_point1 = getProection(tmp_point1, camera->getPosition(), camera->getAngles());
 
-            Point tmp_point2 = (*heights_map3)(i, j);
+            Point tmp_point2 = (*heights_map_points)(i, j);
             tmp_point2 = getProection(tmp_point2, camera->getPosition(), camera->getAngles());
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
@@ -386,7 +395,7 @@ void Canvas::drawHeightsMap4()
     //Check time HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
-    tri_pol_mas->updatePoints(*heights_map3);
+    tri_pol_mas->updatePoints(*heights_map_points);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "createTriPolMas() time = " << seconds << " secs" << endl;
@@ -443,7 +452,7 @@ void Canvas::drawHeightsMap5()
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
-    tri_pol_mas->updatePoints(*heights_map3);
+    tri_pol_mas->updatePoints(*heights_map_points);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "updatePoints() time = " << seconds << " secs" << endl;
@@ -480,7 +489,7 @@ void Canvas::drawHeightsMap6()
 {
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
-    tri_pol_mas->updatePoints(*heights_map3);
+    tri_pol_mas->updatePoints(*heights_map_points);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "updatePoints() time = " << seconds << " secs" << endl;
@@ -555,7 +564,7 @@ void Canvas::drawHeightsMap7()
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
-    tri_pol_mas->updatePoints(*heights_map3);
+    tri_pol_mas->updatePoints(*heights_map_points);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "updatePoints() time = " << seconds << " secs" << endl;

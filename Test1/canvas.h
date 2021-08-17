@@ -34,8 +34,9 @@ public:
     explicit Canvas(QWidget *parent = nullptr);
     ~Canvas();
 
-    void generateNewLandscape();
-    void clean();
+    void generateNewLandscape(int size);
+    void cleanQtCanvas();
+    void resetHeightsMap();
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
@@ -47,7 +48,7 @@ protected:
 public:
     double heights_map[MAX_X][MAX_Y];
     unique_ptr<HeightsMap> heights_map2;
-    shared_ptr<HeightsMapPoints> heights_map3;
+    shared_ptr<HeightsMapPoints> heights_map_points;
 
     shared_ptr<TriPolMas> tri_pol_mas;
     unique_ptr<ZBufferAlg> zbuffer_alg;
