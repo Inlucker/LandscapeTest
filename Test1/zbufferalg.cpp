@@ -66,7 +66,7 @@ void ZBufferAlg::execute2(TriPolMas &mas)
 
         int x0 = round(p1.getX()), x1 = round(p2.getX()), x2 = round(p3.getX());
         int y0 = round(p1.getY()), y1 = round(p2.getY()), y2 = round(p3.getY());
-        int z0 = round(p1.getZ()), z1 = round(p2.getZ()), z2 = round(p3.getZ());
+        double z0 = p1.getZ(), z1 = p2.getZ(), z2 = p3.getZ();
 
         //Вычисление координат x и значений h для рёбер треугольника
         vector<double> x01 = interpolate(y0, x0, y1, x1);
@@ -107,6 +107,8 @@ void ZBufferAlg::execute2(TriPolMas &mas)
             vector<double> &z_right = z012;
 
             //Отрисовка горизонтальных отрезков
+            /*if (abs(y2 - y0) <= 1)
+                cout << "Here |y0 - y2| <= 1" << endl; //trying to fix white lines*/
             for (int y = max(y0, 0); y <= min(y2, width-1); y++)
             {
                 double x_l = x_left[y - y0]; //x_left[y - y0];
@@ -117,8 +119,6 @@ void ZBufferAlg::execute2(TriPolMas &mas)
                 for (int x = max(x_l, 0.); x <= x_r; x++)
                 {
                     double z = z_segment[x - x_l];
-                    if (elem.getColor() == Qt::black)
-                        cout << "x, y = (" << x << "; " << y << ") z = " << z << endl;
                     if ((*zbuffer)(x, y) < z)
                     {
                         (*zbuffer)(x, y) = z;
