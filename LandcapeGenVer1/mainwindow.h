@@ -3,6 +3,13 @@
 
 #include <QMainWindow>
 
+#include <memory>
+#include <iostream>
+
+using namespace std;
+
+#include <canvas.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -15,7 +22,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_gen_btn_clicked();
+
+    void on_clean_btn_clicked();
+
+    void on_size_up_btn_released();
+
+    void on_size_down_btn_released();
+
 private:
     Ui::MainWindow *ui;
+
+    unique_ptr<Canvas> canvas;
 };
 #endif // MAINWINDOW_H

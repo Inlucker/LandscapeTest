@@ -62,7 +62,8 @@ void Canvas::cleanQtCanvas()
     painter = make_unique<QPainter>(&(*my_pixmap));
     painter->setPen(Qt::black);*/
 
-    my_img = make_unique<QImage>(1200, 1200, QImage::Format_RGB32);
+    cout << width() << " h = " << height() << endl;
+    my_img = make_unique<QImage>(width(), height(), QImage::Format_RGB32);
     my_img->fill(Qt::white);
 
     update();
