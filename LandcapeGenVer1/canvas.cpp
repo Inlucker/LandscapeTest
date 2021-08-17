@@ -6,13 +6,12 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     int img_height = 405;
     setFixedSize(img_width+2, img_height+2);
     setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color:white;");
-    //setStyleSheet("background-color:white;");
 
     //painter = make_unique<QPainter>(this);
 
-    //resetHeightsMap();
+    resetHeightsMap();
 
-    //my_img.reset();
+    my_img.reset();
     cleanQImage();
 }
 
@@ -38,7 +37,7 @@ void Canvas::cleanQImage()
 
 void Canvas::resetHeightsMap()
 {
-
+    heights_map = make_unique<HeightsMap>();
 }
 
 void Canvas::paintEvent(QPaintEvent *)

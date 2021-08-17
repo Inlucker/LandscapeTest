@@ -9,12 +9,25 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Iterators/abstractiterator.cpp \
     canvas.cpp \
+    HeightsMap/heightsmap.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Errors/BaseError.h \
+    Errors/HeightsMapErrors.h \
+    Errors/IteratorErrors.h \
+    Iterators/abstractiterator.h \
+    Iterators/baseiterator.h \
+    Iterators/baseiterator.hpp \
+    Iterators/constiterator.h \
+    Iterators/constiterator.hpp \
+    Iterators/iterator.h \
+    Iterators/iterator.hpp \
     canvas.h \
+    HeightsMap/heightsmap.h \
     mainwindow.h
 
 FORMS += \

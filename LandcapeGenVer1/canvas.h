@@ -10,6 +10,8 @@
 
 using namespace std;
 
+#include "HeightsMap/heightsmap.h"
+
 class Canvas : public QWidget
 {
 public:
@@ -37,6 +39,13 @@ private:
     bool LMB_is_pressed = false;
     bool RMB_is_pressed = false;
     int previous_x = 0, previous_y = 0;
+
+    unique_ptr<HeightsMap> heights_map;
+    //shared_ptr<HeightsMapPoints> heights_map_points;
+
+    //shared_ptr<TriPolMas> tri_pol_mas;
+    //unique_ptr<ZBufferAlg> zbuffer_alg;
+    //shared_ptr<FrameBuffer> frame_buffer;
 };
 
 #endif // CANVAS_H
