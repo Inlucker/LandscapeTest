@@ -16,7 +16,9 @@ SOURCES += \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
     Matrix/AbstractMtrx.cpp \
-    Triangles/triangularpolygon.cpp \
+    Triangles/TriPolArray.cpp \
+    Triangles/TriangularPolygon.cpp \
+    Vector/AbstractVector.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -31,6 +33,7 @@ HEADERS += \
     Errors/HeightsMapPointsErrors.h \
     Errors/IteratorErrors.h \
     Errors/MtrxErrors.h \
+    Errors/VectorErrors.h \
     HeightsMap/HeightsMap.h \
     HeightsMap/HeightsMapPoints.h \
     HeightsMap/Point.h \
@@ -44,7 +47,11 @@ HEADERS += \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
-    Triangles/triangularpolygon.h \
+    Triangles/TriPolArray.h \
+    Triangles/TriangularPolygon.h \
+    Vector/AbstractVector.h \
+    Vector/Vector.h \
+    Vector/Vector.hpp \
     mainwindow.h
 
 FORMS += \
