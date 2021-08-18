@@ -15,7 +15,7 @@ class ConstIterator;*/
 #include "Point.h"
 
 #include "HeightsMap.h"
-//class TriPolMas;
+class TriPolArray;
 
 class HeightsMapPoints : public BaseMtrx<Point>
 {
@@ -33,7 +33,7 @@ public:
     ConstIterator<Point> cbegin() const noexcept;
     ConstIterator<Point> cend() const noexcept;*/
 
-    //shared_ptr<TriPolMas> createTriPolMas();
+    shared_ptr<TriPolArray> createTriPolArray();
 
     /*Point& getElem(int id);
     const Point& getElem(int id) const;

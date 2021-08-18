@@ -32,6 +32,8 @@ void Canvas::generateNewLandscape(int size)
 
     heights_map_points = heights_map->createPoints(SCALE, SCALE, SCALE);
 
+    tri_pol_mas = heights_map_points->createTriPolArray();
+
     drawLandScape();
 
     update();
@@ -50,6 +52,8 @@ void Canvas::resetHeightsMap()
 {
     heights_map = make_unique<HeightsMap>();
     heights_map_points = heights_map->createPoints();
+    tri_pol_mas = heights_map_points->createTriPolArray();
+    //zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT);
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)
@@ -153,6 +157,11 @@ void Canvas::plotXImg(int x, int y, QColor c, int mult)
             my_img->setPixelColor((mult*x)+i, (mult*y)+j, c);
 }
 
+void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2)
+{
+    DrawLineBrezenheimFloat(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+}
+
 void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end)
 {
     int X = X_start, Y = Y_start;
@@ -209,6 +218,9 @@ void Canvas::drawLandScape()
         case CARCAS:
             carcasDraw();
             break;
+        case TRIANGULAR:
+            triangularDraw();
+            break;
         default:
             QMessageBox::information(this, "Error", "No such DrawAlg");//?
             break;
@@ -237,4 +249,15 @@ void Canvas::carcasDraw()
 
             DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
         }
+}
+
+void Canvas::triangularDraw()
+{
+    tri_pol_mas = heights_map_points->createTriPolArray();
+    for (auto &tri_pol : *tri_pol_mas)
+    {
+        DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2());
+        DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3());
+        DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1());
+    }
 }

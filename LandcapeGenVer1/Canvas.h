@@ -16,10 +16,13 @@ using namespace std;
 
 #include "HeightsMap/HeightsMap.h"
 #include "HeightsMap/HeightsMapPoints.h"
+#include "Triangles/TriPolArray.h"
+#include "Triangles/TriangularPolygon.h"
 
 enum DrawAlg //not good because of static cast?
 {
-    CARCAS = 0
+    CARCAS,
+    TRIANGULAR
 };
 
 class Canvas : public QWidget
@@ -57,7 +60,7 @@ private:
     unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
 
-    //shared_ptr<TriPolMas> tri_pol_mas;
+    shared_ptr<TriPolArray> tri_pol_mas;
     //unique_ptr<ZBufferAlg> zbuffer_alg;
     //shared_ptr<FrameBuffer> frame_buffer;
 
@@ -65,10 +68,12 @@ private:
     int sign(double val);
     void plotImg(int x, int y, QColor c);
     void plotXImg(int x, int y, QColor c, int mult = 1);
+    void DrawLineBrezenheimFloat(Point p1, Point p2);
     void DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end);
 
     void drawLandScape();
     void carcasDraw();
+    void triangularDraw();
 };
 
 #endif // CANVAS_H

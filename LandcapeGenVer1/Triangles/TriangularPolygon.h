@@ -28,9 +28,9 @@ public:
     double getMinY() const;
     double getMaxY() const;
 
-    const Point &getP1() const;
+    const Point& getP1() const;
     const Point& getP2() const;
-    const Point &getP3() const;
+    const Point& getP3() const;
     /*int getP1() const;
     int getP2() const;
     int getP3() const;*/
