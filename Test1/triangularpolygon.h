@@ -17,7 +17,6 @@ public:
     ~TriangularPolygon() = default;
 
     double getZ(double x, double y) const;
-    double getZ2(double x, double y) const;
     color_t getColor(double x, double y) const;
     color_t &getColor();
 
