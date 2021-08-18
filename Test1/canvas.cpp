@@ -280,7 +280,7 @@ double Canvas::getHeight(int i, int j)
 
 void Canvas::drawHeightsMap()
 {
-    drawHeightsMap3();
+    drawHeightsMap5();
 }
 
 //#define SCALE 25
@@ -625,8 +625,8 @@ void Canvas::plotX4(int x, int y)
 
 void Canvas::plotX4Img(int x, int y, QColor c)
 {
-    for (int i = 0; i <= MULT; i++)
-        for (int j = 0; j <= MULT; j++)
+    for (int i = 0; i < MULT; i++)
+        for (int j = 0; j < MULT; j++)
             my_img->setPixelColor((MULT*x)+i, (MULT*y)+j, c);
 }
 
