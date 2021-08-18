@@ -9,17 +9,23 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Array/AbstractArray.cpp \
     Canvas.cpp \
     HeightsMap/HeightsMap.cpp \
     HeightsMap/HeightsMapPoints.cpp \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
     Matrix/AbstractMtrx.cpp \
+    Triangles/triangularpolygon.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Array/AbstractArray.h \
+    Array/BaseArray.h \
+    Array/BaseArray.hpp \
     Canvas.h \
+    Errors/ArrayErrors.h \
     Errors/BaseError.h \
     Errors/HeightsMapErrors.h \
     Errors/HeightsMapPointsErrors.h \
@@ -38,6 +44,7 @@ HEADERS += \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
+    Triangles/triangularpolygon.h \
     mainwindow.h
 
 FORMS += \
