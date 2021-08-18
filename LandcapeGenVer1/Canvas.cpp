@@ -14,6 +14,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     resetHeightsMap();
 
     my_img.reset();
+    frame_buffer.reset();
     cleanQImage();
 }
 
@@ -34,6 +35,13 @@ void Canvas::generateNewLandscape(int size)
 
     tri_pol_mas = heights_map_points->createTriPolArray();
 
+    const Point& c = heights_map_points->getCenter();
+    heights_map_points->transform(Point(-c.getX() + (img_width/2), -c.getY() + (img_height/2), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, 0, 180));
+
+    //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
+    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
+
     drawLandScape();
 
     update();
@@ -53,12 +61,14 @@ void Canvas::resetHeightsMap()
     heights_map = make_unique<HeightsMap>();
     heights_map_points = heights_map->createPoints();
     tri_pol_mas = heights_map_points->createTriPolArray();
-    //zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT);
+    //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
+    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)
 {
     draw_alg = alg;
+    drawLandScape();
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
@@ -152,9 +162,12 @@ void Canvas::plotImg(int x, int y, QColor c)
 
 void Canvas::plotXImg(int x, int y, QColor c, int mult)
 {
-    for (int i = 0; i <= mult; i++)
-        for (int j = 0; j <= mult; j++)
-            my_img->setPixelColor((mult*x)+i, (mult*y)+j, c);
+    for (int i = 0; i < mult; i++)
+        for (int j = 0; j < mult; j++)
+            if ((mult*x)+i <= img_width && (mult*x)+i >= 0 && (mult*y)+j <= img_height && (mult*y)+j >= 0)
+            {
+                my_img->setPixelColor((mult*x)+i, (mult*y)+j, c);
+            }
 }
 
 void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2)
@@ -162,10 +175,11 @@ void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2)
     DrawLineBrezenheimFloat(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 }
 
-void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_end)
+void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end)
 {
-    int X = X_start, Y = Y_start;
-    int dX = X_end - X_start, dY = Y_end - Y_start;
+    int X1 = round(X_start), Y1 = round(Y_start), X2 = round(X_end), Y2 = round(Y_end);
+    int X = X1, Y = Y1;
+    int dX = X2 - X1, dY = Y2 - Y1;
     int SX = sign(dX), SY = sign(dY);
     dX = abs(dX), dY = abs(dY);
 
@@ -184,10 +198,9 @@ void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_
     double tg = double(dY) / double(dX) ; // tангенс угла наклона
     double er = tg - 0.5; // начальное значение ошибки
 
-    if (X >= img_width || X < 0 || Y >= img_height || Y < 0)
-        return;
-    plotImg(X, Y, Qt::black);
-    while (X != X_end || Y != Y_end)
+    if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
+        plotImg(X, Y, Qt::black);
+    while (X != X2 || Y != Y2)
     {
         if (er >= 0)
         {
@@ -205,26 +218,30 @@ void Canvas::DrawLineBrezenheimFloat(int X_start, int Y_start, int X_end, int Y_
                 Y += SY;
             er += tg; // отличие от целого
         }
-        if (X >= img_width || X < 0 || Y >= img_height || Y < 0)
-            return;
-        plotImg(X, Y, Qt::black);
+        if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
+            plotImg(X, Y, Qt::black);
     }
 }
 
 void Canvas::drawLandScape()
 {
+    cleanQImage();
     switch (draw_alg)
     {
-        case CARCAS:
-            carcasDraw();
-            break;
-        case TRIANGULAR:
-            triangularDraw();
-            break;
-        default:
-            QMessageBox::information(this, "Error", "No such DrawAlg");//?
-            break;
+    case CARCAS:
+        carcasDraw();
+        break;
+    case TRIANGULAR:
+        triangularDraw();
+        break;
+    case ZBUFFER_PARAM:
+        zbufferParamDraw();
+        break;
+    default:
+        QMessageBox::information(this, "Error", "No such DrawAlg");//?
+        break;
     }
+    update();
 }
 
 void Canvas::carcasDraw()
@@ -253,11 +270,48 @@ void Canvas::carcasDraw()
 
 void Canvas::triangularDraw()
 {
-    tri_pol_mas = heights_map_points->createTriPolArray();
+    tri_pol_mas->updatePoints(*heights_map_points);
     for (auto &tri_pol : *tri_pol_mas)
     {
         DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2());
         DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3());
         DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1());
     }
+}
+
+void Canvas::zbufferParamDraw()
+{
+    //painter->setPen(Qt::black);
+    //UPDATE POINTS
+    clock_t start = clock();
+    //tri_pol_mas = heights_map3->createTriPolMas();
+    tri_pol_mas->updatePoints(*heights_map_points);
+    clock_t end = clock();
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "updatePoints() time = " << seconds << " secs" << endl;
+
+    //Z-BUFFER ALGORITHM
+    start = clock();
+    zbuffer_alg->execute(*tri_pol_mas);
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+    //cout << *frame_buffer << endl;
+
+    //PAINT
+    start = clock();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            //plotImg(i, j, (*frame_buffer)(i, j));
+            plotXImg(i, j, (*frame_buffer)(i, j));
+        }
+    }
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "paint time = " << seconds << " secs" << endl;
 }

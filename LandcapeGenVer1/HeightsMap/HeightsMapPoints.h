@@ -50,6 +50,8 @@ public:
 
     //void updateCenter() noexcept; //make it private?
 
+    const Point& getCenter() const;
+
 private:
     //void alloc_data();
     void updateCenter() noexcept;

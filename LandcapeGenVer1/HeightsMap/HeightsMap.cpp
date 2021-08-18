@@ -10,68 +10,13 @@
 
 HeightsMap::HeightsMap()
 {
-    /*size = 0;
-    elems_num = 0;
-    data_ptr.reset();*/
+
 }
 
-HeightsMap::HeightsMap(int new_size) : BaseType(new_size)//BaseMtrx<height_t>(new_size)
+HeightsMap::HeightsMap(int new_size) : BaseType(new_size)
 {
-    /*time_t t_time = time(NULL);
-    if (new_size < 0)
-        throw HeightsMapNegativeSizeError("new_size < 0", __FILE__, __LINE__, ctime(&t_time));
 
-    if (new_size == 0)
-    {
-        size = 0;
-        elems_num = 0;
-        data_ptr.reset();
-    }
-    else
-    {
-        size = new_size;
-        elems_num = size*size;
-        alloc_data();
-
-        for (auto &elem:*this)
-            elem = 0;
-    }*/
 }
-
-/*bool HeightsMap::isEmpty() const noexcept
-{
-    return !elems_num;
-}
-
-int HeightsMap::getSize() const noexcept
-{
-    return size;
-}
-
-int HeightsMap::elemsNum() const noexcept
-{
-    return elems_num;
-}
-
-Iterator<height_t> HeightsMap::begin() noexcept
-{
-    return Iterator<height_t>(data_ptr, elems_num, 0);
-}
-
-Iterator<height_t> HeightsMap::end() noexcept
-{
-    return Iterator<height_t>(data_ptr, elems_num, elems_num);
-}
-
-ConstIterator<height_t> HeightsMap::cbegin() const noexcept
-{
-    return ConstIterator<height_t>(data_ptr, elems_num, 0);
-}
-
-ConstIterator<height_t> HeightsMap::cend() const noexcept
-{
-    return ConstIterator<height_t>(data_ptr, elems_num, elems_num);
-}*/
 
 void HeightsMap::resetHeightsmap() noexcept
 {
@@ -118,59 +63,6 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 {
     return createPoints(1, 1, 1);
 }
-
-/*height_t& HeightsMap::getElem(int id)
-{
-    time_t t_time = time(NULL);
-    if (id < 0 || id >= elems_num)
-        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
-
-    return data_ptr[id];
-}
-
-const height_t& HeightsMap::getElem(int id) const
-{
-    time_t t_time = time(NULL);
-    if (id < 0 || id >= elems_num)
-        throw HeightsMapIndexError("id", __FILE__, __LINE__, ctime(&t_time));
-
-    return data_ptr[id];
-}
-
-height_t& HeightsMap::operator [](int id)
-{
-    return getElem(id);
-}
-
-const height_t& HeightsMap::operator [](int id) const
-{
-    return getElem(id);
-}
-
-height_t &HeightsMap::operator()(int i, int j)
-{
-    return getElem(i*size+j);
-}
-
-const height_t &HeightsMap::operator()(const int &i, const int &j) const
-{
-    return getElem(i*size+j);
-}
-
-void HeightsMap::alloc_data()
-{
-    data_ptr.reset();
-    if (elems_num != 0)
-    {
-        shared_ptr<height_t[]> new_ptr(new height_t[elems_num]);
-
-        time_t t_time = time(NULL);
-        if (!new_ptr)
-            throw HeightsMapAllocError("Allocationg data_ptr error", __FILE__, __LINE__, ctime(&t_time));
-
-        data_ptr = new_ptr;
-    }
-}*/
 
 //ToFigureOut and Understand how it works
 void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)

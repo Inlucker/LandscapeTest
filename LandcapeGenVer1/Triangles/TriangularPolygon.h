@@ -31,6 +31,9 @@ public:
     const Point& getP1() const;
     const Point& getP2() const;
     const Point& getP3() const;
+    Point& getP1();
+    Point& getP2();
+    Point& getP3();
     /*int getP1() const;
     int getP2() const;
     int getP3() const;*/

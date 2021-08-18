@@ -178,6 +178,11 @@ void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Po
     }
 }
 
+const Point &HeightsMapPoints::getCenter() const
+{
+    return map_points_center;
+}
+
 void HeightsMapPoints::updateCenter() noexcept
 {
     int i = 0;

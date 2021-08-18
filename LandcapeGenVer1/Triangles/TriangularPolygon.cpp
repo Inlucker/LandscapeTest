@@ -24,7 +24,7 @@ TriangularPolygon::TriangularPolygon::TriangularPolygon(Point new_p1, Point new_
     calcSurface();
 }
 
-inline double TriangularPolygon::getZ(double x, double y) const
+double TriangularPolygon::getZ(double x, double y) const
 {
     //Ax+By+Cz+D=0 => Cz = -Ax-By-D => z = (-Ax-By-D)/C
     if (C != 0)
@@ -70,6 +70,21 @@ const Point& TriangularPolygon::getP2() const
 }
 
 const Point& TriangularPolygon::getP3() const
+{
+    return p3;
+}
+
+Point& TriangularPolygon::getP1()
+{
+    return p1;
+}
+
+Point& TriangularPolygon::getP2()
+{
+    return p2;
+}
+
+Point& TriangularPolygon::getP3()
 {
     return p3;
 }
@@ -175,12 +190,14 @@ void TriangularPolygon::calcSurface()
 
 void TriangularPolygon::calcColor()
 {
-    double cosinus = fabs(B/sqrt(A*A+B*B+C*C)); //Right?
-
     color = QColor(20, 150, 20);//Qt::darkGreen;//Qt::green;//QColor(200, 200, 200);
+    if (A != 0 || B != 0 || C != 0)
+    {
+        double cosinus = fabs(B/sqrt(A*A+B*B+C*C)); //Right?
 
-    //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
-    color = QColor(color.red()*cosinus, color.green()*cosinus, color.blue()*cosinus);
+        //color.setHsvF(color.hsvHueF(), color.hsvSaturationF(), 0.15+float(cosinus*0.75));
+        color = QColor(color.red()*cosinus, color.green()*cosinus, color.blue()*cosinus);
+    }
 }
 
 ostream& operator <<(ostream& os, const TriangularPolygon& pol)

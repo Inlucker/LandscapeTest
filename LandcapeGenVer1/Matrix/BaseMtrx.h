@@ -18,12 +18,14 @@ class BaseMtrx : public AbstractMtrx
 public:
     BaseMtrx();
     explicit BaseMtrx(int new_size);
+    BaseMtrx(int new_width, int new_height);
 
     virtual ~BaseMtrx() = default;
 
-    virtual bool isEmpty() const noexcept;
-    virtual int getSize() const noexcept;
-    virtual int elemsNum() const noexcept;
+    //virtual bool isEmpty() const noexcept;
+    //virtual int getSize() const noexcept;
+    //virtual int elemsNum() const noexcept;
+    virtual void reset() noexcept;
 
     Iterator<Type> begin() noexcept;
     Iterator<Type> end() noexcept;

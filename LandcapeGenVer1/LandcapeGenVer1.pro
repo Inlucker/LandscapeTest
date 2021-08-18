@@ -19,6 +19,9 @@ SOURCES += \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
     Vector/AbstractVector.cpp \
+    ZBuffer/FrameBuffer.cpp \
+    ZBuffer/ZBuffer.cpp \
+    ZBuffer/ZBufferAlg.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -52,6 +55,9 @@ HEADERS += \
     Vector/AbstractVector.h \
     Vector/Vector.h \
     Vector/Vector.hpp \
+    ZBuffer/FrameBuffer.h \
+    ZBuffer/ZBuffer.h \
+    ZBuffer/ZBufferAlg.h \
     mainwindow.h
 
 FORMS += \

@@ -12,10 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->draw_variant_comboBox->addItem("Каркасный");
     ui->draw_variant_comboBox->addItem("Треугольники");
     ui->draw_variant_comboBox->addItem("Заполненный");
+    ui->draw_variant_comboBox->setCurrentIndex(2);
 
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
 
     canvas = make_unique<Canvas>(new Canvas());
+    canvas->setDrawAlg(ZBUFFER_PARAM);
     ui->gridLayout->addWidget(&(*canvas));
 }
 
@@ -63,15 +65,18 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
 {
     switch (index)
     {
-        case 0:
-            canvas->setDrawAlg(CARCAS);
-            break;
-        case 1:
-            canvas->setDrawAlg(TRIANGULAR);
-            break;
-        default:
-            QMessageBox::information(this, "Error", "No such DrawAlg");
-            ui->draw_variant_comboBox->setCurrentIndex(0);
-            break;
+    case 0:
+        canvas->setDrawAlg(CARCAS);
+        break;
+    case 1:
+        canvas->setDrawAlg(TRIANGULAR);
+        break;
+    case 2:
+        canvas->setDrawAlg(ZBUFFER_PARAM);
+        break;
+    default:
+        QMessageBox::information(this, "Error", "No such DrawAlg");
+        ui->draw_variant_comboBox->setCurrentIndex(0);
+        break;
     }
 }
