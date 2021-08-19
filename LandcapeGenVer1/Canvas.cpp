@@ -37,7 +37,7 @@ void Canvas::generateNewLandscape(int size)
 
     /*heights_map_points = heights_map->createPoints();
     heights_map_points->transform(Point(0, 0, 0), Point(SCALE, SCALE, SCALE), Point(0, 0, 0));*/
-    heights_map_points = heights_map->createPoints(SCALE, SCALE, SCALE);
+    heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
     tri_pol_mas = heights_map_points->createTriPolArray();
 
@@ -113,7 +113,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
 }
 
 #define ROTATE_SPEED 5
-#define MOVE_SPEED 2
+#define MOVE_SPEED mult
 
 void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
