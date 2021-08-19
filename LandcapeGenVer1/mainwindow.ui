@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>890</x>
-      <y>460</y>
+      <y>430</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -54,7 +54,7 @@
       <x>880</x>
       <y>140</y>
       <width>201</width>
-      <height>311</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="font">
@@ -69,7 +69,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
+       <y>220</y>
        <width>181</width>
        <height>51</height>
       </rect>
@@ -141,11 +141,69 @@
       </property>
      </widget>
     </widget>
-    <widget class="QGroupBox" name="scale_groupBox">
+    <widget class="QGroupBox" name="range_groupBox">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>90</y>
+       <width>81</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Range</string>
+     </property>
+     <widget class="QDoubleSpinBox" name="range_doubleSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>64</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <double>1024.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>24.000000000000000</double>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="level_groupBox">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>90</y>
+       <width>91</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Level</string>
+     </property>
+     <widget class="QSpinBox" name="level_spinBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>71</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>1024</number>
+      </property>
+      <property name="value">
+       <number>32</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="scale_groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
        <width>121</width>
        <height>61</height>
       </rect>

@@ -43,6 +43,10 @@ private slots:
 
     void on_rotate_btn_clicked();
 
+    void on_range_doubleSpinBox_valueChanged(double arg1);
+
+    void on_level_spinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 

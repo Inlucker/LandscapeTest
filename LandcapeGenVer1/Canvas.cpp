@@ -33,7 +33,7 @@ void Canvas::generateNewLandscape(int size)
     cleanQImage();
     heights_map = make_unique<HeightsMap>(size);
 
-    heights_map->diamondSquare();
+    heights_map->diamondSquare(range, level);
 
     /*heights_map_points = heights_map->createPoints();
     heights_map_points->transform(Point(0, 0, 0), Point(SCALE, SCALE, SCALE), Point(0, 0, 0));*/
@@ -79,6 +79,16 @@ void Canvas::resetHeightsMap()
 void Canvas::setScale(double new_scale)
 {
     scale = new_scale;
+}
+
+void Canvas::setRange(float new_range)
+{
+    range = new_range;
+}
+
+void Canvas::setLevel(unsigned new_level)
+{
+    level = new_level;
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)

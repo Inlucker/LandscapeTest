@@ -40,6 +40,8 @@ public:
 
     //generating seters
     void setScale(double new_scale);
+    void setRange(float new_range);
+    void setLevel(unsigned new_level);
 
     //drawing seters
     void setDrawAlg(DrawAlg alg);
@@ -68,6 +70,8 @@ private:
 
     //generating parametres
     double scale = 16;
+    float range = 24.75;
+    unsigned level = 33;
 
     //drawing parametres
     DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;

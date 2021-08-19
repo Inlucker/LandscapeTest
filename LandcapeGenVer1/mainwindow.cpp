@@ -42,10 +42,15 @@ void MainWindow::on_size_up_btn_released()
 {
     QString text = ui->size_value_label->text();
     int n = text.toInt();
-    n = (n - 1)*2+1;
-    text = QString::number(n);
-    ui->size_value_label->setText(text);
-    ui->scale_doubleSpinBox->setValue(512./(n-1));
+    if (n < 1025)
+    {
+        n = (n - 1)*2+1;
+        text = QString::number(n);
+        ui->size_value_label->setText(text);
+        ui->scale_doubleSpinBox->setValue(512./(n-1));
+        ui->range_doubleSpinBox->setValue((n-1)*0.75);
+        ui->level_spinBox->setValue((n-1));
+    }
 }
 
 
@@ -59,6 +64,8 @@ void MainWindow::on_size_down_btn_released()
         text = QString::number(n);
         ui->size_value_label->setText(text);
         ui->scale_doubleSpinBox->setValue(512./(n-1));
+        ui->range_doubleSpinBox->setValue((n-1)*0.75);
+        ui->level_spinBox->setValue((n-1));
     }
 }
 
@@ -217,5 +224,17 @@ void MainWindow::on_rotate_btn_clicked()
     {
         QMessageBox::information(this, "Error", "Unexpected Error");
     }
+}
+
+
+void MainWindow::on_range_doubleSpinBox_valueChanged(double arg1)
+{
+    canvas->setRange(arg1);
+}
+
+
+void MainWindow::on_level_spinBox_valueChanged(int arg1)
+{
+    canvas->setLevel(arg1);
 }
 
