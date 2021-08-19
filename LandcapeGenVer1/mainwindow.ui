@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>890</x>
-      <y>370</y>
+      <y>460</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -52,9 +52,9 @@
     <property name="geometry">
      <rect>
       <x>880</x>
-      <y>190</y>
+      <y>140</y>
       <width>201</width>
-      <height>171</height>
+      <height>311</height>
      </rect>
     </property>
     <property name="font">
@@ -69,7 +69,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>250</y>
        <width>181</width>
        <height>51</height>
       </rect>
@@ -78,110 +78,100 @@
       <string>GenerateNewLandscape</string>
      </property>
     </widget>
-    <widget class="QLabel" name="size_label">
+    <widget class="QGroupBox" name="size_groupBox">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>41</width>
-       <height>41</height>
+       <width>101</width>
+       <height>71</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
+     <property name="title">
+      <string>Size</string>
      </property>
-     <property name="text">
-      <string>Size:</string>
-     </property>
+     <widget class="QPushButton" name="size_down_btn">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>▼</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="size_up_btn">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>20</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>▲</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="size_value_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>33</string>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
-    <widget class="QLabel" name="size_value_label">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>20</y>
-       <width>41</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>33</string>
-     </property>
-     <property name="scaledContents">
-      <bool>false</bool>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="size_up_btn">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>20</y>
-       <width>41</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>▲</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="size_down_btn">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>40</y>
-       <width>41</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>▼</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="mult_label_2">
+    <widget class="QGroupBox" name="scale_groupBox">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>70</y>
-       <width>51</width>
-       <height>31</height>
+       <y>90</y>
+       <width>121</width>
+       <height>61</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
+     <property name="title">
+      <string>Scale</string>
      </property>
-     <property name="text">
-      <string>Scale:</string>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="scale_doubleSpinBox">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>70</y>
-       <width>71</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="decimals">
-      <number>2</number>
-     </property>
-     <property name="maximum">
-      <double>1024.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>16.000000000000000</double>
-     </property>
+     <widget class="QDoubleSpinBox" name="scale_doubleSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>2</number>
+      </property>
+      <property name="maximum">
+       <double>1024.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>16.000000000000000</double>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QGroupBox" name="draw_variant_box">
@@ -190,7 +180,7 @@
       <x>880</x>
       <y>10</y>
       <width>201</width>
-      <height>171</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="font">
