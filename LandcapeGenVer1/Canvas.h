@@ -37,9 +37,16 @@ public:
     void cleanQImage();
     void resetHeightsMap();
 
+    //generating
+    void setScale(double new_scale);
+
+    //drawing
+    void draw();
     void setDrawAlg(DrawAlg alg);
     void setMult(int new_mult);
-    void setScale(double new_scale);
+
+    //transforming
+    void transform(Point move, Point scale, Point rotate);
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);

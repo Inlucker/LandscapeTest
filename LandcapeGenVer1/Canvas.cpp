@@ -87,9 +87,19 @@ void Canvas::setMult(int new_mult)
     drawLandScape();
 }
 
+void Canvas::transform(Point move, Point scale, Point rotate)
+{
+    heights_map_points->transform(move, scale, rotate);
+}
+
 void Canvas::setScale(double new_scale)
 {
     scale = new_scale;
+}
+
+void Canvas::draw()
+{
+    drawLandScape();
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)

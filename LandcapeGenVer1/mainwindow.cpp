@@ -93,3 +93,129 @@ void MainWindow::on_scale_doubleSpinBox_valueChanged(double arg1)
     canvas->setScale(arg1);
 }
 
+
+void MainWindow::on_move_btn_clicked()
+{
+    try
+    {
+        bool isDouble;
+
+        double dX = ui->move_x->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double dY = ui->move_y->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double dZ = ui->move_z->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        canvas->transform(Point(dX, dY, dZ), Point(1, 1, 1), Point(0, 0, 0));
+
+        canvas->draw();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
+
+void MainWindow::on_scale_btn_clicked()
+{
+    try
+    {
+        bool isDouble;
+
+        double kX = ui->scale_x->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double kY = ui->scale_y->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double kZ = ui->scale_z->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        canvas->transform(Point(0, 0, 0), Point(kX, kY, kZ), Point(0, 0, 0));
+
+        canvas->draw();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
+
+void MainWindow::on_rotate_btn_clicked()
+{
+    try
+    {
+        bool isDouble;
+
+        double oX = ui->angle_x->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double oY = ui->angle_y->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        double oZ = ui->angle_z->text().toDouble(&isDouble);
+        if (!isDouble)
+        {
+            QMessageBox::information(this, "Error", "Параметры преобразовнний должны быть вещественным числами");
+            return;
+        }
+
+        canvas->transform(Point(0, 0, 0), Point(1, 1, 1), Point(oX, oY, oZ));
+
+        canvas->draw();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+

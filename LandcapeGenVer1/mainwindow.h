@@ -37,6 +37,12 @@ private slots:
 
     void on_scale_doubleSpinBox_valueChanged(double arg1);
 
+    void on_move_btn_clicked();
+
+    void on_scale_btn_clicked();
+
+    void on_rotate_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
