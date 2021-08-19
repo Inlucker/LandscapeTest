@@ -15,7 +15,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
 
     draw_alg = ZBUFFER_PARAM;
     mult = 1;
-    scale = 15;
+    scale = 16;
 
     my_img.reset();
     frame_buffer.reset();
@@ -35,6 +35,8 @@ void Canvas::generateNewLandscape(int size)
 
     heights_map->diamondSquare();
 
+    /*heights_map_points = heights_map->createPoints();
+    heights_map_points->transform(Point(0, 0, 0), Point(SCALE, SCALE, SCALE), Point(0, 0, 0));*/
     heights_map_points = heights_map->createPoints(SCALE, SCALE, SCALE);
 
     tri_pol_mas = heights_map_points->createTriPolArray();
@@ -83,6 +85,11 @@ void Canvas::setMult(int new_mult)
     mult = new_mult;
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
     drawLandScape();
+}
+
+void Canvas::setScale(double new_scale)
+{
+    scale = new_scale;
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
@@ -178,7 +185,7 @@ void Canvas::plotXImg(int x, int y, QColor c, int m)
 {
     for (int i = 0; i < m; i++)
         for (int j = 0; j < m; j++)
-            if ((m*x)+i <= img_width && (m*x)+i >= 0 && (m*y)+j <= img_height && (m*y)+j >= 0)
+            if ((m*x)+i < img_width && (m*x)+i >= 0 && (m*y)+j < img_height && (m*y)+j >= 0)
             {
                 my_img->setPixelColor((m*x)+i, (m*y)+j, c);
             }

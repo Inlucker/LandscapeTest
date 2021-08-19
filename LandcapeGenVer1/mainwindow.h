@@ -35,6 +35,8 @@ private slots:
 
     void on_mult_spinBox_valueChanged(int arg1);
 
+    void on_scale_doubleSpinBox_valueChanged(double arg1);
+
 private:
     Ui::MainWindow *ui;
 

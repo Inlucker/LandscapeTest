@@ -22,7 +22,7 @@ public:
     void diamondSquare();
     void diamondSquare(float r, unsigned int l);
 
-    shared_ptr<HeightsMapPoints> createPoints(int kx, int ky, int kz);
+    shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
 private:

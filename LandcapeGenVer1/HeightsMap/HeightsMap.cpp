@@ -41,7 +41,7 @@ void HeightsMap::diamondSquare(float r, unsigned int l)
     diamondSquare(0, 0, size-1, size-1, r, l);
 }
 
-shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
+shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
     if (size > 0)
@@ -50,7 +50,7 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz)
         int i = 0;
         for (auto& points_it : *new_points_map)
         {
-            points_it = Point((i/size) * kx, (*map_it) * ky, (i % size) * kz); // x <-> z
+            points_it = Point(double(i/size) * kx, double(*map_it) * ky, double(i % size) * kz); // x <-> z
             map_it++;
             i++;
         }

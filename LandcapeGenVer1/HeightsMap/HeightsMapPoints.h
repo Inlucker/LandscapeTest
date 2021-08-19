@@ -55,7 +55,7 @@ public:
 private:
     //void alloc_data();
     void updateCenter() noexcept;
-    friend shared_ptr<HeightsMapPoints> HeightsMap::createPoints(int kx, int ky, int kz);
+    friend shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz);
     friend ostream& operator <<(ostream& os, const HeightsMapPoints& map);
 
 private:

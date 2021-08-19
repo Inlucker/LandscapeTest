@@ -45,6 +45,7 @@ void MainWindow::on_size_up_btn_released()
     n = (n - 1)*2+1;
     text = QString::number(n);
     ui->size_value_label->setText(text);
+    ui->scale_doubleSpinBox->setValue(512./(n-1));
 }
 
 
@@ -57,6 +58,7 @@ void MainWindow::on_size_down_btn_released()
         n = (n - 1)/2+1;
         text = QString::number(n);
         ui->size_value_label->setText(text);
+        ui->scale_doubleSpinBox->setValue(512./(n-1));
     }
 }
 
@@ -84,5 +86,10 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
 void MainWindow::on_mult_spinBox_valueChanged(int arg1)
 {
     canvas->setMult(arg1);
+}
+
+void MainWindow::on_scale_doubleSpinBox_valueChanged(double arg1)
+{
+    canvas->setScale(arg1);
 }
 

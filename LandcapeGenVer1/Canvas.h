@@ -39,6 +39,7 @@ public:
 
     void setDrawAlg(DrawAlg alg);
     void setMult(int new_mult);
+    void setScale(double new_scale);
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
@@ -60,7 +61,7 @@ private:
 
     DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
     int mult = 1;
-    double scale = 15;
+    double scale = 16;
 
     unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
