@@ -33,6 +33,8 @@ private slots:
 
     void on_draw_variant_comboBox_activated(int index);
 
+    void on_mult_spinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 

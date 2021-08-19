@@ -11,8 +11,8 @@
 
 using namespace std;
 
-#define MULT 1
-#define SCALE 30//15//7//3
+#define MULT mult
+#define SCALE scale//30//15//7//3
 
 #include "HeightsMap/HeightsMap.h"
 #include "HeightsMap/HeightsMapPoints.h"
@@ -38,6 +38,7 @@ public:
     void resetHeightsMap();
 
     void setDrawAlg(DrawAlg alg);
+    void setMult(int new_mult);
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
@@ -57,7 +58,9 @@ private:
     bool RMB_is_pressed = false;
     int previous_x = 0, previous_y = 0;
 
-    DrawAlg draw_alg = CARCAS;
+    DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
+    int mult = 1;
+    double scale = 15;
 
     unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
@@ -69,7 +72,7 @@ private:
 private:
     int sign(double val);
     void plotImg(int x, int y, QColor c);
-    void plotXImg(int x, int y, QColor c, int mult = 1);
+    void plotXImg(int x, int y, QColor c, int m = 1);
     void DrawLineBrezenheimFloat(Point p1, Point p2);
     void DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end);
 

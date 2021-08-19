@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
 
     canvas = make_unique<Canvas>(new Canvas());
-    canvas->setDrawAlg(ZBUFFER_PARAM);
+    //canvas->setDrawAlg(ZBUFFER_PARAM);
     ui->gridLayout->addWidget(&(*canvas));
 }
 
@@ -80,3 +80,9 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
         break;
     }
 }
+
+void MainWindow::on_mult_spinBox_valueChanged(int arg1)
+{
+    canvas->setMult(arg1);
+}
+

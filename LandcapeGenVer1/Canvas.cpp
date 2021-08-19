@@ -13,6 +13,10 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
 
     resetHeightsMap();
 
+    draw_alg = ZBUFFER_PARAM;
+    mult = 1;
+    scale = 15;
+
     my_img.reset();
     frame_buffer.reset();
     cleanQImage();
@@ -36,7 +40,7 @@ void Canvas::generateNewLandscape(int size)
     tri_pol_mas = heights_map_points->createTriPolArray();
 
     const Point& c = heights_map_points->getCenter();
-    heights_map_points->transform(Point(-c.getX() + (img_width/2), -c.getY() + (img_height/2), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    heights_map_points->transform(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
     heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, 0, 180));
 
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
@@ -68,6 +72,16 @@ void Canvas::resetHeightsMap()
 void Canvas::setDrawAlg(DrawAlg alg)
 {
     draw_alg = alg;
+    drawLandScape();
+}
+
+void Canvas::setMult(int new_mult)
+{
+    const Point& c = heights_map_points->getCenter();
+    heights_map_points->transform(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    heights_map_points->transform(Point(0, 0, 0), Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult), Point(0, 0, 0));
+    mult = new_mult;
+    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
     drawLandScape();
 }
 
@@ -160,13 +174,13 @@ void Canvas::plotImg(int x, int y, QColor c)
     my_img->setPixelColor(x, y, c);
 }
 
-void Canvas::plotXImg(int x, int y, QColor c, int mult)
+void Canvas::plotXImg(int x, int y, QColor c, int m)
 {
-    for (int i = 0; i < mult; i++)
-        for (int j = 0; j < mult; j++)
-            if ((mult*x)+i <= img_width && (mult*x)+i >= 0 && (mult*y)+j <= img_height && (mult*y)+j >= 0)
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < m; j++)
+            if ((m*x)+i <= img_width && (m*x)+i >= 0 && (m*y)+j <= img_height && (m*y)+j >= 0)
             {
-                my_img->setPixelColor((mult*x)+i, (mult*y)+j, c);
+                my_img->setPixelColor((m*x)+i, (m*y)+j, c);
             }
 }
 
@@ -198,8 +212,9 @@ void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_en
     double tg = double(dY) / double(dX) ; // tангенс угла наклона
     double er = tg - 0.5; // начальное значение ошибки
 
-    if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
-        plotImg(X, Y, Qt::black);
+    /*if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
+        plotImg(X, Y, Qt::black);*/
+    plotXImg(X, Y, Qt::black, MULT);
     while (X != X2 || Y != Y2)
     {
         if (er >= 0)
@@ -218,8 +233,9 @@ void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_en
                 Y += SY;
             er += tg; // отличие от целого
         }
-        if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
-            plotImg(X, Y, Qt::black);
+        /*if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
+            plotImg(X, Y, Qt::black);*/
+        plotXImg(X, Y, Qt::black, MULT);
     }
 }
 
@@ -308,7 +324,7 @@ void Canvas::zbufferParamDraw()
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
             //plotImg(i, j, (*frame_buffer)(i, j));
-            plotXImg(i, j, (*frame_buffer)(i, j));
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
         }
     }
     end = clock();
