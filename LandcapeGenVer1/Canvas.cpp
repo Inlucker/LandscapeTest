@@ -53,6 +53,11 @@ void Canvas::generateNewLandscape(int size)
     update();
 }
 
+void Canvas::draw()
+{
+    drawLandScape();
+}
+
 void Canvas::cleanQImage()
 {
     //cout << "Canvas Width = "<< width() << "; Canvas Height = " << height() << endl;
@@ -69,6 +74,11 @@ void Canvas::resetHeightsMap()
     tri_pol_mas = heights_map_points->createTriPolArray();
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
+}
+
+void Canvas::setScale(double new_scale)
+{
+    scale = new_scale;
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)
@@ -90,16 +100,6 @@ void Canvas::setMult(int new_mult)
 void Canvas::transform(Point move, Point scale, Point rotate)
 {
     heights_map_points->transform(move, scale, rotate);
-}
-
-void Canvas::setScale(double new_scale)
-{
-    scale = new_scale;
-}
-
-void Canvas::draw()
-{
-    drawLandScape();
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)

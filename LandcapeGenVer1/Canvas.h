@@ -34,14 +34,14 @@ public:
     ~Canvas();
 
     void generateNewLandscape(int size);
+    void draw();
     void cleanQImage();
     void resetHeightsMap();
 
-    //generating
+    //generating seters
     void setScale(double new_scale);
 
-    //drawing
-    void draw();
+    //drawing seters
     void setDrawAlg(DrawAlg alg);
     void setMult(int new_mult);
 
@@ -66,9 +66,12 @@ private:
     bool RMB_is_pressed = false;
     int previous_x = 0, previous_y = 0;
 
+    //generating parametres
+    double scale = 16;
+
+    //drawing parametres
     DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
     int mult = 1;
-    double scale = 16;
 
     unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
