@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1096</width>
-    <height>744</height>
+    <width>1209</width>
+    <height>782</height>
    </rect>
   </property>
   <property name="font">
@@ -19,22 +19,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>861</width>
-      <height>511</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout"/>
-   </widget>
    <widget class="QPushButton" name="clean_btn">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>430</y>
+      <x>1010</x>
+      <y>530</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -51,8 +40,8 @@
    <widget class="QGroupBox" name="generate_params_box">
     <property name="geometry">
      <rect>
-      <x>880</x>
-      <y>140</y>
+      <x>1000</x>
+      <y>240</y>
       <width>201</width>
       <height>281</height>
      </rect>
@@ -162,6 +151,9 @@
         <height>25</height>
        </rect>
       </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
+      </property>
       <property name="maximum">
        <double>1024.000000000000000</double>
       </property>
@@ -190,6 +182,9 @@
         <width>71</width>
         <height>25</height>
        </rect>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
       </property>
       <property name="maximum">
        <number>1024</number>
@@ -220,6 +215,9 @@
         <height>31</height>
        </rect>
       </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
+      </property>
       <property name="decimals">
        <number>2</number>
       </property>
@@ -235,8 +233,8 @@
    <widget class="QGroupBox" name="draw_variant_box">
     <property name="geometry">
      <rect>
-      <x>880</x>
-      <y>10</y>
+      <x>1000</x>
+      <y>110</y>
       <width>201</width>
       <height>121</height>
      </rect>
@@ -305,8 +303,8 @@
    <widget class="QGroupBox" name="transformation_groupBox">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>530</y>
+      <x>10</x>
+      <y>580</y>
       <width>511</width>
       <height>181</height>
      </rect>
@@ -695,13 +693,115 @@
      </widget>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>10</y>
+      <width>201</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Resolution</string>
+    </property>
+    <widget class="QComboBox" name="resolution_comboBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="currentText">
+      <string>960x540</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>1280x720</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1120x630</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>960x540</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>800x450</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>720x405</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>640x360</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>480x270</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>320x180</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>160x90</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>981</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>979</width>
+       <height>559</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1096</width>
+     <width>1209</width>
      <height>22</height>
     </rect>
    </property>

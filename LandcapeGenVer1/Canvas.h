@@ -37,6 +37,11 @@ public:
     void draw();
     void cleanQImage();
     void resetHeightsMap();
+    void updateResolution();
+
+    //Resolution setters
+    void setWidth(int new_width);
+    void setHeight(int new_height);
 
     //generating seters
     void setScale(double new_scale);
@@ -58,6 +63,7 @@ protected:
     void paintEvent(QPaintEvent *);
 
 private:
+    //Resolution parametres
     int img_width = 720;
     int img_height = 405;
 

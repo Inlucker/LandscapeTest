@@ -4,8 +4,8 @@
 
 Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
-    int img_width = 720;
-    int img_height = 405;
+    img_width = 960; //1280; //720;
+    img_height = 540; //720; //405;
     setFixedSize(img_width+2, img_height+2);
     setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color:white;");
 
@@ -74,6 +74,26 @@ void Canvas::resetHeightsMap()
     tri_pol_mas = heights_map_points->createTriPolArray();
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
+}
+
+void Canvas::updateResolution()
+{
+    setFixedSize(img_width+2, img_height+2);
+    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
+    const Point& c = heights_map_points->getCenter();
+    heights_map_points->transform(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    drawLandScape();
+    //update();
+}
+
+void Canvas::setWidth(int new_width)
+{
+    img_width = new_width;
+}
+
+void Canvas::setHeight(int new_height)
+{
+    img_height = new_height;
 }
 
 void Canvas::setScale(double new_scale)

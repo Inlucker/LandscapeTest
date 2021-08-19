@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     canvas = make_unique<Canvas>(new Canvas());
     //canvas->setDrawAlg(ZBUFFER_PARAM);
-    ui->gridLayout->addWidget(&(*canvas));
+    //ui->gridLayout->addWidget(&(*canvas));
+    ui->scrollArea->setWidget(&(*canvas));
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +34,7 @@ void MainWindow::on_gen_btn_clicked()
 
 void MainWindow::on_clean_btn_clicked()
 {
+    cout << "Canvas Width = "<< canvas->width() << "; Canvas Height = " << canvas->height() << endl;
     canvas->cleanQImage();
     canvas->resetHeightsMap();
 }
@@ -236,5 +238,29 @@ void MainWindow::on_range_doubleSpinBox_valueChanged(double arg1)
 void MainWindow::on_level_spinBox_valueChanged(int arg1)
 {
     canvas->setLevel(arg1);
+}
+
+void MainWindow::on_resolution_comboBox_currentTextChanged(const QString &arg1)
+{
+    qsizetype n = arg1.indexOf('x');
+
+    QString width = "";
+    for (int i = 0; i < n; i++)
+    {
+        width += arg1[i];
+    }
+
+    QString height = "";
+    int str_size = arg1.size();
+    for (int i = n+1; i < str_size; i++)
+    {
+        height += arg1[i];
+    }
+    int w = width.toInt();
+    int h = height.toInt();
+
+    canvas->setWidth(w);
+    canvas->setHeight(h);
+    canvas->updateResolution();
 }
 
