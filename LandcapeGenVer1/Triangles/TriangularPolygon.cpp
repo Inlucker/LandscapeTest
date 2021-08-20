@@ -104,7 +104,7 @@ int TriangularPolygon::getP3() const
     return p3;
 }*/
 
-void TriangularPolygon::setPoints(Point new_p1, Point new_p2, Point new_p3)
+void TriangularPolygon::setPoints(const Point& new_p1, const Point& new_p2, const Point& new_p3)
 {
     p1 = new_p1;
     p2 = new_p2;
