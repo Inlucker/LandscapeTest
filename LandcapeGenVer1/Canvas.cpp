@@ -37,11 +37,11 @@ void Canvas::generateNewLandscape(int size)
 
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
-    clock_t start = clock();
+    //clock_t start = clock();
     tri_pol_mas = heights_map_points->createTriPolArray();
-    clock_t end = clock();
-    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
+    //clock_t end = clock();
+    //double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
 
     const Point& c = heights_map_points->getCenter();
     heights_map_points->transform(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
