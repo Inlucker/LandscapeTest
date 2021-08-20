@@ -52,10 +52,9 @@ private:
     friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 
 private:
-    shared_ptr<Point> p1, p2, p3; //Сделать это shared_ptr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //int p1, p2, p3;
+    shared_ptr<Point> p1, p2, p3;
     double min_x, max_x, min_y, max_y;
-    Vector<double> norm_vec1, norm_vec2, norm_vec3;
+    Vector<double> norm_vec1, norm_vec2, norm_vec3; //make it 6 double values?
     double A, B, C, D;
     color_t color;
 };

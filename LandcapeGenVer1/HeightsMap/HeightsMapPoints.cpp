@@ -166,11 +166,17 @@ void HeightsMapPoints::transform(const Point& moveK, const Point& scaleK, const 
 {
     if (!isEmpty())
     {
+        clock_t start = clock();
+
         for (auto& point : *this)
         {
             point->transform(moveK, scaleK, rotateK, map_points_center);
         }
         updateCenter();
+
+        clock_t end = clock();
+        double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+        cout << "HeightsMapPoints::transform() time = " << seconds << " secs" << endl;
     }
     else
     {

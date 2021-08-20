@@ -148,49 +148,49 @@ void TriangularPolygon::calcRect()
         max_y = p3->getY();
 }
 
-void TriangularPolygon::calcNormals() // ToDo: Modify SPEED
+void TriangularPolygon::calcNormals()
     {
     // Обязательно? по часовой, чтобы получить внутренние нормали
-    Vector vec1 = {p2->getX() - p1->getX(), p2->getY() - p1->getY()};
+    /*Vector vec1 = {p2->getX() - p1->getX(), p2->getY() - p1->getY()};
     Vector vec2 = {p3->getX() - p2->getX(), p3->getY() - p2->getY()};
-    Vector vec3 = {p1->getX() - p3->getX(), p1->getY() - p3->getY()};
-    //double vec1_x = p2->getX() - p1->getX(), vec1_y = p2->getY() - p1->getY();
-    //double vec2_x = p3->getX() - p2->getX(), vec2_y = p3->getY() - p2->getY();
-    //double vec3_x = p1->getX() - p3->getX(), vec3_y = p1->getY() - p3->getY();
+    Vector vec3 = {p1->getX() - p3->getX(), p1->getY() - p3->getY()};*/
+    double vec1_x = p2->getX() - p1->getX(), vec1_y = p2->getY() - p1->getY();
+    double vec2_x = p3->getX() - p2->getX(), vec2_y = p3->getY() - p2->getY();
+    double vec3_x = p1->getX() - p3->getX(), vec3_y = p1->getY() - p3->getY();
 
     //cout << vec1 << vec2 << vec3 << endl;
 
-    if (vec1[1] != 0)
-        norm_vec1 = {1, -vec1[0]/vec1[1]};
-    /*if (vec1_y != 0)
-        norm_vec1 = {1, -vec1_x/vec1_y};*/
+    /*if (vec1[1] != 0)
+        norm_vec1 = {1, -vec1[0]/vec1[1]};*/
+    if (vec1_y != 0)
+        norm_vec1 = {1, -vec1_x/vec1_y};
     else
         norm_vec1 = {0, 1};
     //Зависит от того, идут ли точки по часовой, или против.
-    if (norm_vec1 * vec2 < 0)
-    //if (norm_vec1[0]*vec2_x + norm_vec1[1]*vec2_y)
+    //if (norm_vec1 * vec2 < 0)
+    if (norm_vec1[0]*vec2_x + norm_vec1[1]*vec2_y < 0)
         norm_vec1 = norm_vec1*(-1.);
 
-    if (vec2[1] != 0)
-        norm_vec2 = {1, -vec2[0]/vec2[1]};
-    /*if (vec2_y != 0)
-        norm_vec2 = {1, -vec2_x/vec2_y};*/
+    /*if (vec2[1] != 0)
+        norm_vec2 = {1, -vec2[0]/vec2[1]};*/
+    if (vec2_y != 0)
+        norm_vec2 = {1, -vec2_x/vec2_y};
     else
         norm_vec2 = {0, 1};
     //Зависит от того, идут ли точки по часовой, или против.
-    if (norm_vec2 * vec3 < 0)
-    //if (norm_vec2[0]*vec3_x + norm_vec2[1]*vec3_y)
+    //if (norm_vec2 * vec3 < 0)
+    if (norm_vec2[0]*vec3_x + norm_vec2[1]*vec3_y < 0)
         norm_vec2 = norm_vec2*(-1.);
 
-    if (vec3[1] != 0)
-        norm_vec3 = {1, -vec3[0]/vec3[1]};
-    /*if (vec3_y != 0)
-        norm_vec3 = {1, -vec3_x/vec3_y};*/
+    /*if (vec3[1] != 0)
+        norm_vec3 = {1, -vec3[0]/vec3[1]};*/
+    if (vec3_y != 0)
+        norm_vec3 = {1, -vec3_x/vec3_y};
     else
         norm_vec3 = {0, 1};
     //Зависит от того, идут ли точки по часовой, или против.
-    if (norm_vec3 * vec1 < 0)
-    //if (norm_vec3[0]*vec1_x + norm_vec3[1]*vec1_y)
+    //if (norm_vec3 * vec1 < 0)
+    if (norm_vec3[0]*vec1_x + norm_vec3[1]*vec1_y < 0)
         norm_vec3 = norm_vec3*(-1.);
 
     //cout << norm_vec1 << norm_vec2 << norm_vec3 << endl;
