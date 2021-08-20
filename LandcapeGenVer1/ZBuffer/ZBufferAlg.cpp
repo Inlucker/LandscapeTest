@@ -37,16 +37,15 @@ void ZBufferAlg::execute(TriPolArray &mas)
 
 }
 
-void ZBufferAlg::execute2(TriPolArray &mas)
+void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
 {
-    //HERE
-    zbuffer = make_shared<ZBuffer>(width, height); //make reset
-    frame_buffer = make_shared<FrameBuffer>(width, height); //make reset
+    zbuffer->reset();
+    frame_buffer->reset();
     for (auto& elem : mas)
     {
-        Point &p1 = elem.getP1();
-        Point &p2 = elem.getP2();
-        Point &p3 = elem.getP3();
+        Point p1 = elem.getP1();
+        Point p2 = elem.getP2();
+        Point p3 = elem.getP3();
         if (elem.getColor() == Qt::black)
         {
             cout << "Here:" << endl;
@@ -179,4 +178,11 @@ void ZBufferAlg::addInterpolate(vector<double> &values, double i0, double d0, do
         values.push_back(d);
         d = d + a;
     }
+}
+
+void ZBufferAlg::swap(Point &p1, Point &p2)
+{
+    Point tmp = p1;
+    p1 = p2;
+    p2 = tmp;
 }

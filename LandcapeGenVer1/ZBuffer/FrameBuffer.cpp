@@ -2,12 +2,12 @@
 
 FrameBuffer::FrameBuffer()
 {
-    alloc_data();
+    reset();
 }
 
 FrameBuffer::FrameBuffer(int new_width, int new_height) : BaseType(new_width, new_height)
 {
-
+    reset();
 }
 
 void FrameBuffer::reset() noexcept

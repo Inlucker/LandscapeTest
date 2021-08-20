@@ -25,6 +25,7 @@ enum DrawAlg //not good because of static cast?
     CARCAS,
     TRIANGULAR,
     ZBUFFER_PARAM,
+    ZBUFFER_INTERPOLATION,
 };
 
 class Canvas : public QWidget
@@ -101,6 +102,7 @@ private:
     void carcasDraw();
     void triangularDraw();
     void zbufferParamDraw();
+    void zbufferInterpolationDraw();
 };
 
 #endif // CANVAS_H

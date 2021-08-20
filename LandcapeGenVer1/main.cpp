@@ -9,3 +9,11 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
+
+/*
+ * ToDo list:
+ * 1) Сделать интерфейс чтобы Canvas растягивался
+ * 2) Создать структуру из HeightsMapPoints и массива треугольников(номеров вершин которые они соединяют) вместо TriPolArray
+ *
+ *
+ * */

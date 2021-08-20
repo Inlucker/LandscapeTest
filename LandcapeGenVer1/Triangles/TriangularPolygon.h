@@ -31,9 +31,9 @@ public:
     const Point& getP1() const;
     const Point& getP2() const;
     const Point& getP3() const;
-    Point& getP1();
-    Point& getP2();
-    Point& getP3();
+    Point& getP1(); //Убрать
+    Point& getP2(); //Убрать
+    Point& getP3(); //Убрать
     /*int getP1() const;
     int getP2() const;
     int getP3() const;*/
@@ -47,7 +47,7 @@ private:
     void calcSurface();
     void calcColor();
 
-    void swap(Point &p1, Point &p2);
+    //void swap(Point &p1, Point &p2);
 
     friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 

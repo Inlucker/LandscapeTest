@@ -261,6 +261,26 @@
        <pointsize>14</pointsize>
       </font>
      </property>
+     <item>
+      <property name="text">
+       <string>Каркасный</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Треугольный</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ZBuffer ур. поверхности</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ZBuffer интерполяция</string>
+      </property>
+     </item>
     </widget>
     <widget class="QLabel" name="mult_label">
      <property name="geometry">
@@ -720,7 +740,7 @@
       </rect>
      </property>
      <property name="currentText">
-      <string>960x540</string>
+      <string>1280x720</string>
      </property>
      <item>
       <property name="text">

@@ -9,9 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->draw_variant_comboBox->addItem("Каркасный");
-    ui->draw_variant_comboBox->addItem("Треугольники");
-    ui->draw_variant_comboBox->addItem("Заполненный");
     ui->draw_variant_comboBox->setCurrentIndex(2);
 
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
@@ -84,6 +81,9 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
         break;
     case 2:
         canvas->setDrawAlg(ZBUFFER_PARAM);
+        break;
+    case 3:
+        canvas->setDrawAlg(ZBUFFER_INTERPOLATION);
         break;
     default:
         QMessageBox::information(this, "Error", "No such DrawAlg");

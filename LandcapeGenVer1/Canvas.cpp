@@ -302,6 +302,9 @@ void Canvas::drawLandScape()
     case ZBUFFER_PARAM:
         zbufferParamDraw();
         break;
+    case ZBUFFER_INTERPOLATION:
+        zbufferInterpolationDraw();
+        break;
     default:
         QMessageBox::information(this, "Error", "No such DrawAlg");//?
         break;
@@ -346,7 +349,6 @@ void Canvas::triangularDraw()
 
 void Canvas::zbufferParamDraw()
 {
-    //painter->setPen(Qt::black);
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
@@ -375,6 +377,32 @@ void Canvas::zbufferParamDraw()
         {
             //plotImg(i, j, (*frame_buffer)(i, j));
             plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+        }
+    }
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "paint time = " << seconds << " secs" << endl;
+}
+
+void Canvas::zbufferInterpolationDraw()
+{
+    //Z-BUFFER ALGORITHM
+    clock_t start = clock();
+    zbuffer_alg->execute2(*tri_pol_mas);
+    clock_t end = clock();
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "zbuffer_alg->execute2() time = " << seconds << " secs" << endl;
+
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+
+    //PAINT
+    start = clock();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            plotXImg(i, j, (*frame_buffer)(i, j));
         }
     }
     end = clock();

@@ -9,6 +9,7 @@ using namespace std;
 #include "ZBuffer.h"
 #include "FrameBuffer.h"
 class TriPolArray;
+class Point;
 
 class ZBufferAlg
 {
@@ -17,12 +18,13 @@ public:
     ZBufferAlg(int new_width, int new_height);
 
     void execute(TriPolArray &mas);
-    void execute2(TriPolArray &mas);
+    void execute2(TriPolArray &mas); //Boost and fix white lines
 
     shared_ptr<FrameBuffer> getFrameBuffer() const noexcept;
 private:
     vector<double> interpolate(double i0, double d0, double i1, double d1) const;
     void addInterpolate(vector<double> &values, double i0, double d0, double i1, double d1) const;
+    void swap(Point &p1, Point &p2);
 
 private:
     shared_ptr<ZBuffer> zbuffer;

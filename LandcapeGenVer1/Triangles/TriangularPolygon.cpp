@@ -35,12 +35,12 @@ double TriangularPolygon::getZ(double x, double y) const
     }
 }
 
-void TriangularPolygon::swap(Point &p1, Point &p2)
+/*void TriangularPolygon::swap(Point &p1, Point &p2)
 {
     Point tmp = p1;
     p1 = p2;
     p2 = tmp;
-}
+}*/
 
 bool TriangularPolygon::isInRect(double x, double y) const
 {

@@ -4,10 +4,7 @@
 
 ZBuffer::ZBuffer()
 {
-    width = 0;
-    height = 0;
-    elems_num = 0;
-    data_ptr.reset();
+    reset();
 }
 
 ZBuffer::ZBuffer(int new_width, int new_height) : BaseType(new_width, new_height)
