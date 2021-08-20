@@ -12,8 +12,8 @@ class TriangularPolygon
 {
 public:
     TriangularPolygon();
-    TriangularPolygon(Point new_p1, Point new_p2, Point new_p3);
-    TriangularPolygon(Point new_p1, Point new_p2, Point new_p3, color_t c);
+    TriangularPolygon(shared_ptr<Point> new_p1, shared_ptr<Point> new_p2, shared_ptr<Point> new_p3);
+    TriangularPolygon(shared_ptr<Point> new_p1, shared_ptr<Point> new_p2, shared_ptr<Point> new_p3, color_t c);
     ~TriangularPolygon() = default;
 
     double getZ(double x, double y) const;
@@ -38,7 +38,8 @@ public:
     int getP2() const;
     int getP3() const;*/
 
-    void setPoints(const Point &new_p1, const Point &new_p2, const Point &new_p3);
+    //void setPoints(const Point &new_p1, const Point &new_p2, const Point &new_p3);
+    void update();
 
 private:
     void calcRect();
@@ -51,7 +52,7 @@ private:
     friend ostream& operator <<(ostream& os, const TriangularPolygon& pol);
 
 private:
-    Point p1, p2, p3; //Сделать это shared_ptr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    shared_ptr<Point> p1, p2, p3; //Сделать это shared_ptr!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //int p1, p2, p3;
     double min_x, max_x, min_y, max_y;
     Vector<double> norm_vec1, norm_vec2, norm_vec3;

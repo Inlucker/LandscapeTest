@@ -17,10 +17,10 @@ class ConstIterator;*/
 #include "HeightsMap.h"
 class TriPolArray;
 
-class HeightsMapPoints : public BaseMtrx<Point>
+class HeightsMapPoints : public BaseMtrx<shared_ptr<Point>>
 {
 public:
-    using BaseType = BaseMtrx<Point>;  //alias, will be useful someday
+    using BaseType = BaseMtrx<shared_ptr<Point>>;  //alias, will be useful someday
     HeightsMapPoints();
     explicit HeightsMapPoints(int new_size);
 
@@ -46,7 +46,7 @@ public:
     const Point& operator()(const int &i, const int &j) const;*/
 
     //void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center); //no need?
-    void transform(const Point moveK, const Point scaleK, const Point rotateK);
+    void transform(const Point &moveK, const Point &scaleK, const Point &rotateK);
 
     //void updateCenter() noexcept; //make it private?
 

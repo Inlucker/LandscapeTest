@@ -13,7 +13,8 @@ public:
     TriPolArray();
     explicit TriPolArray(int new_size);
 
-    void updatePoints(HeightsMapPoints &map);
+    //void updatePoints(HeightsMapPoints &map);
+    void update();
 };
 
 #endif // TRIPOLARRAY_H

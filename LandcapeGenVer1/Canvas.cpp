@@ -314,26 +314,26 @@ void Canvas::carcasDraw()
     for (int i = 0; i < HMPsize; i++)
         for (int j = 1; j < HMPsize; j++)
         {
-            Point tmp_point1 = (*heights_map_points)(i, j-1);
+            shared_ptr<Point> tmp_point1 = (*heights_map_points)(i, j-1);
 
-            Point tmp_point2 = (*heights_map_points)(i, j);
+            shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
 
-            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY());
         }
     for (int i = 1; i < HMPsize; i++)
         for (int j = 0; j < HMPsize; j++)
         {
-            Point tmp_point1 = (*heights_map_points)(i-1, j);
+            shared_ptr<Point> tmp_point1 = (*heights_map_points)(i-1, j);
 
-            Point tmp_point2 = (*heights_map_points)(i, j);
+            shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
 
-            DrawLineBrezenheimFloat(tmp_point1.getX(), tmp_point1.getY(), tmp_point2.getX(), tmp_point2.getY());
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY());
         }
 }
 
 void Canvas::triangularDraw()
 {
-    tri_pol_mas->updatePoints(*heights_map_points);
+    //tri_pol_mas->updatePoints(*heights_map_points);
     for (auto &tri_pol : *tri_pol_mas)
     {
         DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2());
@@ -348,10 +348,11 @@ void Canvas::zbufferParamDraw()
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
-    tri_pol_mas->updatePoints(*heights_map_points);
+    //tri_pol_mas->updatePoints(*heights_map_points);
+    tri_pol_mas->update();
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "updatePoints() time = " << seconds << " secs" << endl;
+    cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
 
     //Z-BUFFER ALGORITHM
     start = clock();

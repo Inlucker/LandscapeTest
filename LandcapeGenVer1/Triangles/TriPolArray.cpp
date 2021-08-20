@@ -13,7 +13,13 @@ TriPolArray::TriPolArray(int new_size) : BaseType(new_size)
 
 }
 
-void TriPolArray::updatePoints(HeightsMapPoints &map)
+void TriPolArray::update()
+{
+    for (auto& tri_pol : *this)
+        tri_pol.update();
+}
+
+/*void TriPolArray::updatePoints(HeightsMapPoints &map)
 {
     Iterator<TriangularPolygon> mas_it = this->begin();
     for (int i = 0; i < (map.getSize()-1); i++)
@@ -36,4 +42,4 @@ void TriPolArray::updatePoints(HeightsMapPoints &map)
             }
         }
     }
-}
+}*/

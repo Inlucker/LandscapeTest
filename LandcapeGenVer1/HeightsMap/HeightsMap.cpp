@@ -50,7 +50,7 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, doub
         int i = 0;
         for (auto& points_it : *new_points_map)
         {
-            points_it = Point(double(i/size) * kx, double(*map_it) * ky, double(i % size) * kz); // x <-> z
+            points_it = make_shared<Point>(double(i/size) * kx, double(*map_it) * ky, double(i % size) * kz); // убрать создание объекта Point// x <-> z
             map_it++;
             i++;
         }

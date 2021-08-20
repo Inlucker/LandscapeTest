@@ -162,13 +162,13 @@ const Point &HeightsMapPoints::operator()(const int &i, const int &j) const
     updateCenter();
 }*/
 
-void HeightsMapPoints::transform(const Point moveK, const Point scaleK, const Point rotateK)
+void HeightsMapPoints::transform(const Point& moveK, const Point& scaleK, const Point& rotateK)
 {
     if (!isEmpty())
     {
         for (auto& point : *this)
         {
-            point.transform(moveK, scaleK, rotateK, map_points_center);
+            point->transform(moveK, scaleK, rotateK, map_points_center);
         }
         updateCenter();
     }
@@ -189,9 +189,9 @@ void HeightsMapPoints::updateCenter() noexcept
     Point rez(0, 0, 0);
     for (auto point : *this)
     {
-        rez.setX(rez.getX() + point.getX());
-        rez.setY(rez.getY() + point.getY());
-        rez.setZ(rez.getZ() + point.getZ());
+        rez.setX(rez.getX() + point->getX());
+        rez.setY(rez.getY() + point->getY());
+        rez.setZ(rez.getZ() + point->getZ());
         i++;
     }
     rez.setX(rez.getX()/i);
@@ -224,12 +224,12 @@ ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
         return os;
     }
 
-    ConstIterator<Point> It = points_map.cbegin();
+    ConstIterator<shared_ptr<Point>> It = points_map.cbegin();
     while (It != points_map.cend())
     {
-        os << '\n' << '[' << *It++;
+        os << '\n' << '[' << **It++;
         for (int i = 1; i < points_map.getSize() && It != points_map.cend(); It++, i++)
-            os << "; " << *It ;
+            os << "; " << **It ;
         os << ']';
     }
     os << endl;
