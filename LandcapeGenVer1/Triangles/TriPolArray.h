@@ -16,6 +16,7 @@ public:
 
     //void updatePoints(HeightsMapPoints &map);
     void update();
+    void setColor(int new_r, int new_g, int new_b);
     int getR() const;
     int getG() const;
     int getB() const;

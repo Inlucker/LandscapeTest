@@ -47,6 +47,8 @@ private slots:
 
     void on_resolution_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -34,7 +34,7 @@ void ZBufferAlg::execute(TriPolArray &mas)
                             //(*frame_buffer)(i, j) = elem.getColor();//elem.getColor(x, y);
                             //(*frame_buffer)(i, j) = elem.getIntensity();
                             double intensivity = elem.getIntensity();
-                            (*frame_buffer)(i, j) = QColor(red * intensivity, green * intensivity, blue * intensivity);
+                            (*frame_buffer)(i, j) = QColor(round(red * intensivity), round(green * intensivity), round(blue * intensivity));
                         }
                     }
             }
@@ -110,7 +110,7 @@ void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
                         //(*frame_buffer)(x, y) = elem.getColor();
                         //(*frame_buffer)(x, y) = elem.getIntensity();
                         double intensivity = elem.getIntensity();
-                        (*frame_buffer)(x, y) = QColor(red * intensivity, green * intensivity, blue * intensivity);
+                        (*frame_buffer)(x, y) = QColor(round(red * intensivity), round(green * intensivity), round(blue * intensivity));
                     }
                 }
             }
@@ -139,7 +139,7 @@ void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
                         //(*frame_buffer)(x, y) = elem.getColor();
                         //(*frame_buffer)(x, y) = elem.getIntensity();
                         double intensivity = elem.getIntensity();
-                        (*frame_buffer)(x, y) = QColor(red * intensivity, green * intensivity, blue * intensivity);
+                        (*frame_buffer)(x, y) = QColor(round(red * intensivity), round(green * intensivity), round(blue * intensivity));
                     }
                 }
             }

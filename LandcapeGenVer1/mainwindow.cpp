@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -256,5 +257,21 @@ void MainWindow::on_resolution_comboBox_currentTextChanged(const QString &arg1)
     canvas->setWidth(w);
     canvas->setHeight(h);
     canvas->updateResolution();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QColor color = QColorDialog::getColor(canvas->getColor());
+    if (color.isValid())
+    {
+        canvas->setLandscapeColor(color.red(), color.green(), color.blue());
+        QString str = QString("background-color: rgb(%1, %2, %3)").arg(color.red()).arg(color.green()).arg(color.blue());
+        ui->color_label->setStyleSheet(str);
+    }
+    else
+    {
+        QMessageBox::information(this, "Error", "Color is not valid");
+    }
 }
 

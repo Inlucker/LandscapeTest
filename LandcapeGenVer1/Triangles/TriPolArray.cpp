@@ -30,6 +30,13 @@ void TriPolArray::update()
         tri_pol.update();
 }
 
+void TriPolArray::setColor(int new_r, int new_g, int new_b)
+{
+    r = new_r;
+    g = new_g;
+    b = new_b;
+}
+
 int TriPolArray::getR() const
 {
     return r;

@@ -112,11 +112,6 @@ void Canvas::setRange(float new_range)
     range = new_range;
 }
 
-/*void Canvas::setLevel(unsigned new_level)
-{
-    level = new_level;
-}*/
-
 void Canvas::setDrawAlg(DrawAlg alg)
 {
     draw_alg = alg;
@@ -133,9 +128,23 @@ void Canvas::setMult(int new_mult)
     drawLandScape();
 }
 
+void Canvas::setLandscapeColor(int r, int g, int b)
+{
+    red = r;
+    green = g;
+    blue = b;
+    tri_pol_mas->setColor(r, g, b);
+    drawLandScape();
+}
+
 void Canvas::transform(Point move, Point scale, Point rotate)
 {
     heights_map_points->transform(move, scale, rotate);
+}
+
+QColor Canvas::getColor()
+{
+    return QColor(red, green, blue);
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
