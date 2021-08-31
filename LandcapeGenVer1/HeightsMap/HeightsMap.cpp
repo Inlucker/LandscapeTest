@@ -26,10 +26,10 @@ void HeightsMap::resetHeightsmap() noexcept
 
 void HeightsMap::diamondSquare()
 {
-    diamondSquare(DS_RANGE, DS_LEVEL);
+    diamondSquare(DS_RANGE);
 }
 
-void HeightsMap::diamondSquare(float r, unsigned int l)
+void HeightsMap::diamondSquare(float r)
 {
     resetHeightsmap();
 
@@ -38,7 +38,7 @@ void HeightsMap::diamondSquare(float r, unsigned int l)
     (*this)(size - 1, 0) = 0;
     (*this)(size - 1, size - 1) = 0;
 
-    diamondSquare(0, 0, size-1, size-1, r, l);
+    diamondSquare(0, 0, size-1, size-1, r, size); // size-1 || size
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)

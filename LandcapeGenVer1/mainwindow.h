@@ -45,8 +45,6 @@ private slots:
 
     void on_range_doubleSpinBox_valueChanged(double arg1);
 
-    void on_level_spinBox_valueChanged(int arg1);
-
     void on_resolution_comboBox_currentTextChanged(const QString &arg1);
 
 private:

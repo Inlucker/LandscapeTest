@@ -20,7 +20,7 @@ public:
     void resetHeightsmap() noexcept;
 
     void diamondSquare();
-    void diamondSquare(float r, unsigned int l);
+    void diamondSquare(float r);
 
     shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();

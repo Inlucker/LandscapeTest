@@ -49,7 +49,7 @@ void MainWindow::on_size_up_btn_released()
         ui->size_value_label->setText(text);
         ui->scale_doubleSpinBox->setValue(512./(n-1));
         ui->range_doubleSpinBox->setValue((n-1)*0.75);
-        ui->level_spinBox->setValue((n-1));
+        //ui->level_spinBox->setValue((n-1));
     }
 }
 
@@ -65,7 +65,7 @@ void MainWindow::on_size_down_btn_released()
         ui->size_value_label->setText(text);
         ui->scale_doubleSpinBox->setValue(512./(n-1));
         ui->range_doubleSpinBox->setValue((n-1)*0.75);
-        ui->level_spinBox->setValue((n-1));
+        //ui->level_spinBox->setValue((n-1));
     }
 }
 
@@ -229,16 +229,9 @@ void MainWindow::on_rotate_btn_clicked()
     }
 }
 
-
 void MainWindow::on_range_doubleSpinBox_valueChanged(double arg1)
 {
     canvas->setRange(arg1);
-}
-
-
-void MainWindow::on_level_spinBox_valueChanged(int arg1)
-{
-    canvas->setLevel(arg1);
 }
 
 void MainWindow::on_resolution_comboBox_currentTextChanged(const QString &arg1)
