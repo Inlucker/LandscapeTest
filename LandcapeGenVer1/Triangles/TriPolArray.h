@@ -12,9 +12,18 @@ public:
     using BaseType = BaseArray<TriangularPolygon>;  //alias, will be useful someday
     TriPolArray();
     explicit TriPolArray(int new_size);
+    TriPolArray(int new_size, int new_r, int new_g, int new_b);
 
     //void updatePoints(HeightsMapPoints &map);
     void update();
+    int getR() const;
+    int getG() const;
+    int getB() const;
+
+private:
+    int r;
+    int g;
+    int b;
 };
 
 #endif // TRIPOLARRAY_H

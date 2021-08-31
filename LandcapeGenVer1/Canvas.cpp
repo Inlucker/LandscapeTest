@@ -17,6 +17,10 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     mult = 1;
     scale = 16;
 
+    red = 20;
+    green = 150;
+    blue = 20;
+
     my_img.reset();
     frame_buffer.reset();
     cleanQImage();
@@ -38,7 +42,7 @@ void Canvas::generateNewLandscape(int size)
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
     //clock_t start = clock();
-    tri_pol_mas = heights_map_points->createTriPolArray();
+    tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
     //clock_t end = clock();
     //double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
@@ -72,7 +76,7 @@ void Canvas::cleanQImage()
 void Canvas::resetHeightsMap()
 {
     heights_map = make_unique<HeightsMap>();
-    heights_map_points = heights_map->createPoints();
+    heights_map_points = heights_map->createPoints(red, green, blue);
     tri_pol_mas = heights_map_points->createTriPolArray();
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
@@ -375,8 +379,9 @@ void Canvas::zbufferParamDraw()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            //plotImg(i, j, (*frame_buffer)(i, j));
-            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+            plotXImg(i, j, (*frame_buffer)(i, j));
+            //double intensity = (*frame_buffer)(i, j);
+            //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
     }
     end = clock();
@@ -403,6 +408,8 @@ void Canvas::zbufferInterpolationDraw()
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
             plotXImg(i, j, (*frame_buffer)(i, j));
+            //double intensity = (*frame_buffer)(i, j);
+            //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
     }
     end = clock();

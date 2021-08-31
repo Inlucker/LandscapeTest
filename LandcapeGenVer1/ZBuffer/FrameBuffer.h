@@ -7,10 +7,10 @@
 
 typedef QColor color_t;
 
-class FrameBuffer : public BaseMtrx<QColor>
+class FrameBuffer : public BaseMtrx<color_t>
 {
 public:
-    using BaseType = BaseMtrx<QColor>;  //alias, will be useful someday
+    using BaseType = BaseMtrx<color_t>;  //alias, will be useful someday
     FrameBuffer();
     FrameBuffer(int new_width, int new_height);
 

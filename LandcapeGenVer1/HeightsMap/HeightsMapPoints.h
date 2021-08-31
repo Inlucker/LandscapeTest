@@ -16,6 +16,7 @@ public:
     explicit HeightsMapPoints(int new_size);
 
     shared_ptr<TriPolArray> createTriPolArray();
+    shared_ptr<TriPolArray> createTriPolArray(int r, int g, int b);
 
     //void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center); //no need?
     void transform(const Point &moveK, const Point &scaleK, const Point &rotateK);

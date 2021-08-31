@@ -13,12 +13,13 @@ class TriangularPolygon
 public:
     TriangularPolygon();
     TriangularPolygon(shared_ptr<Point> new_p1, shared_ptr<Point> new_p2, shared_ptr<Point> new_p3);
-    TriangularPolygon(shared_ptr<Point> new_p1, shared_ptr<Point> new_p2, shared_ptr<Point> new_p3, color_t c);
+    //TriangularPolygon(shared_ptr<Point> new_p1, shared_ptr<Point> new_p2, shared_ptr<Point> new_p3, color_t c);
     ~TriangularPolygon() = default;
 
     double getZ(double x, double y) const;
 
-    color_t &getColor();
+    //color_t &getColor();
+    double getIntensity() const;
 
     bool isInRect(double x, double y) const;
     bool isInTriangle(double x, double y) const;
@@ -45,7 +46,8 @@ private:
     void calcRect();
     void calcNormals();
     void calcSurface();
-    void calcColor();
+    //void calcColor();
+    void calcIntensity();
 
     //void swap(Point &p1, Point &p2);
 
@@ -56,14 +58,15 @@ private:
     double min_x, max_x, min_y, max_y;
     Vector<double> norm_vec1, norm_vec2, norm_vec3; //make it 6 double values?
     double A, B, C, D;
-    color_t color;
+    //color_t color;
+    double intensity; //Instead of color
 };
 
 
-inline color_t &TriangularPolygon::getColor()
+/*inline color_t &TriangularPolygon::getColor()
 {
     return color;
-}
+}*/
 
 inline double TriangularPolygon::getMinX() const
 {

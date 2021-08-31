@@ -83,6 +83,10 @@ private:
     //drawing parametres
     DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
     int mult = 1;
+    int red = 20;
+    int green = 150;
+    int blue = 20;
+    //QColor landscapeColor;
 
     unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;

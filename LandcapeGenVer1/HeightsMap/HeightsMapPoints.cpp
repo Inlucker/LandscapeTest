@@ -43,6 +43,34 @@ shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray()
     return new_tri_pol_mas;
 }
 
+shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray(int r, int g, int b)
+{
+    shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((size-1)*2*(size-1), r , g, b);
+    Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
+    for (int i = 0; i < (size-1); i++)
+    {
+        for (int j = 0; j < (size-1); j++)
+        {
+            if ((j+i) % 2 == 1)
+            {
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i, j+1), (*this)(i+1, j));
+                mas_it++;
+                *mas_it = TriangularPolygon((*this)(i+1, j), (*this)(i, j+1), (*this)(i+1, j+1));
+                mas_it++;
+            }
+            else
+            {
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j+1), (*this)(i, j+1));
+                mas_it++;
+                *mas_it = TriangularPolygon((*this)(i, j), (*this)(i+1, j), (*this)(i+1, j+1));
+                mas_it++;
+            }
+        }
+    }
+
+    return new_tri_pol_mas;
+}
+
 void HeightsMapPoints::transform(const Point& moveK, const Point& scaleK, const Point& rotateK)
 {
     if (!isEmpty())

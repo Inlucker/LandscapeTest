@@ -34,6 +34,7 @@ ostream& operator <<(ostream& os, const FrameBuffer& buf)
         {
             It->getRgb(&r, &g, &b);
             os << "In pixel (" << i << ", " << j << ") Red = " << r << "; Green = " << g << "; Blue = " << b << ";\n";
+            //os << "In pixel (" << i << ", " << j << ") Intensity = " << *It << ";\n";
         }
         os << '\n';
     }

@@ -5,18 +5,44 @@
 
 TriPolArray::TriPolArray()
 {
-
+    r = 128;
+    g = 128;
+    b = 128;
 }
 
 TriPolArray::TriPolArray(int new_size) : BaseType(new_size)
 {
+    r = 128;
+    g = 128;
+    b = 128;
+}
 
+TriPolArray::TriPolArray(int new_size, int new_r, int new_g, int new_b) : BaseType(new_size)
+{
+    r = new_r;
+    g = new_g;
+    b = new_b;
 }
 
 void TriPolArray::update()
 {
     for (auto& tri_pol : *this)
         tri_pol.update();
+}
+
+int TriPolArray::getR() const
+{
+    return r;
+}
+
+int TriPolArray::getG() const
+{
+    return g;
+}
+
+int TriPolArray::getB() const
+{
+    return b;
 }
 
 /*void TriPolArray::updatePoints(HeightsMapPoints &map)

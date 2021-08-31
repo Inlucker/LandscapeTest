@@ -22,8 +22,8 @@
    <widget class="QPushButton" name="clean_btn">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>530</y>
+      <x>1000</x>
+      <y>590</y>
       <width>181</width>
       <height>51</height>
      </rect>
@@ -41,9 +41,9 @@
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>240</y>
+      <y>230</y>
       <width>201</width>
-      <height>281</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="font">
@@ -58,7 +58,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>280</y>
        <width>181</width>
        <height>51</height>
       </rect>
@@ -162,43 +162,11 @@
       </property>
      </widget>
     </widget>
-    <widget class="QGroupBox" name="level_groupBox">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>90</y>
-       <width>91</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>Level</string>
-     </property>
-     <widget class="QSpinBox" name="level_spinBox">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>71</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="buttonSymbols">
-       <enum>QAbstractSpinBox::NoButtons</enum>
-      </property>
-      <property name="maximum">
-       <number>1024</number>
-      </property>
-      <property name="value">
-       <number>32</number>
-      </property>
-     </widget>
-    </widget>
     <widget class="QGroupBox" name="scale_groupBox">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>210</y>
        <width>121</width>
        <height>61</height>
       </rect>
@@ -229,12 +197,54 @@
       </property>
      </widget>
     </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>120</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Color</string>
+     </property>
+     <widget class="QLabel" name="color_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Choose</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="draw_variant_box">
     <property name="geometry">
      <rect>
       <x>1000</x>
-      <y>110</y>
+      <y>100</y>
       <width>201</width>
       <height>121</height>
      </rect>
@@ -815,6 +825,38 @@
      </property>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="level_groupBox">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>580</y>
+      <width>91</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Level</string>
+    </property>
+    <widget class="QSpinBox" name="level_spinBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>71</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="maximum">
+      <number>1024</number>
+     </property>
+     <property name="value">
+      <number>32</number>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -822,7 +864,7 @@
      <x>0</x>
      <y>0</y>
      <width>1209</width>
-     <height>22</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

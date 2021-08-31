@@ -15,6 +15,9 @@ ZBufferAlg::ZBufferAlg(int new_width, int new_height)
 
 void ZBufferAlg::execute(TriPolArray &mas)
 {
+    int red = mas.getR();
+    int green = mas.getG();
+    int blue = mas.getB();
     zbuffer->reset();
     frame_buffer->reset();
     for (auto& elem : mas)
@@ -28,7 +31,10 @@ void ZBufferAlg::execute(TriPolArray &mas)
                         if ((*zbuffer)(i, j) < elem.getZ(i, j))
                         {
                             (*zbuffer)(i, j) = elem.getZ(i, j);
-                            (*frame_buffer)(i, j) = elem.getColor();//elem.getColor(x, y);
+                            //(*frame_buffer)(i, j) = elem.getColor();//elem.getColor(x, y);
+                            //(*frame_buffer)(i, j) = elem.getIntensity();
+                            double intensivity = elem.getIntensity();
+                            (*frame_buffer)(i, j) = QColor(red * intensivity, green * intensivity, blue * intensivity);
                         }
                     }
             }
@@ -39,6 +45,9 @@ void ZBufferAlg::execute(TriPolArray &mas)
 
 void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
 {
+    int red = mas.getR();
+    int green = mas.getG();
+    int blue = mas.getB();
     zbuffer->reset();
     frame_buffer->reset();
     for (auto& elem : mas)
@@ -46,10 +55,6 @@ void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
         Point p1 = elem.getP1();
         Point p2 = elem.getP2();
         Point p3 = elem.getP3();
-        if (elem.getColor() == Qt::black)
-        {
-            cout << "Here:" << endl;
-        }
 
         //Сортировка точек так, что y0 <= y1 <= y2
         if (p2.getY() < p1.getY())
@@ -102,7 +107,10 @@ void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
                     if ((*zbuffer)(x, y) < z)
                     {
                         (*zbuffer)(x, y) = z;
-                        (*frame_buffer)(x, y) = elem.getColor();
+                        //(*frame_buffer)(x, y) = elem.getColor();
+                        //(*frame_buffer)(x, y) = elem.getIntensity();
+                        double intensivity = elem.getIntensity();
+                        (*frame_buffer)(x, y) = QColor(red * intensivity, green * intensivity, blue * intensivity);
                     }
                 }
             }
@@ -125,12 +133,13 @@ void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
                 for (int x = max(x_l, 0.); x < x_r; x++)
                 {
                     double z = z_segment[x - x_l];
-                    if (elem.getColor() == Qt::black)
-                        cout << "x, y = (" << x << "; " << y << ") z = " << z << endl;
                     if ((*zbuffer)(x, y) < z)
                     {
                         (*zbuffer)(x, y) = z;
-                        (*frame_buffer)(x, y) = elem.getColor();
+                        //(*frame_buffer)(x, y) = elem.getColor();
+                        //(*frame_buffer)(x, y) = elem.getIntensity();
+                        double intensivity = elem.getIntensity();
+                        (*frame_buffer)(x, y) = QColor(red * intensivity, green * intensivity, blue * intensivity);
                     }
                 }
             }
