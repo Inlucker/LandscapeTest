@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->draw_variant_comboBox->setCurrentIndex(2);
+    //ui->draw_variant_comboBox->setCurrentIndex(2);
 
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");

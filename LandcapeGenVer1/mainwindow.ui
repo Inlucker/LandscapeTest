@@ -271,6 +271,9 @@
        <pointsize>14</pointsize>
       </font>
      </property>
+     <property name="currentIndex">
+      <number>2</number>
+     </property>
      <item>
       <property name="text">
        <string>Каркасный</string>
@@ -750,7 +753,10 @@
       </rect>
      </property>
      <property name="currentText">
-      <string>1280x720</string>
+      <string>960x540</string>
+     </property>
+     <property name="currentIndex">
+      <number>2</number>
      </property>
      <item>
       <property name="text">

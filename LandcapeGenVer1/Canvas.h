@@ -100,8 +100,8 @@ private:
     int sign(double val);
     void plotImg(int x, int y, QColor c);
     void plotXImg(int x, int y, QColor c, int m = 1);
-    void DrawLineBrezenheimFloat(Point p1, Point p2);
-    void DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end);
+    void DrawLineBrezenheimFloat(Point p1, Point p2, QColor c = Qt::black);
+    void DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end, QColor c = Qt::black);
 
     void drawLandScape();
     void carcasDraw();

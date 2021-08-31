@@ -246,12 +246,12 @@ void Canvas::plotXImg(int x, int y, QColor c, int m)
             }
 }
 
-void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2)
+void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2, QColor c)
 {
-    DrawLineBrezenheimFloat(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    DrawLineBrezenheimFloat(p1.getX(), p1.getY(), p2.getX(), p2.getY(), c);
 }
 
-void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end)
+void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_end, double Y_end, QColor c)
 {
     int X1 = round(X_start), Y1 = round(Y_start), X2 = round(X_end), Y2 = round(Y_end);
     int X = X1, Y = Y1;
@@ -276,7 +276,7 @@ void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_en
 
     /*if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
         plotImg(X, Y, Qt::black);*/
-    plotXImg(X, Y, Qt::black, MULT);
+    plotXImg(X, Y, c, MULT);
     while (X != X2 || Y != Y2)
     {
         if (er >= 0)
@@ -297,7 +297,7 @@ void Canvas::DrawLineBrezenheimFloat(double X_start, double Y_start, double X_en
         }
         /*if (!(X >= img_width || X < 0 || Y >= img_height || Y < 0))
             plotImg(X, Y, Qt::black);*/
-        plotXImg(X, Y, Qt::black, MULT);
+        plotXImg(X, Y, c, MULT);
     }
 }
 
@@ -336,7 +336,7 @@ void Canvas::carcasDraw()
 
             shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
 
-            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY());
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), QColor(red, green, blue));
         }
     for (int i = 1; i < HMPsize; i++)
         for (int j = 0; j < HMPsize; j++)
@@ -345,7 +345,7 @@ void Canvas::carcasDraw()
 
             shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
 
-            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY());
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), QColor(red, green, blue));
         }
 }
 
@@ -354,9 +354,9 @@ void Canvas::triangularDraw()
     //tri_pol_mas->updatePoints(*heights_map_points);
     for (auto &tri_pol : *tri_pol_mas)
     {
-        DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2());
-        DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3());
-        DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1());
+        DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2(), QColor(red, green, blue));
+        DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3(), QColor(red, green, blue));
+        DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1(), QColor(red, green, blue));
     }
 }
 
