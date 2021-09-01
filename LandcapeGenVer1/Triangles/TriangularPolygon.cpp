@@ -61,8 +61,7 @@ bool TriangularPolygon::isInTriangle(double x, double y) const
         (x - p3->getX())*norm_vec3[0] + (y - p3->getY())*norm_vec3[1] < 0)
         return false;
     else
-        return true;;
-
+        return true;
 }
 
 const Point& TriangularPolygon::getP1() const

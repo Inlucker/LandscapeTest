@@ -388,7 +388,7 @@ void Canvas::zbufferParamDraw()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            plotXImg(i, j, (*frame_buffer)(i, j));
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
             //double intensity = (*frame_buffer)(i, j);
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
@@ -416,7 +416,7 @@ void Canvas::zbufferInterpolationDraw()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            plotXImg(i, j, (*frame_buffer)(i, j));
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
             //double intensity = (*frame_buffer)(i, j);
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
