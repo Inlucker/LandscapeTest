@@ -78,33 +78,54 @@ void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y
         return;
     }
 
+    //cout << "Range = " << range << endl;
+    //cout << "Level = " << level << endl;
+
     // diamonds
     for (unsigned i = x1 + level; i < x2; i += level)
         for (unsigned j = y1 + level; j < y2; j += level)
         {
             float a = (*this)(i - level, j - level);
+            //cout << "a = (" << i - level << ", " << j - level << ") = " << a << endl;
             float b = (*this)(i, j - level);
+            //cout << "b = (" << i << ", " << j - level << ") = " << b << endl;
             float c = (*this)(i - level, j);
+            //cout << "c = (" << i - level << ", " << j << ") = " << c << endl;
             float d = (*this)(i, j);
+            //cout << "d = (" << i << ", " << j << ") = " << d << endl;
             float e = (*this)(i - level / 2, j - level / 2) = (a + b + c + d) / 4 + (getRnd() * range);
+            //cout << "e = (" << i - level/2 << ", " << j - level/2 << ") = " << e << endl;
             //cout << *this << endl;
         }
+
+    //cout << *this << endl;
 
     // squares
     for (unsigned i = x1 + 2 * level; i < x2; i += level)
         for (unsigned j = y1 + 2 * level; j < y2; j += level)
         {
             float a = (*this)(i - level, j - level);
+            //cout << "a = (" << i - level << ", " << j - level << ") = " << a << endl;
             float b = (*this)(i, j - level);
+            //cout << "b = (" << i << ", " << j - level << ") = " << b << endl;
             float c = (*this)(i - level, j);
+            //cout << "c = (" << i - level << ", " << j << ") = " << c << endl;
             //float d = (*this)(i, j);
             float e = (*this)(i - level / 2, j - level / 2);
+            //cout << "e = (" << i - level/2 << ", " << j - level/2 << ") = " << e << endl;
 
+
+            //cout << "?1 = (" << i - 3 * level / 2 << ", " << j - level / 2 << ") = " << (*this)(i - 3 * level / 2, j - level / 2) << endl;
             float f = (*this)(i - level, j - level / 2) = (a + c + e + (*this)(i - 3 * level / 2, j - level / 2)) / 4 + (getRnd() * range);
+            //cout << "f = (" << i - level << ", " << j - level/2 << ") = " << f << endl;
             //cout << *this << endl;
+            //cout << "?2 = (" << i - 3 * level / 2 << ", " << j - level / 2 << ") = " << (*this)(i - 3 * level / 2, j - level / 2) << endl;
             float g = (*this)(i - level / 2, j - level) = (a + b + e + (*this)(i - level / 2, j - 3 * level / 2)) / 4 + (getRnd() * range);
+            //cout << "g = (" << i - level/2 << ", " << j - level << ") = " << g << endl;
             //cout << *this << endl;
         }
+
+    //cout << *this << endl;
 
     diamondSquare(x1, y1, x2, y2, range / 2, level / 2);
 }
