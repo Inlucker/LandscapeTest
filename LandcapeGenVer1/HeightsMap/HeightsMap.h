@@ -28,6 +28,7 @@ public:
 private:
     //ToFigureOut and Understand how it works
     void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
+    void diamondSquare2(int x1, int y1, int x2, int y2, float range, unsigned level);
     double getRnd() const noexcept;
 };
 

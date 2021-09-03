@@ -33,12 +33,12 @@ void HeightsMap::diamondSquare(float r)
 {
     resetHeightsmap();
 
-    (*this)(0, 0) = 0;
-    (*this)(0, size - 1) = 0;
-    (*this)(size - 1, 0) = 0;
-    (*this)(size - 1, size - 1) = 0;
+    (*this)(0, 0) = (getRnd() * r); //0;
+    (*this)(0, size - 1) = (getRnd() * r); //0;
+    (*this)(size - 1, 0) = (getRnd() * r); //0;
+    (*this)(size - 1, size - 1) = (getRnd() * r); //0;
 
-    diamondSquare(0, 0, size-1, size-1, r, size); // size-1 || size
+    diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
@@ -95,6 +95,58 @@ void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y
         }
 
     diamondSquare(x1, y1, x2, y2, range / 2, level / 2);
+}
+
+void HeightsMap::diamondSquare2(int x1, int y1, int x2, int y2, float range, unsigned level)
+{
+    if (level <= 1) return;
+
+    int half_level = level/2;
+
+    // diamonds
+    for (int x = x1; x < x2; x += level)
+        for (int y = y1; y < y2; y += level)
+        {
+            float a = (*this)(x, y);
+            float b = (*this)(x + level, y);
+            float c = (*this)(x, y + level);
+            float d = (*this)(x + level, y + level);
+            float e = (*this)(x + half_level, y + half_level) = (a + b + c + d) / 4 + (getRnd() * range);
+
+            //cout << *this << endl;
+        }
+
+    // squares
+    bool flag = false;
+    for (int x = 0; x <= x2-x1; x += half_level)
+    {
+        flag = !flag;
+        for (int y = y1; y <= y2; y += level)
+        {
+            if (flag && y == y1)
+                y += half_level;
+
+            float f = 0;
+            float g = 0;
+            float h = 0;
+            float i = 0;
+
+            if (x - half_level >= x1)
+                f = (*this)(x - half_level, y);
+            if (y - half_level >= y1)
+                g = (*this)(x, y - half_level);
+            if (x + half_level <= x2)
+                h = (*this)(x + half_level, y);
+            if (y + half_level <= y2)
+                i = (*this)(x, y + half_level);
+
+            float e = (*this)(x, y) = (f + g + h + i) / 4 + (getRnd() * range);
+
+            //cout << *this << endl;
+        }
+    }
+
+    diamondSquare2(x1, y1, x2, y2, range / 2, level / 2);
 }
 
 double HeightsMap::getRnd() const noexcept
