@@ -43,7 +43,7 @@ void HeightsMap::diamondSquare(float r)
     (*this)(size - 1, 0) = (getRnd() * r);
     (*this)(size - 1, size - 1) = (getRnd() * r);*/
 
-    diamondSquare2(0, 0, size-1, size-1, r, size-1); // size-1 || size
+    diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
@@ -72,7 +72,11 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 //ToFigureOut and Understand how it works
 void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
 {
-    if (level < 1) return;
+    if (level < 1)
+    {
+        //cout << *this << endl;
+        return;
+    }
 
     // diamonds
     for (unsigned i = x1 + level; i < x2; i += level)
@@ -107,7 +111,11 @@ void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y
 
 void HeightsMap::diamondSquare2(int x1, int y1, int x2, int y2, float range, unsigned level)
 {
-    if (level < 1) return;
+    if (level < 1)
+    {
+        //cout << *this << endl;
+        return;
+    }
 
     int half_level = level/2;
 
@@ -119,7 +127,12 @@ void HeightsMap::diamondSquare2(int x1, int y1, int x2, int y2, float range, uns
             float b = (*this)(x + level, y);
             float c = (*this)(x, y + level);
             float d = (*this)(x + level, y + level);
-            float e = (*this)(x + half_level, y + half_level) = (a + b + c + d) / 4 + (getRnd() * range);
+
+
+            if (x + half_level == x1 || x + half_level == x2|| y + half_level == y1 || y + half_level == y2)
+                float e = (*this)(x + half_level, y + half_level) = 0;
+            else
+                float e = (*this)(x + half_level, y + half_level) = (a + b + c + d) / 4 + (getRnd() * range);
 
             //cout << *this << endl;
         }
