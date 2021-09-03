@@ -33,10 +33,10 @@ void HeightsMap::diamondSquare(float r)
 {
     resetHeightsmap();
 
-    (*this)(0, 0) = (getRnd() * r); //0;
-    (*this)(0, size - 1) = (getRnd() * r); //0;
-    (*this)(size - 1, 0) = (getRnd() * r); //0;
-    (*this)(size - 1, size - 1) = (getRnd() * r); //0;
+    (*this)(0, 0) = 0; //(getRnd() * r); //0;
+    (*this)(0, size - 1) = 0; //(getRnd() * r); //0;
+    (*this)(size - 1, 0) = 0; //(getRnd() * r); //0;
+    (*this)(size - 1, size - 1) = 0; //(getRnd() * r); //0;
 
     diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
 }
