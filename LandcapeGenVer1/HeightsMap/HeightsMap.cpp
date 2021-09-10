@@ -48,9 +48,9 @@ void HeightsMap::diamondSquare(float r)
 
 void HeightsMap::simpleGen(int r, int n)
 {
-    resetHeightsmap();
+    cout << n << endl;
     randomizeHeightsMap(1, 1, height-2, width-2, r);
-    smoothHeightsMap(1, 1, height-2, width-2, n);
+    smoothHeightsMap(1, 1, height-1, width-1, n);
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
