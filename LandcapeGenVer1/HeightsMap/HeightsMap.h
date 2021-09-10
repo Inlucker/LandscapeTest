@@ -21,6 +21,7 @@ public:
 
     void diamondSquare();
     void diamondSquare(float r);
+    void simpleGen(int r = 16, int n = 1);
 
     shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();
@@ -30,6 +31,10 @@ private:
     void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
     void diamondSquare2(int x1, int y1, int x2, int y2, float range, unsigned level);
     double getRnd() const noexcept;
+
+    void randomizeHeightsMap(int x1, int y1, int x2, int y2, int n = 16) noexcept;
+    void smoothHeightsMap(int x1, int y1, int x2, int y2, int n = 1) noexcept;
+    double getValue(int i, int j);
 };
 
 ostream& operator <<(ostream& os, const HeightsMap& map);

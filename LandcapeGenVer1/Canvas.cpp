@@ -38,6 +38,7 @@ void Canvas::generateNewLandscape(int size)
     heights_map = make_unique<HeightsMap>(size);
 
     heights_map->diamondSquare(range); //DIAMOND SQUARE
+    //heights_map->simpleGen(range, (size-1)/16);
 
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 

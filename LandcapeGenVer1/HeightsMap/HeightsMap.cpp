@@ -46,6 +46,13 @@ void HeightsMap::diamondSquare(float r)
     diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
 }
 
+void HeightsMap::simpleGen(int r, int n)
+{
+    resetHeightsmap();
+    randomizeHeightsMap(1, 1, height-2, width-2, r);
+    smoothHeightsMap(1, 1, height-2, width-2, n);
+}
+
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
@@ -196,6 +203,102 @@ void HeightsMap::diamondSquare2(int x1, int y1, int x2, int y2, float range, uns
 double HeightsMap::getRnd() const noexcept
 {
     return (double)rand() / RAND_MAX;
+}
+
+void HeightsMap::randomizeHeightsMap(int x1, int y1, int x2, int y2, int n) noexcept
+{
+    srand(time(0));
+    for (int i = y1; i <= y2; i++)
+        for (int j = x1; j <= x2; j++)
+            (*this)(i, j) = (rand() % n);
+}
+
+void HeightsMap::smoothHeightsMap(int x1, int y1, int x2, int y2, int n) noexcept
+{
+    for (int k = 0; k < n; k++)
+        for (int i = y1; i < y2; i++)
+            for (int j = x1; j < x2; j++)
+            {
+                double tmp_sum = 0;
+                int tmp_n = 0;
+
+                //cout << "(";
+                double tmp = getValue(i-1, j-1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i-1, j);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i-1, j+1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i, j-1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i, j);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i, j+1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i+1, j-1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i+1, j);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                tmp = getValue(i+1, j+1);
+                if (tmp >= 0)
+                {
+                    tmp_sum += tmp;
+                    tmp_n++;
+                }
+
+                data_ptr[i*size+j] = tmp_sum / tmp_n;
+                //cout  << ")/" << tmp_n << " = "<< tmp_sum << "/" << tmp_n << " = " << heights_map[i][j] << endl;
+            }
+}
+
+double HeightsMap::getValue(int i, int j)
+{
+    if (i >= 0 && i <= size && j >= 0 && j <= size)
+    {
+        return data_ptr[i*size+j];
+    }
+    else
+        return -1;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
