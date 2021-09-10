@@ -37,13 +37,17 @@ void Canvas::generateNewLandscape(int size)
     //print_heights_map();
 
     //smoothHeightsMap();
-    heights_map2->smoothHeightsMap();
+    for (int i = 0; i < 20; i++)
+        heights_map2->smoothHeightsMap();
     //print_heights_map();
 
-    heights_map2->diamondSquare();
+    //heights_map2->diamondSquare();
     //cout << *heights_map2 << endl;
 
     heights_map_points = heights_map2->createPoints(SCALE_XZ, SCALE_Y, SCALE_XZ);
+    const Point& c = heights_map_points->getCenter();
+    heights_map_points->transform(Point(-c.getX() + (1040/(2*MULT)), -c.getY() + (720/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, 0, 180));
 
     zbuffer_alg = make_unique<ZBufferAlg>(720/MULT, 1040/MULT); //(500, 500);
 

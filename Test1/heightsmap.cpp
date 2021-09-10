@@ -82,9 +82,9 @@ void HeightsMap::resetHeightsmap() noexcept
 
 void HeightsMap::randomizeHeightsMap() noexcept
 {
-    srand(time(0));
+    srand(time(NULL));
     for (auto &elem:*this)
-        elem = (rand() % 16);
+        elem = (rand() % 100);
 }
 
 void HeightsMap::smoothHeightsMap() noexcept

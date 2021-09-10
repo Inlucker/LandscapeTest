@@ -207,6 +207,11 @@ void HeightsMapPoints::updateCenter() noexcept
     map_points_center = rez;
 }
 
+const Point &HeightsMapPoints::getCenter() const
+{
+    return map_points_center;
+}
+
 ostream& operator <<(ostream& os, const HeightsMapPoints& points_map)
 {
     if (points_map.isEmpty())
