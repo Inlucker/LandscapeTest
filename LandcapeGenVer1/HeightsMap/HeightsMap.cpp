@@ -44,9 +44,10 @@ void HeightsMap::diamondSquare(float r)
     (*this)(size - 1, size - 1) = (getRnd() * r);*/
 
     diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
+    //smoothHeightsMap(1, 1, height-1, width-1, 1);
 }
 
-void HeightsMap::simpleGen(int r, int n)
+void HeightsMap::simpleGen(double r, int n)
 {
     cout << n << endl;
     randomizeHeightsMap(1, 1, height-2, width-2, r);
@@ -205,12 +206,12 @@ double HeightsMap::getRnd() const noexcept
     return (double)rand() / RAND_MAX;
 }
 
-void HeightsMap::randomizeHeightsMap(int x1, int y1, int x2, int y2, int n) noexcept
+void HeightsMap::randomizeHeightsMap(int x1, int y1, int x2, int y2, double n) noexcept
 {
     srand(time(0));
     for (int i = y1; i <= y2; i++)
         for (int j = x1; j <= x2; j++)
-            (*this)(i, j) = (rand() % n);
+            (*this)(i, j) = (getRnd() * n);
 }
 
 void HeightsMap::smoothHeightsMap(int x1, int y1, int x2, int y2, int n) noexcept
