@@ -13,6 +13,10 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
 
     resetHeightsMap();
 
+    scale = 16;
+    range = 24.75;
+    smoothing = false;
+
     draw_alg = ZBUFFER_PARAM;
     mult = 1;
     scale = 16;
@@ -37,7 +41,7 @@ void Canvas::generateNewLandscape(int size)
     cleanQImage();
     heights_map = make_unique<HeightsMap>(size);
 
-    heights_map->diamondSquare(range); //DIAMOND SQUARE
+    heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
     //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
 
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
@@ -111,6 +115,11 @@ void Canvas::setScale(double new_scale)
 void Canvas::setRange(float new_range)
 {
     range = new_range;
+}
+
+void Canvas::setSmoothing(bool new_smoothing)
+{
+    smoothing = new_smoothing;
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)

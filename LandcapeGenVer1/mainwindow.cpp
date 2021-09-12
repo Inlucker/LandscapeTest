@@ -275,3 +275,9 @@ void MainWindow::on_pushButton_clicked()
     }
 }
 
+
+void MainWindow::on_checkBox_stateChanged(int arg1)
+{
+    canvas->setSmoothing(bool(arg1));
+}
+

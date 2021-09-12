@@ -29,22 +29,25 @@ void HeightsMap::diamondSquare()
     diamondSquare(DS_RANGE);
 }
 
-void HeightsMap::diamondSquare(float r)
+/*void HeightsMap::diamondSquare(float r)
 {
     resetHeightsmap();
 
-    (*this)(0, 0) = 0;
-    (*this)(0, size - 1) = 0;
-    (*this)(size - 1, 0) = 0;
-    (*this)(size - 1, size - 1) = 0;
+    //(*this)(0, 0) = 0;
+    //(*this)(0, size - 1) = 0;
+    //(*this)(size - 1, 0) = 0;
+    //(*this)(size - 1, size - 1) = 0;
 
-    /*(*this)(0, 0) = (getRnd() * r);
-    (*this)(0, size - 1) = (getRnd() * r);
-    (*this)(size - 1, 0) = (getRnd() * r);
-    (*this)(size - 1, size - 1) = (getRnd() * r);*/
+    diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1
+}*/
 
-    diamondSquare(0, 0, size-1, size-1, r, size-1); // size-1 || size
-    //smoothHeightsMap(1, 1, height-1, width-1, 1);
+void HeightsMap::diamondSquare(float r, bool smoothing)
+{
+    resetHeightsmap();
+
+    diamondSquare(0, 0, size-1, size-1, r, size-1);
+    if (smoothing)
+        smoothHeightsMap(1, 1, height-1, width-1, 1);
 }
 
 void HeightsMap::simpleGen(double r, int n)
