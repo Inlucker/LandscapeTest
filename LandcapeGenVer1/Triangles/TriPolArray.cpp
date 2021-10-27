@@ -3,6 +3,10 @@
 #include "TriangularPolygon.h"
 #include "HeightsMap/HeightsMapPoints.h"
 
+#include <thread>
+
+using namespace std;
+
 TriPolArray::TriPolArray()
 {
     r = 128;
@@ -28,6 +32,44 @@ void TriPolArray::update()
 {
     for (auto& tri_pol : *this)
         tri_pol.update();
+}
+
+void TriPolArray::updateFT(int first, int last)
+{
+    for (int i = first; i <= last; i++)
+    {
+        (*this)[i].update();
+    }
+}
+
+void TriPolArray::update2(int threadsN)
+{
+    int x[threadsN];
+    int dx = elems_num/threadsN;
+    x[0] = 0;
+    for (int i = 1; i < threadsN; i++)
+    {
+        x[i] = x[i-1] + dx;
+    }
+
+    std::thread *th = new std::thread[threadsN];
+    for (int i = 0; i < threadsN-1; i++)
+    {
+        th[i] = std::thread(&TriPolArray::updateFT, this, x[i], x[i+1]);
+    }
+    th[threadsN-1] = std::thread(&TriPolArray::updateFT, this, x[threadsN-1], elems_num - 1);
+
+    for (int i = 0; i < threadsN; i++)
+    {
+        th[i].join();
+    }
+    delete[] th;
+
+    /*for (auto& tri_pol : *this)
+    {
+        std::thread thr(&TriangularPolygon::update, tri_pol);
+        thr.join();
+    }*/
 }
 
 void TriPolArray::setColor(int new_r, int new_g, int new_b)

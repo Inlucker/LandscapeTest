@@ -43,6 +43,62 @@ void ZBufferAlg::execute(TriPolArray &mas)
 
 }
 
+void ZBufferAlg::executeFT(TriPolArray &mas, int first, int last, int red, int green, int blue)
+{
+    for (int i = first; i <= last; i++)
+    {
+        TriangularPolygon &elem = mas[i];
+        for (int i = max(elem.getMinX(), 0.); i < min(elem.getMaxX(), double(height)); i++)
+        {
+            for (int j = max(elem.getMinY(), 0.); j < min(elem.getMaxY(), double(width)); j++)
+            {
+                    if (elem.isInTriangle(i, j))
+                    {
+                        if ((*zbuffer)(i, j) < elem.getZ(i, j))
+                        {
+                            (*zbuffer)(i, j) = elem.getZ(i, j);
+                            double intensivity = elem.getIntensity();
+                            (*frame_buffer)(i, j) = QColor(round(red * intensivity), round(green * intensivity), round(blue * intensivity));
+                        }
+                    }
+            }
+        }
+    }
+}
+
+void ZBufferAlg::executeWithThreads(TriPolArray &mas, int threadsN)
+{
+    int red = mas.getR();
+    int green = mas.getG();
+    int blue = mas.getB();
+    zbuffer->reset();
+    frame_buffer->reset();
+
+    //Sizes prep
+    int size = mas.size();
+
+    int x[threadsN];
+    int dx = size/threadsN;
+    x[0] = 0;
+    for (int i = 1; i < threadsN; i++)
+    {
+        x[i] = x[i-1] + dx;
+    }
+
+    std::thread *th = new std::thread[threadsN];
+    for (int i = 0; i < threadsN-1; i++)
+    {
+        th[i] = std::thread(&ZBufferAlg::executeFT, this, ref(mas), x[i], x[i+1], red, green, blue);
+    }
+    th[threadsN-1] = std::thread(&ZBufferAlg::executeFT, this, ref(mas), x[threadsN-1], size - 1, red, green, blue);
+
+    for (int i = 0; i < threadsN; i++)
+    {
+        th[i].join();
+    }
+    delete[] th;
+}
+
 void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines
 {
     int red = mas.getR();

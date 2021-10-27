@@ -16,6 +16,8 @@ public:
 
     //void updatePoints(HeightsMapPoints &map);
     void update();
+    void updateFT(int first, int last);
+    void update2(int threadsN = 8);
     void setColor(int new_r, int new_g, int new_b);
     int getR() const;
     int getG() const;

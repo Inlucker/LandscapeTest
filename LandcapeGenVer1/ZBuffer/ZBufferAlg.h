@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+#include <thread>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
     ZBufferAlg(int new_width, int new_height);
 
     void execute(TriPolArray &mas);
+    void executeFT(TriPolArray &mas, int first, int last, int red, int green, int blue);
+    void executeWithThreads(TriPolArray &mas, int threadsN = 8);
     void execute2(TriPolArray &mas); //Boost and fix white lines
 
     shared_ptr<FrameBuffer> getFrameBuffer() const noexcept;

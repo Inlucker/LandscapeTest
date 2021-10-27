@@ -370,20 +370,29 @@ void Canvas::triangularDraw()
     }
 }
 
+void Canvas::drawImageFT(int i0, int i1)
+{
+    for (int i = i0; i <= i1; i++)
+        for (int j = 0; j < frame_buffer->getWidth();  j++)
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+}
+
 void Canvas::zbufferParamDraw()
 {
     //UPDATE POINTS
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
     //tri_pol_mas->updatePoints(*heights_map_points);
-    tri_pol_mas->update();
+    //tri_pol_mas->update();
+    tri_pol_mas->update2(8); //WITH THREADS
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
 
     //Z-BUFFER ALGORITHM
     start = clock();
-    zbuffer_alg->execute(*tri_pol_mas);
+    //zbuffer_alg->execute(*tri_pol_mas);
+    zbuffer_alg->executeWithThreads(*tri_pol_mas, 8); //WITH THREADS
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
@@ -393,7 +402,32 @@ void Canvas::zbufferParamDraw()
 
     //PAINT
     start = clock();
-    ConstIterator<color_t> It = frame_buffer->cbegin();
+
+    //WITH THREADS START
+    int threadsN = 8;
+    int x[threadsN];
+    int dx = frame_buffer->getHeight()/threadsN;
+    x[0] = 0;
+    for (int i = 1; i < threadsN; i++)
+    {
+        x[i] = x[i-1] + dx;
+    }
+
+    std::thread *th = new std::thread[threadsN];
+    for (int i = 0; i < threadsN-1; i++)
+    {
+        th[i] = std::thread(&Canvas::drawImageFT, this, x[i], x[i+1]);
+    }
+    th[threadsN-1] = std::thread(&Canvas::drawImageFT, this, x[threadsN-1], frame_buffer->getHeight() - 1);
+
+    for (int i = 0; i < threadsN; i++)
+    {
+        th[i].join();
+    }
+    delete[] th;
+    //WITH THREADS END
+
+    /*ConstIterator<color_t> It = frame_buffer->cbegin();
     for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
@@ -403,7 +437,7 @@ void Canvas::zbufferParamDraw()
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
     }
-    end = clock();
+    end = clock();*/
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "paint time = " << seconds << " secs" << endl;
 }
