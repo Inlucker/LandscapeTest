@@ -60,6 +60,8 @@ public:
 
     QColor getColor();
 
+    void setThreadsNumber(int n);
+
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);
     virtual void mousePressEvent(QMouseEvent *event);
@@ -98,6 +100,8 @@ private:
     shared_ptr<TriPolArray> tri_pol_mas;
     unique_ptr<ZBufferAlg> zbuffer_alg;
     shared_ptr<FrameBuffer> frame_buffer;
+
+    int threads_number = 1;
 
 private:
     int sign(double val);

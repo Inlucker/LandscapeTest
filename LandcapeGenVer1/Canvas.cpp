@@ -28,6 +28,8 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     my_img.reset();
     frame_buffer.reset();
     cleanQImage();
+
+    threads_number = 8;
 }
 
 Canvas::~Canvas()
@@ -155,6 +157,11 @@ void Canvas::transform(Point move, Point scale, Point rotate)
 QColor Canvas::getColor()
 {
     return QColor(red, green, blue);
+}
+
+void Canvas::setThreadsNumber(int n)
+{
+    threads_number = n;
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)
@@ -392,7 +399,7 @@ void Canvas::zbufferParamDraw()
     //Z-BUFFER ALGORITHM
     start = clock();
     //zbuffer_alg->execute(*tri_pol_mas);
-    zbuffer_alg->executeWithThreads(*tri_pol_mas, 8); //WITH THREADS
+    zbuffer_alg->executeWithThreads(*tri_pol_mas, threads_number); //WITH THREADS
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;

@@ -281,3 +281,9 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
     canvas->setSmoothing(bool(arg1));
 }
 
+
+void MainWindow::on_threads_spinBox_valueChanged(int arg1)
+{
+    canvas->setThreadsNumber(arg1);
+}
+
