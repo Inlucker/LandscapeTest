@@ -24,7 +24,7 @@ public:
     void diamondSquare(float r, bool smoothing = false);
     void simpleGen(double r = 16, int n = 1);
 
-    void readFromFile(string sile_name);
+    void readFromFile(string file_name);
 
     shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();

@@ -392,16 +392,16 @@ void Canvas::zbufferParamDraw()
     clock_t start = clock();
     //tri_pol_mas = heights_map3->createTriPolMas();
     //tri_pol_mas->updatePoints(*heights_map_points);
-    //tri_pol_mas->update();
-    tri_pol_mas->update2(8); //WITH THREADS
+    tri_pol_mas->update();
+    //tri_pol_mas->update2(8); //WITH THREADS
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
 
     //Z-BUFFER ALGORITHM
     start = clock();
-    //zbuffer_alg->execute(*tri_pol_mas);
-    zbuffer_alg->executeWithThreads(*tri_pol_mas, threads_number); //WITH THREADS
+    zbuffer_alg->execute(*tri_pol_mas);
+    //zbuffer_alg->executeWithThreads(*tri_pol_mas, threads_number); //WITH THREADS
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
@@ -413,7 +413,7 @@ void Canvas::zbufferParamDraw()
     start = clock();
 
     //WITH THREADS START
-    int threadsN = 8;
+    /*int threadsN = 8;
     int x[threadsN];
     int dx = frame_buffer->getHeight()/threadsN;
     x[0] = 0;
@@ -433,10 +433,10 @@ void Canvas::zbufferParamDraw()
     {
         th[i].join();
     }
-    delete[] th;
+    delete[] th;*/
     //WITH THREADS END
 
-    /*ConstIterator<color_t> It = frame_buffer->cbegin();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
     for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
@@ -446,7 +446,7 @@ void Canvas::zbufferParamDraw()
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
     }
-    end = clock();*/
+    end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "paint time = " << seconds << " secs" << endl;
 }

@@ -60,24 +60,19 @@ void HeightsMap::simpleGen(double r, int n)
 
 void HeightsMap::readFromFile(string file_name)
 {
-    ifstream file;
-    file.open(file_name);
+    ifstream file(file_name);
+    //file.open(file_name);
 
     file >> height;
     file >> width;
 
-    //changeSizes(height, width);
+    changeSizes(height, width);
 
-    resetHeightsmap();
-
-    int i = 0;
-    //int n = 1;
-    for (auto elem : *this)
+    for (auto& elem : *this)
     {
-        //(*this)[i++]= n;
-        //n += 1;
-        file >> (*this)[i++];
+        file >> elem;
     }
+    file.close();
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
@@ -105,11 +100,38 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 
 void HeightsMap::changeSizes(int new_height, int new_width)
 {
-    height = new_height;
+    /*height = new_height;
     width = new_width;
+    size = min(new_height, new_width);
     elems_num = width*height;
 
     alloc_data();
+
+    resetHeightsmap();*/
+    time_t t_time = time(NULL);
+    if (new_width < 0)
+        throw MtrxNegativeSizeError("new_width < 0", __FILE__, __LINE__, ctime(&t_time));
+    else if (new_height < 0)
+        throw MtrxNegativeSizeError("new_height < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    if (new_width == 0 || new_height == 0)
+    {
+        width = 0;
+        height = 0;
+        elems_num = 0;
+        size = 0;
+        alloc_data();
+    }
+    else
+    {
+        width = new_width;
+        height = new_height;
+        size = max(width, height);
+        elems_num = width*height;
+        alloc_data();
+
+        reset();
+    }
 }
 
 //ToFigureOut and Understand how it works
