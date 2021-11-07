@@ -45,8 +45,6 @@ void Canvas::generateNewLandscape(int size)
     heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
     //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
 
-    //heights_map->readFromFile("test.txt");
-
     //heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
     double max_h = heights_map->getMaxHeight();
@@ -60,10 +58,16 @@ void Canvas::generateNewLandscape(int size)
     //double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
 
+
     Point c = heights_map_points->getCenter();
-    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+    //getCenter() IN THE MIDDLE
     heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
     heights_map_points->rotate(Point(0, 0, 180));
+
+    //max_h/2 IN THE MIDDLE
+    //heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
+    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+
 
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
@@ -78,7 +82,6 @@ void Canvas::readFromFile(string file_name)
     cleanQImage();
 
     heights_map->readFromFile(file_name);
-
     double max_h = heights_map->getMaxHeight();
     double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
     heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
@@ -86,10 +89,16 @@ void Canvas::readFromFile(string file_name)
 
     tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
 
+
     Point c = heights_map_points->getCenter();
-    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
-    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
-    heights_map_points->rotate(Point(0, 0, 180));
+    //getCenter() IN THE MIDDLE
+    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
+    //heights_map_points->rotate(Point(0, 0, 180));
+
+    //max_h/2 IN THE MIDDLE
+    heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
+    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+
 
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
 
