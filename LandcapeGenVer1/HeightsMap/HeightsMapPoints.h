@@ -13,6 +13,7 @@ class HeightsMapPoints : public BaseMtrx<shared_ptr<Point>>
 public:
     using BaseType = BaseMtrx<shared_ptr<Point>>;  //alias, will be useful someday
     HeightsMapPoints();
+    HeightsMapPoints(int new_width, int new_height);
     explicit HeightsMapPoints(int new_size);
 
     shared_ptr<TriPolArray> createTriPolArray();

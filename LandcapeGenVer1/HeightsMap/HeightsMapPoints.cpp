@@ -11,6 +11,10 @@ HeightsMapPoints::HeightsMapPoints()
     map_points_center = Point();
 }
 
+HeightsMapPoints::HeightsMapPoints(int new_width, int new_height) : BaseType(new_width, new_height)
+{
+}
+
 HeightsMapPoints::HeightsMapPoints(int new_size) : BaseType(new_size)//BaseMtrx<Point>(new_size)
 {
 }
@@ -45,11 +49,12 @@ shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray()
 
 shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray(int r, int g, int b)
 {
-    shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((size-1)*2*(size-1), r , g, b);
+    //shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((size-1)*2*(size-1), r , g, b);
+    shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((width-1)*2*(height-1), r , g, b);
     Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
-    for (int i = 0; i < (size-1); i++)
+    for (int i = 0; i < (height-1); i++)
     {
-        for (int j = 0; j < (size-1); j++)
+        for (int j = 0; j < (width-1); j++)
         {
             if ((j+i) % 2 == 1)
             {

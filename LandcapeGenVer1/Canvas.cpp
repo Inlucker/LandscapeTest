@@ -50,7 +50,6 @@ void Canvas::generateNewLandscape(int size)
     //heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
     double max_h = heights_map->getMaxHeight();
-    cout << max_h << endl;
     double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
     heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
     max_h *= k/MULT;
@@ -81,7 +80,6 @@ void Canvas::readFromFile(string file_name)
     heights_map->readFromFile(file_name);
 
     double max_h = heights_map->getMaxHeight();
-    cout << max_h << endl;
     double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
     heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
     max_h *= k/MULT;
@@ -407,9 +405,11 @@ void Canvas::drawLandScape()
 void Canvas::carcasDraw()
 {
     //painter->setPen(Qt::black);
-    int HMPsize = heights_map_points->getSize();
-    for (int i = 0; i < HMPsize; i++)
-        for (int j = 1; j < HMPsize; j++)
+    //int HMPsize = heights_map_points->getSize();
+    int HMPwidth = heights_map_points->getWidth();
+    int HMPheights = heights_map_points->getHeight();
+    for (int i = 0; i < HMPheights; i++)
+        for (int j = 1; j < HMPwidth; j++)
         {
             shared_ptr<Point> tmp_point1 = (*heights_map_points)(i, j-1);
 
@@ -417,8 +417,8 @@ void Canvas::carcasDraw()
 
             DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), QColor(red, green, blue));
         }
-    for (int i = 1; i < HMPsize; i++)
-        for (int j = 0; j < HMPsize; j++)
+    for (int i = 1; i < HMPheights; i++)
+        for (int j = 0; j < HMPwidth; j++)
         {
             shared_ptr<Point> tmp_point1 = (*heights_map_points)(i-1, j);
 

@@ -33,7 +33,7 @@ public:
     shared_ptr<HeightsMapPoints> createPoints();
 
 private:
-    void changeSizes(int new_height, int new_width);
+    void changeSizes(int new_width, int new_height);
 
     //ToFigureOut and Understand how it works
     void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);

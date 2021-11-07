@@ -76,7 +76,7 @@ void HeightsMap::readFromFile(string file_name)
     file >> height;
     file >> width;
 
-    changeSizes(height, width);
+    changeSizes(width, height);
 
     for (auto& elem : *this)
     {
@@ -101,14 +101,15 @@ void HeightsMap::writeToFile(string file_name)
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
 {
-    shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
-    if (size > 0)
+    //shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
+    shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(width, height);
+    if (width > 0 && height > 0)
     {
         ConstIterator<height_t> map_it = this->cbegin();
         int i = 0;
         for (auto& points_it : *new_points_map)
         {
-            points_it = make_shared<Point>(double(i/size) * kx, double(*map_it) * ky, double(i % size) * kz); // убрать создание объекта Point// x <-> z
+            points_it = make_shared<Point>(double(i/width) * kx, double(*map_it) * ky, double(i % width) * kz); //почему работает именно с width????
             map_it++;
             i++;
         }
@@ -124,14 +125,6 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 
 void HeightsMap::changeSizes(int new_height, int new_width)
 {
-    /*height = new_height;
-    width = new_width;
-    size = min(new_height, new_width);
-    elems_num = width*height;
-
-    alloc_data();
-
-    resetHeightsmap();*/
     time_t t_time = time(NULL);
     if (new_width < 0)
         throw MtrxNegativeSizeError("new_width < 0", __FILE__, __LINE__, ctime(&t_time));
@@ -150,7 +143,7 @@ void HeightsMap::changeSizes(int new_height, int new_width)
     {
         width = new_width;
         height = new_height;
-        size = max(width, height);
+        size = min(width, height);
         elems_num = width*height;
         alloc_data();
 
