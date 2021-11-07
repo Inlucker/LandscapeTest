@@ -299,8 +299,16 @@ void MainWindow::on_threads_spinBox_valueChanged(int arg1)
 
 void MainWindow::on_read_file_btn_clicked()
 {
-    string model_name = ui->file_name_lineEdit->text().toStdString();
+    string file_name = ui->file_name_lineEdit->text().toStdString();
 
-    canvas->readFromFile(model_name);
+    canvas->readFromFile(file_name);
+}
+
+
+void MainWindow::on_write_file_btn_clicked()
+{
+    string file_name = ui->file_name_lineEdit_2->text().toStdString();
+
+    canvas->writeToFile(file_name);
 }
 

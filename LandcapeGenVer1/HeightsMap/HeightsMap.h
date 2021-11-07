@@ -27,6 +27,7 @@ public:
     void simpleGen(double r = 16, int n = 1);
 
     void readFromFile(string file_name);
+    void writeToFile(string file_name);
 
     shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();

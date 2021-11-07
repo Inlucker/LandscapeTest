@@ -55,6 +55,8 @@ private slots:
 
     void on_read_file_btn_clicked();
 
+    void on_write_file_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -100,6 +100,11 @@ void Canvas::readFromFile(string file_name)
     update();
 }
 
+void Canvas::writeToFile(string file_name)
+{
+    heights_map->writeToFile(file_name);
+}
+
 void Canvas::draw()
 {
     drawLandScape();

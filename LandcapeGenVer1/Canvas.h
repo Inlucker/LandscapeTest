@@ -38,6 +38,7 @@ public:
 
     void generateNewLandscape(int size);
     void readFromFile(string file_name);
+    void writeToFile(string file_name);
     void draw();
     void cleanQImage();
     void resetHeightsMap();

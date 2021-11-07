@@ -70,7 +70,7 @@ void HeightsMap::simpleGen(double r, int n)
 
 void HeightsMap::readFromFile(string file_name)
 {
-    ifstream file(file_name);
+    ifstream file(file_name); //NEED TO ADD EXCEPTION, WHEN NO SUCH FILE
     //file.open(file_name);
 
     file >> height;
@@ -85,6 +85,18 @@ void HeightsMap::readFromFile(string file_name)
     file.close();
 
     calcMaxHeight();
+}
+
+void HeightsMap::writeToFile(string file_name)
+{
+    ofstream file(file_name);
+    file << height << endl;
+    file << width << endl;
+    for (auto& elem : *this)
+    {
+        file << elem << " ";
+    }
+    file.close();
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
