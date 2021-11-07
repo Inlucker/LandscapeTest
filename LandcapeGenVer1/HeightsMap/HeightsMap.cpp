@@ -378,9 +378,17 @@ double HeightsMap::getValue(int i, int j)
 
 void HeightsMap::calcMaxHeight()
 {
-    for (auto& elem : *this)
-        if (elem > max_height)
-            max_height = elem;
+    if (elems_num > 0)
+    {
+        max_height = (*this)[0];
+        for (auto& elem : *this)
+            if (elem > max_height)
+                max_height = elem;
+    }
+    else
+    {
+        max_height = 0;
+    }
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)
