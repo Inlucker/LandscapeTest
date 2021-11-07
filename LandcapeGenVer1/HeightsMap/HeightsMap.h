@@ -18,6 +18,7 @@ public:
     explicit HeightsMap(int new_size);
 
     double getMaxHeight();
+    double getMinHeight();
 
     void resetHeightsmap() noexcept;
 

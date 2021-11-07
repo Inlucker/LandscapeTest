@@ -65,8 +65,9 @@ void Canvas::generateNewLandscape(int size)
     heights_map_points->rotate(Point(0, 0, 180));
 
     //max_h/2 IN THE MIDDLE
+    //double min_h = heights_map->getMinHeight() * k/MULT;
     //heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
-    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h-min_h)/2 + (img_height/(2*MULT)), -c.getZ()));
 
 
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
@@ -96,8 +97,9 @@ void Canvas::readFromFile(string file_name)
     //heights_map_points->rotate(Point(0, 0, 180));
 
     //max_h/2 IN THE MIDDLE
+    double min_h = heights_map->getMinHeight() * k/MULT;
     heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
-    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h-min_h)/2 + (img_height/(2*MULT)), -c.getZ()));
 
 
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height

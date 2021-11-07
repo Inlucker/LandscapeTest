@@ -24,6 +24,22 @@ double HeightsMap::getMaxHeight()
     return max_height;
 }
 
+double HeightsMap::getMinHeight()
+{
+    if (elems_num > 0)
+    {
+        double min_height = (*this)[0];
+        for (auto& elem : *this)
+            if (elem < min_height)
+                min_height = elem;
+        return min_height;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 void HeightsMap::resetHeightsmap() noexcept
 {
     for (auto &elem:*this)
@@ -73,8 +89,8 @@ void HeightsMap::readFromFile(string file_name)
     ifstream file(file_name); //NEED TO ADD EXCEPTION, WHEN NO SUCH FILE
     //file.open(file_name);
 
-    file >> height;
     file >> width;
+    file >> height;
 
     changeSizes(width, height);
 
@@ -90,8 +106,8 @@ void HeightsMap::readFromFile(string file_name)
 void HeightsMap::writeToFile(string file_name)
 {
     ofstream file(file_name);
-    file << height << endl;
     file << width << endl;
+    file << height << endl;
     for (auto& elem : *this)
     {
         file << elem << " ";
@@ -123,7 +139,7 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
     return createPoints(1, 1, 1);
 }
 
-void HeightsMap::changeSizes(int new_height, int new_width)
+void HeightsMap::changeSizes(int new_width, int new_height)
 {
     time_t t_time = time(NULL);
     if (new_width < 0)
