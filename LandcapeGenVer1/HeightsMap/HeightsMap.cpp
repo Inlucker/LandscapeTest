@@ -2,6 +2,7 @@
 
 #include <time.h>
 #include <random>
+#include <fstream>
 
 #include "Iterator/Iterator.hpp"
 #include "Iterator/ConstIterator.hpp"
@@ -57,6 +58,28 @@ void HeightsMap::simpleGen(double r, int n)
     smoothHeightsMap(1, 1, height-1, width-1, n);
 }
 
+void HeightsMap::readFromFile(string file_name)
+{
+    ifstream file;
+    file.open(file_name);
+
+    file >> height;
+    file >> width;
+
+    //changeSizes(height, width);
+
+    resetHeightsmap();
+
+    int i = 0;
+    //int n = 1;
+    for (auto elem : *this)
+    {
+        //(*this)[i++]= n;
+        //n += 1;
+        file >> (*this)[i++];
+    }
+}
+
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
 {
     shared_ptr<HeightsMapPoints> new_points_map = make_shared<HeightsMapPoints>(size);
@@ -78,6 +101,15 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, doub
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
 {
     return createPoints(1, 1, 1);
+}
+
+void HeightsMap::changeSizes(int new_height, int new_width)
+{
+    height = new_height;
+    width = new_width;
+    elems_num = width*height;
+
+    alloc_data();
 }
 
 //ToFigureOut and Understand how it works

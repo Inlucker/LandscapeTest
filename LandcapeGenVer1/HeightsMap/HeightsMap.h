@@ -24,10 +24,14 @@ public:
     void diamondSquare(float r, bool smoothing = false);
     void simpleGen(double r = 16, int n = 1);
 
+    void readFromFile(string sile_name);
+
     shared_ptr<HeightsMapPoints> createPoints(double kx, double ky, double kz);
     shared_ptr<HeightsMapPoints> createPoints();
 
 private:
+    void changeSizes(int new_height, int new_width);
+
     //ToFigureOut and Understand how it works
     void diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level);
     void diamondSquare2(int x1, int y1, int x2, int y2, float range, unsigned level);

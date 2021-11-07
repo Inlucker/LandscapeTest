@@ -46,6 +46,8 @@ void Canvas::generateNewLandscape(int size)
     heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
     //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
 
+    heights_map->readFromFile("test.txt");
+
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
     //clock_t start = clock();
