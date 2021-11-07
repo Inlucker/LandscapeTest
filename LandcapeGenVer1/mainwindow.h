@@ -53,6 +53,8 @@ private slots:
 
     void on_threads_spinBox_valueChanged(int arg1);
 
+    void on_read_file_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 

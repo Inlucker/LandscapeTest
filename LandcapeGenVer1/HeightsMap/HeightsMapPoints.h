@@ -20,6 +20,10 @@ public:
 
     //void transform(const Point moveK, const Point scaleK, const Point rotateK, const Point center); //no need?
     void transform(const Point &moveK, const Point &scaleK, const Point &rotateK);
+    void move(const Point &moveK);
+    void scale(const Point &scaleK);
+    void rotate(const Point &rotateK);
+    void rotate(const Point &rotateK, const Point &rotate_center);
 
     const Point& getCenter() const;
 

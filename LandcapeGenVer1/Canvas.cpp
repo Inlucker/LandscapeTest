@@ -13,13 +13,12 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
 
     resetHeightsMap();
 
-    scale = 16;
     range = 24.75;
     smoothing = false;
 
     draw_alg = ZBUFFER_PARAM;
     mult = 1;
-    scale = 16;
+    scale_k = 16;
 
     red = 20;
     green = 150;
@@ -48,7 +47,13 @@ void Canvas::generateNewLandscape(int size)
 
     //heights_map->readFromFile("test.txt");
 
-    heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
+    //heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
+
+    double max_h = heights_map->getMaxHeight();
+    cout << max_h << endl;
+    double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
+    heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
+    max_h *= k/MULT;
 
     //clock_t start = clock();
     tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
@@ -56,11 +61,38 @@ void Canvas::generateNewLandscape(int size)
     //double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     //cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
 
-    const Point& c = heights_map_points->getCenter();
-    heights_map_points->transform(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
-    heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(0, 0, 180));
+    Point c = heights_map_points->getCenter();
+    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
+    heights_map_points->rotate(Point(0, 0, 180));
 
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
+    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
+
+    drawLandScape();
+
+    update();
+}
+
+void Canvas::readFromFile(string file_name)
+{
+    cleanQImage();
+
+    heights_map->readFromFile(file_name);
+
+    double max_h = heights_map->getMaxHeight();
+    cout << max_h << endl;
+    double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
+    heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
+    max_h *= k/MULT;
+
+    tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
+
+    Point c = heights_map_points->getCenter();
+    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h/2) + (img_height/(2*MULT)), -c.getZ()));
+    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
+    heights_map_points->rotate(Point(0, 0, 180));
+
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
 
     drawLandScape();
@@ -113,7 +145,7 @@ void Canvas::setHeight(int new_height)
 
 void Canvas::setScale(double new_scale)
 {
-    scale = new_scale;
+    scale_k = new_scale;
 }
 
 void Canvas::setRange(float new_range)
@@ -135,8 +167,10 @@ void Canvas::setDrawAlg(DrawAlg alg)
 void Canvas::setMult(int new_mult)
 {
     const Point& c = heights_map_points->getCenter();
-    heights_map_points->transform(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
-    heights_map_points->transform(Point(0, 0, 0), Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult), Point(0, 0, 0));
+    //heights_map_points->transform(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    move(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()));
+    //heights_map_points->transform(Point(0, 0, 0), Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult), Point(0, 0, 0));
+    scale(Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult));
     mult = new_mult;
     zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
     drawLandScape();
@@ -151,9 +185,24 @@ void Canvas::setLandscapeColor(int r, int g, int b)
     drawLandScape();
 }
 
-void Canvas::transform(Point move, Point scale, Point rotate)
+void Canvas::transform(const Point &move, const Point &scale, const Point &rotate)
 {
     heights_map_points->transform(move, scale, rotate);
+}
+
+void Canvas::move(const Point &move)
+{
+    heights_map_points->move(move);
+}
+
+void Canvas::scale(const Point &scale)
+{
+    heights_map_points->scale(scale);
+}
+
+void Canvas::rotate(const Point &rotate)
+{
+    heights_map_points->rotate(rotate);
 }
 
 QColor Canvas::getColor()
@@ -196,7 +245,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double x = double(previous_x - event->position().x()) / ROTATE_SPEED;
         double y = double(previous_y - event->position().y()) / ROTATE_SPEED;
 
-        heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
+        //heights_map_points->transform(Point(0, 0, 0), Point(1, 1, 1), Point(-y, -x, 0));
+        rotate(Point(-y, -x, 0));
 
         cleanQImage();
         drawLandScape();
@@ -206,7 +256,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *event)
         double x = double(previous_x - event->position().x()) / MOVE_SPEED;
         double y = double(previous_y - event->position().y()) / MOVE_SPEED;
 
-        heights_map_points->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+        //heights_map_points->transform(Point(-x, -y, 0), Point(1, 1, 1), Point(0, 0, 0));
+        move(Point(-x, -y, 0));
 
         cleanQImage();
         drawLandScape();
@@ -226,7 +277,8 @@ void Canvas::wheelEvent(QWheelEvent *event)
     QPoint numDegrees = event->angleDelta() / 120;
     double ky = 1 + double(numDegrees.y()) / SCALE_SPEED;
 
-    heights_map_points->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+    //heights_map_points->transform(Point(0, 0, 0), Point(ky, ky, ky), Point(0, 0, 0));
+    scale(Point(ky, ky, ky));
 
     cleanQImage();
     drawLandScape();
@@ -265,7 +317,7 @@ void Canvas::plotXImg(int x, int y, QColor c, int m)
             }
 }
 
-void Canvas::DrawLineBrezenheimFloat(Point p1, Point p2, QColor c)
+void Canvas::DrawLineBrezenheimFloat(const Point& p1, const Point& p2, QColor c)
 {
     DrawLineBrezenheimFloat(p1.getX(), p1.getY(), p2.getX(), p2.getY(), c);
 }

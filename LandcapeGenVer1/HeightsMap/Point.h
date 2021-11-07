@@ -5,6 +5,8 @@
 
 using namespace std;
 
+class HeightsMapPoints;
+
 class Point
 {
 public:
@@ -25,6 +27,7 @@ public:
     void setY(double new_y);
     void setZ(double new_z);
 private:
+    friend HeightsMapPoints;
     void move(const Point move);
     void scale(const Point scale, const Point center);
 

@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->scrollArea->setWidget(&(*canvas));
 
     ui->threads_spinBox->hide();
+    ui->scale_groupBox->hide();
 }
 
 MainWindow::~MainWindow()
@@ -137,7 +138,8 @@ void MainWindow::on_move_btn_clicked()
             return;
         }
 
-        canvas->transform(Point(dX, dY, dZ), Point(1, 1, 1), Point(0, 0, 0));
+        //canvas->transform(Point(dX, dY, dZ), Point(1, 1, 1), Point(0, 0, 0));
+        canvas->move(Point(dX, dY, dZ));
 
         canvas->draw();
     }
@@ -179,7 +181,8 @@ void MainWindow::on_scale_btn_clicked()
             return;
         }
 
-        canvas->transform(Point(0, 0, 0), Point(kX, kY, kZ), Point(0, 0, 0));
+        //canvas->transform(Point(0, 0, 0), Point(kX, kY, kZ), Point(0, 0, 0));
+        canvas->scale(Point(kX, kY, kZ));
 
         canvas->draw();
     }
@@ -221,7 +224,8 @@ void MainWindow::on_rotate_btn_clicked()
             return;
         }
 
-        canvas->transform(Point(0, 0, 0), Point(1, 1, 1), Point(oX, oY, oZ));
+        //canvas->transform(Point(0, 0, 0), Point(1, 1, 1), Point(oX, oY, oZ));
+        canvas->rotate(Point(oX, oY, oZ));
 
         canvas->draw();
     }
@@ -290,5 +294,13 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
 void MainWindow::on_threads_spinBox_valueChanged(int arg1)
 {
     canvas->setThreadsNumber(arg1);
+}
+
+
+void MainWindow::on_read_file_btn_clicked()
+{
+    string model_name = ui->file_name_lineEdit->text().toStdString();
+
+    canvas->readFromFile(model_name);
 }
 

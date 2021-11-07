@@ -11,18 +11,24 @@
 
 HeightsMap::HeightsMap()
 {
-
+    max_height = 0;
 }
 
 HeightsMap::HeightsMap(int new_size) : BaseType(new_size)
 {
+    max_height = 0;
+}
 
+double HeightsMap::getMaxHeight()
+{
+    return max_height;
 }
 
 void HeightsMap::resetHeightsmap() noexcept
 {
     for (auto &elem:*this)
         elem = 0;
+    max_height = 0;
 }
 
 void HeightsMap::diamondSquare()
@@ -49,6 +55,8 @@ void HeightsMap::diamondSquare(float r, bool smoothing)
     diamondSquare(0, 0, size-1, size-1, r, size-1);
     if (smoothing)
         smoothHeightsMap(1, 1, height-1, width-1, 1);
+
+    calcMaxHeight();
 }
 
 void HeightsMap::simpleGen(double r, int n)
@@ -56,6 +64,8 @@ void HeightsMap::simpleGen(double r, int n)
     cout << n << endl;
     randomizeHeightsMap(1, 1, height-2, width-2, r);
     smoothHeightsMap(1, 1, height-1, width-1, n);
+
+    calcMaxHeight();
 }
 
 void HeightsMap::readFromFile(string file_name)
@@ -73,6 +83,8 @@ void HeightsMap::readFromFile(string file_name)
         file >> elem;
     }
     file.close();
+
+    calcMaxHeight();
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)
@@ -357,6 +369,13 @@ double HeightsMap::getValue(int i, int j)
     }
     else
         return -1;
+}
+
+void HeightsMap::calcMaxHeight()
+{
+    for (auto& elem : *this)
+        if (elem > max_height)
+            max_height = elem;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)

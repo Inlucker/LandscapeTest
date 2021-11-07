@@ -93,6 +93,62 @@ void HeightsMapPoints::transform(const Point& moveK, const Point& scaleK, const 
     }
 }
 
+void HeightsMapPoints::move(const Point &moveK)
+{
+    if (!isEmpty())
+    {
+        for (auto& point : *this)
+            point->move(moveK);
+        updateCenter();
+    }
+    else
+    {
+        //add error (exception)
+    }
+}
+
+void HeightsMapPoints::scale(const Point &scaleK)
+{
+    if (!isEmpty())
+    {
+        for (auto& point : *this)
+            point->scale(scaleK, map_points_center);
+        updateCenter();
+    }
+    else
+    {
+        //add error (exception)
+    }
+}
+
+void HeightsMapPoints::rotate(const Point &rotateK)
+{
+    if (!isEmpty())
+    {
+        for (auto& point : *this)
+            point->rotate(rotateK, map_points_center);
+        updateCenter();
+    }
+    else
+    {
+        //add error (exception)
+    }
+}
+
+void HeightsMapPoints::rotate(const Point &rotateK, const Point &rotate_center)
+{
+    if (!isEmpty())
+    {
+        for (auto& point : *this)
+            point->rotate(rotateK, rotate_center);
+        updateCenter();
+    }
+    else
+    {
+        //add error (exception)
+    }
+}
+
 const Point &HeightsMapPoints::getCenter() const
 {
     return map_points_center;

@@ -17,6 +17,8 @@ public:
     HeightsMap();
     explicit HeightsMap(int new_size);
 
+    double getMaxHeight();
+
     void resetHeightsmap() noexcept;
 
     void diamondSquare();
@@ -40,6 +42,11 @@ private:
     void randomizeHeightsMap(int x1, int y1, int x2, int y2, double n = 16) noexcept;
     void smoothHeightsMap(int x1, int y1, int x2, int y2, int n = 1) noexcept;
     double getValue(int i, int j);
+
+    void calcMaxHeight();
+
+private:
+    double max_height;
 };
 
 ostream& operator <<(ostream& os, const HeightsMap& map);
