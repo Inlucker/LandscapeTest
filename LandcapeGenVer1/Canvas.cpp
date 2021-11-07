@@ -46,7 +46,7 @@ void Canvas::generateNewLandscape(int size)
     heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
     //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
 
-    heights_map->readFromFile("test.txt");
+    //heights_map->readFromFile("test.txt");
 
     heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
@@ -337,6 +337,9 @@ void Canvas::drawLandScape()
     case ZBUFFER_INTERPOLATION:
         zbufferInterpolationDraw();
         break;
+    case ZBUFFER_PARAM_THREADS:
+        zbufferParamDrawWithThreads();
+        break;
     default:
         QMessageBox::information(this, "Error", "No such DrawAlg");//?
         break;
@@ -393,7 +396,6 @@ void Canvas::zbufferParamDraw()
     //tri_pol_mas = heights_map3->createTriPolMas();
     //tri_pol_mas->updatePoints(*heights_map_points);
     tri_pol_mas->update();
-    //tri_pol_mas->update2(8); //WITH THREADS
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
@@ -401,7 +403,42 @@ void Canvas::zbufferParamDraw()
     //Z-BUFFER ALGORITHM
     start = clock();
     zbuffer_alg->execute(*tri_pol_mas);
-    //zbuffer_alg->executeWithThreads(*tri_pol_mas, threads_number); //WITH THREADS
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+    //cout << *frame_buffer << endl;
+
+    //PAINT
+    start = clock();
+    ConstIterator<color_t> It = frame_buffer->cbegin();
+    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
+    {
+        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
+        {
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+            //double intensity = (*frame_buffer)(i, j);
+            //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
+        }
+    }
+    end = clock();
+    seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "paint time = " << seconds << " secs" << endl;
+}
+
+void Canvas::zbufferParamDrawWithThreads()
+{
+    //UPDATE POINTS
+    clock_t start = clock();
+    tri_pol_mas->update2(threads_number); //WITH THREADS
+    clock_t end = clock();
+    double seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
+
+    //Z-BUFFER ALGORITHM
+    start = clock();
+    zbuffer_alg->executeWithThreads(*tri_pol_mas, threads_number); //WITH THREADS
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
@@ -412,8 +449,7 @@ void Canvas::zbufferParamDraw()
     //PAINT
     start = clock();
 
-    //WITH THREADS START
-    /*int threadsN = 8;
+    int threadsN = threads_number;
     int x[threadsN];
     int dx = frame_buffer->getHeight()/threadsN;
     x[0] = 0;
@@ -433,19 +469,8 @@ void Canvas::zbufferParamDraw()
     {
         th[i].join();
     }
-    delete[] th;*/
-    //WITH THREADS END
+    delete[] th;
 
-    ConstIterator<color_t> It = frame_buffer->cbegin();
-    for (int i = 0; i < frame_buffer->getHeight() && It != frame_buffer->cend(); i++)
-    {
-        for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
-        {
-            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
-            //double intensity = (*frame_buffer)(i, j);
-            //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
-        }
-    }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "paint time = " << seconds << " secs" << endl;

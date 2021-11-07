@@ -284,6 +284,9 @@
        <pointsize>14</pointsize>
       </font>
      </property>
+     <property name="currentText">
+      <string>ZBuffer ур. поверхности</string>
+     </property>
      <property name="currentIndex">
       <number>2</number>
      </property>
@@ -305,6 +308,11 @@
      <item>
       <property name="text">
        <string>ZBuffer интерполяция</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>ZBuffer с 8 потоками</string>
       </property>
      </item>
     </widget>

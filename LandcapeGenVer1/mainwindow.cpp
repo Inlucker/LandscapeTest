@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     //canvas->setDrawAlg(ZBUFFER_PARAM);
     //ui->gridLayout->addWidget(&(*canvas));
     ui->scrollArea->setWidget(&(*canvas));
+
+    ui->threads_spinBox->hide();
 }
 
 MainWindow::~MainWindow()
@@ -86,6 +88,9 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
         break;
     case 3:
         canvas->setDrawAlg(ZBUFFER_INTERPOLATION);
+        break;
+    case 4:
+        canvas->setDrawAlg(ZBUFFER_PARAM_THREADS);
         break;
     default:
         QMessageBox::information(this, "Error", "No such DrawAlg");

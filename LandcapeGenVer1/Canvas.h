@@ -27,6 +27,7 @@ enum DrawAlg //not good because of static cast?
     TRIANGULAR,
     ZBUFFER_PARAM,
     ZBUFFER_INTERPOLATION,
+    ZBUFFER_PARAM_THREADS
 };
 
 class Canvas : public QWidget
@@ -115,6 +116,7 @@ private:
     void carcasDraw();
     void triangularDraw();
     void zbufferParamDraw();
+    void zbufferParamDrawWithThreads();
     void zbufferInterpolationDraw();
 };
 
