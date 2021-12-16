@@ -167,7 +167,6 @@ void HeightsMap::changeSizes(int new_width, int new_height)
     }
 }
 
-//ToFigureOut and Understand how it works
 void HeightsMap::diamondSquare(unsigned x1, unsigned y1, unsigned x2, unsigned y2, float range, unsigned level)
 {
     if (level < 1)
