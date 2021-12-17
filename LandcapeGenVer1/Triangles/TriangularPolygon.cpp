@@ -99,6 +99,7 @@ void TriangularPolygon::update()
     calcRect();
     calcNormals();
     calcSurface();
+    //calcIntensity();
 }
 
 /*int TriangularPolygon::getP1() const
