@@ -37,13 +37,20 @@ Canvas::~Canvas()
         painter->end();*/
 }
 
+//#define ITERS (1025*1025*10)
+
 void Canvas::generateNewLandscape(int size)
 {
     cleanQImage();
     heights_map = make_unique<HeightsMap>(size);
 
+    //clock_t start = clock();
+    //for (int i = 0; i < ITERS/(size*size); i++)
     heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
     //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
+    //clock_t end = clock();
+    //double seconds = (double)(end - start) / CLOCKS_PER_SEC / (ITERS/(size*size));
+    //cout << "!!!diamondSquare() time = " << seconds << " secs" << endl;
 
     //heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
 
@@ -52,11 +59,11 @@ void Canvas::generateNewLandscape(int size)
     heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
     max_h *= k/MULT;
 
-    //clock_t start = clock();
+    //start = clock();
     tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
-    //clock_t end = clock();
-    //double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
+    //end = clock();
+    //seconds = (double)(end - start) / CLOCKS_PER_SEC;
+    //cout << "!!heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
 
 
     Point c = heights_map_points->getCenter();
