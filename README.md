@@ -3,4 +3,4 @@
 
 Конечная версия в папке [LandscapeGenVer1](LandscapeGenVer1)
 
-![Пример работы](Report\img\Result2.jpg)
+![Пример работы](Report/img/Result2.jpg)
