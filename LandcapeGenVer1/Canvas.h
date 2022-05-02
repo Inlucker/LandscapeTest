@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define MULT mult
+//#define MULT mult
 //#define SCALE scale_k//30//15//7//3
 
 #include "HeightsMap/HeightsMap.h"
@@ -20,6 +20,7 @@ using namespace std;
 #include "Triangles/TriPolArray.h"
 #include "Triangles/TriangularPolygon.h"
 #include "ZBuffer/ZBufferAlg.h"
+#include "Controllers/usercontroller.h"
 
 enum DrawAlg //not good because of static cast?
 {
@@ -64,7 +65,8 @@ public:
     void scale(const Point& scale);
     void rotate(const Point& rotate);
 
-    QColor getColor();
+    QColor getColor() const;
+    int getMult() const;
 
     void setThreadsNumber(int n);
 
@@ -80,34 +82,23 @@ private:
     int img_width = 720;
     int img_height = 405;
 
-    //unique_ptr<QPainter> painter = nullptr;
+    //drawing parametres
+    DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
+    int threads_number = 1;
+
     unique_ptr<QImage> my_img = nullptr;
 
     bool LMB_is_pressed = false;
     bool RMB_is_pressed = false;
     int previous_x = 0, previous_y = 0;
 
-    //generating parametres
-    double scale_k = 16; //DOES NOT USE ANYMORE
-    float range = 24.75;
-    bool smoothing = false;
+    unique_ptr<UserController> user_controller;
 
-    //drawing parametres
-    DrawAlg draw_alg = ZBUFFER_PARAM;//CARCAS;
-    int mult = 1;
-    int red = 20;
-    int green = 150;
-    int blue = 20;
-    //QColor landscapeColor;
-
-    unique_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
 
     shared_ptr<TriPolArray> tri_pol_mas;
-    unique_ptr<ZBufferAlg> zbuffer_alg;
+    shared_ptr<ZBufferAlg> zbuffer_alg;
     shared_ptr<FrameBuffer> frame_buffer;
-
-    int threads_number = 1;
 
 private:
     int sign(double val);

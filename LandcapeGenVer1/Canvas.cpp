@@ -4,25 +4,23 @@
 
 Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
+    user_controller = make_unique<UserController>();
+
+    heights_map_points = user_controller->getHeightsMapPoints();
+    tri_pol_mas =  user_controller->getTriPolArray();
+    zbuffer_alg = user_controller->getZBufferAlg();
+    frame_buffer = zbuffer_alg->getFrameBuffer();
+
     img_width = 960; //1280; //720;
     img_height = 540; //720; //405;
+    user_controller->setWidth(img_width);
+    user_controller->setHeight(img_height);
     setFixedSize(img_width+2, img_height+2);
     setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color:white;");
 
-    //painter = make_unique<QPainter>(this);
-
-    resetHeightsMap();
-
-    range = 24.75;
-    smoothing = false;
+    setLandscapeColor(20, 150, 20);
 
     draw_alg = ZBUFFER_PARAM;
-    mult = 1;
-    scale_k = 16;
-
-    red = 20;
-    green = 150;
-    blue = 20;
 
     my_img.reset();
     frame_buffer.reset();
@@ -42,83 +40,31 @@ Canvas::~Canvas()
 void Canvas::generateNewLandscape(int size)
 {
     cleanQImage();
-    heights_map = make_unique<HeightsMap>(size);
+    user_controller->generateNewLandscape(size);
 
-    //clock_t start = clock();
-    //for (int i = 0; i < ITERS/(size*size); i++)
-    heights_map->diamondSquare(range, smoothing); //DIAMOND SQUARE
-    //heights_map->simpleGen(range, max(1, (size-1)/32)+1);
-    //clock_t end = clock();
-    //double seconds = (double)(end - start) / CLOCKS_PER_SEC / (ITERS/(size*size));
-    //cout << "!!!diamondSquare() time = " << seconds << " secs" << endl;
-
-    //heights_map_points = heights_map->createPoints(SCALE/MULT, SCALE/MULT, SCALE/MULT);
-
-    double max_h = heights_map->getMaxHeight();
-    double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
-    heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
-    max_h *= k/MULT;
-
-    //start = clock();
-    tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
-    //end = clock();
-    //seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    //cout << "!!heights_map_points->createTriPolArray() time = " << seconds << " secs" << endl;
-
-
-    Point c = heights_map_points->getCenter();
-    //getCenter() IN THE MIDDLE
-    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
-    heights_map_points->rotate(Point(0, 0, 180));
-
-    //max_h/2 IN THE MIDDLE
-    //double min_h = heights_map->getMinHeight() * k/MULT;
-    //heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
-    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h-min_h)/2 + (img_height/(2*MULT)), -c.getZ()));
-
-
-    //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT);
-    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
+    heights_map_points = user_controller->getHeightsMapPoints();
+    tri_pol_mas =  user_controller->getTriPolArray();
+    zbuffer_alg = user_controller->getZBufferAlg();
+    frame_buffer = zbuffer_alg->getFrameBuffer();
 
     drawLandScape();
-
-    update();
 }
 
 void Canvas::readFromFile(string file_name)
 {
     cleanQImage();
 
-    heights_map->readFromFile(file_name);
-    double max_h = heights_map->getMaxHeight();
-    double k = min((0.9*img_height)/max_h, ((0.9*img_width)/heights_map->getSize()));
-    heights_map_points = heights_map->createPoints(k/MULT, k/MULT, k/MULT);
-    max_h *= k/MULT;
-
-    tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
-
-
-    Point c = heights_map_points->getCenter();
-    //getCenter() IN THE MIDDLE
-    //heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()));
-    //heights_map_points->rotate(Point(0, 0, 180));
-
-    //max_h/2 IN THE MIDDLE
-    double min_h = heights_map->getMinHeight() * k/MULT;
-    heights_map_points->rotate(Point(0, 0, 180), Point(c.getX(), (max_h/2), c.getZ()));
-    heights_map_points->move(Point(-c.getX() + (img_width/(2*MULT)), -(max_h-min_h)/2 + (img_height/(2*MULT)), -c.getZ()));
-
-
-    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); // fix width and height
+    user_controller->readFromFile(file_name);
+    heights_map_points = user_controller->getHeightsMapPoints();
+    tri_pol_mas =  user_controller->getTriPolArray();
+    zbuffer_alg = user_controller->getZBufferAlg();
 
     drawLandScape();
-
-    update();
 }
 
 void Canvas::writeToFile(string file_name)
 {
-    heights_map->writeToFile(file_name);
+    user_controller->writeToFile(file_name);
 }
 
 void Canvas::draw()
@@ -137,46 +83,42 @@ void Canvas::cleanQImage()
 
 void Canvas::resetHeightsMap()
 {
-    heights_map = make_unique<HeightsMap>();
-    heights_map_points = heights_map->createPoints(red, green, blue);
-    tri_pol_mas = heights_map_points->createTriPolArray();
-    //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
-    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
+    user_controller->resetHeightsMap();
 }
 
 void Canvas::updateResolution()
 {
     setFixedSize(img_width+2, img_height+2);
-    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
-    const Point& c = heights_map_points->getCenter();
-    heights_map_points->transform(Point(-c.getX() + (img_width/(2*MULT)), -c.getY() + (img_height/(2*MULT)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
+    zbuffer_alg = user_controller->getZBufferAlg();
+    user_controller->updateResolution();
     drawLandScape();
-    //update();
 }
 
 void Canvas::setWidth(int new_width)
 {
     img_width = new_width;
+    user_controller->setWidth(new_width);
 }
 
 void Canvas::setHeight(int new_height)
 {
     img_height = new_height;
+    user_controller->setHeight(new_height);
 }
 
 void Canvas::setScale(double new_scale)
 {
-    scale_k = new_scale;
+    cout << "SCALE" << endl;
 }
 
 void Canvas::setRange(float new_range)
 {
-    range = new_range;
+    user_controller->setRange(new_range);
 }
 
 void Canvas::setSmoothing(bool new_smoothing)
 {
-    smoothing = new_smoothing;
+    user_controller->setSmoothing(new_smoothing);
 }
 
 void Canvas::setDrawAlg(DrawAlg alg)
@@ -187,48 +129,46 @@ void Canvas::setDrawAlg(DrawAlg alg)
 
 void Canvas::setMult(int new_mult)
 {
-    const Point& c = heights_map_points->getCenter();
-    //heights_map_points->transform(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()), Point(1, 1, 1), Point(0, 0, 0));
-    move(Point(-c.getX() + (img_width/(2*new_mult)), -c.getY() + (img_height/(2*new_mult)), -c.getZ()));
-    //heights_map_points->transform(Point(0, 0, 0), Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult), Point(0, 0, 0));
-    scale(Point(double(mult)/new_mult, double(mult)/new_mult, double(mult)/new_mult));
-    mult = new_mult;
-    zbuffer_alg = make_unique<ZBufferAlg>(img_height/MULT, img_width/MULT);
+    user_controller->setMult(new_mult);
     drawLandScape();
 }
 
 void Canvas::setLandscapeColor(int r, int g, int b)
 {
-    red = r;
-    green = g;
-    blue = b;
-    tri_pol_mas->setColor(r, g, b);
+    user_controller->setLandscapeColor(r, g, b);
     drawLandScape();
 }
 
 void Canvas::transform(const Point &move, const Point &scale, const Point &rotate)
 {
-    heights_map_points->transform(move, scale, rotate);
+    user_controller->transform(move, scale, rotate);
 }
 
 void Canvas::move(const Point &move)
 {
-    heights_map_points->move(move);
+    user_controller->move(move);
 }
 
 void Canvas::scale(const Point &scale)
 {
-    heights_map_points->scale(scale);
+    user_controller->scale(scale);
 }
 
 void Canvas::rotate(const Point &rotate)
 {
-    heights_map_points->rotate(rotate);
+    user_controller->rotate(rotate);
 }
 
-QColor Canvas::getColor()
+QColor Canvas::getColor() const
 {
-    return QColor(red, green, blue);
+    int r, g, b;
+    user_controller->getColor(r, g, b);
+    return QColor(r, g, b);
+}
+
+int Canvas::getMult() const
+{
+    return user_controller->getMult();
 }
 
 void Canvas::setThreadsNumber(int n)
@@ -257,7 +197,7 @@ void Canvas::mousePressEvent(QMouseEvent *event)
 }
 
 #define ROTATE_SPEED 5
-#define MOVE_SPEED mult
+#define MOVE_SPEED getMult()
 
 void Canvas::mouseMoveEvent(QMouseEvent *event)
 {
@@ -336,6 +276,13 @@ void Canvas::plotXImg(int x, int y, QColor c, int m)
             {
                 my_img->setPixelColor((m*x)+i, (m*y)+j, c);
             }
+}
+
+void Canvas::drawImageFT(int i0, int i1)
+{
+    for (int i = i0; i <= i1; i++)
+        for (int j = 0; j < frame_buffer->getWidth();  j++)
+            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
 }
 
 void Canvas::DrawLineBrezenheimFloat(const Point& p1, const Point& p2, QColor c)
@@ -432,8 +379,7 @@ void Canvas::carcasDraw()
             shared_ptr<Point> tmp_point1 = (*heights_map_points)(i, j-1);
 
             shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
-
-            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), QColor(red, green, blue));
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), getColor());
         }
     for (int i = 1; i < HMPheights; i++)
         for (int j = 0; j < HMPwidth; j++)
@@ -442,7 +388,7 @@ void Canvas::carcasDraw()
 
             shared_ptr<Point> tmp_point2 = (*heights_map_points)(i, j);
 
-            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), QColor(red, green, blue));
+            DrawLineBrezenheimFloat(tmp_point1->getX(), tmp_point1->getY(), tmp_point2->getX(), tmp_point2->getY(), getColor());
         }
 }
 
@@ -451,17 +397,10 @@ void Canvas::triangularDraw()
     //tri_pol_mas->updatePoints(*heights_map_points);
     for (auto &tri_pol : *tri_pol_mas)
     {
-        DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2(), QColor(red, green, blue));
-        DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3(), QColor(red, green, blue));
-        DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1(), QColor(red, green, blue));
+        DrawLineBrezenheimFloat(tri_pol.getP1(), tri_pol.getP2(), getColor());
+        DrawLineBrezenheimFloat(tri_pol.getP2(), tri_pol.getP3(), getColor());
+        DrawLineBrezenheimFloat(tri_pol.getP3(), tri_pol.getP1(), getColor());
     }
-}
-
-void Canvas::drawImageFT(int i0, int i1)
-{
-    for (int i = i0; i <= i1; i++)
-        for (int j = 0; j < frame_buffer->getWidth();  j++)
-            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
 }
 
 void Canvas::zbufferParamDraw()
@@ -492,7 +431,7 @@ void Canvas::zbufferParamDraw()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+            plotXImg(i, j, (*frame_buffer)(i, j), user_controller->getMult());
             //double intensity = (*frame_buffer)(i, j);
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
@@ -569,7 +508,7 @@ void Canvas::zbufferInterpolationDraw()
     {
         for (int j = 0; j < frame_buffer->getWidth() && It != frame_buffer->cend(); It++, j++)
         {
-            plotXImg(i, j, (*frame_buffer)(i, j), MULT);
+            plotXImg(i, j, (*frame_buffer)(i, j), user_controller->getMult());
             //double intensity = (*frame_buffer)(i, j);
             //plotXImg(i, j, QColor(red * intensity, green * intensity, blue * intensity), MULT);
         }
@@ -578,3 +517,5 @@ void Canvas::zbufferInterpolationDraw()
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
     cout << "paint time = " << seconds << " secs" << endl;
 }
+
+

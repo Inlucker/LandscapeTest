@@ -311,4 +311,3 @@ void MainWindow::on_write_file_btn_clicked()
 
     canvas->writeToFile(file_name);
 }
-

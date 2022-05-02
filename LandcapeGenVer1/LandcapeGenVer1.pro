@@ -11,10 +11,14 @@ CONFIG += c++11
 SOURCES += \
     Array/AbstractArray.cpp \
     Canvas.cpp \
+    Controllers/BaseController.cpp \
+    Controllers/userbl.cpp \
+    Controllers/usercontroller.cpp \
     HeightsMap/HeightsMap.cpp \
     HeightsMap/HeightsMapPoints.cpp \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
+    LandscapeCanvas/LandscapeCanvas.cpp \
     Matrix/AbstractMtrx.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
@@ -30,6 +34,9 @@ HEADERS += \
     Array/BaseArray.h \
     Array/BaseArray.hpp \
     Canvas.h \
+    Controllers/BaseController.h \
+    Controllers/userbl.h \
+    Controllers/usercontroller.h \
     Errors/ArrayErrors.h \
     Errors/BaseError.h \
     Errors/HeightsMapErrors.h \
@@ -47,6 +54,7 @@ HEADERS += \
     Iterator/ConstIterator.hpp \
     Iterator/Iterator.h \
     Iterator/Iterator.hpp \
+    LandscapeCanvas/LandscapeCanvas.h \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
