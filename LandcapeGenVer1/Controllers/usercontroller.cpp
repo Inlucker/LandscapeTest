@@ -48,7 +48,6 @@ shared_ptr<FrameBuffer> UserController::getFrameBuffer()
 void UserController::cleanCanvas()
 {
     canvas->cleanCanvas();
-    canvas->resetHeightsMap();
 }
 
 void UserController::resetHeightsMap()
