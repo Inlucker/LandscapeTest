@@ -19,6 +19,42 @@ HeightsMap::HeightsMap(int new_size) : BaseType(new_size)
     max_height = 0;
 }
 
+HeightsMap::HeightsMap(string& hm)
+{
+    int i = 0;
+    string tmp = "";
+    while (hm[i] != ' ' && hm[i] != '\n' && hm[i] != '\0')
+    {
+        tmp += hm[i];
+        i++;
+    }
+    width = stoi(tmp);
+    tmp = "";
+
+    while (hm[i] != ' ' && hm[i] != '\n' && hm[i] != '\0')
+    {
+        tmp += hm[i];
+        i++;
+    }
+    height = stoi(tmp);
+    tmp = "";
+
+    changeSizes(width, height);
+
+    for (auto& elem : *this)
+    {
+        while (hm[i] != ' ' && hm[i] != '\n' && hm[i] != '\0')
+        {
+            tmp += hm[i];
+            i++;
+        }
+        elem = stod(tmp);
+        tmp = "";
+    }
+
+    calcMaxHeight();
+}
+
 double HeightsMap::getMaxHeight()
 {
     return max_height;
@@ -404,6 +440,18 @@ void HeightsMap::calcMaxHeight()
     {
         max_height = 0;
     }
+}
+
+string HeightsMap::strFromFile(string file_name)
+{
+    string res = "";
+    ifstream file(file_name); //NEED TO ADD EXCEPTION, WHEN NO SUCH FILE
+
+    string tmp = "";
+    while (file >> tmp)
+        res += tmp + " ";
+    file.close();
+    return res;
 }
 
 ostream& operator <<(ostream& os, const HeightsMap& map)

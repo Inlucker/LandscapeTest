@@ -162,6 +162,7 @@ void Point::rotate(const Point rotate)
 ostream& operator <<(ostream& os, const Point& point)
 {
     os << "(" << point.getX() << ", " << point.getY() << ", " << point.getZ() << ")";
+    //os << point.getX() << " " << point.getY() << " " << point.getZ() << " ";
 
     return os;
 }

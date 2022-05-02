@@ -311,3 +311,16 @@ void MainWindow::on_write_file_btn_clicked()
 
     canvas->writeToFile(file_name);
 }
+
+void MainWindow::on_load_canvas_btn_clicked()
+{
+    CanvasBL cbl("hm.txt", "tpa.txt");
+    canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getTriPolArray()));
+}
+
+
+void MainWindow::on_write_file_btn_2_clicked()
+{
+    canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
+}
+

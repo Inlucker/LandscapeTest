@@ -20,6 +20,8 @@ SOURCES += \
     Iterator/AbstractIterator.cpp \
     LandscapeCanvas/LandscapeCanvas.cpp \
     Matrix/AbstractMtrx.cpp \
+    Repositorys/CanvasBL.cpp \
+    Repositorys/ICanvasRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
     Vector/AbstractVector.cpp \
@@ -58,6 +60,8 @@ HEADERS += \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
+    Repositorys/CanvasBL.h \
+    Repositorys/ICanvasRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
     Vector/AbstractVector.h \

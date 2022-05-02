@@ -18,6 +18,7 @@ class LandscapeCanvas
 {
 public:
     LandscapeCanvas();
+    LandscapeCanvas(HeightsMap &hm, TriPolArray &tpa);
     virtual ~LandscapeCanvas();
 
     void generateNewLandscape(int size);

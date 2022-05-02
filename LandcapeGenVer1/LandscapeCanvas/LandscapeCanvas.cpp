@@ -21,6 +21,30 @@ LandscapeCanvas::LandscapeCanvas()
     frame_buffer.reset();
 }
 
+LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, TriPolArray &tpa)
+{
+    img_width = 960; //1280; //720;
+    img_height = 540; //720; //405;
+
+    //painter = make_unique<QPainter>(this);
+
+    resetHeightsMap();
+
+    range = 24.75;
+    smoothing = false;
+
+    mult = 1;
+
+    red = 20;
+    green = 150;
+    blue = 20;
+
+    frame_buffer.reset();
+
+    heights_map = make_unique<HeightsMap>(hm);
+    tri_pol_mas = make_shared<TriPolArray>(tpa);
+}
+
 LandscapeCanvas::~LandscapeCanvas()
 {
 }

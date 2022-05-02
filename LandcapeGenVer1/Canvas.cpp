@@ -35,6 +35,21 @@ Canvas::~Canvas()
         painter->end();*/
 }
 
+void Canvas::createCanvas()
+{
+    //TODO
+}
+
+void Canvas::deleteCanvas()
+{
+    //TODO
+}
+
+void Canvas::selectCanvas(shared_ptr<LandscapeCanvas> c)
+{
+    user_controller->selectCanvas(c);
+}
+
 //#define ITERS (1025*1025*10)
 
 void Canvas::generateNewLandscape(int size)
@@ -169,6 +184,16 @@ QColor Canvas::getColor() const
 int Canvas::getMult() const
 {
     return user_controller->getMult();
+}
+
+shared_ptr<HeightsMapPoints> Canvas::getHeightsMapPoints() const
+{
+    return user_controller->getHeightsMapPoints();
+}
+
+shared_ptr<TriPolArray> Canvas::getTriPolArray() const
+{
+    return user_controller->getTriPolArray();
 }
 
 void Canvas::setThreadsNumber(int n)

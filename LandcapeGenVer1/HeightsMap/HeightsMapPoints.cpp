@@ -19,6 +19,50 @@ HeightsMapPoints::HeightsMapPoints(int new_size) : BaseType(new_size)//BaseMtrx<
 {
 }
 
+HeightsMapPoints::HeightsMapPoints(string &hmp)
+{
+    int i = 0;
+    string x = "", y = "", z = "";
+    while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
+    {
+        x += hmp[i];
+        i++;
+    }
+    this->width = stoi(x);
+    x = "";
+
+    while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
+    {
+        x += hmp[i];
+        i++;
+    }
+    this->height = stoi(x);
+    x = "";
+
+    for (auto& elem : *this)
+    {
+        while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
+        {
+            x += hmp[i];
+            i++;
+        }
+        while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
+        {
+            y += hmp[i];
+            i++;
+        }
+        while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
+        {
+            z += hmp[i];
+            i++;
+        }
+        elem = make_shared<Point>(stod(x), stod(y), stod(z));
+        x = "", y = "", z = "";
+    }
+
+    updateCenter();
+}
+
 shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray()
 {
     shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((size-1)*2*(size-1));
@@ -157,6 +201,20 @@ void HeightsMapPoints::rotate(const Point &rotateK, const Point &rotate_center)
 const Point &HeightsMapPoints::getCenter() const
 {
     return map_points_center;
+}
+
+void HeightsMapPoints::writeToFile(string file_name)
+{
+    ofstream file(file_name);
+    file << width << endl;
+    file << height << endl;
+    for (auto& elem : *this)
+    {
+        double x = elem->getX(), y = elem->getY(), z = elem->getZ();
+
+        file << x << " " << y << " " << z << " ";
+    }
+    file.close();
 }
 
 void HeightsMapPoints::updateCenter() noexcept

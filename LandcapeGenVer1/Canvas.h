@@ -37,6 +37,10 @@ public:
     explicit Canvas(QWidget *parent = nullptr);
     ~Canvas();
 
+    void createCanvas();
+    void deleteCanvas();
+    void selectCanvas(shared_ptr<LandscapeCanvas> c);
+
     void generateNewLandscape(int size);
     void readFromFile(string file_name);
     void writeToFile(string file_name);
@@ -67,6 +71,8 @@ public:
 
     QColor getColor() const;
     int getMult() const;
+    shared_ptr<HeightsMapPoints> getHeightsMapPoints() const;
+    shared_ptr<TriPolArray> getTriPolArray() const;
 
     void setThreadsNumber(int n);
 

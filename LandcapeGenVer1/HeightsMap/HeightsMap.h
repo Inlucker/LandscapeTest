@@ -16,6 +16,7 @@ public:
     using BaseType = BaseMtrx<height_t>;  //alias, will be useful someday
     HeightsMap();
     explicit HeightsMap(int new_size);
+    explicit HeightsMap(string &hm);
 
     double getMaxHeight();
     double getMinHeight();
@@ -45,6 +46,8 @@ private:
     double getValue(int i, int j);
 
     void calcMaxHeight();
+
+    string strFromFile(string file_name);
 
 private:
     double max_height;

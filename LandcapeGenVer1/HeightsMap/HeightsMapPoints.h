@@ -3,6 +3,8 @@
 
 #include "Matrix/BaseMtrx.hpp"
 
+#include <fstream>
+
 #include "Point.h"
 #include "HeightsMap.h"
 
@@ -15,6 +17,7 @@ public:
     HeightsMapPoints();
     HeightsMapPoints(int new_width, int new_height);
     explicit HeightsMapPoints(int new_size);
+    explicit HeightsMapPoints(string& hmp);
 
     shared_ptr<TriPolArray> createTriPolArray();
     shared_ptr<TriPolArray> createTriPolArray(int r, int g, int b);
@@ -27,6 +30,8 @@ public:
     void rotate(const Point &rotateK, const Point &rotate_center);
 
     const Point& getCenter() const;
+
+    void writeToFile(string file_name);
 
 private:
     //void alloc_data();

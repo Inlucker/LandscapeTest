@@ -8,7 +8,8 @@
 
 using namespace std;
 
-#include <Canvas.h>
+#include "Canvas.h"
+#include "Repositorys/CanvasBL.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -56,6 +57,10 @@ private slots:
     void on_read_file_btn_clicked();
 
     void on_write_file_btn_clicked();
+
+    void on_load_canvas_btn_clicked();
+
+    void on_write_file_btn_2_clicked();
 
 private:
     Ui::MainWindow *ui;
