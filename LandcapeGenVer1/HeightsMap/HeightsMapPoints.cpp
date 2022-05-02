@@ -29,6 +29,7 @@ HeightsMapPoints::HeightsMapPoints(string &hmp)
         i++;
     }
     this->width = stoi(x);
+    i++;
     x = "";
 
     while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
@@ -37,7 +38,10 @@ HeightsMapPoints::HeightsMapPoints(string &hmp)
         i++;
     }
     this->height = stoi(x);
+    i++;
     x = "";
+
+    changeSizes(width, height);
 
     for (auto& elem : *this)
     {
@@ -46,16 +50,19 @@ HeightsMapPoints::HeightsMapPoints(string &hmp)
             x += hmp[i];
             i++;
         }
+        i++;
         while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
         {
             y += hmp[i];
             i++;
         }
+        i++;
         while (hmp[i] != ' ' && hmp[i] != '\n' && hmp[i] != '\0')
         {
             z += hmp[i];
             i++;
         }
+        i++;
         elem = make_shared<Point>(stod(x), stod(y), stod(z));
         x = "", y = "", z = "";
     }
@@ -215,6 +222,34 @@ void HeightsMapPoints::writeToFile(string file_name)
         file << x << " " << y << " " << z << " ";
     }
     file.close();
+}
+
+void HeightsMapPoints::changeSizes(int new_width, int new_height)
+{
+    time_t t_time = time(NULL);
+    if (new_width < 0)
+        throw MtrxNegativeSizeError("new_width < 0", __FILE__, __LINE__, ctime(&t_time));
+    else if (new_height < 0)
+        throw MtrxNegativeSizeError("new_height < 0", __FILE__, __LINE__, ctime(&t_time));
+
+    if (new_width == 0 || new_height == 0)
+    {
+        width = 0;
+        height = 0;
+        elems_num = 0;
+        size = 0;
+        alloc_data();
+    }
+    else
+    {
+        width = new_width;
+        height = new_height;
+        size = min(width, height);
+        elems_num = width*height;
+        alloc_data();
+
+        reset();
+    }
 }
 
 void HeightsMapPoints::updateCenter() noexcept

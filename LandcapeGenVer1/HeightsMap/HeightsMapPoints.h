@@ -34,6 +34,7 @@ public:
     void writeToFile(string file_name);
 
 private:
+    void changeSizes(int new_width, int new_height);
     //void alloc_data();
     void updateCenter() noexcept;
     friend shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz);

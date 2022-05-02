@@ -18,7 +18,7 @@ class LandscapeCanvas
 {
 public:
     LandscapeCanvas();
-    LandscapeCanvas(HeightsMap &hm, TriPolArray &tpa);
+    LandscapeCanvas(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b);
     virtual ~LandscapeCanvas();
 
     void generateNewLandscape(int size);
@@ -56,6 +56,8 @@ public:
     int getMult() const;
     int getImgWidth() const;
     int getImgHeight() const;
+
+    void writeColorToFile(string file_name);
 
 private:
     //Resolution parametres

@@ -12,17 +12,19 @@ class CanvasBL
 {
 public:
     CanvasBL() = delete;
-    CanvasBL(string fn1, string fn2);
+    CanvasBL(string fn1, string fn2, string fn3);
     //CanvasBL(string hm, string tpm);
 
     HeightsMap& getHeightsMap();
-    TriPolArray& getTriPolArray();
+    HeightsMapPoints& getHeightsMapPoints();
+    void getColor(int& r, int& g, int& b) noexcept;
 private:
     string strFromFile(string file_name);
 
 private:
     HeightsMap heights_map;
-    TriPolArray tri_pol_mas;
+    HeightsMapPoints heights_map_points;
+    int red, green, blue;
 
 };
 

@@ -21,7 +21,7 @@ LandscapeCanvas::LandscapeCanvas()
     frame_buffer.reset();
 }
 
-LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, TriPolArray &tpa)
+LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b)
 {
     img_width = 960; //1280; //720;
     img_height = 540; //720; //405;
@@ -35,14 +35,15 @@ LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, TriPolArray &tpa)
 
     mult = 1;
 
-    red = 20;
-    green = 150;
-    blue = 20;
+    red = r;
+    green = g;
+    blue = b;
 
     frame_buffer.reset();
 
     heights_map = make_unique<HeightsMap>(hm);
-    tri_pol_mas = make_shared<TriPolArray>(tpa);
+    heights_map_points = make_shared<HeightsMapPoints>(hmp);
+    tri_pol_mas = heights_map_points->createTriPolArray(red, green, blue);
 }
 
 LandscapeCanvas::~LandscapeCanvas()
@@ -220,4 +221,11 @@ int LandscapeCanvas::getImgWidth() const
 int LandscapeCanvas::getImgHeight() const
 {
     return img_height;
+}
+
+void LandscapeCanvas::writeColorToFile(string file_name)
+{
+    ofstream file(file_name);
+    file << red << " " << green << " " << blue << " ";
+    file.close();
 }

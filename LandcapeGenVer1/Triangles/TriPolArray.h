@@ -23,6 +23,8 @@ public:
     int getG() const;
     int getB() const;
 
+
+
 private:
     int r;
     int g;

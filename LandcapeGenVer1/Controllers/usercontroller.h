@@ -43,6 +43,7 @@ public:
 
     void getColor(int& r, int& g, int& b) const;
 
+    shared_ptr<LandscapeCanvas> getLandscapeCanvas() const;
     shared_ptr<HeightsMapPoints> getHeightsMapPoints() const;
     shared_ptr<TriPolArray> getTriPolArray() const;
     shared_ptr<ZBufferAlg> getZBufferAlg() const;

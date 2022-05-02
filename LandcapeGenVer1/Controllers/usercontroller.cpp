@@ -1,4 +1,5 @@
 #include "usercontroller.h"
+#include "Repositorys/CanvasBL.h"
 
 UserController::UserController()
 {
@@ -113,6 +114,11 @@ void UserController::rotate(const Point &rotate)
 void UserController::getColor(int &r, int &g, int &b) const
 {
     canvas->getColor(r, g, b);
+}
+
+shared_ptr<LandscapeCanvas> UserController::getLandscapeCanvas() const
+{
+    return canvas;
 }
 
 shared_ptr<HeightsMapPoints> UserController::getHeightsMapPoints() const

@@ -73,6 +73,7 @@ public:
     int getMult() const;
     shared_ptr<HeightsMapPoints> getHeightsMapPoints() const;
     shared_ptr<TriPolArray> getTriPolArray() const;
+    shared_ptr<LandscapeCanvas> getLandscapeCanvas() const;
 
     void setThreadsNumber(int n);
 

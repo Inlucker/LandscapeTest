@@ -5,6 +5,7 @@
 #include "Vector/Vector.hpp"
 
 #include <QColor>
+#include <fstream>
 
 typedef QColor color_t;
 

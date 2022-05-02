@@ -1,12 +1,15 @@
 #include "CanvasBL.h"
 
-CanvasBL::CanvasBL(string fn1, string fn2)
+CanvasBL::CanvasBL(string fn1, string fn2, string fn3)
 {
-    string tmp = strFromFile(fn1);
-    heights_map = HeightsMap(tmp);
-    tmp = strFromFile(fn2);
-    HeightsMapPoints hmp(tmp);
-    tri_pol_mas = *hmp.createTriPolArray();
+    string res = strFromFile(fn1);
+    heights_map = HeightsMap(res);
+    res = strFromFile(fn2);
+    heights_map_points = HeightsMapPoints(res);
+
+    ifstream file(fn3); //NEED TO ADD EXCEPTION, WHEN NO SUCH FILE
+    file >> red >> green >> blue;
+    file.close();
 }
 
 /*CanvasBL::CanvasBL(string hm, string tpm)
@@ -19,9 +22,16 @@ HeightsMap &CanvasBL::getHeightsMap()
     return heights_map;
 }
 
-TriPolArray &CanvasBL::getTriPolArray()
+HeightsMapPoints &CanvasBL::getHeightsMapPoints()
 {
-    return tri_pol_mas;
+    return heights_map_points;
+}
+
+void CanvasBL::getColor(int &r, int &g, int &b) noexcept
+{
+    r = red;
+    g = green;
+    b = blue;
 }
 
 string CanvasBL::strFromFile(string file_name)

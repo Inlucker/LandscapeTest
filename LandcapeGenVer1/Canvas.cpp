@@ -47,7 +47,15 @@ void Canvas::deleteCanvas()
 
 void Canvas::selectCanvas(shared_ptr<LandscapeCanvas> c)
 {
+    cleanQImage();
     user_controller->selectCanvas(c);
+
+    heights_map_points = user_controller->getHeightsMapPoints();
+    tri_pol_mas =  user_controller->getTriPolArray();
+    //zbuffer_alg = user_controller->getZBufferAlg();
+    //frame_buffer = zbuffer_alg->getFrameBuffer();
+
+    drawLandScape();
 }
 
 //#define ITERS (1025*1025*10)
@@ -194,6 +202,11 @@ shared_ptr<HeightsMapPoints> Canvas::getHeightsMapPoints() const
 shared_ptr<TriPolArray> Canvas::getTriPolArray() const
 {
     return user_controller->getTriPolArray();
+}
+
+shared_ptr<LandscapeCanvas> Canvas::getLandscapeCanvas() const
+{
+    return user_controller->getLandscapeCanvas();
 }
 
 void Canvas::setThreadsNumber(int n)

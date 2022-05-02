@@ -314,13 +314,17 @@ void MainWindow::on_write_file_btn_clicked()
 
 void MainWindow::on_load_canvas_btn_clicked()
 {
-    CanvasBL cbl("hm.txt", "tpa.txt");
-    canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getTriPolArray()));
+    CanvasBL cbl("hm.txt", "tpa.txt", "color.txt");
+    int r, g, b;
+    cbl.getColor(r, g, b);
+    canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getHeightsMapPoints(), r, g, b));
 }
 
 
 void MainWindow::on_write_file_btn_2_clicked()
 {
+    canvas->writeToFile("hm.txt");
     canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
+    canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
 }
 

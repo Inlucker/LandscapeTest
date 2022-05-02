@@ -29,6 +29,7 @@ HeightsMap::HeightsMap(string& hm)
         i++;
     }
     width = stoi(tmp);
+    i++;
     tmp = "";
 
     while (hm[i] != ' ' && hm[i] != '\n' && hm[i] != '\0')
@@ -37,6 +38,7 @@ HeightsMap::HeightsMap(string& hm)
         i++;
     }
     height = stoi(tmp);
+    i++;
     tmp = "";
 
     changeSizes(width, height);
@@ -49,6 +51,7 @@ HeightsMap::HeightsMap(string& hm)
             i++;
         }
         elem = stod(tmp);
+        i++;
         tmp = "";
     }
 
