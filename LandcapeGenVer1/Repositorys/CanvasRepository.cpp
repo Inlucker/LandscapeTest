@@ -24,6 +24,7 @@ CanvasRepository::CanvasRepository()
 
 shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 {
+    m_connection.reset( PQsetdbLogin("localhost", "5432", nullptr, nullptr, "postgres", "postgres", "postgres"), &PQfinish );
     //string demo = "SELECT max(" + to_string(id) + ") FROM PPO.Users; " ;
     string query = "SELECT * FROM PPO.Canvas where id=" + to_string(id) + ";";
     PQsendQuery( m_connection.get(), query.c_str() );
@@ -33,7 +34,7 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
         if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res))
         {
             //auto ID = PQgetvalue (res, 0, 0);
-            string name = PQgetvalue (res, 0, 3);
+            string name = PQgetvalue (res, 0, 2);
             string hm = PQgetvalue (res, 0, 3);
             string tpa = PQgetvalue (res, 0, 4);
             string c = PQgetvalue (res, 0, 5);
@@ -52,4 +53,5 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
         PQclear( res );
     }
 
+    return NULL;
 }

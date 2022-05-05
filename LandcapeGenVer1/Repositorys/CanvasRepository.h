@@ -16,7 +16,7 @@ public:
 
 private:
     //shared_ptr<PGConnection> connecteion;
-    shared_ptr<PGconn>  m_connection;
+    shared_ptr<PGconn> m_connection;
     //shared_ptr<CanvasBL> canvas;
 };
 
