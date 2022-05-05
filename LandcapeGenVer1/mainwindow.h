@@ -62,6 +62,8 @@ private slots:
 
     void on_write_file_btn_2_clicked();
 
+    void on_delete_canvas_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 

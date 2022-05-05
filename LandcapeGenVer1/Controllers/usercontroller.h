@@ -11,8 +11,9 @@ public:
     UserController();
     UserController(UserBL u);
 
-    void createCanvas();
-    void deleteCanvas();
+    //void createCanvas(); //No need? It should be in CanvasRepository
+    //void deleteCanvas();
+
     void selectCanvas(shared_ptr<LandscapeCanvas> c);
 
     void generateNewLandscape(int size);

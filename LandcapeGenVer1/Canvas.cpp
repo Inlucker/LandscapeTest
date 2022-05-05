@@ -46,9 +46,9 @@ void Canvas::createCanvas()
     canvas_repository->addCanvas(cbl); //ERROR HERE
 }
 
-void Canvas::deleteCanvas()
+void Canvas::deleteCanvas(int id)
 {
-    //TODO
+    canvas_repository->deleteCanvas(id);
 }
 
 void Canvas::selectCanvas(int id)

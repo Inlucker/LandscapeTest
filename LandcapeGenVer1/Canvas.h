@@ -39,7 +39,7 @@ public:
     ~Canvas();
 
     void createCanvas();
-    void deleteCanvas();
+    void deleteCanvas(int id);
     void selectCanvas(int id);
 
     void generateNewLandscape(int size);

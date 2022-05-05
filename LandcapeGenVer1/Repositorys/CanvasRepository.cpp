@@ -61,6 +61,13 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
     PQsendQuery(m_connection.get(), query.c_str());
 }
 
+void CanvasRepository::deleteCanvas(int id)
+{
+    connect();
+    string query = "delete from PPO.Canvas where id=" + to_string(id) + ";";
+    PQsendQuery(m_connection.get(), query.c_str());
+}
+
 void CanvasRepository::connect()
 {
     m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );

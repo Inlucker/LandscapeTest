@@ -506,3 +506,20 @@ void MainWindow::on_write_file_btn_2_clicked()
     }
 }
 
+
+void MainWindow::on_delete_canvas_btn_clicked()
+{
+    try
+    {
+        canvas->deleteCanvas(8);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+

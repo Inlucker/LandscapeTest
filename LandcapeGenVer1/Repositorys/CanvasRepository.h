@@ -15,7 +15,7 @@ public:
 
     virtual shared_ptr<CanvasBL> getCanvas(int id);
     virtual void addCanvas(CanvasBL& canvas);
-    //virtual void deleteCanvas(int id) = 0;
+    virtual void deleteCanvas(int id);
 
 private:
     void connect();
