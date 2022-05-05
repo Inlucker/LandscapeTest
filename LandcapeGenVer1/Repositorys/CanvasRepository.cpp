@@ -68,6 +68,21 @@ void CanvasRepository::deleteCanvas(int id)
     PQsendQuery(m_connection.get(), query.c_str());
 }
 
+void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
+{
+    connect();
+    string hm, hmp, c;
+    canvas_bl.getHeightsMap().toStr(hm);
+    canvas_bl.getHeightsMapPoints().toStr(hmp);
+    canvas_bl.getColor(c);
+    string query = "update PPO.Canvas set HeightsMap = '" + hm;
+    query += "', TriPolArray = '" + hmp;
+    query += "', Color = '" + c;
+    query += "' where id = " + to_string(id) + ";";
+    cout << query;
+    PQsendQuery(m_connection.get(), query.c_str());
+}
+
 void CanvasRepository::connect()
 {
     m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );

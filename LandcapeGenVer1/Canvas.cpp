@@ -38,12 +38,10 @@ Canvas::~Canvas()
 
 void Canvas::createCanvas()
 {
-    //TODO
-    //user_controller->createCanvas();
     int r, g, b;
     user_controller->getColor(r, g, b);
     CanvasBL cbl = CanvasBL(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
-    canvas_repository->addCanvas(cbl); //ERROR HERE
+    canvas_repository->addCanvas(cbl);
 }
 
 void Canvas::deleteCanvas(int id)
@@ -68,6 +66,14 @@ void Canvas::selectCanvas(int id)
     //frame_buffer = zbuffer_alg->getFrameBuffer();
 
     drawLandScape();
+}
+
+void Canvas::updateCanvas(int id)
+{
+    int r, g, b;
+    user_controller->getColor(r, g, b);
+    CanvasBL canvas_bl = CanvasBL(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    canvas_repository->updateCanvas(canvas_bl, id);
 }
 
 //#define ITERS (1025*1025*10)

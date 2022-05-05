@@ -52,8 +52,6 @@ private slots:
 
     void on_checkBox_stateChanged(int arg1);
 
-    void on_threads_spinBox_valueChanged(int arg1);
-
     void on_read_file_btn_clicked();
 
     void on_write_file_btn_clicked();
@@ -63,6 +61,8 @@ private slots:
     void on_write_file_btn_2_clicked();
 
     void on_delete_canvas_btn_clicked();
+
+    void on_update_canvas_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

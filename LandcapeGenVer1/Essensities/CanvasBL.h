@@ -20,6 +20,7 @@ public:
     HeightsMap& getHeightsMap();
     HeightsMapPoints& getHeightsMapPoints();
     void getColor(int& r, int& g, int& b) noexcept;
+    void getColor(string& c) noexcept;
 private:
     string strFromFile(string file_name);
 

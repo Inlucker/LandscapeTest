@@ -71,6 +71,11 @@ void CanvasBL::getColor(int &r, int &g, int &b) noexcept
     b = blue;
 }
 
+void CanvasBL::getColor(string &c) noexcept
+{
+    c = to_string(red) + " " + to_string(green) + " " + to_string(blue);
+}
+
 string CanvasBL::strFromFile(string file_name)
 {
     string res = "";

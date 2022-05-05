@@ -41,6 +41,7 @@ public:
     void createCanvas();
     void deleteCanvas(int id);
     void selectCanvas(int id);
+    void updateCanvas(int id);
 
     void generateNewLandscape(int size);
     void readFromFile(string file_name);

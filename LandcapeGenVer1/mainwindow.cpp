@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->gridLayout->addWidget(&(*canvas));
     ui->scrollArea->setWidget(&(*canvas));
 
-    ui->threads_spinBox->hide();
     ui->scale_groupBox->hide();
 }
 
@@ -411,23 +410,6 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
 }
 
 
-void MainWindow::on_threads_spinBox_valueChanged(int arg1)
-{
-    try
-    {
-        canvas->setThreadsNumber(arg1);
-    }
-    catch (BaseError &er)
-    {
-        QMessageBox::information(this, "Error", er.what());
-    }
-    catch (...)
-    {
-        QMessageBox::information(this, "Error", "Unexpected Error");
-    }
-}
-
-
 void MainWindow::on_read_file_btn_clicked()
 {
     try
@@ -512,6 +494,23 @@ void MainWindow::on_delete_canvas_btn_clicked()
     try
     {
         canvas->deleteCanvas(8);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
+
+void MainWindow::on_update_canvas_btn_clicked()
+{
+    try
+    {
+        canvas->updateCanvas(3);
     }
     catch (BaseError &er)
     {

@@ -11,16 +11,6 @@ UserController::UserController(UserBL u) : BaseController(u)
     canvas = make_shared<LandscapeCanvas>();
 }
 
-void UserController::createCanvas()
-{
-    //TODO
-}
-
-void UserController::deleteCanvas()
-{
-    //TODO
-}
-
 void UserController::selectCanvas(shared_ptr<LandscapeCanvas> c)
 {
     canvas = c;
