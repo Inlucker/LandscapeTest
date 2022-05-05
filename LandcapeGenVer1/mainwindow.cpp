@@ -31,83 +31,159 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_gen_btn_clicked()
 {
-    canvas->generateNewLandscape(ui->size_value_label->text().toInt());
+    try
+    {
+        canvas->generateNewLandscape(ui->size_value_label->text().toInt());
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 void MainWindow::on_clean_btn_clicked()
 {
-    cout << "Canvas Width = "<< canvas->width() << "; Canvas Height = " << canvas->height() << endl;
-    canvas->cleanQImage();
-    canvas->resetHeightsMap();
+    try
+    {
+        canvas->cleanQImage();
+        canvas->resetHeightsMap();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_size_up_btn_released()
 {
-    QString text = ui->size_value_label->text();
-    int n = text.toInt();
-    if (n < 1025)
+    try
     {
-        n = (n - 1)*2+1;
-        text = QString::number(n);
-        ui->size_value_label->setText(text);
-        ui->scale_doubleSpinBox->setValue(512./(n-1));
-        ui->range_doubleSpinBox->setValue((n-1)*0.75);
-        //ui->level_spinBox->setValue((n-1));
+        QString text = ui->size_value_label->text();
+        int n = text.toInt();
+        if (n < 1025)
+        {
+            n = (n - 1)*2+1;
+            text = QString::number(n);
+            ui->size_value_label->setText(text);
+            ui->scale_doubleSpinBox->setValue(512./(n-1));
+            ui->range_doubleSpinBox->setValue((n-1)*0.75);
+            //ui->level_spinBox->setValue((n-1));
+        }
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
     }
 }
 
 
 void MainWindow::on_size_down_btn_released()
 {
-    QString text = ui->size_value_label->text();
-    int n = text.toInt();
-    if (n > 3)
+    try
     {
-        n = (n - 1)/2+1;
-        text = QString::number(n);
-        ui->size_value_label->setText(text);
-        ui->scale_doubleSpinBox->setValue(512./(n-1));
-        ui->range_doubleSpinBox->setValue((n-1)*0.75);
-        //ui->level_spinBox->setValue((n-1));
+        QString text = ui->size_value_label->text();
+        int n = text.toInt();
+        if (n > 3)
+        {
+            n = (n - 1)/2+1;
+            text = QString::number(n);
+            ui->size_value_label->setText(text);
+            ui->scale_doubleSpinBox->setValue(512./(n-1));
+            ui->range_doubleSpinBox->setValue((n-1)*0.75);
+            //ui->level_spinBox->setValue((n-1));
+        }
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
     }
 }
 
 
 void MainWindow::on_draw_variant_comboBox_activated(int index)
 {
-    switch (index)
+    try
     {
-    case 0:
-        canvas->setDrawAlg(CARCAS);
-        break;
-    case 1:
-        canvas->setDrawAlg(TRIANGULAR);
-        break;
-    case 2:
-        canvas->setDrawAlg(ZBUFFER_PARAM);
-        break;
-    case 3:
-        canvas->setDrawAlg(ZBUFFER_INTERPOLATION);
-        break;
-    case 4:
-        canvas->setDrawAlg(ZBUFFER_PARAM_THREADS);
-        break;
-    default:
-        QMessageBox::information(this, "Error", "No such DrawAlg");
-        ui->draw_variant_comboBox->setCurrentIndex(0);
-        break;
+        switch (index)
+        {
+        case 0:
+            canvas->setDrawAlg(CARCAS);
+            break;
+        case 1:
+            canvas->setDrawAlg(TRIANGULAR);
+            break;
+        case 2:
+            canvas->setDrawAlg(ZBUFFER_PARAM);
+            break;
+        case 3:
+            canvas->setDrawAlg(ZBUFFER_INTERPOLATION);
+            break;
+        case 4:
+            canvas->setDrawAlg(ZBUFFER_PARAM_THREADS);
+            break;
+        default:
+            QMessageBox::information(this, "Error", "No such DrawAlg");
+            ui->draw_variant_comboBox->setCurrentIndex(0);
+            break;
+        }
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
     }
 }
 
 void MainWindow::on_mult_spinBox_valueChanged(int arg1)
 {
-    canvas->setMult(arg1);
+    try
+    {
+        canvas->setMult(arg1);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 void MainWindow::on_scale_doubleSpinBox_valueChanged(double arg1)
 {
-    canvas->setScale(arg1);
+    try
+    {
+        canvas->setScale(arg1);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
@@ -241,91 +317,190 @@ void MainWindow::on_rotate_btn_clicked()
 
 void MainWindow::on_range_doubleSpinBox_valueChanged(double arg1)
 {
-    canvas->setRange(arg1);
+    try
+    {
+        canvas->setRange(arg1);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 void MainWindow::on_resolution_comboBox_currentTextChanged(const QString &arg1)
 {
-    qsizetype n = arg1.indexOf('x');
-
-    QString width = "";
-    for (int i = 0; i < n; i++)
+    try
     {
-        width += arg1[i];
-    }
+        qsizetype n = arg1.indexOf('x');
 
-    QString height = "";
-    int str_size = arg1.size();
-    for (int i = n+1; i < str_size; i++)
+        QString width = "";
+        for (int i = 0; i < n; i++)
+        {
+            width += arg1[i];
+        }
+
+        QString height = "";
+        int str_size = arg1.size();
+        for (int i = n+1; i < str_size; i++)
+        {
+            height += arg1[i];
+        }
+        int w = width.toInt();
+        int h = height.toInt();
+
+        canvas->setWidth(w);
+        canvas->setHeight(h);
+        canvas->updateResolution();
+    }
+    catch (BaseError &er)
     {
-        height += arg1[i];
+        QMessageBox::information(this, "Error", er.what());
     }
-    int w = width.toInt();
-    int h = height.toInt();
-
-    canvas->setWidth(w);
-    canvas->setHeight(h);
-    canvas->updateResolution();
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    QColor color = QColorDialog::getColor(canvas->getColor());
-    if (color.isValid())
+    try
     {
-        canvas->setLandscapeColor(color.red(), color.green(), color.blue());
-        QString str = QString("background-color: rgb(%1, %2, %3)").arg(color.red()).arg(color.green()).arg(color.blue());
-        ui->color_label->setStyleSheet(str);
+        QColor color = QColorDialog::getColor(canvas->getColor());
+        if (color.isValid())
+        {
+            canvas->setLandscapeColor(color.red(), color.green(), color.blue());
+            QString str = QString("background-color: rgb(%1, %2, %3)").arg(color.red()).arg(color.green()).arg(color.blue());
+            ui->color_label->setStyleSheet(str);
+        }
+        else
+        {
+            QMessageBox::information(this, "Error", "Color is not valid");
+        }
     }
-    else
+    catch (BaseError &er)
     {
-        QMessageBox::information(this, "Error", "Color is not valid");
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
     }
 }
 
 
 void MainWindow::on_checkBox_stateChanged(int arg1)
 {
-    canvas->setSmoothing(bool(arg1));
+    try
+    {
+        canvas->setSmoothing(bool(arg1));
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_threads_spinBox_valueChanged(int arg1)
 {
-    canvas->setThreadsNumber(arg1);
+    try
+    {
+        canvas->setThreadsNumber(arg1);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_read_file_btn_clicked()
 {
-    string file_name = ui->file_name_lineEdit->text().toStdString();
+    try
+    {
+        string file_name = ui->file_name_lineEdit->text().toStdString();
 
-    canvas->readFromFile(file_name);
+        canvas->readFromFile(file_name);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_write_file_btn_clicked()
 {
-    string file_name = ui->file_name_lineEdit_2->text().toStdString();
+    try
+    {
+        string file_name = ui->file_name_lineEdit_2->text().toStdString();
 
-    canvas->writeToFile(file_name);
+        canvas->writeToFile(file_name);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 void MainWindow::on_load_canvas_btn_clicked()
 {
-    //CanvasBL cbl("hm.txt", "tpa.txt", "color.txt");
-    //int r, g, b;
-    //cbl.getColor(r, g, b);
-    //canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getHeightsMapPoints(), r, g, b));
-    canvas->selectCanvas(1);
+    try
+    {
+        //CanvasBL cbl("hm.txt", "tpa.txt", "color.txt");
+        //int r, g, b;
+        //cbl.getColor(r, g, b);
+        //canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getHeightsMapPoints(), r, g, b));
+        canvas->selectCanvas(1);
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 
 void MainWindow::on_write_file_btn_2_clicked()
 {
-    canvas->writeToFile("hm.txt");
-    canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
-    canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
+    try
+    {
+        canvas->writeToFile("hm.txt");
+        canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
+        canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
