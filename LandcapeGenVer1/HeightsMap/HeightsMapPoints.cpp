@@ -224,9 +224,9 @@ void HeightsMapPoints::writeToFile(string file_name)
     file.close();
 }
 
-string &HeightsMapPoints::toStr()
+void HeightsMapPoints::toStr(string& res)
 {
-    string res = "";
+    res = "";
     res += to_string(width) + " ";
     res += to_string(height) + " ";
     for (auto& elem : *this)
@@ -235,7 +235,6 @@ string &HeightsMapPoints::toStr()
 
         res += to_string(x) + " " + to_string(y) + " " + to_string(z) + " ";
     }
-    return res;
 }
 
 void HeightsMapPoints::changeSizes(int new_width, int new_height)

@@ -473,7 +473,7 @@ void MainWindow::on_load_canvas_btn_clicked()
         //int r, g, b;
         //cbl.getColor(r, g, b);
         //canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getHeightsMapPoints(), r, g, b));
-        canvas->selectCanvas(1);
+        canvas->selectCanvas(3);
     }
     catch (BaseError &er)
     {

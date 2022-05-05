@@ -13,7 +13,7 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 {
     connect();
     string query = "SELECT * FROM PPO.Canvas where id=" + to_string(id) + ";";
-    PQsendQuery( m_connection.get(), query.c_str() );
+    PQsendQuery(m_connection.get(), query.c_str());
 
     while ( auto res = PQgetResult( m_connection.get()) )
     {
@@ -42,20 +42,23 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
     return NULL;
 }
 
-void CanvasRepository::addCanvas(shared_ptr<CanvasBL> canvas)
+void CanvasRepository::addCanvas(CanvasBL &canvas)
 {
     connect();
-    string hm = canvas->getHeightsMap().toStr();
-    string hmp = canvas->getHeightsMapPoints().toStr();
+    string tmp;
+    canvas.getHeightsMap().toStr(tmp);
+    string hm = tmp;
+    canvas.getHeightsMapPoints().toStr(tmp);
+    string hmp = tmp;
     int r, g, b;
-    canvas->getColor(r, g, b);
+    canvas.getColor(r, g, b);
     string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
 
     string query = "insert into PPO.Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
     query += hm + "', '";
     query += hmp + "', '";
     query += c + "');";
-    cout << query;
+    PQsendQuery(m_connection.get(), query.c_str());
 }
 
 void CanvasRepository::connect()

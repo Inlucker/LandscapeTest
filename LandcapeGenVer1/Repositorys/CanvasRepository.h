@@ -14,7 +14,7 @@ public:
     virtual ~CanvasRepository() = default;
 
     virtual shared_ptr<CanvasBL> getCanvas(int id);
-    virtual void addCanvas(shared_ptr<CanvasBL> canvas);
+    virtual void addCanvas(CanvasBL& canvas);
     //virtual void deleteCanvas(int id) = 0;
 
 private:

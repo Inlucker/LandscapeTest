@@ -154,16 +154,15 @@ void HeightsMap::writeToFile(string file_name)
     file.close();
 }
 
-string &HeightsMap::toStr()
+void HeightsMap::toStr(string& res)
 {
-    string res = "";
+    res = "";
     res += to_string(width) + " ";
     res += to_string(height) + " ";
     for (auto& elem : *this)
     {
         res += to_string(elem) + " ";
     }
-    return res;
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)

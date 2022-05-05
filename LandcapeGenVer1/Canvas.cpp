@@ -42,7 +42,8 @@ void Canvas::createCanvas()
     //user_controller->createCanvas();
     int r, g, b;
     user_controller->getColor(r, g, b);
-    canvas_repository->addCanvas(make_shared<CanvasBL>(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b)); //ERROR HERE
+    CanvasBL cbl = CanvasBL(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    canvas_repository->addCanvas(cbl); //ERROR HERE
 }
 
 void Canvas::deleteCanvas()
