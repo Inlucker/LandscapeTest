@@ -12,15 +12,16 @@ SOURCES += \
     Array/AbstractArray.cpp \
     Canvas.cpp \
     Controllers/BaseController.cpp \
-    Controllers/userbl.cpp \
-    Controllers/usercontroller.cpp \
+    Essensities/UserBL.cpp \
+    Controllers/UserController.cpp \
     HeightsMap/HeightsMap.cpp \
     HeightsMap/HeightsMapPoints.cpp \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
     LandscapeCanvas/LandscapeCanvas.cpp \
     Matrix/AbstractMtrx.cpp \
-    Repositorys/CanvasBL.cpp \
+    Essensities/CanvasBL.cpp \
+    Repositorys/CanvasRepository.cpp \
     Repositorys/ICanvasRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
@@ -37,8 +38,8 @@ HEADERS += \
     Array/BaseArray.hpp \
     Canvas.h \
     Controllers/BaseController.h \
-    Controllers/userbl.h \
-    Controllers/usercontroller.h \
+    Essensities/UserBL.h \
+    Controllers/UserController.h \
     Errors/ArrayErrors.h \
     Errors/BaseError.h \
     Errors/HeightsMapErrors.h \
@@ -60,7 +61,8 @@ HEADERS += \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
-    Repositorys/CanvasBL.h \
+    Essensities/CanvasBL.h \
+    Repositorys/CanvasRepository.h \
     Repositorys/ICanvasRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \

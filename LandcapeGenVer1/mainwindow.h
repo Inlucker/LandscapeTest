@@ -9,7 +9,7 @@
 using namespace std;
 
 #include "Canvas.h"
-#include "Repositorys/CanvasBL.h"
+#include "Essensities/CanvasBL.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
