@@ -6,10 +6,10 @@
 class ICanvasRepository
 {
 public:
-    ICanvasRepository() = default;
+    ICanvasRepository();
     virtual ~ICanvasRepository() = 0;
 
-    virtual CanvasBL& getCanvas(int id) = 0;
+    virtual shared_ptr<CanvasBL> getCanvas(int id) = 0;
     //virtual void addCanvas(CanvasBL canvas) = 0;
     //virtual void deleteCanvas(int id) = 0;
     //virtual void updateHeightsMap(CanvasBL canvas, int id) = 0;

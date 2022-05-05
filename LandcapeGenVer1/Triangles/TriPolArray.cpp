@@ -3,7 +3,7 @@
 #include "TriangularPolygon.h"
 #include "HeightsMap/HeightsMapPoints.h"
 
-#include <thread>
+//#include <thread>
 
 using namespace std;
 
@@ -44,7 +44,7 @@ void TriPolArray::updateFT(int first, int last)
 
 void TriPolArray::update2(int threadsN)
 {
-    int x[threadsN];
+    /*int x[threadsN];
     int dx = elems_num/threadsN;
     x[0] = 0;
     for (int i = 1; i < threadsN; i++)
@@ -63,7 +63,7 @@ void TriPolArray::update2(int threadsN)
     {
         th[i].join();
     }
-    delete[] th;
+    delete[] th;*/
 
     /*for (auto& tri_pol : *this)
     {

@@ -5,6 +5,7 @@
 Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
     user_controller = make_unique<UserController>();
+    canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
 
     heights_map_points = user_controller->getHeightsMapPoints();
     tri_pol_mas =  user_controller->getTriPolArray();
@@ -45,10 +46,16 @@ void Canvas::deleteCanvas()
     //TODO
 }
 
-void Canvas::selectCanvas(shared_ptr<LandscapeCanvas> c)
+void Canvas::selectCanvas(int id)
 {
     cleanQImage();
-    user_controller->selectCanvas(c);
+
+    shared_ptr<CanvasBL> canvas_bl = canvas_repository->getCanvas(id);
+    int r, g, b;
+    canvas_bl->getColor(r, g, b);
+
+    //user_controller->selectCanvas(c);
+    user_controller->selectCanvas(make_shared<LandscapeCanvas>(canvas_bl->getHeightsMap(), canvas_bl->getHeightsMapPoints(), r, g, b));
 
     heights_map_points = user_controller->getHeightsMapPoints();
     tri_pol_mas =  user_controller->getTriPolArray();
@@ -482,7 +489,7 @@ void Canvas::zbufferParamDraw()
 void Canvas::zbufferParamDrawWithThreads()
 {
     //UPDATE POINTS
-    clock_t start = clock();
+    /*clock_t start = clock();
     tri_pol_mas->update2(threads_number); //WITH THREADS
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
@@ -525,7 +532,7 @@ void Canvas::zbufferParamDrawWithThreads()
 
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "paint time = " << seconds << " secs" << endl;
+    cout << "paint time = " << seconds << " secs" << endl;*/
 }
 
 void Canvas::zbufferInterpolationDraw()

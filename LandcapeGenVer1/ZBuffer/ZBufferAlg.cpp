@@ -68,7 +68,7 @@ void ZBufferAlg::executeFT(TriPolArray &mas, int first, int last, int red, int g
 
 void ZBufferAlg::executeWithThreads(TriPolArray &mas, int threadsN)
 {
-    int red = mas.getR();
+    /*int red = mas.getR();
     int green = mas.getG();
     int blue = mas.getB();
     zbuffer->reset();
@@ -96,7 +96,7 @@ void ZBufferAlg::executeWithThreads(TriPolArray &mas, int threadsN)
     {
         th[i].join();
     }
-    delete[] th;
+    delete[] th;*/
 }
 
 void ZBufferAlg::execute2(TriPolArray &mas) //Boost and fix white lines

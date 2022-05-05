@@ -8,7 +8,7 @@
 
 #include <memory>
 #include <iostream>
-#include <thread>
+//#include <thread>
 
 using namespace std;
 
@@ -20,7 +20,8 @@ using namespace std;
 #include "Triangles/TriPolArray.h"
 #include "Triangles/TriangularPolygon.h"
 #include "ZBuffer/ZBufferAlg.h"
-#include "Controllers/usercontroller.h"
+#include "Controllers/UserController.h"
+#include "Repositorys/CanvasRepository.h"
 
 enum DrawAlg //not good because of static cast?
 {
@@ -39,7 +40,7 @@ public:
 
     void createCanvas();
     void deleteCanvas();
-    void selectCanvas(shared_ptr<LandscapeCanvas> c);
+    void selectCanvas(int id);
 
     void generateNewLandscape(int size);
     void readFromFile(string file_name);
@@ -100,6 +101,7 @@ private:
     int previous_x = 0, previous_y = 0;
 
     unique_ptr<UserController> user_controller;
+    shared_ptr<ICanvasRepository> canvas_repository;
 
     shared_ptr<HeightsMapPoints> heights_map_points;
 

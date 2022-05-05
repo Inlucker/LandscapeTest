@@ -2,7 +2,8 @@
 #define USERCONTROLLER_H
 
 #include "BaseController.h"
-#include "../LandscapeCanvas/LandscapeCanvas.h"
+#include "LandscapeCanvas/LandscapeCanvas.h"
+#include "Repositorys/ICanvasRepository.h"
 
 class UserController: public BaseController
 {
