@@ -115,7 +115,8 @@ void LandscapeCanvas::cleanCanvas()
 
 void LandscapeCanvas::resetHeightsMap()
 {
-    heights_map = make_unique<HeightsMap>();
+    //heights_map = make_unique<HeightsMap>();
+    heights_map = make_shared<HeightsMap>();
     heights_map_points = heights_map->createPoints(red, green, blue);
     tri_pol_mas = heights_map_points->createTriPolArray();
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
@@ -191,6 +192,11 @@ void LandscapeCanvas::getColor(int &r, int &g, int &b) noexcept
     r = red;
     g = green;
     b = blue;
+}
+
+shared_ptr<HeightsMap> LandscapeCanvas::getHeightsMap() const
+{
+    return heights_map;
 }
 
 shared_ptr<HeightsMapPoints> LandscapeCanvas::getHeightsMapPoints() const

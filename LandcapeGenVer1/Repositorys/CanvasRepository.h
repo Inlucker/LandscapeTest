@@ -5,6 +5,7 @@
 #include <libpq-fe.h>
 
 #include "ICanvasRepository.h"
+#include "Errors/ConnectionErrors.h"
 
 class CanvasRepository : public ICanvasRepository
 {
@@ -13,11 +14,20 @@ public:
     virtual ~CanvasRepository() = default;
 
     virtual shared_ptr<CanvasBL> getCanvas(int id);
+    virtual void addCanvas(shared_ptr<CanvasBL> canvas);
+    //virtual void deleteCanvas(int id) = 0;
 
 private:
-    //shared_ptr<PGConnection> connecteion;
+    void connect();
+
+private:
+    string m_dbhost = "localhost";
+    int m_dbport = 5432;
+    string m_dbname = "postgres";
+    string m_dbuser = "postgres";
+    string m_dbpass = "postgres";
+
     shared_ptr<PGconn> m_connection;
-    //shared_ptr<CanvasBL> canvas;
 };
 
 #endif // CANVASREPOSITORY_H

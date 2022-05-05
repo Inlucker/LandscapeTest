@@ -13,7 +13,7 @@
 }*/
 
 
-CanvasBL::CanvasBL(string hm, string tpa, string c)
+CanvasBL::CanvasBL(string &hm, string &tpa, string &c)
 {
     heights_map = HeightsMap(hm);
     heights_map_points = HeightsMapPoints(tpa);
@@ -43,6 +43,15 @@ CanvasBL::CanvasBL(string hm, string tpa, string c)
     blue = stoi(tmp);
     i++;
     tmp = "";
+}
+
+CanvasBL::CanvasBL(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b)
+{
+    heights_map = hm;
+    heights_map_points = hmp;
+    red = r;
+    green = g;
+    blue = b;
 }
 
 HeightsMap &CanvasBL::getHeightsMap()

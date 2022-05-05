@@ -145,13 +145,25 @@ void HeightsMap::readFromFile(string file_name)
 void HeightsMap::writeToFile(string file_name)
 {
     ofstream file(file_name);
-    file << width << endl;
-    file << height << endl;
+    file << width << " ";
+    file << height << " ";
     for (auto& elem : *this)
     {
         file << elem << " ";
     }
     file.close();
+}
+
+string &HeightsMap::toStr()
+{
+    string res = "";
+    res += to_string(width) + " ";
+    res += to_string(height) + " ";
+    for (auto& elem : *this)
+    {
+        res += to_string(elem) + " ";
+    }
+    return res;
 }
 
 shared_ptr<HeightsMapPoints> HeightsMap::createPoints(double kx, double ky, double kz)

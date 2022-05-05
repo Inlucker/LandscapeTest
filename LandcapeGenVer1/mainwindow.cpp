@@ -490,9 +490,11 @@ void MainWindow::on_write_file_btn_2_clicked()
 {
     try
     {
-        canvas->writeToFile("hm.txt");
-        canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
-        canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
+        //canvas->writeToFile("hm.txt");
+        //canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
+        //canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
+
+        canvas->createCanvas();
     }
     catch (BaseError &er)
     {

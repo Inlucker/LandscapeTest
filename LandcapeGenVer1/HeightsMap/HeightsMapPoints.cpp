@@ -213,8 +213,8 @@ const Point &HeightsMapPoints::getCenter() const
 void HeightsMapPoints::writeToFile(string file_name)
 {
     ofstream file(file_name);
-    file << width << endl;
-    file << height << endl;
+    file << width << " ";
+    file << height << " ";
     for (auto& elem : *this)
     {
         double x = elem->getX(), y = elem->getY(), z = elem->getZ();
@@ -222,6 +222,20 @@ void HeightsMapPoints::writeToFile(string file_name)
         file << x << " " << y << " " << z << " ";
     }
     file.close();
+}
+
+string &HeightsMapPoints::toStr()
+{
+    string res = "";
+    res += to_string(width) + " ";
+    res += to_string(height) + " ";
+    for (auto& elem : *this)
+    {
+        double x = elem->getX(), y = elem->getY(), z = elem->getZ();
+
+        res += to_string(x) + " " + to_string(y) + " " + to_string(z) + " ";
+    }
+    return res;
 }
 
 void HeightsMapPoints::changeSizes(int new_width, int new_height)

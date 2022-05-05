@@ -50,6 +50,7 @@ public:
 
     void getColor(int& r, int& g, int& b) noexcept;
 
+    shared_ptr<HeightsMap> getHeightsMap() const;
     shared_ptr<HeightsMapPoints> getHeightsMapPoints() const;
     shared_ptr<TriPolArray> getTriPolArray() const;
     shared_ptr<ZBufferAlg> getZBufferAlg() const;
@@ -74,7 +75,7 @@ private:
     int green = 150;
     int blue = 20;
 
-    unique_ptr<HeightsMap> heights_map;
+    shared_ptr<HeightsMap> heights_map;
     shared_ptr<HeightsMapPoints> heights_map_points;
 
     shared_ptr<TriPolArray> tri_pol_mas;

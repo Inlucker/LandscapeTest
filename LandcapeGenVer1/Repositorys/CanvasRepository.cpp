@@ -2,19 +2,6 @@
 
 CanvasRepository::CanvasRepository()
 {
-    string m_dbhost = "localhost";
-    int         m_dbport = 5432;
-    string m_dbname = "postgres";
-    string m_dbuser = "postgres";
-    string m_dbpass = "postgres";
-
-    //m_connection.reset( PQsetdbLogin("localhost", "5432", nullptr, nullptr, "postgres", "postgres", "postgres"), &PQfinish );
-    m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );
-
-    if (PQstatus( m_connection.get() ) != CONNECTION_OK && PQsetnonblocking(m_connection.get(), 1) != 0 )
-    {
-       throw runtime_error( PQerrorMessage( m_connection.get() ) );
-    }
 }
 
 /*CanvasRepository::~CanvasRepository()
@@ -24,8 +11,7 @@ CanvasRepository::CanvasRepository()
 
 shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 {
-    m_connection.reset( PQsetdbLogin("localhost", "5432", nullptr, nullptr, "postgres", "postgres", "postgres"), &PQfinish );
-    //string demo = "SELECT max(" + to_string(id) + ") FROM PPO.Users; " ;
+    connect();
     string query = "SELECT * FROM PPO.Canvas where id=" + to_string(id) + ";";
     PQsendQuery( m_connection.get(), query.c_str() );
 
@@ -54,4 +40,31 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
     }
 
     return NULL;
+}
+
+void CanvasRepository::addCanvas(shared_ptr<CanvasBL> canvas)
+{
+    connect();
+    string hm = canvas->getHeightsMap().toStr();
+    string hmp = canvas->getHeightsMapPoints().toStr();
+    int r, g, b;
+    canvas->getColor(r, g, b);
+    string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
+
+    string query = "insert into PPO.Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
+    query += hm + "', '";
+    query += hmp + "', '";
+    query += c + "');";
+    cout << query;
+}
+
+void CanvasRepository::connect()
+{
+    m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );
+
+    if (PQstatus( m_connection.get() ) != CONNECTION_OK && PQsetnonblocking(m_connection.get(), 1) != 0 )
+    {
+       time_t t_time = time(NULL);
+       throw ConnectionError("m_connection", __FILE__, __LINE__, ctime(&t_time));
+    }
 }

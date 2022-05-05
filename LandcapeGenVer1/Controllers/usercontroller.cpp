@@ -121,6 +121,11 @@ shared_ptr<LandscapeCanvas> UserController::getLandscapeCanvas() const
     return canvas;
 }
 
+shared_ptr<HeightsMap> UserController::getHeightsMap() const
+{
+    return canvas->getHeightsMap();
+}
+
 shared_ptr<HeightsMapPoints> UserController::getHeightsMapPoints() const
 {
     return canvas->getHeightsMapPoints();

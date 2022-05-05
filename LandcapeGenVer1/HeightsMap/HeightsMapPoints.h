@@ -32,6 +32,7 @@ public:
     const Point& getCenter() const;
 
     void writeToFile(string file_name);
+    string& toStr();
 
 private:
     void changeSizes(int new_width, int new_height);

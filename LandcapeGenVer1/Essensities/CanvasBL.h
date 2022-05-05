@@ -13,7 +13,9 @@ class CanvasBL
 public:
     CanvasBL() = delete;
     //CanvasBL(string fn1, string fn2, string fn3);
-    CanvasBL(string hm, string tpa, string c);
+    CanvasBL(string& hm, string& tpa, string& c);
+    CanvasBL(HeightsMap& hm, HeightsMapPoints& hmp, int r, int g, int b);
+
 
     HeightsMap& getHeightsMap();
     HeightsMapPoints& getHeightsMapPoints();

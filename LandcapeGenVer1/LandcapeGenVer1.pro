@@ -38,6 +38,7 @@ HEADERS += \
     Array/BaseArray.hpp \
     Canvas.h \
     Controllers/BaseController.h \
+    Errors/ConnectionErrors.h \
     Essensities/UserBL.h \
     Controllers/UserController.h \
     Errors/ArrayErrors.h \
