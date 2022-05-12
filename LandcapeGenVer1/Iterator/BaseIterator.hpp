@@ -51,7 +51,7 @@ int BaseIterator<Type>::get_els_num() const
 template<typename Type>
 bool BaseIterator<Type>::operator ==(const BaseIterator<Type> &it) const
 {
-    check_ptr(__LINE__);
+   // check_ptr(__LINE__);
 
     return !(id != it.id || data_ptr.lock() != it.data_ptr.lock());
 }
@@ -59,7 +59,7 @@ bool BaseIterator<Type>::operator ==(const BaseIterator<Type> &it) const
 template<typename Type>
 bool BaseIterator<Type>::operator !=(const BaseIterator<Type> &it) const
 {
-    check_ptr(__LINE__);
+    //check_ptr(__LINE__);
 
     return id != it.id || data_ptr.lock() != it.data_ptr.lock();
 }
@@ -67,7 +67,7 @@ bool BaseIterator<Type>::operator !=(const BaseIterator<Type> &it) const
 template<typename Type>
 BaseIterator<Type>::operator bool() const
 {
-    check_ptr(__LINE__);
+    //check_ptr(__LINE__);
 
     return (id >= 0 && id < elems_num && elems_num > 0);
 }

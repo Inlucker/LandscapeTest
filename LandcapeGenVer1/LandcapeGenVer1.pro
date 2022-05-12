@@ -12,6 +12,7 @@ SOURCES += \
     Array/AbstractArray.cpp \
     Canvas.cpp \
     Controllers/BaseController.cpp \
+    Controllers/UserControllerTest.cpp \
     Essensities/UserBL.cpp \
     Controllers/UserController.cpp \
     HeightsMap/HeightsMap.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     Repositorys/ICanvasRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
+    UnitTestsWindow.cpp \
     Vector/AbstractVector.cpp \
     ZBuffer/FrameBuffer.cpp \
     ZBuffer/ZBuffer.cpp \
@@ -38,6 +40,7 @@ HEADERS += \
     Array/BaseArray.hpp \
     Canvas.h \
     Controllers/BaseController.h \
+    Controllers/UserControllerTest.h \
     Errors/ConnectionErrors.h \
     Essensities/UserBL.h \
     Controllers/UserController.h \
@@ -67,6 +70,7 @@ HEADERS += \
     Repositorys/ICanvasRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
+    UnitTestsWindow.h \
     Vector/AbstractVector.h \
     Vector/Vector.h \
     Vector/Vector.hpp \
@@ -76,6 +80,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    UnitTestsWindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

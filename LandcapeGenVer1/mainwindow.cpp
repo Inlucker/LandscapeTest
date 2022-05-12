@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->scrollArea->setWidget(&(*canvas));
 
     ui->scale_groupBox->hide();
+
+    unit_tests_window = make_unique<UnitTestsWindow>();
 }
 
 MainWindow::~MainWindow()
@@ -520,5 +522,11 @@ void MainWindow::on_update_canvas_btn_clicked()
     {
         QMessageBox::information(this, "Error", "Unexpected Error");
     }
+}
+
+
+void MainWindow::on_write_file_btn_3_clicked()
+{
+    unit_tests_window->show();
 }
 

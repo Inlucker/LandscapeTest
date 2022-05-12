@@ -10,6 +10,7 @@ using namespace std;
 
 #include "Canvas.h"
 #include "Essensities/CanvasBL.h"
+#include "UnitTestsWindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -64,9 +65,12 @@ private slots:
 
     void on_update_canvas_btn_clicked();
 
+    void on_write_file_btn_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     unique_ptr<Canvas> canvas;
+    unique_ptr<UnitTestsWindow> unit_tests_window;
 };
 #endif // MAINWINDOW_H

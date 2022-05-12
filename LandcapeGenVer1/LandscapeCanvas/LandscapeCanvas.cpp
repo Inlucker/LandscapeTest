@@ -21,6 +21,27 @@ LandscapeCanvas::LandscapeCanvas()
     frame_buffer.reset();
 }
 
+LandscapeCanvas::LandscapeCanvas(HeightsMap &hm)
+{
+    img_width = 960; //1280; //720;
+    img_height = 540; //720; //405;
+
+    //painter = make_unique<QPainter>(this);
+
+    resetHeightsMap(hm);
+
+    range = 24.75;
+    smoothing = false;
+
+    mult = 1;
+
+    red = 20;
+    green = 150;
+    blue = 20;
+
+    frame_buffer.reset();
+}
+
 LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b)
 {
     img_width = 960; //1280; //720;
@@ -48,6 +69,49 @@ LandscapeCanvas::LandscapeCanvas(HeightsMap &hm, HeightsMapPoints &hmp, int r, i
 
 LandscapeCanvas::~LandscapeCanvas()
 {
+}
+
+
+//Resolution parametres
+int img_width = 720;
+int img_height = 405;
+
+//generating parametres
+float range = 24.75;
+bool smoothing = false;
+
+//drawing parametres
+int mult = 1;
+int red = 20;
+int green = 150;
+int blue = 20;
+
+shared_ptr<HeightsMap> heights_map;
+shared_ptr<HeightsMapPoints> heights_map_points;
+
+shared_ptr<TriPolArray> tri_pol_mas;
+shared_ptr<ZBufferAlg> zbuffer_alg;
+shared_ptr<FrameBuffer> frame_buffer;
+
+bool LandscapeCanvas::operator ==(LandscapeCanvas &an_canvas)
+{
+    bool res = true;
+
+    if (this->img_width != an_canvas.img_width ||
+        this->img_height != an_canvas.img_height ||
+        this->range != an_canvas.range ||
+        this->smoothing != an_canvas.smoothing ||
+        this->mult != an_canvas.mult ||
+        this->red != an_canvas.red ||
+        this->green != an_canvas.green ||
+        this->blue != an_canvas.blue ||
+        this->heights_map != an_canvas.heights_map ||
+        this->heights_map_points != an_canvas.heights_map_points ||
+        this->tri_pol_mas != an_canvas.tri_pol_mas ||
+        //this->zbuffer_alg != an_canvas.zbuffer_alg ||
+        this->frame_buffer != an_canvas.frame_buffer)
+        res = false;
+    return res;
 }
 
 void LandscapeCanvas::generateNewLandscape(int size)
@@ -117,6 +181,16 @@ void LandscapeCanvas::resetHeightsMap()
 {
     //heights_map = make_unique<HeightsMap>();
     heights_map = make_shared<HeightsMap>();
+    heights_map_points = heights_map->createPoints(red, green, blue);
+    tri_pol_mas = heights_map_points->createTriPolArray();
+    //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);
+    zbuffer_alg = make_shared<ZBufferAlg>(img_height/MULT, img_width/MULT); //(500, 500);
+}
+
+void LandscapeCanvas::resetHeightsMap(HeightsMap &hm)
+{
+    //heights_map = make_unique<HeightsMap>();
+    heights_map = make_shared<HeightsMap>(hm);
     heights_map_points = heights_map->createPoints(red, green, blue);
     tri_pol_mas = heights_map_points->createTriPolArray();
     //zbuffer_alg = make_unique<ZBufferAlg>(img_width/MULT, img_height/MULT); //(500, 500);

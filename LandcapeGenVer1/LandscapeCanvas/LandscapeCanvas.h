@@ -18,8 +18,10 @@ class LandscapeCanvas
 {
 public:
     LandscapeCanvas();
+    explicit LandscapeCanvas(HeightsMap &hm);
     LandscapeCanvas(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b);
     virtual ~LandscapeCanvas();
+    bool operator ==(LandscapeCanvas& an_canvas);
 
     void generateNewLandscape(int size);
     void readFromFile(string file_name);
@@ -28,6 +30,7 @@ public:
     shared_ptr<FrameBuffer> getFrameBuffer();
     void cleanCanvas();
     void resetHeightsMap();
+    void resetHeightsMap(HeightsMap& hm);
     void updateResolution();
 
     //Resolution setters

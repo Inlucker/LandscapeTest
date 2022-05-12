@@ -13,7 +13,9 @@ UserController::UserController(UserBL u) : BaseController(u)
 
 void UserController::selectCanvas(shared_ptr<LandscapeCanvas> c)
 {
+    //cout << "lol1" << endl;
     canvas = c;
+    //cout << "lol2" << endl;
 }
 
 void UserController::generateNewLandscape(int size)

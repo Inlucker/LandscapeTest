@@ -72,7 +72,11 @@ HeightsMapPoints::HeightsMapPoints(string &hmp)
 
 shared_ptr<TriPolArray> HeightsMapPoints::createTriPolArray()
 {
-    shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>((size-1)*2*(size-1));
+    int arr_size = 0;
+    if (elems_num > 0)
+        arr_size = (size-1)*2*(size-1);
+
+    shared_ptr<TriPolArray> new_tri_pol_mas = make_shared<TriPolArray>(arr_size);
     Iterator<TriangularPolygon> mas_it = new_tri_pol_mas->begin();
     for (int i = 0; i < (size-1); i++)
     {
