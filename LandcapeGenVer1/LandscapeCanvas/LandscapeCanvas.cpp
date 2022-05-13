@@ -98,18 +98,18 @@ bool LandscapeCanvas::operator ==(LandscapeCanvas &an_canvas)
     bool res = true;
 
     if (this->img_width != an_canvas.img_width ||
-        this->img_height != an_canvas.img_height ||
-        this->range != an_canvas.range ||
-        this->smoothing != an_canvas.smoothing ||
-        this->mult != an_canvas.mult ||
-        this->red != an_canvas.red ||
-        this->green != an_canvas.green ||
-        this->blue != an_canvas.blue ||
-        this->heights_map != an_canvas.heights_map ||
-        this->heights_map_points != an_canvas.heights_map_points ||
-        this->tri_pol_mas != an_canvas.tri_pol_mas ||
-        //this->zbuffer_alg != an_canvas.zbuffer_alg ||
-        this->frame_buffer != an_canvas.frame_buffer)
+            this->img_height != an_canvas.img_height ||
+            this->range != an_canvas.range ||
+            this->smoothing != an_canvas.smoothing ||
+            this->mult != an_canvas.mult ||
+            this->red != an_canvas.red ||
+            this->green != an_canvas.green ||
+            this->blue != an_canvas.blue ||
+            this->heights_map != an_canvas.heights_map ||
+            this->heights_map_points != an_canvas.heights_map_points ||
+            this->tri_pol_mas != an_canvas.tri_pol_mas ||
+            //this->zbuffer_alg != an_canvas.zbuffer_alg ||
+            this->frame_buffer != an_canvas.frame_buffer)
         res = false;
     return res;
 }

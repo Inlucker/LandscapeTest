@@ -1,4 +1,4 @@
-#include "UserController.h"
+#include "usercontroller.h"
 #include "Essensities/CanvasBL.h"
 
 UserController::UserController()
@@ -6,7 +6,7 @@ UserController::UserController()
     canvas = make_shared<LandscapeCanvas>();
 }
 
-UserController::UserController(UserBL u) : BaseController(u)
+UserController::UserController(shared_ptr<UserBL> u) : BaseController(u)
 {
     canvas = make_shared<LandscapeCanvas>();
 }

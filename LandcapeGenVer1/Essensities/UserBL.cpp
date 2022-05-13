@@ -1,19 +1,39 @@
-#include "userbl.h"
+#include "UserBL.h"
 
-UserBL::UserBL(string l, string p, string r, int m_id)
+UserBL::UserBL()
 {
+    id = NULL;
+    login = "";
+    password = "";
+    role = "";
+    moderator_id = NULL;
+}
+
+UserBL::UserBL(int i, string l, string p, string r, int m_id)
+{
+    id = i;
     login = l;
     password = p;
     role = r;
     moderator_id = m_id;
 }
 
-UserBL::UserBL()
+bool UserBL::operator ==(UserBL &an_ubl)
 {
-    login = "";
-    password = "";
-    role = "";
-    moderator_id = NULL;
+    bool res = true;
+
+    if (this->id != an_ubl.id ||
+            this->login != an_ubl.login ||
+            this->password != an_ubl.password ||
+            this->role != an_ubl.role ||
+            this->moderator_id != an_ubl.moderator_id)
+        res = false;
+    return res;
+}
+
+bool UserBL::operator !=(UserBL &an_ubl)
+{
+    return !(*this == an_ubl);
 }
 
 /*UserBL &UserBL::operator =(UserBL &&u) noexcept
@@ -26,17 +46,17 @@ UserBL::UserBL()
     return *this;
 }*/
 
-string UserBL::getLogin()
+const string& UserBL::getLogin() const
 {
     return login;
 }
 
-string UserBL::getPassword()
+const string& UserBL::getPassword() const
 {
     return password;
 }
 
-string UserBL::getRole()
+const string& UserBL::getRole() const
 {
     return role;
 }

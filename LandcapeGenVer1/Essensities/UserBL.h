@@ -10,14 +10,19 @@ class UserBL
 public:
     UserBL();
     //UserBL& operator =(UserBL&& vec) noexcept;
-    UserBL(string l, string p, string r, int m_id);
+    UserBL(int id, string l, string p, string r, int m_id);
 
-    string getLogin();
-    string getPassword();
-    string getRole();
+    bool operator ==(UserBL& an_ubl);
+    bool operator !=(UserBL& an_ubl);
+
+    int getId();
+    const string& getLogin() const;
+    const string& getPassword() const;
+    const string& getRole() const;
     int getModeratorId();
 
 private:
+    int id = NULL;
     string login = "";
     string password = "";
     string role = "";

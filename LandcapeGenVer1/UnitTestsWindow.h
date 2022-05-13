@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "Controllers/UserControllerTest.h"
+#include "Controllers/BaseControllerTest.h"
 
 namespace Ui {
 class UnitTestsWindow;
@@ -18,6 +19,8 @@ public:
 
 private slots:
     void on_user_controller_test_btn_clicked();
+
+    void on_base_controller_test_btn_clicked();
 
 private:
     Ui::UnitTestsWindow *ui;

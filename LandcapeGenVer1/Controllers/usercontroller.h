@@ -9,7 +9,7 @@ class UserController: public BaseController
 {
 public:
     UserController();
-    UserController(UserBL u);
+    UserController(shared_ptr<UserBL> u);
 
     //void createCanvas(); //No need? It should be in CanvasRepository
     //void deleteCanvas();

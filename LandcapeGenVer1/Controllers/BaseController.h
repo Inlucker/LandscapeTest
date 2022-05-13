@@ -3,19 +3,25 @@
 
 #include "Essensities/UserBL.h"
 
+#include <memory>
+
+using namespace std;
+
 class BaseController
 {
 public:
     BaseController();
-    explicit BaseController(UserBL u);
+    explicit BaseController(shared_ptr<UserBL> u);
     virtual ~BaseController() = default;
 
-    virtual int login(string l, string p);
-    virtual int logout() noexcept;
-    virtual int registrate(string l, string p);
+    //virtual int login(int id, string l, string p, string r, int mod_id);
+    virtual void login(shared_ptr<UserBL> u);
+    virtual void logout() noexcept;
+    //virtual int registrate(string l, string p, string r);
+    virtual shared_ptr<UserBL> getUser() noexcept;
 
 protected:
-    UserBL user;
+    shared_ptr<UserBL> user;
 };
 
 #endif // BASECONTROLLER_H

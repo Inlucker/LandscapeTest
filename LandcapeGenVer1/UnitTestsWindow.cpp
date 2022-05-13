@@ -31,3 +31,20 @@ void UnitTestsWindow::on_user_controller_test_btn_clicked()
     }
 }
 
+
+void UnitTestsWindow::on_base_controller_test_btn_clicked()
+{
+    try
+    {
+        BaseControllerTest uct;
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+

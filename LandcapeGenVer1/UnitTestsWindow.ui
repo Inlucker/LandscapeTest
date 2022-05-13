@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
+     <y>70</y>
      <width>161</width>
      <height>51</height>
     </rect>
@@ -34,6 +34,19 @@
      <width>211</width>
      <height>271</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="base_controller_test_btn">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BaseControllerTest</string>
    </property>
   </widget>
  </widget>

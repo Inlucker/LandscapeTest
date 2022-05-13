@@ -12,6 +12,7 @@ SOURCES += \
     Array/AbstractArray.cpp \
     Canvas.cpp \
     Controllers/BaseController.cpp \
+    Controllers/BaseControllerTest.cpp \
     Controllers/UserControllerTest.cpp \
     Essensities/UserBL.cpp \
     Controllers/UserController.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     Array/BaseArray.hpp \
     Canvas.h \
     Controllers/BaseController.h \
+    Controllers/BaseControllerTest.h \
     Controllers/UserControllerTest.h \
     Errors/ConnectionErrors.h \
     Essensities/UserBL.h \
