@@ -49,6 +49,19 @@
     <string>BaseControllerTest</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="canvas_repository_test_btn">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CanvasRepositoryTest</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

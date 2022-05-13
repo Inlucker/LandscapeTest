@@ -16,6 +16,9 @@ public:
     CanvasBL(string& hm, string& tpa, string& c);
     CanvasBL(HeightsMap& hm, HeightsMapPoints& hmp, int r, int g, int b);
 
+    bool operator ==(CanvasBL& an_c);
+    bool operator !=(CanvasBL& an_c);
+
 
     HeightsMap& getHeightsMap();
     HeightsMapPoints& getHeightsMapPoints();

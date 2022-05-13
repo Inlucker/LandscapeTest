@@ -54,6 +54,25 @@ CanvasBL::CanvasBL(HeightsMap &hm, HeightsMapPoints &hmp, int r, int g, int b)
     blue = b;
 }
 
+bool CanvasBL::operator ==(CanvasBL &an_c)
+{
+
+    bool res = true;
+
+    if (this->heights_map != an_c.heights_map ||
+            this->heights_map_points != an_c.heights_map_points ||
+            this->red != an_c.red ||
+            this->green != an_c.green ||
+            this->blue != an_c.blue)
+        res = false;
+    return res;
+}
+
+bool CanvasBL::operator !=(CanvasBL &an_c)
+{
+    return !(*this == an_c);
+}
+
 HeightsMap &CanvasBL::getHeightsMap()
 {
     return heights_map;

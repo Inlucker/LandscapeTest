@@ -12,7 +12,9 @@
 #include "Iterator/ConstIterator.hpp"
 #include "Errors/VectorErrors.h"
 
-#define EPS 1e-8
+#ifndef EPS
+#define EPS 1e-7
+#endif
 
 using namespace std;
 

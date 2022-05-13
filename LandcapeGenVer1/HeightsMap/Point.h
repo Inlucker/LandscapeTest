@@ -3,6 +3,10 @@
 
 #include <iostream>
 
+#ifndef EPS
+#define EPS 1e-07
+#endif
+
 using namespace std;
 
 class HeightsMapPoints;
@@ -26,6 +30,10 @@ public:
     void setX(double new_x);
     void setY(double new_y);
     void setZ(double new_z);
+
+    bool operator ==(Point& an_p);
+    bool operator !=(Point& an_p);
+
 private:
     friend HeightsMapPoints;
     void move(const Point move);

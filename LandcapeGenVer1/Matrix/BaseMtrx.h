@@ -12,6 +12,10 @@ using namespace std;
 #include "Iterator/ConstIterator.hpp"
 #include "Errors/MtrxErrors.h"
 
+#ifndef EPS
+#define EPS 1e-07
+#endif
+
 template<typename Type>
 class BaseMtrx : public AbstractMtrx
 {
@@ -44,6 +48,10 @@ public:
     const Type& getElem(int i, int j) const;
     Type& operator()(int i, int j);
     const Type& operator()(const int &i, const int &j) const;
+
+    bool operator ==(BaseMtrx<double>& an_mtrx);
+    bool operator ==(const BaseMtrx<Type>& an_mtrx);
+    bool operator !=(const BaseMtrx<Type>& an_mtrx);
 
 protected:
     virtual void alloc_data();

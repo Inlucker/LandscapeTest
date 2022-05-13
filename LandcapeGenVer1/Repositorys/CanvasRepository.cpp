@@ -2,6 +2,22 @@
 
 CanvasRepository::CanvasRepository()
 {
+    m_dbhost = "localhost";
+    m_dbport = 5432;
+    m_dbname = "postgres";
+    m_dbuser = "postgres";
+    m_dbpass = "postgres";
+    m_dbschema = "PPO";
+}
+
+CanvasRepository::CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema)
+{
+    m_dbhost = dbhost;
+    m_dbport = dbport;
+    m_dbname = dbname;
+    m_dbuser = dbuser;
+    m_dbpass = dbpass;
+    m_dbschema = dbschema;
 }
 
 /*CanvasRepository::~CanvasRepository()
@@ -12,7 +28,7 @@ CanvasRepository::CanvasRepository()
 shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 {
     connect();
-    string query = "SELECT * FROM PPO.Canvas where id=" + to_string(id) + ";";
+    string query = "SELECT * FROM " + m_dbschema + ".Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
     while (auto res = PQgetResult( m_connection.get()))
@@ -54,8 +70,8 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
     canvas.getColor(r, g, b);
     string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
 
-    string query = "insert into PPO.Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
-    //string query = "insert into PPO.Canvas values(-1, 1, 'CanvasName', '";
+    string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
+    //string query = "insert into " + m_dbschema + ".Canvas values(-1, 1, 'CanvasName', '";
     query += hm + "', '";
     query += hmp + "', '";
     query += c + "');";
@@ -83,7 +99,7 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
 void CanvasRepository::deleteCanvas(int id)
 {
     connect();
-    string query = "delete from PPO.Canvas where id=" + to_string(id) + ";";
+    string query = "delete from " + m_dbschema + ".Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
     bool flag = false;
@@ -106,7 +122,7 @@ void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
     canvas_bl.getHeightsMap().toStr(hm);
     canvas_bl.getHeightsMapPoints().toStr(hmp);
     canvas_bl.getColor(c);
-    string query = "update PPO.Canvas set HeightsMap = '" + hm;
+    string query = "update " + m_dbschema + ".Canvas set HeightsMap = '" + hm;
     query += "', TriPolArray = '" + hmp;
     query += "', Color = '" + c;
     query += "' where id = " + to_string(id) + ";";

@@ -61,6 +61,21 @@ void Point::setZ(double new_z)
     z = new_z;
 }
 
+bool Point::operator ==(Point &an_p)
+{
+    bool res = true;
+    if (abs(this->x - an_p.x) > EPS ||
+            abs(this->y - an_p.y) > EPS ||
+            abs(this->z - an_p.z) > EPS)
+        res = false;
+    return res;
+}
+
+bool Point::operator !=(Point &an_p)
+{
+    return !(*this == an_p);
+}
+
 void Point::move(const Point move)
 {
     x += move.getX();

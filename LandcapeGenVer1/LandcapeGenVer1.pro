@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++19
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -24,6 +24,7 @@ SOURCES += \
     Matrix/AbstractMtrx.cpp \
     Essensities/CanvasBL.cpp \
     Repositorys/CanvasRepository.cpp \
+    Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     Matrix/BaseMtrx.hpp \
     Essensities/CanvasBL.h \
     Repositorys/CanvasRepository.h \
+    Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
