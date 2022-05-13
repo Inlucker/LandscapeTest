@@ -37,6 +37,10 @@ void UnitTestsWindow::on_base_controller_test_btn_clicked()
     try
     {
         BaseControllerTest uct;
+        const string& out = uct.getOutput();
+        //ui->textEdit->clear();
+        //ui->textEdit->append(QString(out.c_str()));
+        ui->textEdit->setPlainText(QString(out.c_str()));
     }
     catch (BaseError &er)
     {
