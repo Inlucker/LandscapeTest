@@ -13,7 +13,7 @@
 #include "Errors/VectorErrors.h"
 
 #ifndef EPS
-#define EPS 1e-7
+#define EPS 1e-06
 #endif
 
 using namespace std;

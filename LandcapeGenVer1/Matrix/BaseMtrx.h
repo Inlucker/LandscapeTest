@@ -13,7 +13,7 @@ using namespace std;
 #include "Errors/MtrxErrors.h"
 
 #ifndef EPS
-#define EPS 1e-07
+#define EPS 1e-06
 #endif
 
 template<typename Type>
@@ -49,7 +49,7 @@ public:
     Type& operator()(int i, int j);
     const Type& operator()(const int &i, const int &j) const;
 
-    bool operator ==(BaseMtrx<double>& an_mtrx);
+    //bool operator ==(BaseMtrx<double>& an_mtrx);
     bool operator ==(const BaseMtrx<Type>& an_mtrx);
     bool operator !=(const BaseMtrx<Type>& an_mtrx);
 

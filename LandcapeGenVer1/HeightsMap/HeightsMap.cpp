@@ -189,6 +189,33 @@ shared_ptr<HeightsMapPoints> HeightsMap::createPoints()
     return createPoints(1, 1, 1);
 }
 
+bool HeightsMap::operator ==(HeightsMap &an_mtrx)
+{
+    if (this->elems_num != an_mtrx.elems_num &&
+            this->width != an_mtrx.width &&
+            this->height != an_mtrx.height)
+        return false;
+
+    bool res = true;
+    for (int i = 0; i < elems_num; i++)
+    {
+        if (abs((*this)[i] - an_mtrx[i]) > EPS)
+        {
+            //cout << (*this)[i] << " != " << an_mtrx[i] << endl;
+            res = false;
+            break;
+        }
+    }
+
+    //cout << "HeightsMap compared" << endl;
+    return res;
+}
+
+bool HeightsMap::operator !=(HeightsMap &an_mtrx)
+{
+    return !(*this == an_mtrx);
+}
+
 void HeightsMap::changeSizes(int new_width, int new_height)
 {
     time_t t_time = time(NULL);

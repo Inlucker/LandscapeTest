@@ -6,11 +6,11 @@ CanvasRepositoryTest::CanvasRepositoryTest() :
     setupForTest();
     errors_count = testAll();
     output += "Errors count: " + to_string(errors_count) + "\n";
-    output += "End of CanvasRepositoryTest";
 }
 
 CanvasRepositoryTest::~CanvasRepositoryTest()
 {
+    cout << "CanvasRepositoryTest destructor";
     connect();
     string query = "drop schema " + m_dbschema + " cascade;";
     PQsendQuery(m_connection.get(), query.c_str());
@@ -23,14 +23,13 @@ CanvasRepositoryTest::~CanvasRepositoryTest()
         }
         PQclear(res);
     }
-    //cout << "CanvasRepositoryTest destructor";
 }
 
 int CanvasRepositoryTest::testAll()
 {
     int res = 0;
 
-    res += addCanvasTest();
+    res += addGetCanvasTest() + updateCanvasTest() + deleteCanvasTest();
 
     return res;
 }
@@ -41,14 +40,7 @@ int CanvasRepositoryTest::testAll()
     setupForTest();
 }*/
 
-int CanvasRepositoryTest::getCanvasTest()
-{
-    int res = 0;
-
-    return res;
-}
-
-int CanvasRepositoryTest::addCanvasTest()
+int CanvasRepositoryTest::addGetCanvasTest()
 {
     int res = 0;
 
@@ -57,17 +49,74 @@ int CanvasRepositoryTest::addCanvasTest()
     hm.diamondSquare();
     //shared_ptr<HeightsMapPoints> hmp = hm.createPoints();
     CanvasBL canvas = CanvasBL(hm, *hm.createPoints(), 20, 150, 20);
-    this->addCanvas(canvas);
-    shared_ptr<CanvasBL> same_canvas = this->getCanvas(1);
+
+    shared_ptr<CanvasBL> same_canvas;
+    try
+    {
+        this->addCanvas(canvas);
+        same_canvas = this->getCanvas(1);
+    }
+    catch (BaseError &er)
+    {
+        res++;
+        output += "addGetCanvasTest error\n";
+        return res;
+    }
+    catch (...)
+    {
+        res++;
+        output += "addGetCanvasTest error\n";
+        return res;
+    }
+
     if (canvas != *same_canvas)
     {
         res++;
-        output += "addCanvasTest error\n";
+        output += "addGetCanvasTest error\n";
     }
     else
     {
-        output += "addCanvasTest OK\n";
+        output += "addGetCanvasTest OK\n";
     }
+
+    return res;
+}
+
+int CanvasRepositoryTest::updateCanvasTest()
+{
+    int res = 0;
+
+    int size = 33;
+    HeightsMap hm = HeightsMap(size);
+    hm.diamondSquare();
+    CanvasBL canvas = CanvasBL(hm, *hm.createPoints(), 20, 150, 20);
+
+    shared_ptr<CanvasBL> same_canvas;
+    try
+    {
+        this->updateCanvas(canvas, 1);
+        same_canvas = this->getCanvas(1);
+    }
+    catch (BaseError &er)
+    {
+        res++;
+        output += "updateCanvasTest error\n";
+        return res;
+    }
+    catch (...)
+    {
+        res++;
+        output += "updateCanvasTest error\n";
+        return res;
+    }
+
+    if (canvas != *same_canvas)
+    {
+        res++;
+        output += "updateCanvasTest error\n";
+    }
+    else
+        output += "updateCanvasTest OK\n";
 
     return res;
 }
@@ -76,12 +125,38 @@ int CanvasRepositoryTest::deleteCanvasTest()
 {
     int res = 0;
 
-    return res;
-}
+    try
+    {
+        this->deleteCanvas(1);
+    }
+    catch (DeleteCanvasError &er)
+    {
+        //ok
+    }
+    catch (...)
+    {
+        output += "deleteCanvasTest error (couldn't delete)\n";
+        res++;
+        return res;
+    }
 
-int CanvasRepositoryTest::updateCanvasTest()
-{
-    int res = 0;
+    try
+    {
+        this->getCanvas(1);
+        res++;
+        output += "deleteCanvasTest (didn't delete) error\n";
+    }
+    catch (GetCanvasError &er)
+    {
+        //ok
+        output += "deleteCanvasTest OK\n";
+    }
+    catch (...)
+    {
+        output += "deleteCanvasTest (unexpected getCanvas error) error\n";
+        res++;
+        return res;
+    }
 
     return res;
 }

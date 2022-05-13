@@ -213,7 +213,7 @@ void BaseMtrx<Type>::alloc_data()
 
 //CANT SPECIALIZE THIS OPERATOR WITH DOUBLE TYPE FOR SOME REASON!!!!!!!!!!!!!!
 /*template<>
-bool BaseMtrx<double>::operator ==(BaseMtrx<double> &an_mtrx)
+bool BaseMtrx<double>::operator ==(const BaseMtrx<double> &an_mtrx)
 {
     if (this->elems_num != an_mtrx.elems_num &&
             this->width != an_mtrx.width &&
@@ -231,9 +231,8 @@ bool BaseMtrx<double>::operator ==(BaseMtrx<double> &an_mtrx)
         }
     }
 
+    //cout << "BaseMtrx<double> compare" << endl;
     return res;
-    cout << "HERE" << endl;
-    return false;
 }*/
 
 template<typename Type>

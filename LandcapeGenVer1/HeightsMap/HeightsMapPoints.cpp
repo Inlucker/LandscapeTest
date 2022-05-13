@@ -241,6 +241,33 @@ void HeightsMapPoints::toStr(string& res)
     }
 }
 
+bool HeightsMapPoints::operator ==(HeightsMapPoints &an_mtrx)
+{
+    if (this->elems_num != an_mtrx.elems_num &&
+            this->width != an_mtrx.width &&
+            this->height != an_mtrx.height)
+        return false;
+
+    bool res = true;
+    for (int i = 0; i < elems_num; i++)
+    {
+        if (*(*this)[i] != *an_mtrx[i])
+        {
+            //cout << *(*this)[i] << " != " << *an_mtrx[i] << endl;
+            res = false;
+            break;
+        }
+    }
+
+    //cout << "HeightsMapPoints compared" << endl;
+    return res;
+}
+
+bool HeightsMapPoints::operator !=(HeightsMapPoints &an_mtrx)
+{
+    return !(*this == an_mtrx);
+}
+
 void HeightsMapPoints::changeSizes(int new_width, int new_height)
 {
     time_t t_time = time(NULL);

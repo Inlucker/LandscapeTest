@@ -17,10 +17,9 @@ public:
 private:
     void setupForTest();
 
-    int getCanvasTest();
-    int addCanvasTest();
-    int deleteCanvasTest();
+    int addGetCanvasTest();
     int updateCanvasTest();
+    int deleteCanvasTest();
 
 private:
     //shared_ptr<CanvasRepository> canvas_rep;

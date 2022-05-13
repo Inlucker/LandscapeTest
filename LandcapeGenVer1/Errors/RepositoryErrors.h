@@ -39,7 +39,7 @@ public:
 class DeleteCanvasError : public BaseError
 {
 public:
-    DeleteCanvasError(string info, string filename, int line, const char *time, string error = "Insert canvas error")
+    DeleteCanvasError(string info, string filename, int line, const char *time, string error = "Delete canvas error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
