@@ -495,7 +495,7 @@ void MainWindow::on_delete_canvas_btn_clicked()
 {
     try
     {
-        canvas->deleteCanvas(8);
+        canvas->deleteCanvas(3);
     }
     catch (BaseError &er)
     {

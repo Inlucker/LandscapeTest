@@ -975,7 +975,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Delete Canvas 8</string>
+     <string>Delete Canvas 3</string>
     </property>
    </widget>
    <widget class="QPushButton" name="update_canvas_btn">
@@ -1021,7 +1021,7 @@
      <x>0</x>
      <y>0</y>
      <width>1209</width>
-     <height>18</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

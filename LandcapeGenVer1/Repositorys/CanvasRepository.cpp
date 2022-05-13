@@ -15,7 +15,7 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
     string query = "SELECT * FROM PPO.Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
-    while ( auto res = PQgetResult( m_connection.get()) )
+    while (auto res = PQgetResult( m_connection.get()))
     {
         if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res))
         {
@@ -29,17 +29,17 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
             return make_shared<CanvasBL>(hm, tpa, c);
             //cout<< ID<<endl;
         }
-
-        else if (PQresultStatus(res) == PGRES_FATAL_ERROR)
+        else //if (PQresultStatus(res) == PGRES_FATAL_ERROR)
         {
-            cout<< PQresultErrorMessage(res)<<endl;
-            return NULL;
+            cout << PQresultErrorMessage(res) << endl;
         }
 
         PQclear( res );
     }
 
-    return NULL;
+    time_t t_time = time(NULL);
+    throw GetCanvasError("No such canvas", __FILE__, __LINE__, ctime(&t_time));
+    //return NULL;
 }
 
 void CanvasRepository::addCanvas(CanvasBL &canvas)
@@ -55,10 +55,29 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
     string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
 
     string query = "insert into PPO.Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
+    //string query = "insert into PPO.Canvas values(-1, 1, 'CanvasName', '";
     query += hm + "', '";
     query += hmp + "', '";
     query += c + "');";
     PQsendQuery(m_connection.get(), query.c_str());
+
+    bool flag = false;
+    string error_msg = "";
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQresultStatus(res) == PGRES_FATAL_ERROR)
+        {
+            error_msg += "\n";
+            error_msg += PQresultErrorMessage(res);
+            flag = true;
+        }
+    }
+    cout << error_msg;
+    if (flag)
+    {
+        time_t t_time = time(NULL);
+        throw InsertCanvasError(error_msg, __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void CanvasRepository::deleteCanvas(int id)
@@ -66,6 +85,18 @@ void CanvasRepository::deleteCanvas(int id)
     connect();
     string query = "delete from PPO.Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
+
+    bool flag = false;
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQcmdTuples(res)[0] == '0')
+            flag = true;
+    }
+    if (flag)
+    {
+        time_t t_time = time(NULL);
+        throw DeleteCanvasError("No such canvas", __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
@@ -79,8 +110,19 @@ void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
     query += "', TriPolArray = '" + hmp;
     query += "', Color = '" + c;
     query += "' where id = " + to_string(id) + ";";
-    cout << query;
     PQsendQuery(m_connection.get(), query.c_str());
+
+    bool flag = false;
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQcmdTuples(res)[0] == '0')
+            flag = true;
+    }
+    if (flag)
+    {
+        time_t t_time = time(NULL);
+        throw UpdateCanvasError("No such canvas\nMaybe you should create it first", __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void CanvasRepository::connect()

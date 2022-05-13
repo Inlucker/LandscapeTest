@@ -43,7 +43,7 @@ HEADERS += \
     Controllers/BaseController.h \
     Controllers/BaseControllerTest.h \
     Controllers/UserControllerTest.h \
-    Errors/ConnectionErrors.h \
+    Errors/RepositoryErrors.h \
     Essensities/UserBL.h \
     Controllers/UserController.h \
     Errors/ArrayErrors.h \

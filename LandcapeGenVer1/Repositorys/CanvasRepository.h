@@ -5,7 +5,7 @@
 #include <libpq-fe.h>
 
 #include "ICanvasRepository.h"
-#include "Errors/ConnectionErrors.h"
+#include "Errors/RepositoryErrors.h"
 
 class CanvasRepository : public ICanvasRepository
 {
@@ -15,7 +15,7 @@ public:
 
     virtual shared_ptr<CanvasBL> getCanvas(int id);
     virtual void addCanvas(CanvasBL& canvas);
-    virtual void deleteCanvas(int id);
+    virtual void deleteCanvas(int id) ;
     virtual void updateCanvas(CanvasBL& heights_map, int id);
 
 private:
