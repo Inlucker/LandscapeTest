@@ -15,12 +15,12 @@ using namespace std;
 //#define MULT mult
 //#define SCALE scale_k//30//15//7//3
 
-#include "HeightsMap/HeightsMap.h"
-#include "HeightsMap/HeightsMapPoints.h"
-#include "Triangles/TriPolArray.h"
-#include "Triangles/TriangularPolygon.h"
-#include "ZBuffer/ZBufferAlg.h"
-#include "Controllers/UserController.h"
+//#include "HeightsMap/HeightsMap.h"
+//#include "HeightsMap/HeightsMapPoints.h"
+//#include "Triangles/TriPolArray.h"
+//#include "Triangles/TriangularPolygon.h"
+//#include "ZBuffer/ZBufferAlg.h"
+#include "Controllers/usercontroller.h"
 #include "Repositorys/CanvasRepository.h"
 
 enum DrawAlg //not good because of static cast?

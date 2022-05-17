@@ -1,7 +1,7 @@
 #ifndef USERCONTROLLERTEST_H
 #define USERCONTROLLERTEST_H
 
-#include "UserController.h"
+#include "usercontroller.h"
 
 class UserControllerTest
 {

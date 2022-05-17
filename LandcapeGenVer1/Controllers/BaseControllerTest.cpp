@@ -33,6 +33,8 @@ int BaseControllerTest::noParamsConstrcutorTest()
         output += "Error in noParamsConstrcutorTest";
         res++;
     }
+    else
+        output += "noParamsConstrcutorTest OK\n";
     return res;
 }
 
@@ -47,6 +49,8 @@ int BaseControllerTest::userBLConstrcutorTest()
         output += "Error in userBLConstrcutorTest";
         res++;
     }
+    else
+        output += "userBLConstrcutorTest OK\n";
     return res;
 }
 
@@ -62,6 +66,8 @@ int BaseControllerTest::loginTest()
         output += "Error in loginTest";
         res++;
     }
+    else
+        output += "loginTest OK\n";
     return res;
 }
 
@@ -78,6 +84,8 @@ int BaseControllerTest::logoutTest()
         output += "Error in logoutTest";
         res++;
     }
+    else
+        output += "logoutTest OK\n";
     return res;
 }
 
@@ -92,6 +100,8 @@ int BaseControllerTest::getUserTest()
         output += "Error in getUserTest";
         res++;
     }
+    else
+        output += "getUserTest OK\n";
     return res;
 }
 

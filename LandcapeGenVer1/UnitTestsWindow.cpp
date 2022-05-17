@@ -8,6 +8,8 @@ UnitTestsWindow::UnitTestsWindow(QWidget *parent) :
     ui(new Ui::UnitTestsWindow)
 {
     ui->setupUi(this);
+
+    ui->user_controller_test_btn->hide();
 }
 
 UnitTestsWindow::~UnitTestsWindow()
