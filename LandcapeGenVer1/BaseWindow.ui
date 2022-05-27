@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>123</string>
+     <string>12</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="login_lineEdit">
@@ -55,7 +55,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Inlucker</string>
+     <string>Inlucker3</string>
     </property>
    </widget>
    <widget class="QPushButton" name="registrate_btn">

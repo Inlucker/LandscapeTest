@@ -46,6 +46,11 @@ bool UserBL::operator !=(UserBL &an_ubl)
     return *this;
 }*/
 
+int UserBL::getId()
+{
+    return id;
+}
+
 const string& UserBL::getLogin() const
 {
     return login;

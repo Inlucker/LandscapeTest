@@ -19,12 +19,23 @@ public:
     ~ModeratorWindow();
 
     void login(shared_ptr<UserBL> user_bl);
+    void addUser(string name);
+    void deleteUser(string name);
 
 private slots:
     void on_exit_btn_clicked();
 
+    void on_add_btn_clicked();
+
+    void on_delete_btn_clicked();
+
 signals:
     void exit();
+
+private:
+    void updateFreeCanvasUsersList();
+    void updateMyCanvasUsersList();
+    void updateLists();
 
 private:
     Ui::ModeratorWindow *ui;

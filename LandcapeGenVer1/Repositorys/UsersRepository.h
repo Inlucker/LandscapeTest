@@ -17,6 +17,9 @@ public:
     virtual ~UsersRepository() = default;
 
     virtual shared_ptr<UserBL> getUser(string login, string password) override;
+    virtual shared_ptr<UserBL> getCanvasUser(string name) override;
+    virtual vector<string> getFreeCanvasUsers() override;
+    virtual vector<string> getCanvasUsersByMid(int m_id) override;
     virtual void addUser(UserBL& user) override;
     virtual void deleteUser(int id) override;
     virtual void updateUser(UserBL& user_bl, int id) override;

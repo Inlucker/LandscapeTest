@@ -58,10 +58,32 @@ public:
     }
 };
 
-class GetUserError : public BaseError
+class LoginError : public BaseError
 {
 public:
-    GetUserError(string info, string filename, int line, const char *time, string error = "Wrong username or password")
+    LoginError(string info, string filename, int line, const char *time, string error = "Wrong username or password")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class GetUsersError : public BaseError
+{
+public:
+    GetUsersError(string info, string filename, int line, const char *time, string error = "Get user error")
+        : BaseError(info, filename, line, time, error) {};
+    virtual const char* what() const noexcept
+    {
+        return err_info.c_str();
+    }
+};
+
+class UpdateUserError : public BaseError
+{
+public:
+    UpdateUserError(string info, string filename, int line, const char *time, string error = "Update user error")
         : BaseError(info, filename, line, time, error) {};
     virtual const char* what() const noexcept
     {
