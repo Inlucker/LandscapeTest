@@ -1014,6 +1014,24 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="exit_btn">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>770</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>EXIT</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1021,7 +1039,7 @@
      <x>0</x>
      <y>0</y>
      <width>1209</width>
-     <height>22</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

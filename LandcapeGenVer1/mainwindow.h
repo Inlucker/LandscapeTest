@@ -67,6 +67,11 @@ private slots:
 
     void on_write_file_btn_3_clicked();
 
+    void on_exit_btn_clicked();
+
+signals:
+    void exit();
+
 private:
     Ui::MainWindow *ui;
 

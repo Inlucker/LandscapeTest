@@ -10,6 +10,7 @@ CONFIG += c++19
 
 SOURCES += \
     Array/AbstractArray.cpp \
+    BaseWindow.cpp \
     Canvas.cpp \
     Controllers/BaseController.cpp \
     Controllers/BaseControllerTest.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     Repositorys/CanvasRepository.cpp \
     Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
+    Repositorys/IUsersRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
     UnitTestsWindow.cpp \
@@ -40,6 +42,7 @@ HEADERS += \
     Array/AbstractArray.h \
     Array/BaseArray.h \
     Array/BaseArray.hpp \
+    BaseWindow.h \
     Canvas.h \
     Controllers/BaseController.h \
     Controllers/BaseControllerTest.h \
@@ -72,6 +75,7 @@ HEADERS += \
     Repositorys/CanvasRepository.h \
     Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
+    Repositorys/IUsersRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
     UnitTestsWindow.h \
@@ -84,6 +88,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    BaseWindow.ui \
     UnitTestsWindow.ui \
     mainwindow.ui
 

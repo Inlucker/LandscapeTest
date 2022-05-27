@@ -530,3 +530,9 @@ void MainWindow::on_write_file_btn_3_clicked()
     unit_tests_window->show();
 }
 
+void MainWindow::on_exit_btn_clicked()
+{
+    this->hide();
+    emit exit();
+}
+
