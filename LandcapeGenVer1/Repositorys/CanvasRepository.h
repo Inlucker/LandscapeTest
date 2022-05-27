@@ -14,12 +14,12 @@ public:
     CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema);
     virtual ~CanvasRepository() = default;
 
-    virtual shared_ptr<CanvasBL> getCanvas(int id);
-    virtual void addCanvas(CanvasBL& canvas);
-    virtual void deleteCanvas(int id) ;
-    virtual void updateCanvas(CanvasBL& canvas_bl, int id);
+    virtual shared_ptr<CanvasBL> getCanvas(int id) override;
+    virtual void addCanvas(CanvasBL& canvas) override;
+    virtual void deleteCanvas(int id) override;
+    virtual void updateCanvas(CanvasBL& canvas_bl, int id) override;
 
-    virtual void test(string &str);
+    virtual void test(string &str) override;
 
 protected:
     void connect();

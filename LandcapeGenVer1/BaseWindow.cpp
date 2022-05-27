@@ -16,6 +16,10 @@ BaseWindow::BaseWindow(QWidget *parent) :
     main_window = make_unique<MainWindow>();
     connect(main_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
 
+    moderator_window = make_unique<ModeratorWindow>();
+    connect(moderator_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
+
+    //user_repository = shared_ptr<IUsersRepository>(new UsersRepository());
     user_repository = make_shared<UsersRepository>();
 }
 
@@ -31,9 +35,22 @@ void BaseWindow::on_login_btn_clicked()
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
         shared_ptr<UserBL> user_bl = user_repository->getUser(login, password);
-        main_window->login(user_bl);
-        main_window->show();
-        this->hide();
+        if (user_bl->getRole() == "canvas_user")
+        {
+            main_window->login(user_bl);
+            main_window->show();
+            this->hide();
+        }
+        else if (user_bl->getRole() == "moderator")
+        {
+            moderator_window->login(user_bl);
+            moderator_window->show();
+            this->hide();
+        }
+        else
+        {
+            QMessageBox::information(this, "Error", "No such role");
+        }
     }
     catch (BaseError &er)
     {

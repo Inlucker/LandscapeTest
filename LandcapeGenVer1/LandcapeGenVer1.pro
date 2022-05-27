@@ -14,6 +14,7 @@ SOURCES += \
     Canvas.cpp \
     Controllers/BaseController.cpp \
     Controllers/BaseControllerTest.cpp \
+    Controllers/ModeratorController.cpp \
     Controllers/UserControllerTest.cpp \
     Essensities/UserBL.cpp \
     Controllers/UserController.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     LandscapeCanvas/LandscapeCanvas.cpp \
     Matrix/AbstractMtrx.cpp \
     Essensities/CanvasBL.cpp \
+    ModeratorWindow.cpp \
     Repositorys/CanvasRepository.cpp \
     Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
@@ -47,6 +49,7 @@ HEADERS += \
     Canvas.h \
     Controllers/BaseController.h \
     Controllers/BaseControllerTest.h \
+    Controllers/ModeratorController.h \
     Controllers/UserControllerTest.h \
     Errors/RepositoryErrors.h \
     Essensities/UserBL.h \
@@ -73,6 +76,7 @@ HEADERS += \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
     Essensities/CanvasBL.h \
+    ModeratorWindow.h \
     Repositorys/CanvasRepository.h \
     Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
@@ -91,6 +95,7 @@ HEADERS += \
 
 FORMS += \
     BaseWindow.ui \
+    ModeratorWindow.ui \
     UnitTestsWindow.ui \
     mainwindow.ui
 

@@ -1,6 +1,6 @@
 #include "UsersRepository.h"
 
-UsersRepository::UsersRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("canvas_user"), m_dbpass("canvasuser"), m_dbschema("PPO")
+UsersRepository::UsersRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("moderator"), m_dbpass("moderator"), m_dbschema("PPO")
 {
 
 }

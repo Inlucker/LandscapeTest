@@ -16,10 +16,10 @@ public:
     UsersRepository(string dbuser, string dbpass, string dbschema = "PPO", string dbhost = "localhost", int dbport = 5432, string dbname = "postgres");
     virtual ~UsersRepository() = default;
 
-    virtual shared_ptr<UserBL> getUser(string login, string password);
-    virtual void addUser(UserBL& user);
-    virtual void deleteUser(int id) ;
-    virtual void updateUser(UserBL& user_bl, int id);
+    virtual shared_ptr<UserBL> getUser(string login, string password) override;
+    virtual void addUser(UserBL& user) override;
+    virtual void deleteUser(int id) override;
+    virtual void updateUser(UserBL& user_bl, int id) override;
 
 protected:
     void connect();
