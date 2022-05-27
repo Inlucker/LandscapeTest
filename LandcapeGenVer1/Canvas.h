@@ -36,7 +36,6 @@ class Canvas : public QWidget
 {
 public:
     explicit Canvas(QWidget *parent = nullptr);
-    Canvas(shared_ptr<UserBL> user_bl, QWidget *parent = nullptr);
     ~Canvas();
 
     void createCanvas();
@@ -81,6 +80,11 @@ public:
     void setThreadsNumber(int n);
 
     void testUser(string &str);
+
+    //BaseController methods
+    void login(shared_ptr<UserBL> user_bl);
+    void logout();
+    shared_ptr<UserBL> getUser();
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);

@@ -4,37 +4,7 @@
 
 Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
 {
-    qDebug() << "OLD CONSTRUCTOR";
     user_controller = make_unique<UserController>();
-    canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
-
-    heights_map_points = user_controller->getHeightsMapPoints();
-    tri_pol_mas =  user_controller->getTriPolArray();
-    zbuffer_alg = user_controller->getZBufferAlg();
-    frame_buffer = zbuffer_alg->getFrameBuffer();
-
-    img_width = 960; //1280; //720;
-    img_height = 540; //720; //405;
-    user_controller->setWidth(img_width);
-    user_controller->setHeight(img_height);
-    setFixedSize(img_width+2, img_height+2);
-    setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color:white;");
-
-    setLandscapeColor(20, 150, 20);
-
-    draw_alg = ZBUFFER_PARAM;
-
-    my_img.reset();
-    frame_buffer.reset();
-    cleanQImage();
-
-    threads_number = 8;
-}
-
-Canvas::Canvas(shared_ptr<UserBL> user_bl, QWidget *parent) : QWidget(parent)
-{
-    qDebug() << "NEW CONSTRUCTOR";
-    user_controller = make_unique<UserController>(user_bl);
     canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
 
     heights_map_points = user_controller->getHeightsMapPoints();
@@ -265,6 +235,21 @@ void Canvas::setThreadsNumber(int n)
 void Canvas::testUser(string &str)
 {
     canvas_repository->test(str);
+}
+
+void Canvas::login(shared_ptr<UserBL> user_bl)
+{
+    user_controller->login(user_bl);
+}
+
+void Canvas::logout()
+{
+    user_controller->logout();
+}
+
+shared_ptr<UserBL> Canvas::getUser()
+{
+    return user_controller->getUser();
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *event)

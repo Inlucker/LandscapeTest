@@ -13,11 +13,8 @@ BaseWindow::BaseWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    base_controller = make_shared<BaseController>();
-
-    //main_window = make_unique<MainWindow>();
-    main_window.reset();
-    //connect(main_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
+    main_window = make_unique<MainWindow>();
+    connect(main_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
 
     user_repository = make_shared<UsersRepository>();
 }
@@ -31,14 +28,10 @@ void BaseWindow::on_login_btn_clicked()
 {
     try
     {
-        //canvas->login();
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
-
         shared_ptr<UserBL> user_bl = user_repository->getUser(login, password);
-        base_controller->login(user_bl);
-        main_window = make_unique<MainWindow>(user_bl);
-        connect(main_window.get(), SIGNAL(exit()), this, SLOT(show()));
+        main_window->login(user_bl);
         main_window->show();
         this->hide();
     }
@@ -54,8 +47,6 @@ void BaseWindow::on_login_btn_clicked()
 
 void BaseWindow::resetBaseWindow()
 {
-    this->disconnect(main_window.get());
     this->show();
-    main_window.release();
 }
 

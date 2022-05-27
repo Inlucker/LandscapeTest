@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 
-MainWindow::MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent)
+MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -15,7 +15,9 @@ MainWindow::MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent)
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");
 
-    canvas = make_unique<Canvas>(new Canvas(user_bl));
+    //canvas = make_unique<Canvas>(new Canvas(user_bl));
+    canvas = make_unique<Canvas>(new Canvas());
+    //canvas->login(user_bl);
     //canvas->setDrawAlg(ZBUFFER_PARAM);
     //ui->gridLayout->addWidget(&(*canvas));
     ui->scrollArea->setWidget(&(*canvas));
@@ -28,6 +30,11 @@ MainWindow::MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::login(shared_ptr<UserBL> user_bl)
+{
+    canvas->login(user_bl);
 }
 
 void MainWindow::on_gen_btn_clicked()
@@ -533,6 +540,7 @@ void MainWindow::on_write_file_btn_3_clicked()
 void MainWindow::on_exit_btn_clicked()
 {
     this->hide();
+    canvas->logout();
     emit exit();
 }
 

@@ -31,7 +31,6 @@ private:
     Ui::BaseWindow *ui;
 
     unique_ptr<MainWindow> main_window;
-    shared_ptr<BaseController> base_controller;
     shared_ptr<IUsersRepository> user_repository;
 };
 

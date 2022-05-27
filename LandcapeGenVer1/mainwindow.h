@@ -21,8 +21,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void login(shared_ptr<UserBL> user_bl);
 
 private slots:
     void on_gen_btn_clicked();
