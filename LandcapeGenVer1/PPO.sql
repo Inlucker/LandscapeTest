@@ -108,11 +108,13 @@ CREATE USER moderator password 'moderator';
 revoke pg_read_all_data FROM moderator;
 REVOKE ALL ON ppo.users FROM moderator;
 REVOKE ALL ON ppo.users_id_seq FROM moderator;
+REVOKE ALL ON ppo.canvas FROM moderator;
 
 --Добавление прав moderator
 grant pg_read_all_data TO moderator;
 GRANT ALL ON ppo.users TO moderator;
 GRANT ALL ON ppo.users_id_seq TO moderator;
+GRANT delete ON ppo.canvas TO moderator;
 
 
 SELECT rolname FROM pg_roles;
@@ -124,3 +126,61 @@ select * FROM PPO.Users where login = 'Inlucker';
 select * FROM PPO.Users where login = 'Inlucker' and password = '1234';
 
 select login FROM PPO.Users where role = 'canvas_user' and moderator_id is null;
+
+--Тригеры для удаления пользователей
+--Тригер для уделния canvas_user
+-- Создаём функцию для триггера...
+create or replace function deleteRelatedCanvases()
+returns trigger 
+as $$
+begin
+	--RAISE notice 'old = %', (old.id);
+	delete from PPO.canvas where user_id = old.id;
+	return OLD;
+end
+$$ language plpgsql;
+
+drop function  deleteRelatedCanvases();
+
+--Теперь триггер
+create or replace trigger tr_deleteRelatedCanvases
+before delete
+on PPO.users
+for each row
+when (OLD.role = 'canvas_user')
+execute procedure deleteRelatedCanvases();
+
+select current_time ;
+
+DROP trigger tr_deleteRelatedCanvases on PPO.users
+
+--Тест триггера tr_deleteRelatedCanvases
+delete from PPO.users where id = 1;
+
+--Тригер для уделния moderator
+-- Создаём функцию для триггера...
+create or replace function releaseRelatedUsers()
+returns trigger 
+as $$
+begin
+	update PPO.users SET moderator_id = NULL where moderator_id = old.id;
+	return OLD;
+end
+$$ language plpgsql;
+
+drop function  releaseRelatedUsers();
+
+--Теперь триггер
+create or replace trigger tr_releaseRelatedUsers
+before delete
+on PPO.users
+for each row
+when (OLD.role = 'moderator')
+execute procedure releaseRelatedUsers();
+
+select current_time ;
+
+DROP trigger tr_releaseRelatedUsers on PPO.users
+
+--Тест триггера tr_releaseRelatedUsers
+delete from PPO.users where id = 7;

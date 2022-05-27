@@ -134,3 +134,23 @@ void ModeratorWindow::on_delete_btn_clicked()
     }
 }
 
+
+void ModeratorWindow::on_delete_user_btn_clicked()
+{
+    try
+    {
+        users_repository->deleteUser(moderator_controller->getUser()->getId());
+        this->hide();
+        moderator_controller->logout();
+        emit exit();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+

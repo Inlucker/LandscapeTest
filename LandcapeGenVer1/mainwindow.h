@@ -73,6 +73,8 @@ private slots:
 
     void on_test_user_btn_clicked();
 
+    void on_delete_user_btn_clicked();
+
 signals:
     void exit();
 

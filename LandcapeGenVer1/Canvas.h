@@ -21,7 +21,8 @@ using namespace std;
 //#include "Triangles/TriangularPolygon.h"
 //#include "ZBuffer/ZBufferAlg.h"
 #include "Controllers/usercontroller.h"
-#include "Repositorys/CanvasRepository.h"
+#include "Repositorys/ICanvasRepository.h"
+#include "Repositorys/IUsersRepository.h"
 
 enum DrawAlg //not good because of static cast?
 {
@@ -81,6 +82,8 @@ public:
 
     void testUser(string &str);
 
+    void deleteUser();
+
     //BaseController methods
     void login(shared_ptr<UserBL> user_bl);
     void logout();
@@ -110,6 +113,7 @@ private:
 
     unique_ptr<UserController> user_controller;
     shared_ptr<ICanvasRepository> canvas_repository;
+    shared_ptr<IUsersRepository> users_repository;
 
     shared_ptr<HeightsMapPoints> heights_map_points;
 

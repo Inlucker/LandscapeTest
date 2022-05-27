@@ -184,6 +184,8 @@ void UsersRepository::addUser(UserBL &user)
             error_msg += PQresultErrorMessage(res);
             flag = true;
         }
+
+        PQclear( res );
     }
 
     if (flag)
@@ -195,7 +197,31 @@ void UsersRepository::addUser(UserBL &user)
 
 void UsersRepository::deleteUser(int id)
 {
-    cout << "deleteUser" << endl;
+    connect();
+    string query = "delete from " + m_dbschema + ".Users where id=" + to_string(id) + ";";
+    PQsendQuery(m_connection.get(), query.c_str());
+
+    int flag = 0;
+    string error_msg = "";
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQcmdTuples(res)[0] == '0')
+            flag = true;
+        if (PQresultStatus(res) == PGRES_FATAL_ERROR)
+        {
+            error_msg += "\n";
+            error_msg += PQresultErrorMessage(res);
+            flag = 2;
+        }
+
+        PQclear( res );
+    }
+
+    time_t t_time = time(NULL);
+    if (flag == 1)
+        throw DeleteUserError("No such user", __FILE__, __LINE__, ctime(&t_time));
+    else if (flag == 2)
+        throw DeleteUserError(error_msg, __FILE__, __LINE__, ctime(&t_time));
 }
 
 void UsersRepository::updateUser(UserBL &user_bl, int id)

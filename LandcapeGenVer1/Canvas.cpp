@@ -2,10 +2,15 @@
 
 #include <QMessageBox>
 
+#include "Repositorys/CanvasRepository.h"
+#include "Repositorys/UsersRepository.h"
+
 Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
 {
     user_controller = make_unique<UserController>();
-    canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
+    //canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
+    users_repository.reset();
+    canvas_repository.reset();
 
     heights_map_points = user_controller->getHeightsMapPoints();
     tri_pol_mas =  user_controller->getTriPolArray();
@@ -241,11 +246,17 @@ void Canvas::testUser(string &str)
     canvas_repository->test(str);
 }
 
+void Canvas::deleteUser()
+{
+    users_repository->deleteUser(user_controller->getUser()->getId());
+}
+
 void Canvas::login(shared_ptr<UserBL> user_bl)
 {
     user_controller->login(user_bl);
 
     canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
+    users_repository = make_shared<UsersRepository>("moderator", "moderator");
 }
 
 void Canvas::logout()

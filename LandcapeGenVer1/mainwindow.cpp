@@ -563,3 +563,23 @@ void MainWindow::on_test_user_btn_clicked()
     }
 }
 
+
+void MainWindow::on_delete_user_btn_clicked()
+{
+    try
+    {
+        canvas->deleteUser();
+        this->hide();
+        canvas->logout();
+        emit exit();
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
