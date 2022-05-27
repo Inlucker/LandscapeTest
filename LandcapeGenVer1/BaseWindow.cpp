@@ -67,3 +67,25 @@ void BaseWindow::resetBaseWindow()
     this->show();
 }
 
+
+void BaseWindow::on_registrate_btn_clicked()
+{
+    try
+    {
+        string login = ui->login_lineEdit->text().toStdString();
+        string password = ui->password_lineEdit->text().toStdString();
+        string role = ui->role_comboBox->currentText().toStdString();
+        UserBL user_bl(0, login, password, role, 0);
+        user_repository->addUser(user_bl);
+        QMessageBox::information(this, "Error", "Registration completed");
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+

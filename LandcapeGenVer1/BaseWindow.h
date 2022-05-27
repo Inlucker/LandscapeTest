@@ -28,6 +28,8 @@ private slots:
 
     void resetBaseWindow();
 
+    void on_registrate_btn_clicked();
+
 private:
     Ui::BaseWindow *ui;
 
