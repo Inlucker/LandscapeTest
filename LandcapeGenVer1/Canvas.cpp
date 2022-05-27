@@ -38,9 +38,11 @@ Canvas::~Canvas()
 
 void Canvas::createCanvas()
 {
-    int r, g, b;
+    int r, g, b, u_id;
     user_controller->getColor(r, g, b);
-    CanvasBL cbl = CanvasBL(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    u_id = user_controller->getUser()->getId();
+    string name = "CanvasName";
+    CanvasBL cbl = CanvasBL(u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
     canvas_repository->addCanvas(cbl);
 }
 
@@ -70,9 +72,11 @@ void Canvas::selectCanvas(int id)
 
 void Canvas::updateCanvas(int id)
 {
-    int r, g, b;
+    int r, g, b, u_id;
     user_controller->getColor(r, g, b);
-    CanvasBL canvas_bl = CanvasBL(*(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    u_id = user_controller->getUser()->getId();
+    string name = "CanvasName";
+    CanvasBL canvas_bl = CanvasBL(u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
     canvas_repository->updateCanvas(canvas_bl, id);
 }
 
@@ -240,6 +244,8 @@ void Canvas::testUser(string &str)
 void Canvas::login(shared_ptr<UserBL> user_bl)
 {
     user_controller->login(user_bl);
+
+    canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
 }
 
 void Canvas::logout()

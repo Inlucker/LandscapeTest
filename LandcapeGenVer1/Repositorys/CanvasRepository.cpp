@@ -1,16 +1,22 @@
 #include "CanvasRepository.h"
 
-CanvasRepository::CanvasRepository()
+CanvasRepository::CanvasRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("moderator"), m_dbpass("moderator"), m_dbschema("PPO")
 {
-    m_dbhost = "localhost";
+    /*m_dbhost = "localhost";
     m_dbport = 5432;
     m_dbname = "postgres";
     m_dbuser = "canvas_user";
-    m_dbpass = "canvasuser";
-    m_dbschema = "PPO";
+    m_dbpass = "canvas_user";
+    m_dbschema = "PPO";*/
 }
 
-CanvasRepository::CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema)
+CanvasRepository::CanvasRepository(string dbuser, string dbpass, string dbschema, string dbhost, int dbport, string dbname)
+    : m_dbhost(dbhost), m_dbport(dbport), m_dbname(dbname), m_dbuser(dbuser), m_dbpass(dbpass), m_dbschema(dbschema)
+{
+
+}
+
+/*CanvasRepository::CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema)
 {
     m_dbhost = dbhost;
     m_dbport = dbport;
@@ -18,7 +24,7 @@ CanvasRepository::CanvasRepository(string dbhost, int dbport, string dbname, str
     m_dbuser = dbuser;
     m_dbpass = dbpass;
     m_dbschema = dbschema;
-}
+}*/
 
 /*CanvasRepository::~CanvasRepository()
 {
@@ -36,13 +42,14 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
         if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res))
         {
             //auto ID = PQgetvalue (res, 0, 0);
+            int u_id = atoi(PQgetvalue (res, 0, 1));
             string name = PQgetvalue (res, 0, 2);
             string hm = PQgetvalue (res, 0, 3);
             string tpa = PQgetvalue (res, 0, 4);
             string c = PQgetvalue (res, 0, 5);
             //canvas = make_shared<CanvasBL>(hm, tpa, c);
             //return canvas;
-            return make_shared<CanvasBL>(hm, tpa, c);
+            return make_shared<CanvasBL>(u_id, name, hm, tpa, c);
             //cout<< ID<<endl;
         }
         else //if (PQresultStatus(res) == PGRES_FATAL_ERROR)
@@ -61,6 +68,8 @@ shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 void CanvasRepository::addCanvas(CanvasBL &canvas)
 {
     connect();
+    string u_id = std::to_string(canvas.getUserId());
+    string name = canvas.getName();
     string tmp;
     canvas.getHeightsMap().toStr(tmp);
     string hm = tmp;
@@ -70,8 +79,10 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
     canvas.getColor(r, g, b);
     string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
 
-    string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
-    //string query = "insert into " + m_dbschema + ".Canvas values(-1, 1, 'CanvasName', '";
+    //string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
+    string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(";
+    query += u_id + ", '";
+    query += name + "', '";
     query += hm + "', '";
     query += hmp + "', '";
     query += c + "');";

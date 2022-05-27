@@ -162,7 +162,40 @@ vector<string> UsersRepository::getCanvasUsersByMid(int m_id)
 
 void UsersRepository::addUser(UserBL &user)
 {
-    cout << "addUser" << endl;
+    /*connect();
+    string tmp;
+    canvas.getHeightsMap().toStr(tmp);
+    string hm = tmp;
+    canvas.getHeightsMapPoints().toStr(tmp);
+    string hmp = tmp;
+    int r, g, b;
+    canvas.getColor(r, g, b);
+    string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
+
+    string query = "insert into " + m_dbschema + ".Users(login, password, role, m_id) values(1, 'CanvasName', '";
+    //string query = "insert into " + m_dbschema + ".Canvas values(-1, 1, 'CanvasName', '";
+    query += hm + "', '";
+    query += hmp + "', '";
+    query += c + "');";
+    PQsendQuery(m_connection.get(), query.c_str());
+
+    bool flag = false;
+    string error_msg = "";
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQresultStatus(res) == PGRES_FATAL_ERROR)
+        {
+            error_msg += "\n";
+            error_msg += PQresultErrorMessage(res);
+            flag = true;
+        }
+    }
+    cout << error_msg;
+    if (flag)
+    {
+        time_t t_time = time(NULL);
+        throw InsertCanvasError(error_msg, __FILE__, __LINE__, ctime(&t_time));
+    }*/
 }
 
 void UsersRepository::deleteUser(int id)

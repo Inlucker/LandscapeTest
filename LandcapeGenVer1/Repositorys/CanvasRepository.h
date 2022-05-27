@@ -11,7 +11,8 @@ class CanvasRepository : public ICanvasRepository
 {
 public:
     CanvasRepository();
-    CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema);
+    //CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema);
+    CanvasRepository(string dbuser, string dbpass, string dbschema = "PPO", string dbhost = "localhost", int dbport = 5432, string dbname = "postgres");
     virtual ~CanvasRepository() = default;
 
     virtual shared_ptr<CanvasBL> getCanvas(int id) override;
