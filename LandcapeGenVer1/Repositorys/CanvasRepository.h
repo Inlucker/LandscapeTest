@@ -19,6 +19,8 @@ public:
     virtual void deleteCanvas(int id) ;
     virtual void updateCanvas(CanvasBL& canvas_bl, int id);
 
+    virtual void test(string &str);
+
 protected:
     void connect();
 

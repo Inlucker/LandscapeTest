@@ -36,6 +36,7 @@ class Canvas : public QWidget
 {
 public:
     explicit Canvas(QWidget *parent = nullptr);
+    Canvas(shared_ptr<UserBL> user_bl, QWidget *parent = nullptr);
     ~Canvas();
 
     void createCanvas();
@@ -78,6 +79,8 @@ public:
     shared_ptr<LandscapeCanvas> getLandscapeCanvas() const;
 
     void setThreadsNumber(int n);
+
+    void testUser(string &str);
 
 protected:
     virtual void mouseReleaseEvent(QMouseEvent *event);

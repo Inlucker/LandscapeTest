@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");
 
-    canvas = make_unique<Canvas>(new Canvas());
+    canvas = make_unique<Canvas>(new Canvas(user_bl));
     //canvas->setDrawAlg(ZBUFFER_PARAM);
     //ui->gridLayout->addWidget(&(*canvas));
     ui->scrollArea->setWidget(&(*canvas));
@@ -534,5 +534,24 @@ void MainWindow::on_exit_btn_clicked()
 {
     this->hide();
     emit exit();
+}
+
+
+void MainWindow::on_test_user_btn_clicked()
+{
+    try
+    {
+        string str;
+        canvas->testUser(str);
+        QMessageBox::information(this, "Result", QString::fromStdString(str));
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 

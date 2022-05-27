@@ -8,6 +8,7 @@ using namespace std;
 
 #include "mainwindow.h"
 #include "Controllers/BaseController.h"
+#include "Repositorys/IUsersRepository.h"
 
 namespace Ui {
 class BaseWindow;
@@ -24,13 +25,14 @@ public:
 private slots:
     void on_login_btn_clicked();
 
-    void ResetBaseWindow();
+    void resetBaseWindow();
 
 private:
     Ui::BaseWindow *ui;
 
     unique_ptr<MainWindow> main_window;
     shared_ptr<BaseController> base_controller;
+    shared_ptr<IUsersRepository> user_repository;
 };
 
 #endif // BASEWINDOW_H

@@ -13,7 +13,7 @@ public:
     IUsersRepository();
     virtual ~IUsersRepository() = 0;
 
-    virtual shared_ptr<UserBL> getUser(int id) = 0;
+    virtual shared_ptr<UserBL> getUser(string login, string password) = 0;
     virtual void addUser(UserBL& canvas) = 0;
     virtual void deleteUser(int id) = 0;
     virtual void updateUser(UserBL& heights_map, int id) = 0;

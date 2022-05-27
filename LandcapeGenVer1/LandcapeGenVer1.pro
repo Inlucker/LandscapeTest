@@ -28,6 +28,7 @@ SOURCES += \
     Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
     Repositorys/IUsersRepository.cpp \
+    Repositorys/UsersRepository.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
     UnitTestsWindow.cpp \
@@ -76,6 +77,7 @@ HEADERS += \
     Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
     Repositorys/IUsersRepository.h \
+    Repositorys/UsersRepository.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
     UnitTestsWindow.h \

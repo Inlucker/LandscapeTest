@@ -5,8 +5,8 @@ CanvasRepository::CanvasRepository()
     m_dbhost = "localhost";
     m_dbport = 5432;
     m_dbname = "postgres";
-    m_dbuser = "postgres";
-    m_dbpass = "postgres";
+    m_dbuser = "canvas_user";
+    m_dbpass = "canvasuser";
     m_dbschema = "PPO";
 }
 
@@ -138,6 +138,31 @@ void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
     {
         time_t t_time = time(NULL);
         throw UpdateCanvasError("No such canvas\nMaybe you should create it first", __FILE__, __LINE__, ctime(&t_time));
+    }
+}
+
+void CanvasRepository::test(string &str)
+{
+    connect();
+    str = "";
+    string query = "SELECT current_user, session_user;";
+    PQsendQuery(m_connection.get(), query.c_str());
+
+    while (auto res = PQgetResult( m_connection.get()))
+    {
+        if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res))
+        {
+            str += PQgetvalue(res, 0, 0);
+            str += "; ";
+            str += PQgetvalue(res, 0, 1);
+        }
+        else //if (PQresultStatus(res) == PGRES_FATAL_ERROR)
+        {
+            str = "TEST ERROR";
+            cout << PQresultErrorMessage(res) << endl;
+        }
+
+        PQclear( res );
     }
 }
 

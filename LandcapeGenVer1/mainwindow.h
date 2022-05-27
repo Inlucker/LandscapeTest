@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(shared_ptr<UserBL> user_bl, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:
@@ -68,6 +68,8 @@ private slots:
     void on_write_file_btn_3_clicked();
 
     void on_exit_btn_clicked();
+
+    void on_test_user_btn_clicked();
 
 signals:
     void exit();
