@@ -10,18 +10,11 @@ MainWindow::MainWindow(shared_ptr<CanvasRepository> canvas_repository, shared_pt
 {
     ui->setupUi(this);
 
-    //ui->draw_variant_comboBox->setCurrentIndex(2);
-
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");
 
-    //canvas = make_unique<Canvas>(new Canvas(user_bl));
-    //canvas = make_unique<Canvas>(new Canvas(canvas_repository, users_repository));
     canvas = make_unique<Canvas>(canvas_repository, users_repository);
 
-    //canvas->login(user_bl);
-    //canvas->setDrawAlg(ZBUFFER_PARAM);
-    //ui->gridLayout->addWidget(&(*canvas));
     ui->scrollArea->setWidget(&(*canvas));
 
     ui->scale_groupBox->hide();

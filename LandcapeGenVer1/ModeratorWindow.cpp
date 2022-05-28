@@ -22,9 +22,9 @@ ModeratorWindow::~ModeratorWindow()
 void ModeratorWindow::login(shared_ptr<UserBL> user_bl)
 {
     moderator_controller->login(user_bl);
-    //users_repository = make_shared<UsersRepository>(user_bl->getRole(), user_bl->getRole());
     users_repository->setRole(user_bl->getRole(), user_bl->getRole());
-    updateLists();
+    updateFreeCanvasUsersList();
+    updateMyCanvasUsersList();
 }
 
 void ModeratorWindow::addUser(string name)

@@ -262,7 +262,7 @@ void Canvas::login(shared_ptr<UserBL> user_bl)
     //canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
     //users_repository = make_shared<UsersRepository>("moderator", "moderator");
     canvas_repository->setRole(user_bl->getRole(), user_bl->getRole());
-    users_repository->setRole("moderator", "moderator");
+    users_repository->setRole(user_bl->getRole(), user_bl->getRole());
 }
 
 void Canvas::logout()

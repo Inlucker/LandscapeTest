@@ -53,6 +53,7 @@ void BaseWindow::on_login_btn_clicked()
     }
     catch (BaseError &er)
     {
+        resetBaseWindow();
         QMessageBox::information(this, "Error", er.what());
     }
     catch (...)
@@ -64,6 +65,8 @@ void BaseWindow::on_login_btn_clicked()
 void BaseWindow::resetBaseWindow()
 {
     this->show();
+    canvas_repository->setRole("guest", "guest");
+    user_repository->setRole("guest", "guest");
 }
 
 
