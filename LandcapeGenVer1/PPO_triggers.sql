@@ -11,7 +11,7 @@ begin
 end
 $$ language plpgsql;
 
-drop function  deleteRelatedCanvases();
+--drop function  deleteRelatedCanvases();
 
 --Теперь триггер
 create or replace trigger tr_deleteRelatedCanvases
@@ -21,10 +21,10 @@ for each row
 when (OLD.role = 'canvas_user')
 execute procedure deleteRelatedCanvases();
 
-DROP trigger tr_deleteRelatedCanvases on PPO.users
+--DROP trigger tr_deleteRelatedCanvases on PPO.users
 
 --Тест триггера tr_deleteRelatedCanvases
-delete from PPO.users where id = 1;
+--delete from PPO.users where id = 1;
 
 --Тригер для уделния moderator
 -- Создаём функцию для триггера...
@@ -37,7 +37,7 @@ begin
 end
 $$ language plpgsql;
 
-drop function  releaseRelatedUsers();
+--drop function  releaseRelatedUsers();
 
 --Теперь триггер
 create or replace trigger tr_releaseRelatedUsers
@@ -47,7 +47,7 @@ for each row
 when (OLD.role = 'moderator')
 execute procedure releaseRelatedUsers();
 
-DROP trigger tr_releaseRelatedUsers on PPO.users
+--DROP trigger tr_releaseRelatedUsers on PPO.users
 
 --Тест триггера tr_releaseRelatedUsers
-delete from PPO.users where id = 7;
+--delete from PPO.users where id = 7;

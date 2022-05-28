@@ -55,7 +55,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>User1</string>
+     <string>user1</string>
     </property>
    </widget>
    <widget class="QPushButton" name="registrate_btn">
