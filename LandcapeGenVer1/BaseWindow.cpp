@@ -31,6 +31,7 @@ void BaseWindow::on_login_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Try to login";
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
         shared_ptr<UserBL> user_bl = user_repository->getUser(login, password);
@@ -50,6 +51,7 @@ void BaseWindow::on_login_btn_clicked()
         {
             QMessageBox::information(this, "Error", "No such role");
         }
+        qInfo(logUserAction()) << "Login completed";
     }
     catch (BaseError &er)
     {
@@ -74,12 +76,14 @@ void BaseWindow::on_registrate_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Try to registrate";
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
         string role = ui->role_comboBox->currentText().toStdString();
         UserBL user_bl(0, login, password, role, 0);
         user_repository->addUser(user_bl);
         QMessageBox::information(this, "Error", "Registration completed");
+        qInfo(logUserAction()) << "Registration completed";
     }
     catch (BaseError &er)
     {

@@ -148,7 +148,7 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
             flag = true;
         }
     }
-    cout << error_msg;
+    //cout << error_msg;
     if (flag)
     {
         time_t t_time = time(NULL);
@@ -235,7 +235,7 @@ void CanvasRepository::test(string &str)
         else //if (PQresultStatus(res) == PGRES_FATAL_ERROR)
         {
             str = "TEST ERROR";
-            cout << PQresultErrorMessage(res) << endl;
+            //cout << PQresultErrorMessage(res) << endl;
         }
 
         PQclear( res );

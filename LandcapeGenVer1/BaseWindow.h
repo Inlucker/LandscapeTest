@@ -2,6 +2,7 @@
 #define BASEWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
 #include <memory>
 
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 #include "ModeratorWindow.h"
 #include "Controllers/BaseController.h"
 #include "Repositorys/UsersRepository.h"
+#include "LoggingCategories.h"
 
 namespace Ui {
 class BaseWindow;

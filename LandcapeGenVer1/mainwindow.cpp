@@ -38,14 +38,12 @@ void MainWindow::updateCanvasesList()
     try
     {
         vector<pair<int, string>> vec = canvas->updateCanvasesList();
-        //qDebug() << vec.size();
         ui->my_canvases_listWidget->clear();
         for (auto &elem : vec)
         {
             //ui->my_canvases_listWidget->addItem(QString::fromStdString(elem.second));
             QListWidgetItem* new_item = new QListWidgetItem(QString::fromStdString(elem.second));
             new_item->setStatusTip(QString::number(elem.first));
-            qDebug() << elem.first;
             ui->my_canvases_listWidget->addItem(new_item);
         }
     }
@@ -63,6 +61,7 @@ void MainWindow::on_gen_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed on generate new landscape button";
         canvas->generateNewLandscape(ui->size_value_label->text().toInt());
     }
     catch (BaseError &er)
@@ -79,6 +78,7 @@ void MainWindow::on_clean_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed on clean button";
         canvas->cleanQImage();
         canvas->resetHeightsMap();
     }
@@ -97,6 +97,7 @@ void MainWindow::on_size_up_btn_released()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed on size up button";
         QString text = ui->size_value_label->text();
         int n = text.toInt();
         if (n < 1025)
@@ -124,6 +125,7 @@ void MainWindow::on_size_down_btn_released()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed on size down button";
         QString text = ui->size_value_label->text();
         int n = text.toInt();
         if (n > 3)
@@ -151,6 +153,7 @@ void MainWindow::on_draw_variant_comboBox_activated(int index)
 {
     try
     {
+        qInfo(logUserAction()) << "Changed draw variant comboBox value";
         switch (index)
         {
         case 0:
@@ -188,6 +191,7 @@ void MainWindow::on_mult_spinBox_valueChanged(int arg1)
 {
     try
     {
+        qInfo(logUserAction()) << "Changed mult spinBox value";
         canvas->setMult(arg1);
     }
     catch (BaseError &er)
@@ -204,6 +208,7 @@ void MainWindow::on_scale_doubleSpinBox_valueChanged(double arg1)
 {
     try
     {
+        qInfo(logUserAction()) << "Changed mult spinBox value";
         canvas->setScale(arg1);
     }
     catch (BaseError &er)
@@ -221,6 +226,7 @@ void MainWindow::on_move_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed move button";
         bool isDouble;
 
         double dX = ui->move_x->text().toDouble(&isDouble);
@@ -264,6 +270,7 @@ void MainWindow::on_scale_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed scale button";
         bool isDouble;
 
         double kX = ui->scale_x->text().toDouble(&isDouble);
@@ -307,6 +314,7 @@ void MainWindow::on_rotate_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed rotate button";
         bool isDouble;
 
         double oX = ui->angle_x->text().toDouble(&isDouble);
@@ -349,6 +357,7 @@ void MainWindow::on_range_doubleSpinBox_valueChanged(double arg1)
 {
     try
     {
+        qInfo(logUserAction()) << "Changed range doubleSpinBox value";
         canvas->setRange(arg1);
     }
     catch (BaseError &er)
@@ -365,6 +374,7 @@ void MainWindow::on_resolution_comboBox_currentTextChanged(const QString &arg1)
 {
     try
     {
+        qInfo(logUserAction()) << "Changed resolution comboBox value";
         qsizetype n = arg1.indexOf('x');
 
         QString width = "";
@@ -401,6 +411,7 @@ void MainWindow::on_pushButton_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed choose color button";
         QColor color = QColorDialog::getColor(canvas->getColor());
         if (color.isValid())
         {
@@ -428,6 +439,7 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed smoothing checkBox";
         canvas->setSmoothing(bool(arg1));
     }
     catch (BaseError &er)
@@ -445,6 +457,7 @@ void MainWindow::on_read_file_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed read file button";
         string file_name = ui->file_name_lineEdit->text().toStdString();
 
         canvas->readFromFile(file_name);
@@ -464,6 +477,7 @@ void MainWindow::on_write_file_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed write file button";
         string file_name = ui->file_name_lineEdit_2->text().toStdString();
 
         canvas->writeToFile(file_name);
@@ -482,6 +496,7 @@ void MainWindow::on_load_canvas_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed load canvas button";
         //CanvasBL cbl("hm.txt", "tpa.txt", "color.txt");
         //int r, g, b;
         //cbl.getColor(r, g, b);
@@ -507,6 +522,7 @@ void MainWindow::on_write_file_btn_2_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed send canvas to DataBase button";
         //canvas->writeToFile("hm.txt");
         //canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
         //canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
@@ -529,6 +545,7 @@ void MainWindow::on_delete_canvas_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed delete canvas button";
         QList list = ui->my_canvases_listWidget->selectedItems();
         for (auto &elem : list)
         {
@@ -551,6 +568,7 @@ void MainWindow::on_update_canvas_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed update canvas button";
         QList list = ui->my_canvases_listWidget->selectedItems();
         for (auto &elem : list)
         {
@@ -571,11 +589,13 @@ void MainWindow::on_update_canvas_btn_clicked()
 
 void MainWindow::on_write_file_btn_3_clicked()
 {
+    qInfo(logUserAction()) << "Pressed OpenUnitTestsWindow button";
     unit_tests_window->show();
 }
 
 void MainWindow::on_exit_btn_clicked()
 {
+    qInfo(logUserAction()) << "Pressed EXIT button";
     this->hide();
     canvas->logout();
     emit exit();
@@ -586,6 +606,7 @@ void MainWindow::on_test_user_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed TEST USER button";
         string str;
         canvas->testUser(str);
         QMessageBox::information(this, "Result", QString::fromStdString(str));
@@ -605,6 +626,7 @@ void MainWindow::on_delete_user_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed DELETE THIS USER button";
         canvas->deleteUser();
         this->hide();
         canvas->logout();
@@ -617,17 +639,6 @@ void MainWindow::on_delete_user_btn_clicked()
     catch (...)
     {
         QMessageBox::information(this, "Error", "Unexpected Error");
-    }
-}
-
-
-void MainWindow::on_my_canvases_listWidget_itemSelectionChanged()
-{
-    if (ui->my_canvases_listWidget->selectedItems().size() > 0)
-    {
-        /*qDebug() << "HERE";
-        qDebug() << ui->my_canvases_listWidget->selectedItems()[0]->text();
-        qDebug() << ui->my_canvases_listWidget->selectedItems()[0]->statusTip();*/
     }
 }
 

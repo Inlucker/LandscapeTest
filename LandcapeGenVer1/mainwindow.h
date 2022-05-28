@@ -77,8 +77,6 @@ private slots:
 
     void on_delete_user_btn_clicked();
 
-    void on_my_canvases_listWidget_itemSelectionChanged();
-
 signals:
     void exit();
 

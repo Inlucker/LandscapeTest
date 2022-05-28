@@ -23,6 +23,7 @@ SOURCES += \
     HeightsMap/Point.cpp \
     Iterator/AbstractIterator.cpp \
     LandscapeCanvas/LandscapeCanvas.cpp \
+    LoggingCategories.cpp \
     Matrix/AbstractMtrx.cpp \
     Essensities/CanvasBL.cpp \
     ModeratorWindow.cpp \
@@ -72,6 +73,7 @@ HEADERS += \
     Iterator/Iterator.h \
     Iterator/Iterator.hpp \
     LandscapeCanvas/LandscapeCanvas.h \
+    LoggingCategories.h \
     Matrix/AbstractMtrx.h \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \

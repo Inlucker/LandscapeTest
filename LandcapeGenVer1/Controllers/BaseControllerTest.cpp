@@ -19,7 +19,7 @@ BaseControllerTest::BaseControllerTest()
                     getUserTest();
 
     output += "Errors count: " + to_string(errors_count) + "\n";
-    cout << output;
+    //cout << output;
 }
 
 int BaseControllerTest::noParamsConstrcutorTest()

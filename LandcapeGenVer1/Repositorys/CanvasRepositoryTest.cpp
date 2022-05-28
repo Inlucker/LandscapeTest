@@ -10,7 +10,7 @@ CanvasRepositoryTest::CanvasRepositoryTest()
 
 CanvasRepositoryTest::~CanvasRepositoryTest()
 {
-    cout << "CanvasRepositoryTest destructor";
+    //cout << "CanvasRepositoryTest destructor";
     connect();
     string query = "drop schema " + m_dbschema + " cascade;";
     PQsendQuery(m_connection.get(), query.c_str());
@@ -19,7 +19,7 @@ CanvasRepositoryTest::~CanvasRepositoryTest()
     {
         if (PQresultStatus(res) == PGRES_FATAL_ERROR)
         {
-            cout << PQresultErrorMessage(res);
+            //cout << PQresultErrorMessage(res);
         }
         PQclear(res);
     }
@@ -176,7 +176,7 @@ void CanvasRepositoryTest::setupForTest()
     {
         if (PQresultStatus(res) == PGRES_FATAL_ERROR)
         {
-            cout << PQresultErrorMessage(res);
+            //cout << PQresultErrorMessage(res);
         }
         PQclear(res);
     }
@@ -197,7 +197,7 @@ void CanvasRepositoryTest::setupForTest()
     {
         if (PQresultStatus(res) == PGRES_FATAL_ERROR)
         {
-            cout << PQresultErrorMessage(res);
+            //cout << PQresultErrorMessage(res);
         }
 
         PQclear(res);

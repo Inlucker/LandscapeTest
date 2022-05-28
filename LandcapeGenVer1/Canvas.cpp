@@ -5,14 +5,8 @@
 #include "Repositorys/CanvasRepository.h"
 #include "Repositorys/UsersRepository.h"
 
-/*Canvas::Canvas(QWidget *parent) : QWidget(parent)
-{
-    qDebug() << "OLD CONSTRUCTOR";
-}*/
-
 Canvas::Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) : QWidget(parent) //old constructor
 {
-    qDebug() << "NEW CONSTRUCTOR";
     user_controller = make_unique<UserController>();
     users_repository = users_rep;
     canvas_repository = canvas_rep;
@@ -163,7 +157,7 @@ void Canvas::setHeight(int new_height)
 
 void Canvas::setScale(double new_scale)
 {
-    cout << "SCALE" << endl;
+    //cout << "SCALE" << endl;
 }
 
 void Canvas::setRange(float new_range)
@@ -517,14 +511,14 @@ void Canvas::zbufferParamDraw()
     tri_pol_mas->update();
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
+    //cout << "tri_pol_mas->update() time = " << seconds << " secs" << endl;
 
     //Z-BUFFER ALGORITHM
     start = clock();
     zbuffer_alg->execute(*tri_pol_mas);
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
+    //cout << "zbuffer_alg->execute() time = " << seconds << " secs" << endl;
 
     frame_buffer = zbuffer_alg->getFrameBuffer();
     //cout << *frame_buffer << endl;
@@ -543,7 +537,7 @@ void Canvas::zbufferParamDraw()
     }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "paint time = " << seconds << " secs" << endl;
+    //cout << "paint time = " << seconds << " secs" << endl;
 }
 
 void Canvas::zbufferParamDrawWithThreads()
@@ -602,7 +596,7 @@ void Canvas::zbufferInterpolationDraw()
     zbuffer_alg->execute2(*tri_pol_mas);
     clock_t end = clock();
     double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "zbuffer_alg->execute2() time = " << seconds << " secs" << endl;
+    //cout << "zbuffer_alg->execute2() time = " << seconds << " secs" << endl;
 
     frame_buffer = zbuffer_alg->getFrameBuffer();
 
@@ -620,7 +614,7 @@ void Canvas::zbufferInterpolationDraw()
     }
     end = clock();
     seconds = (double)(end - start) / CLOCKS_PER_SEC;
-    cout << "paint time = " << seconds << " secs" << endl;
+    //cout << "paint time = " << seconds << " secs" << endl;
 }
 
 

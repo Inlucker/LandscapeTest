@@ -116,7 +116,7 @@ void HeightsMap::diamondSquare(float r, bool smoothing)
 
 void HeightsMap::simpleGen(double r, int n)
 {
-    cout << n << endl;
+    //cout << n << endl;
     randomizeHeightsMap(1, 1, height-2, width-2, r);
     smoothHeightsMap(1, 1, height-1, width-1, n);
 
@@ -511,7 +511,7 @@ ostream& operator <<(ostream& os, const HeightsMap& map)
             os << "; " << *It ;
         os << ']';
     }
-    cout << endl;
+    os << endl;
 
     return os;
 }

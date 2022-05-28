@@ -2,7 +2,7 @@
 
 UserControllerTest::UserControllerTest()
 {
-    cout << selectCanvasTest() << endl;
+    //cout << selectCanvasTest() << endl;
 }
 
 bool UserControllerTest::selectCanvasTest()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1533</width>
-    <height>868</height>
+    <width>1443</width>
+    <height>787</height>
    </rect>
   </property>
   <property name="font">
@@ -893,7 +893,7 @@
     <property name="geometry">
      <rect>
       <x>1230</x>
-      <y>470</y>
+      <y>410</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -911,7 +911,7 @@
     <property name="geometry">
      <rect>
       <x>1230</x>
-      <y>410</y>
+      <y>350</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -929,7 +929,7 @@
     <property name="geometry">
      <rect>
       <x>1230</x>
-      <y>590</y>
+      <y>530</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -947,7 +947,7 @@
     <property name="geometry">
      <rect>
       <x>1230</x>
-      <y>530</y>
+      <y>470</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1017,8 +1017,8 @@
    <widget class="QPushButton" name="exit_btn">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>710</y>
+      <x>1230</x>
+      <y>590</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1035,8 +1035,8 @@
    <widget class="QPushButton" name="test_user_btn">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>710</y>
+      <x>1000</x>
+      <y>650</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1053,8 +1053,8 @@
    <widget class="QPushButton" name="delete_user_btn">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>710</y>
+      <x>1230</x>
+      <y>650</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1074,7 +1074,7 @@
       <x>1230</x>
       <y>10</y>
       <width>201</width>
-      <height>391</height>
+      <height>331</height>
      </rect>
     </property>
    </widget>
@@ -1084,8 +1084,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1533</width>
-     <height>22</height>
+     <width>1443</width>
+     <height>18</height>
     </rect>
    </property>
   </widget>

@@ -1,0 +1,18 @@
+2022-05-28 17:19:14.686 UAC UserAction: Try to login
+2022-05-28 17:19:14.703 EXC Exception: Wrong username or password; File name: Repositorys\UsersRepository.cpp; Line#: 48; What caused error: login or password
+2022-05-28 17:19:16.808 UAC UserAction: Try to login
+2022-05-28 17:19:16.836 UAC UserAction: Login completed
+2022-05-28 17:19:19.968 UAC UserAction: Pressed load canvas button
+2022-05-28 17:19:21.215 UAC UserAction: Pressed load canvas button
+2022-05-28 17:19:22.588 UAC UserAction: Pressed load canvas button
+2022-05-28 17:19:24.273 UAC UserAction: Pressed load canvas button
+2022-05-28 17:19:26.755 UAC UserAction: Pressed smoothing checkBox
+2022-05-28 17:19:27.259 UAC UserAction: Pressed on generate new landscape button
+2022-05-28 17:19:28.057 UAC UserAction: Pressed on clean button
+2022-05-28 17:19:29.099 UAC UserAction: Pressed OpenUnitTestsWindow button
+2022-05-28 17:19:32.211 UAC UserAction: Pressed read file button
+2022-05-28 17:19:33.518 UAC UserAction: Pressed TEST USER button
+2022-05-28 17:19:34.807 UAC UserAction: Pressed rotate button
+2022-05-28 17:19:35.184 UAC UserAction: Pressed scale button
+2022-05-28 17:19:35.533 UAC UserAction: Pressed move button
+2022-05-28 17:19:37.307 UAC UserAction: Pressed EXIT button

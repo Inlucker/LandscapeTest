@@ -45,6 +45,7 @@ void ModeratorWindow::deleteUser(string name)
 
 void ModeratorWindow::on_exit_btn_clicked()
 {
+    qInfo(logUserAction()) << "Pressed EXIT button";
     this->hide();
     moderator_controller->logout();
     emit exit();
@@ -94,6 +95,7 @@ void ModeratorWindow::on_add_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed add user button";
         QList list = ui->free_users_listWidget->selectedItems();
         for (auto &elem : list)
         {
@@ -116,6 +118,7 @@ void ModeratorWindow::on_delete_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed delete user button";
         QList list = ui->my_users_listWidget->selectedItems();
         for (auto &elem : list)
         {
@@ -138,6 +141,7 @@ void ModeratorWindow::on_delete_user_btn_clicked()
 {
     try
     {
+        qInfo(logUserAction()) << "Pressed DELETE THIS USER button";
         users_repository->deleteUser(moderator_controller->getUser()->getId());
         this->hide();
         moderator_controller->logout();
