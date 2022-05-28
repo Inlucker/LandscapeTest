@@ -256,6 +256,12 @@ void Canvas::deleteUser()
     users_repository->deleteUser(user_controller->getUser()->getId());
 }
 
+vector<pair<int, string>> Canvas::updateCanvasesList()
+{
+    vector<pair<int, string>> vec = canvas_repository->getCanvasesByUid(user_controller->getUser()->getId());
+    return vec;
+}
+
 void Canvas::login(shared_ptr<UserBL> user_bl)
 {
     user_controller->login(user_bl);

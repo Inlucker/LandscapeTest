@@ -76,6 +76,8 @@ public:
 
     void deleteUser();
 
+    vector<pair<int, string> > updateCanvasesList();
+
     //BaseController methods
     void login(shared_ptr<UserBL> user_bl);
     void logout();

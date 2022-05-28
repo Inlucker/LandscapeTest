@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1209</width>
+    <width>1533</width>
     <height>868</height>
    </rect>
   </property>
@@ -892,8 +892,8 @@
    <widget class="QPushButton" name="load_canvas_btn">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>710</y>
+      <x>1230</x>
+      <y>470</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -904,14 +904,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Load Canvas 3</string>
+     <string>Load Canvas</string>
     </property>
    </widget>
    <widget class="QPushButton" name="write_file_btn_2">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>710</y>
+      <x>1230</x>
+      <y>410</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -928,8 +928,8 @@
    <widget class="QPushButton" name="delete_canvas_btn">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>710</y>
+      <x>1230</x>
+      <y>590</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -940,14 +940,14 @@
      </font>
     </property>
     <property name="text">
-     <string>Delete Canvas 3</string>
+     <string>Delete Canvas</string>
     </property>
    </widget>
    <widget class="QPushButton" name="update_canvas_btn">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>650</y>
+      <x>1230</x>
+      <y>530</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -958,7 +958,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Update Canvas 3</string>
+     <string>Update Canvas</string>
     </property>
    </widget>
    <widget class="QPushButton" name="write_file_btn_3">
@@ -1017,8 +1017,8 @@
    <widget class="QPushButton" name="exit_btn">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>770</y>
+      <x>990</x>
+      <y>710</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1036,7 +1036,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>770</y>
+      <y>710</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1053,8 +1053,8 @@
    <widget class="QPushButton" name="delete_user_btn">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>770</y>
+      <x>550</x>
+      <y>710</y>
       <width>201</width>
       <height>51</height>
      </rect>
@@ -1068,14 +1068,24 @@
      <string>DELETE THIS USER</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="my_canvases_listWidget">
+    <property name="geometry">
+     <rect>
+      <x>1230</x>
+      <y>10</y>
+      <width>201</width>
+      <height>391</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1209</width>
-     <height>18</height>
+     <width>1533</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

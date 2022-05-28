@@ -30,6 +30,33 @@ MainWindow::~MainWindow()
 void MainWindow::login(shared_ptr<UserBL> user_bl)
 {
     canvas->login(user_bl);
+    updateCanvasesList();
+}
+
+void MainWindow::updateCanvasesList()
+{
+    try
+    {
+        vector<pair<int, string>> vec = canvas->updateCanvasesList();
+        //qDebug() << vec.size();
+        ui->my_canvases_listWidget->clear();
+        for (auto &elem : vec)
+        {
+            //ui->my_canvases_listWidget->addItem(QString::fromStdString(elem.second));
+            QListWidgetItem* new_item = new QListWidgetItem(QString::fromStdString(elem.second));
+            new_item->setStatusTip(QString::number(elem.first));
+            qDebug() << elem.first;
+            ui->my_canvases_listWidget->addItem(new_item);
+        }
+    }
+    catch (BaseError &er)
+    {
+        QMessageBox::information(this, "Error", er.what());
+    }
+    catch (...)
+    {
+        QMessageBox::information(this, "Error", "Unexpected Error");
+    }
 }
 
 void MainWindow::on_gen_btn_clicked()
@@ -459,7 +486,11 @@ void MainWindow::on_load_canvas_btn_clicked()
         //int r, g, b;
         //cbl.getColor(r, g, b);
         //canvas->selectCanvas(make_shared<LandscapeCanvas>(cbl.getHeightsMap(), cbl.getHeightsMapPoints(), r, g, b));
-        canvas->selectCanvas(3);
+        QList list = ui->my_canvases_listWidget->selectedItems();
+        if (list.size()>0)
+        {
+            canvas->selectCanvas(list[0]->statusTip().toInt());
+        }
     }
     catch (BaseError &er)
     {
@@ -481,6 +512,7 @@ void MainWindow::on_write_file_btn_2_clicked()
         //canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
 
         canvas->createCanvas();
+        updateCanvasesList();
     }
     catch (BaseError &er)
     {
@@ -497,7 +529,12 @@ void MainWindow::on_delete_canvas_btn_clicked()
 {
     try
     {
-        canvas->deleteCanvas(3);
+        QList list = ui->my_canvases_listWidget->selectedItems();
+        for (auto &elem : list)
+        {
+            canvas->deleteCanvas(elem->statusTip().toInt());
+        }
+        updateCanvasesList();
     }
     catch (BaseError &er)
     {
@@ -514,7 +551,12 @@ void MainWindow::on_update_canvas_btn_clicked()
 {
     try
     {
-        canvas->updateCanvas(3);
+        QList list = ui->my_canvases_listWidget->selectedItems();
+        for (auto &elem : list)
+        {
+            canvas->updateCanvas(elem->statusTip().toInt());
+        }
+        updateCanvasesList();
     }
     catch (BaseError &er)
     {
@@ -575,6 +617,17 @@ void MainWindow::on_delete_user_btn_clicked()
     catch (...)
     {
         QMessageBox::information(this, "Error", "Unexpected Error");
+    }
+}
+
+
+void MainWindow::on_my_canvases_listWidget_itemSelectionChanged()
+{
+    if (ui->my_canvases_listWidget->selectedItems().size() > 0)
+    {
+        /*qDebug() << "HERE";
+        qDebug() << ui->my_canvases_listWidget->selectedItems()[0]->text();
+        qDebug() << ui->my_canvases_listWidget->selectedItems()[0]->statusTip();*/
     }
 }
 

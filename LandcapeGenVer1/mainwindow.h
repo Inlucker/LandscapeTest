@@ -26,6 +26,8 @@ public:
 
     void login(shared_ptr<UserBL> user_bl);
 
+    void updateCanvasesList();
+
 private slots:
     void on_gen_btn_clicked();
 
@@ -74,6 +76,8 @@ private slots:
     void on_test_user_btn_clicked();
 
     void on_delete_user_btn_clicked();
+
+    void on_my_canvases_listWidget_itemSelectionChanged();
 
 signals:
     void exit();
