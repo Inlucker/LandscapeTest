@@ -1,7 +1,6 @@
 #include "CanvasRepositoryTest.h"
 
-CanvasRepositoryTest::CanvasRepositoryTest()
-    : CanvasRepository("postgres", "postgres", "CanvasRepositoryTest", "localhost", 5432, "postgres")
+CanvasRepositoryTest::CanvasRepositoryTest() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("postgres"), m_dbpass("postgres"), m_dbschema("CanvasRepositoryTest")
 {
     setupForTest();
     errors_count = testAll();

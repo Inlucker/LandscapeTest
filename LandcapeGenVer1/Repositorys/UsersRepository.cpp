@@ -1,12 +1,7 @@
 #include "UsersRepository.h"
+#include "Settings.h"
 
-UsersRepository::UsersRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("guest"), m_dbpass("guest"), m_dbschema("PPO")
-{
-
-}
-
-UsersRepository::UsersRepository(string dbuser, string dbpass, string dbschema, string dbhost, int dbport, string dbname)
-    : m_dbhost(dbhost), m_dbport(dbport), m_dbname(dbname), m_dbuser(dbuser), m_dbpass(dbpass), m_dbschema(dbschema)
+UsersRepository::UsersRepository()
 {
 
 }
@@ -14,7 +9,7 @@ UsersRepository::UsersRepository(string dbuser, string dbpass, string dbschema, 
 shared_ptr<UserBL> UsersRepository::getUser(string login, string password)
 {
     connect();
-    string query = "SELECT * FROM " + m_dbschema + ".Users where login='" + login + "' and password = '" + password + "';";
+    string query = "SELECT * FROM " + m_schema + ".Users where login='" + login + "' and password = '" + password + "';";
     PQsendQuery(m_connection.get(), query.c_str());
 
     bool flag = false;
@@ -52,7 +47,7 @@ shared_ptr<UserBL> UsersRepository::getUser(string login, string password)
 shared_ptr<UserBL> UsersRepository::getCanvasUser(string name)
 {
     connect();
-    string query = "SELECT * FROM " + m_dbschema + ".Users where login='" + name + "';";
+    string query = "SELECT * FROM " + m_schema + ".Users where login='" + name + "';";
     PQsendQuery(m_connection.get(), query.c_str());
 
     bool flag = false;
@@ -167,7 +162,7 @@ void UsersRepository::addUser(UserBL &user)
     string password = user.getPassword();
     string role = user.getRole();
 
-    string query = "insert into " + m_dbschema + ".Users(login, password, role, moderator_id) values('";
+    string query = "insert into " + m_schema + ".Users(login, password, role, moderator_id) values('";
     //string query = "insert into " + m_dbschema + ".Canvas values(-1, 1, 'CanvasName', '";
     query += login + "', '";
     query += password + "', '";
@@ -198,7 +193,7 @@ void UsersRepository::addUser(UserBL &user)
 void UsersRepository::deleteUser(int id)
 {
     connect();
-    string query = "delete from " + m_dbschema + ".Users where id=" + to_string(id) + ";";
+    string query = "delete from " + m_schema + ".Users where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
     int flag = 0;
@@ -237,7 +232,7 @@ void UsersRepository::updateUser(UserBL &user_bl, int id)
         m_id = "NULL";
     else
         m_id = "'" + std::to_string(user_bl.getModeratorId()) + "'";
-    string query = "update " + m_dbschema + ".Users set login = '" + login;
+    string query = "update " + m_schema + ".Users set login = '" + login;
     query += "', password = '" + password;
     query += "', role = '" + role;
     query += "', moderator_id = " + m_id;
@@ -267,14 +262,21 @@ void UsersRepository::updateUser(UserBL &user_bl, int id)
         throw UpdateUserError(error_msg, __FILE__, __LINE__, ctime(&t_time));
 }
 
-void UsersRepository::setRole(string login, string password)
-{
-    m_dbuser = login;
-    m_dbpass = password;
-}
-
 void UsersRepository::connect()
 {
+    string m_dbhost;
+    int m_dbport;
+    string m_dbname;
+    string m_dbuser;
+    string m_dbpass;
+    string m_dbschema;
+    m_dbhost = Settings::get(Settings::DBHost, Settings::DataBase).toString().toStdString();
+    m_dbport = Settings::get(Settings::DBPort, Settings::DataBase).toInt();
+    m_dbname = Settings::get(Settings::DBName, Settings::DataBase).toString().toStdString();
+    m_dbuser = Settings::get(Settings::DBUser, Settings::DataBase).toString().toStdString();
+    m_dbpass = Settings::get(Settings::DBPass, Settings::DataBase).toString().toStdString();
+    m_schema = Settings::get(Settings::Schema, Settings::DataBase).toString().toStdString();
+
     m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );
 
     if (PQstatus( m_connection.get() ) != CONNECTION_OK && PQsetnonblocking(m_connection.get(), 1) != 0 )

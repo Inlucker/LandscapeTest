@@ -1,40 +1,15 @@
 #include "CanvasRepository.h"
+#include "Settings.h"
 
-CanvasRepository::CanvasRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("guest"), m_dbpass("guest"), m_dbschema("PPO")
-{
-    /*m_dbhost = "localhost";
-    m_dbport = 5432;
-    m_dbname = "postgres";
-    m_dbuser = "canvas_user";
-    m_dbpass = "canvas_user";
-    m_dbschema = "PPO";*/
-}
-
-CanvasRepository::CanvasRepository(string dbuser, string dbpass, string dbschema, string dbhost, int dbport, string dbname)
-    : m_dbhost(dbhost), m_dbport(dbport), m_dbname(dbname), m_dbuser(dbuser), m_dbpass(dbpass), m_dbschema(dbschema)
+CanvasRepository::CanvasRepository()
 {
 
 }
-
-/*CanvasRepository::CanvasRepository(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema)
-{
-    m_dbhost = dbhost;
-    m_dbport = dbport;
-    m_dbname = dbname;
-    m_dbuser = dbuser;
-    m_dbpass = dbpass;
-    m_dbschema = dbschema;
-}*/
-
-/*CanvasRepository::~CanvasRepository()
-{
-
-}*/
 
 shared_ptr<CanvasBL> CanvasRepository::getCanvas(int id)
 {
     connect();
-    string query = "SELECT * FROM " + m_dbschema + ".Canvas where id=" + to_string(id) + ";";
+    string query = "SELECT * FROM " + m_schema + ".Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
     int flag = 0;
@@ -129,7 +104,7 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
     string c = to_string(r) + " " + to_string(g) + " " + to_string(b);
 
     //string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(1, 'CanvasName', '";
-    string query = "insert into " + m_dbschema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(";
+    string query = "insert into " + m_schema + ".Canvas(user_id, name, HeightsMap, TriPolArray, Color) values(";
     query += u_id + ", '";
     query += name + "', '";
     query += hm + "', '";
@@ -159,7 +134,7 @@ void CanvasRepository::addCanvas(CanvasBL &canvas)
 void CanvasRepository::deleteCanvas(int id)
 {
     connect();
-    string query = "delete from " + m_dbschema + ".Canvas where id=" + to_string(id) + ";";
+    string query = "delete from " + m_schema + ".Canvas where id=" + to_string(id) + ";";
     PQsendQuery(m_connection.get(), query.c_str());
 
     int flag = 0;
@@ -190,7 +165,7 @@ void CanvasRepository::updateCanvas(CanvasBL &canvas_bl, int id)
     canvas_bl.getHeightsMap().toStr(hm);
     canvas_bl.getHeightsMapPoints().toStr(hmp);
     canvas_bl.getColor(c);
-    string query = "update " + m_dbschema + ".Canvas set HeightsMap = '" + hm;
+    string query = "update " + m_schema + ".Canvas set HeightsMap = '" + hm;
     query += "', TriPolArray = '" + hmp;
     query += "', Color = '" + c;
     query += "' where id = " + to_string(id) + ";";
@@ -242,14 +217,20 @@ void CanvasRepository::test(string &str)
     }
 }
 
-void CanvasRepository::setRole(string login, string password)
-{
-    m_dbuser = login;
-    m_dbpass = password;
-}
-
 void CanvasRepository::connect()
 {
+    string m_dbhost;
+    int m_dbport;
+    string m_dbname;
+    string m_dbuser;
+    string m_dbpass;
+    m_dbhost = Settings::get(Settings::DBHost, Settings::DataBase).toString().toStdString();
+    m_dbport = Settings::get(Settings::DBPort, Settings::DataBase).toInt();
+    m_dbname = Settings::get(Settings::DBName, Settings::DataBase).toString().toStdString();
+    m_dbuser = Settings::get(Settings::DBUser, Settings::DataBase).toString().toStdString();
+    m_dbpass = Settings::get(Settings::DBPass, Settings::DataBase).toString().toStdString();
+    m_schema = Settings::get(Settings::Schema, Settings::DataBase).toString().toStdString();
+
     m_connection.reset( PQsetdbLogin(m_dbhost.c_str(), to_string(m_dbport).c_str(), nullptr, nullptr, m_dbname.c_str(), m_dbuser.c_str(), m_dbpass.c_str()), &PQfinish );
 
     if (PQstatus( m_connection.get() ) != CONNECTION_OK && PQsetnonblocking(m_connection.get(), 1) != 0 )

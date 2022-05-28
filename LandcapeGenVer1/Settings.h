@@ -47,9 +47,7 @@ public:
     enum Section
     {
         General,
-        DataBase,
-        //Network,
-        //Proxy
+        DataBase
     };
 
     enum Key
@@ -58,8 +56,8 @@ public:
         DBPort,
         DBName,
         DBUser,
-        DBPassword,
-        Size
+        DBPass,
+        Schema
     };
 
     class ValueRef

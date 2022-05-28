@@ -1,5 +1,5 @@
 --Роли
-/*
+
 --Удаление guest
 REASSIGN OWNED BY guest TO postgres;
 DROP OWNED BY guest;
@@ -12,7 +12,7 @@ drop role canvas_user;
 REASSIGN OWNED BY moderator TO postgres;
 DROP OWNED BY moderator;
 drop role moderator;
-*/
+
 
 /*
 --Удаление прав canvas_user

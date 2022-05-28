@@ -1,5 +1,6 @@
 #include "ModeratorWindow.h"
 #include "ui_ModeratorWindow.h"
+#include "Settings.h"
 
 #include <QMessageBox>
 
@@ -22,7 +23,10 @@ ModeratorWindow::~ModeratorWindow()
 void ModeratorWindow::login(shared_ptr<UserBL> user_bl)
 {
     moderator_controller->login(user_bl);
-    users_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    //users_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    QVariant r(QString::fromStdString(user_bl->getRole()));
+    Settings::set(Settings::DBUser, Settings::DataBase) = r;
+    Settings::set(Settings::DBPass, Settings::DataBase) = r;
     updateFreeCanvasUsersList();
     updateMyCanvasUsersList();
 }

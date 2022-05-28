@@ -19,10 +19,12 @@ QVariant Settings::get(Key k, Section s)
 {
     Settings &self = instance();
     QString key = self.keyPath(s, k);
-    QVariant res = self.conf.value(key, self.defaults[key]);
+    /*QVariant res2 = self.conf.value(key, self.defaults[key]);     //for QSetting
+    QVariant res = self.defaults[key];                              //for Setting.default
     QString str = res.toString();
     int i = res.toInt();
-    return res;
+    return res2;*/
+    return self.conf.value(key, self.defaults[key]);
 }
 
 Settings::ValueRef Settings::set(Key k, Section s)
@@ -42,7 +44,6 @@ void Settings::setDefaults(const QString &str)
     //qDebug() << "TEST";
 
     auto kvs = str.split(QRegularExpression(";\\W*"), Qt::SkipEmptyParts); //key-values
-    //auto kvs = str.split(";\\W*", Qt::SkipEmptyParts); //key-values
     for(auto kv : kvs)
     {
         QRegularExpressionMatchIterator i = rxRecord.globalMatch(kv);
@@ -54,63 +55,25 @@ void Settings::setDefaults(const QString &str)
             QString key = match.captured(4);
             QString value = match.captured(5);
 
-            /*qDebug() << match.captured(3);
-            qDebug() << match.captured(4);
-            qDebug() << match.captured(5);
-            qDebug() << match.captured(1);
-            qDebug() << "NEXT:";*/
             int iKey = self.keys.keyToValue(key.toLocal8Bit().data());
             if (iKey != -1)
             {
-                //const char* data = section.toLocal8Bit().data();
-                //QMetaEnum met_enum = self.sections;
                 int iSection = self.sections.keyToValue(section.toLocal8Bit().data());
                 if (section.isEmpty() || iSection != -1)
                 {
-                    self.defaults[match.captured(1)] = value;
+                    self.conf.setValue(match.captured(1), value); //for QSetting
+                    self.defaults[match.captured(1)] = value; //for Setting.default
                 }
             }
         }
-        //qDebug() << kv;
-        /*if (kv.indexOf(rxRecord) != -1)
-        {
-            QString section = rxRecord.captured(3);
-            QString key = rxRecord.cap(4);
-            QString value = rxRecord.cap(5);
-
-            int iKey = self.keys.keyToValue(key.toLocal8Bit().data());
-            if (iKey != -1)
-            {
-                int iSection = self.sections.keyToValue(section.toLocal8Bit().data());
-                if (section.isEmpty() || iSection != -1)
-                {
-                    self.defaults[rxRecord.cap(1)] = value;
-                }
-            }
-        }*/
-        /*if (rxRecord.indexIn(kv) != -1)
-        {
-            QString section = rxRecord.cap(3);
-            QString key = rxRecord.cap(4);
-            QString value = rxRecord.cap(5);
-
-            int iKey = self.keys.keyToValue(key.toLocal8Bit().data());
-            if (iKey != -1)
-            {
-                int iSection = self.sections.keyToValue(section.toLocal8Bit().data());
-                if (section.isEmpty() || iSection != -1)
-                {
-                    self.defaults[rxRecord.cap(1)] = value;
-                }
-            }
-        }*/
     }
 }
 
 //Settings::ValueRef-----------------------------------------------------------
 Settings::ValueRef & Settings::ValueRef::operator = (const QVariant &data)
 {
-    parent.conf.setValue(keyPath, data);
+    parent.conf.setValue(keyPath, data); //for QSetting
+    parent.defaults[keyPath] = data; //for Setting.default
     return *this;
 }
 

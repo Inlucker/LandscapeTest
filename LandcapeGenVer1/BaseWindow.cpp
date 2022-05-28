@@ -5,6 +5,7 @@
 
 #include "Errors/BaseError.h"
 #include "Essensities/UserBL.h"
+#include "Settings.h"
 
 BaseWindow::BaseWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -67,8 +68,10 @@ void BaseWindow::on_login_btn_clicked()
 void BaseWindow::resetBaseWindow()
 {
     this->show();
-    canvas_repository->setRole("guest", "guest");
-    user_repository->setRole("guest", "guest");
+    //canvas_repository->setRole("guest", "guest");
+    //user_repository->setRole("guest", "guest");
+    Settings::set(Settings::DBUser, Settings::DataBase) = "guest";
+    Settings::set(Settings::DBPass, Settings::DataBase) = "guest";
 }
 
 

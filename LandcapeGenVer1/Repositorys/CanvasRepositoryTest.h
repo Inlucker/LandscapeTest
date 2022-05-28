@@ -7,7 +7,6 @@ class CanvasRepositoryTest : public CanvasRepository
 {
 public:
     CanvasRepositoryTest();
-    //CanvasRepositoryTest(string dbhost, int dbport, string dbname, string dbuser, string dbpass, string dbschema);
     virtual ~CanvasRepositoryTest();
 
     int testAll();
@@ -22,8 +21,13 @@ private:
     int deleteCanvasTest();
 
 private:
-    //shared_ptr<CanvasRepository> canvas_rep;
-    //string schema = "CanvasRepositoryTest";
+    string m_dbhost;
+    int m_dbport;
+    string m_dbname;
+    string m_dbuser;
+    string m_dbpass;
+    string m_dbschema;
+
     int errors_count = 0;
     string output = "";
 };

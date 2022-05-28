@@ -4,6 +4,7 @@
 
 #include "Repositorys/CanvasRepository.h"
 #include "Repositorys/UsersRepository.h"
+#include "Settings.h"
 
 Canvas::Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) : QWidget(parent) //old constructor
 {
@@ -259,10 +260,13 @@ vector<pair<int, string>> Canvas::updateCanvasesList()
 void Canvas::login(shared_ptr<UserBL> user_bl)
 {
     user_controller->login(user_bl);
-    //canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
-    //users_repository = make_shared<UsersRepository>("moderator", "moderator");
-    canvas_repository->setRole(user_bl->getRole(), user_bl->getRole());
-    users_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    //canvas_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    //users_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    QVariant r(QString::fromStdString(user_bl->getRole()));
+    qDebug() << "before" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
+    Settings::set(Settings::DBUser, Settings::DataBase) = r;
+    Settings::set(Settings::DBPass, Settings::DataBase) = r;
+    qDebug() << "after" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
 }
 
 void Canvas::logout()

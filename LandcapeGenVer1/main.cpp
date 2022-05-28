@@ -26,17 +26,11 @@ int main(int argc, char *argv[])
     QFile cfgDefaults("./config/default.cfg");  // я обычно дефолтовые настройки помещаю в ресурсы
     cfgDefaults.open(QIODevice::ReadOnly);
     Settings::setDefaults(cfgDefaults.readAll());
-    Settings::setDefaults("DataBase/DBHost: localhost; DataBase/DBPort: 5432; DataBase/DBName: postgres; DataBase/DBUser: guest; \nDataBase/DBPassword: guest; Size: 122;");
+    /*qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();
+    qDebug() << Settings::get(Settings::DBPort, Settings::DataBase).toInt();
+    qDebug() << Settings::get(Settings::DBName, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBUser, Settings::DataBase).toString();
-    int size = Settings::get(Settings::Size).toInt();
-    qDebug() << "before:" << size;
-    Settings::set(Settings::Size) = "1234";
-    size = Settings::get(Settings::Size).toInt();
-    qDebug() << "after:"<< size;
-
-    Settings::setDefaults(cfgDefaults.readAll());
-    size = Settings::get(Settings::Size).toInt();
-    qDebug() << "afterafter:"<< size;
+    qDebug() << Settings::get(Settings::DBPass, Settings::DataBase).toString();*/
 
     // Устанавливаем файл логирования,
     // внимательно сверьтесь с тем, какой используете путь для файла
