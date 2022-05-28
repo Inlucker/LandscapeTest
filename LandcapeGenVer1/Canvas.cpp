@@ -5,12 +5,17 @@
 #include "Repositorys/CanvasRepository.h"
 #include "Repositorys/UsersRepository.h"
 
-Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
+/*Canvas::Canvas(QWidget *parent) : QWidget(parent)
 {
+    qDebug() << "OLD CONSTRUCTOR";
+}*/
+
+Canvas::Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) : QWidget(parent) //old constructor
+{
+    qDebug() << "NEW CONSTRUCTOR";
     user_controller = make_unique<UserController>();
-    //canvas_repository = shared_ptr<ICanvasRepository>(new CanvasRepository());
-    users_repository.reset();
-    canvas_repository.reset();
+    users_repository = users_rep;
+    canvas_repository = canvas_rep;
 
     heights_map_points = user_controller->getHeightsMapPoints();
     tri_pol_mas =  user_controller->getTriPolArray();
@@ -254,9 +259,10 @@ void Canvas::deleteUser()
 void Canvas::login(shared_ptr<UserBL> user_bl)
 {
     user_controller->login(user_bl);
-
-    canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
-    users_repository = make_shared<UsersRepository>("moderator", "moderator");
+    //canvas_repository = make_shared<CanvasRepository>(user_bl->getRole(), user_bl->getRole());
+    //users_repository = make_shared<UsersRepository>("moderator", "moderator");
+    canvas_repository->setRole(user_bl->getRole(), user_bl->getRole());
+    users_repository->setRole("moderator", "moderator");
 }
 
 void Canvas::logout()

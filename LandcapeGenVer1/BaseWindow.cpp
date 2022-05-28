@@ -4,7 +4,6 @@
 #include <QMessageBox>
 
 #include "Errors/BaseError.h"
-#include "Repositorys/UsersRepository.h"
 #include "Essensities/UserBL.h"
 
 BaseWindow::BaseWindow(QWidget *parent) :
@@ -13,14 +12,14 @@ BaseWindow::BaseWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    main_window = make_unique<MainWindow>();
+    user_repository = make_shared<UsersRepository>();
+    canvas_repository = make_shared<CanvasRepository>();
+
+    main_window = make_unique<MainWindow>(canvas_repository, user_repository);
     connect(main_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
 
-    moderator_window = make_unique<ModeratorWindow>();
+    moderator_window = make_unique<ModeratorWindow>(canvas_repository, user_repository);
     connect(moderator_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));
-
-    //user_repository = shared_ptr<IUsersRepository>(new UsersRepository());
-    user_repository = make_shared<UsersRepository>();
 }
 
 BaseWindow::~BaseWindow()

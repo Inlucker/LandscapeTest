@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(shared_ptr<CanvasRepository> canvas_repository, shared_ptr<UsersRepository> users_repository, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");
 
     //canvas = make_unique<Canvas>(new Canvas(user_bl));
-    canvas = make_unique<Canvas>(new Canvas());
+    //canvas = make_unique<Canvas>(new Canvas(canvas_repository, users_repository));
+    canvas = make_unique<Canvas>(canvas_repository, users_repository);
+
     //canvas->login(user_bl);
     //canvas->setDrawAlg(ZBUFFER_PARAM);
     //ui->gridLayout->addWidget(&(*canvas));

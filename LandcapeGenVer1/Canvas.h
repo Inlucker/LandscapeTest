@@ -8,23 +8,14 @@
 
 #include <memory>
 #include <iostream>
-//#include <thread>
 
 using namespace std;
 
-//#define MULT mult
-//#define SCALE scale_k//30//15//7//3
-
-//#include "HeightsMap/HeightsMap.h"
-//#include "HeightsMap/HeightsMapPoints.h"
-//#include "Triangles/TriPolArray.h"
-//#include "Triangles/TriangularPolygon.h"
-//#include "ZBuffer/ZBufferAlg.h"
 #include "Controllers/usercontroller.h"
-#include "Repositorys/ICanvasRepository.h"
-#include "Repositorys/IUsersRepository.h"
+#include "Repositorys/CanvasRepository.h"
+#include "Repositorys/UsersRepository.h"
 
-enum DrawAlg //not good because of static cast?
+enum DrawAlg
 {
     CARCAS,
     TRIANGULAR,
@@ -36,7 +27,8 @@ enum DrawAlg //not good because of static cast?
 class Canvas : public QWidget
 {
 public:
-    explicit Canvas(QWidget *parent = nullptr);
+    //explicit Canvas(QWidget *parent = nullptr);
+    Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent = nullptr);
     ~Canvas();
 
     void createCanvas();
@@ -112,8 +104,8 @@ private:
     int previous_x = 0, previous_y = 0;
 
     unique_ptr<UserController> user_controller;
-    shared_ptr<ICanvasRepository> canvas_repository;
-    shared_ptr<IUsersRepository> users_repository;
+    shared_ptr<CanvasRepository> canvas_repository;
+    shared_ptr<UsersRepository> users_repository;
 
     shared_ptr<HeightsMapPoints> heights_map_points;
 

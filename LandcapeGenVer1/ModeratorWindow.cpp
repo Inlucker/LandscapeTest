@@ -3,17 +3,15 @@
 
 #include <QMessageBox>
 
-#include "Repositorys/UsersRepository.h"
-
-ModeratorWindow::ModeratorWindow(QWidget *parent) :
+ModeratorWindow::ModeratorWindow(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ModeratorWindow)
 {
     ui->setupUi(this);
 
     moderator_controller = make_unique<ModeratorController>();
-    //users_repository = shared_ptr<IUsersRepository>(new UsersRepository());
-    users_repository = make_shared<UsersRepository>();
+    users_repository = users_rep;
+    canvas_repository = canvas_rep;
 }
 
 ModeratorWindow::~ModeratorWindow()
@@ -24,7 +22,8 @@ ModeratorWindow::~ModeratorWindow()
 void ModeratorWindow::login(shared_ptr<UserBL> user_bl)
 {
     moderator_controller->login(user_bl);
-    users_repository = make_shared<UsersRepository>(user_bl->getRole(), user_bl->getRole());
+    //users_repository = make_shared<UsersRepository>(user_bl->getRole(), user_bl->getRole());
+    users_repository->setRole(user_bl->getRole(), user_bl->getRole());
     updateLists();
 }
 

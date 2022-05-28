@@ -1,6 +1,6 @@
 #include "CanvasRepository.h"
 
-CanvasRepository::CanvasRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("moderator"), m_dbpass("moderator"), m_dbschema("PPO")
+CanvasRepository::CanvasRepository() : m_dbhost("localhost"), m_dbport(5432), m_dbname("postgres"), m_dbuser("guest"), m_dbpass("guest"), m_dbschema("PPO")
 {
     /*m_dbhost = "localhost";
     m_dbport = 5432;
@@ -175,6 +175,12 @@ void CanvasRepository::test(string &str)
 
         PQclear( res );
     }
+}
+
+void CanvasRepository::setRole(string login, string password)
+{
+    m_dbuser = login;
+    m_dbpass = password;
 }
 
 void CanvasRepository::connect()

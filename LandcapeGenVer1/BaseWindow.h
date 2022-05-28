@@ -9,7 +9,7 @@ using namespace std;
 #include "mainwindow.h"
 #include "ModeratorWindow.h"
 #include "Controllers/BaseController.h"
-#include "Repositorys/IUsersRepository.h"
+#include "Repositorys/UsersRepository.h"
 
 namespace Ui {
 class BaseWindow;
@@ -35,7 +35,8 @@ private:
 
     unique_ptr<MainWindow> main_window;
     unique_ptr<ModeratorWindow> moderator_window;
-    shared_ptr<IUsersRepository> user_repository;
+    shared_ptr<UsersRepository> user_repository;
+    shared_ptr<CanvasRepository> canvas_repository;
 };
 
 #endif // BASEWINDOW_H
