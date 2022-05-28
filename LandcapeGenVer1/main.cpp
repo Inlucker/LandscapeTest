@@ -1,5 +1,6 @@
 //#include "mainwindow.h"
 #include "BaseWindow.h"
+#include "settings.h"
 
 #include <QApplication>
 #include <QFile>
@@ -18,6 +19,24 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    //Устанавливаем конфиг файл
+    QApplication::setOrganizationName("Organization name");
+    QApplication::setApplicationName("App name");
+    QFile cfgDefaults("./config/default.cfg");  // я обычно дефолтовые настройки помещаю в ресурсы
+    cfgDefaults.open(QIODevice::ReadOnly);
+    Settings::setDefaults(cfgDefaults.readAll());
+    Settings::setDefaults("DataBase/DBHost: localhost; DataBase/DBPort: 5432; DataBase/DBName: postgres; DataBase/DBUser: guest; \nDataBase/DBPassword: guest; Size: 122;");
+    qDebug() << Settings::get(Settings::DBUser, Settings::DataBase).toString();
+    int size = Settings::get(Settings::Size).toInt();
+    qDebug() << "before:" << size;
+    Settings::set(Settings::Size) = "1234";
+    size = Settings::get(Settings::Size).toInt();
+    qDebug() << "after:"<< size;
+
+    Settings::setDefaults(cfgDefaults.readAll());
+    size = Settings::get(Settings::Size).toInt();
+    qDebug() << "afterafter:"<< size;
 
     // Устанавливаем файл логирования,
     // внимательно сверьтесь с тем, какой используете путь для файла

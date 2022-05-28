@@ -31,7 +31,7 @@ void BaseWindow::on_login_btn_clicked()
 {
     try
     {
-        qInfo(logUserAction()) << "Try to login";
+        qInfo(logUserAction()) << "Pressed on login button";
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
         shared_ptr<UserBL> user_bl = user_repository->getUser(login, password);
@@ -76,7 +76,7 @@ void BaseWindow::on_registrate_btn_clicked()
 {
     try
     {
-        qInfo(logUserAction()) << "Try to registrate";
+        qInfo(logUserAction()) << "Pressed on registrate button";
         string login = ui->login_lineEdit->text().toStdString();
         string password = ui->password_lineEdit->text().toStdString();
         string role = ui->role_comboBox->currentText().toStdString();

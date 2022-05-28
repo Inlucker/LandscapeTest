@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui #core5compat
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -32,6 +32,7 @@ SOURCES += \
     Repositorys/ICanvasRepository.cpp \
     Repositorys/IUsersRepository.cpp \
     Repositorys/UsersRepository.cpp \
+    Settings.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
     UnitTestsWindow.cpp \
@@ -84,6 +85,7 @@ HEADERS += \
     Repositorys/ICanvasRepository.h \
     Repositorys/IUsersRepository.h \
     Repositorys/UsersRepository.h \
+    Settings.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \
     UnitTestsWindow.h \

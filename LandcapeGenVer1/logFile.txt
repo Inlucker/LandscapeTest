@@ -16,3 +16,7 @@
 2022-05-28 17:19:35.184 UAC UserAction: Pressed scale button
 2022-05-28 17:19:35.533 UAC UserAction: Pressed move button
 2022-05-28 17:19:37.307 UAC UserAction: Pressed EXIT button
+2022-05-28 17:49:31.939 UAC UserAction: Pressed on login button
+2022-05-28 17:49:31.985 UAC UserAction: Login completed
+2022-05-28 17:50:30.415 UAC UserAction: Pressed on login button
+2022-05-28 17:50:30.458 UAC UserAction: Login completed
