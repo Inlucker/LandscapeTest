@@ -14,6 +14,8 @@ using namespace std;
 #include "Controllers/usercontroller.h"
 #include "Repositorys/CanvasRepository.h"
 #include "Repositorys/UsersRepository.h"
+#include "Repositorys/UsersRepositoryMySQL.h"
+#include "Repositorys/CanvasRepositoryMySQL.h"
 
 enum DrawAlg
 {
@@ -28,7 +30,7 @@ class Canvas : public QWidget
 {
 public:
     //explicit Canvas(QWidget *parent = nullptr);
-    Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent = nullptr);
+    Canvas(QWidget *parent = nullptr);
     ~Canvas();
 
     void createCanvas();
@@ -106,8 +108,8 @@ private:
     int previous_x = 0, previous_y = 0;
 
     unique_ptr<UserController> user_controller;
-    shared_ptr<CanvasRepository> canvas_repository;
-    shared_ptr<UsersRepository> users_repository;
+    shared_ptr<CanvasRepositoryMySQL> canvas_repository;
+    shared_ptr<UsersRepositoryMySQL> users_repository;
 
     shared_ptr<HeightsMapPoints> heights_map_points;
 

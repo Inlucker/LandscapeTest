@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 
-MainWindow::MainWindow(shared_ptr<CanvasRepository> canvas_repository, shared_ptr<UsersRepository> users_repository, QWidget *parent)
+MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -13,7 +13,7 @@ MainWindow::MainWindow(shared_ptr<CanvasRepository> canvas_repository, shared_pt
     ui->size_value_label->setStyleSheet("border-style: solid; border-width: 1px; border-color: black; background-color: white");
     ui->color_label->setStyleSheet("background-color: rgb(20, 150, 20)");
 
-    canvas = make_unique<Canvas>(canvas_repository, users_repository);
+    canvas = make_unique<Canvas>();
 
     ui->scrollArea->setWidget(&(*canvas));
 

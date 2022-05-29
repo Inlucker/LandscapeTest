@@ -1,4 +1,4 @@
-QT       += core gui #core5compat
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,10 +28,12 @@ SOURCES += \
     Essensities/CanvasBL.cpp \
     ModeratorWindow.cpp \
     Repositorys/CanvasRepository.cpp \
+    Repositorys/CanvasRepositoryMySQL.cpp \
     Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
     Repositorys/IUsersRepository.cpp \
     Repositorys/UsersRepository.cpp \
+    Repositorys/UsersRepositoryMySQL.cpp \
     Settings.cpp \
     Triangles/TriPolArray.cpp \
     Triangles/TriangularPolygon.cpp \
@@ -81,10 +83,12 @@ HEADERS += \
     Essensities/CanvasBL.h \
     ModeratorWindow.h \
     Repositorys/CanvasRepository.h \
+    Repositorys/CanvasRepositoryMySQL.h \
     Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
     Repositorys/IUsersRepository.h \
     Repositorys/UsersRepository.h \
+    Repositorys/UsersRepositoryMySQL.h \
     Settings.h \
     Triangles/TriPolArray.h \
     Triangles/TriangularPolygon.h \

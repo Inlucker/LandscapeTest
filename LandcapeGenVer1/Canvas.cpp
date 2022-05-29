@@ -2,15 +2,15 @@
 
 #include <QMessageBox>
 
-#include "Repositorys/CanvasRepository.h"
-#include "Repositorys/UsersRepository.h"
 #include "Settings.h"
 
-Canvas::Canvas(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) : QWidget(parent) //old constructor
+Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
 {
     user_controller = make_unique<UserController>();
-    users_repository = users_rep;
-    canvas_repository = canvas_rep;
+    users_repository = make_shared<UsersRepositoryMySQL>();
+    canvas_repository = make_shared<CanvasRepositoryMySQL>();
+    //users_repository = users_rep;
+    //canvas_repository = canvas_rep;
 
     heights_map_points = user_controller->getHeightsMapPoints();
     tri_pol_mas =  user_controller->getTriPolArray();

@@ -1,6 +1,6 @@
 //#include "mainwindow.h"
 #include "BaseWindow.h"
-#include "settings.h"
+#include "Settings.h"
 
 #include <QApplication>
 #include <QFile>
@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
     //Устанавливаем конфиг файл
     QApplication::setOrganizationName("Organization name");
     QApplication::setApplicationName("App name");
-    QFile cfgDefaults("./config/default.cfg");  // я обычно дефолтовые настройки помещаю в ресурсы
+    //QFile cfgDefaults("./config/default.cfg");
+    QFile cfgDefaults("./config/mysql.cfg");
     cfgDefaults.open(QIODevice::ReadOnly);
     Settings::setDefaults(cfgDefaults.readAll());
     /*qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();

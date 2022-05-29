@@ -6,6 +6,8 @@
 #include "Controllers/ModeratorController.h"
 #include "Repositorys/CanvasRepository.h"
 #include "Repositorys/UsersRepository.h"
+#include "Repositorys/UsersRepositoryMySQL.h"
+#include "Repositorys/CanvasRepositoryMySQL.h"
 
 namespace Ui {
 class ModeratorWindow;
@@ -16,7 +18,7 @@ class ModeratorWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit ModeratorWindow(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent = nullptr);
+    explicit ModeratorWindow(QWidget *parent = nullptr);
     ~ModeratorWindow();
 
     void login(shared_ptr<UserBL> user_bl);
@@ -44,8 +46,8 @@ private:
     Ui::ModeratorWindow *ui;
 
     unique_ptr<ModeratorController> moderator_controller;
-    shared_ptr<CanvasRepository> canvas_repository;
-    shared_ptr<UsersRepository> users_repository;
+    shared_ptr<CanvasRepositoryMySQL> canvas_repository;
+    shared_ptr<UsersRepositoryMySQL> users_repository;
 };
 
 #endif // MODERATORWINDOW_H

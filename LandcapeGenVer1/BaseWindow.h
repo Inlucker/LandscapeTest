@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <memory>
+#include <QSqlQuery>
 
 using namespace std;
 
@@ -11,6 +12,8 @@ using namespace std;
 #include "ModeratorWindow.h"
 #include "Controllers/BaseController.h"
 #include "Repositorys/UsersRepository.h"
+#include "Repositorys/UsersRepositoryMySQL.h"
+#include "Repositorys/CanvasRepositoryMySQL.h"
 #include "LoggingCategories.h"
 
 namespace Ui {
@@ -33,12 +36,18 @@ private slots:
     void on_registrate_btn_clicked();
 
 private:
+    void setupMySQL();
+
+private:
     Ui::BaseWindow *ui;
 
     unique_ptr<MainWindow> main_window;
     unique_ptr<ModeratorWindow> moderator_window;
-    shared_ptr<UsersRepository> user_repository;
-    shared_ptr<CanvasRepository> canvas_repository;
+    //shared_ptr<UsersRepository> user_repository;
+    shared_ptr<UsersRepositoryMySQL> user_repository;
+    shared_ptr<CanvasRepositoryMySQL> canvas_repository;
+
+    unique_ptr<QSqlDatabase> db;
 };
 
 #endif // BASEWINDOW_H

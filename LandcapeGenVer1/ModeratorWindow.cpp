@@ -4,15 +4,17 @@
 
 #include <QMessageBox>
 
-ModeratorWindow::ModeratorWindow(shared_ptr<CanvasRepository> canvas_rep, shared_ptr<UsersRepository> users_rep, QWidget *parent) :
+ModeratorWindow::ModeratorWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ModeratorWindow)
 {
     ui->setupUi(this);
 
     moderator_controller = make_unique<ModeratorController>();
-    users_repository = users_rep;
-    canvas_repository = canvas_rep;
+    users_repository = make_shared<UsersRepositoryMySQL>();
+    canvas_repository = make_shared<CanvasRepositoryMySQL>();
+    //users_repository = users_rep;
+    //canvas_repository = canvas_rep;
 }
 
 ModeratorWindow::~ModeratorWindow()
