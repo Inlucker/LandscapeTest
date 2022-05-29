@@ -32,6 +32,30 @@ shared_ptr<CanvasBL> CanvasRepositoryMySQL::getCanvas(int id)
     }
 }
 
+shared_ptr<CanvasBL> CanvasRepositoryMySQL::getCanvas(string name)
+{
+    string query = "SELECT * FROM " + m_schema + ".Canvas where name='" + name + "';";
+
+    QSqlQuery q;
+    q.exec(QString::fromStdString(query));
+    if (q.next())
+    {
+        int id = q.value(0).toInt();
+        int u_id = q.value(1).toInt();
+        string name = q.value(2).toString().toStdString();
+        string hm = q.value(3).toString().toStdString();
+        string tpa = q.value(4).toString().toStdString();
+        string c = q.value(5).toString().toStdString();
+
+        return make_shared<CanvasBL>(id, u_id, name, hm, tpa, c);
+    }
+    else
+    {
+        time_t t_time = time(NULL);
+        throw GetCanvasError(q.lastError().text().toStdString(), __FILE__, __LINE__, ctime(&t_time));
+    }
+}
+
 vector<pair<int, string> > CanvasRepositoryMySQL::getCanvasesByUid(int u_id)
 {
     string query = "select id, name FROM PPO.Canvas where user_id = " + std::to_string(u_id) + ";";

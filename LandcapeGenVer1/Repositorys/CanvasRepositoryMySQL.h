@@ -11,6 +11,7 @@ public:
     virtual ~CanvasRepositoryMySQL() = default;
 
     virtual shared_ptr<CanvasBL> getCanvas(int id) override;
+    shared_ptr<CanvasBL> getCanvas(string name);
     vector<pair<int, string>> getCanvasesByUid(int u_id);
     virtual void addCanvas(CanvasBL& canvas) override;
     virtual void deleteCanvas(int id) override;
