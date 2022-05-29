@@ -14,6 +14,7 @@ SOURCES += \
     Canvas.cpp \
     Controllers/BaseController.cpp \
     Controllers/BaseControllerTest.cpp \
+    Controllers/ModeratorCanvasesController.cpp \
     Controllers/ModeratorController.cpp \
     Controllers/UserControllerTest.cpp \
     Essensities/UserBL.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
     LoggingCategories.cpp \
     Matrix/AbstractMtrx.cpp \
     Essensities/CanvasBL.cpp \
+    ModeratorCanvasWindow.cpp \
     ModeratorWindow.cpp \
     Repositorys/CanvasRepository.cpp \
     Repositorys/CanvasRepositoryMySQL.cpp \
@@ -53,6 +55,7 @@ HEADERS += \
     Canvas.h \
     Controllers/BaseController.h \
     Controllers/BaseControllerTest.h \
+    Controllers/ModeratorCanvasesController.h \
     Controllers/ModeratorController.h \
     Controllers/UserControllerTest.h \
     Errors/RepositoryErrors.h \
@@ -81,6 +84,7 @@ HEADERS += \
     Matrix/BaseMtrx.h \
     Matrix/BaseMtrx.hpp \
     Essensities/CanvasBL.h \
+    ModeratorCanvasWindow.h \
     ModeratorWindow.h \
     Repositorys/CanvasRepository.h \
     Repositorys/CanvasRepositoryMySQL.h \
@@ -104,6 +108,7 @@ HEADERS += \
 
 FORMS += \
     BaseWindow.ui \
+    ModeratorCanvasWindow.ui \
     ModeratorWindow.ui \
     UnitTestsWindow.ui \
     mainwindow.ui

@@ -26,11 +26,12 @@ int main(int argc, char *argv[])
     QFile cfgDefaults(FILENAME);
     cfgDefaults.open(QIODevice::ReadOnly);
     Settings::setDefaults(cfgDefaults.readAll());
-    /*qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();
+    qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBPort, Settings::DataBase).toInt();
     qDebug() << Settings::get(Settings::DBName, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBUser, Settings::DataBase).toString();
-    qDebug() << Settings::get(Settings::DBPass, Settings::DataBase).toString();*/
+    qDebug() << Settings::get(Settings::DBPass, Settings::DataBase).toString();
+    qDebug() << Settings::get(Settings::Schema, Settings::DataBase).toString();
 
     // Устанавливаем файл логирования,
     // внимательно сверьтесь с тем, какой используете путь для файла

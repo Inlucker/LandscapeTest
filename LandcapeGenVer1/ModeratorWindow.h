@@ -9,6 +9,7 @@
 #include "Repositorys/UsersRepositoryMySQL.h"
 #include "Repositorys/CanvasRepositoryMySQL.h"
 
+#include "ModeratorCanvasWindow.h"
 #include "defines.h"
 
 namespace Ui {
@@ -36,6 +37,8 @@ private slots:
 
     void on_delete_user_btn_clicked();
 
+    void on_add_btn_2_clicked();
+
 signals:
     void exit();
 
@@ -50,6 +53,8 @@ private:
     unique_ptr<ModeratorController> moderator_controller;
     shared_ptr<CANVAS_REP> canvas_repository;
     shared_ptr<USER_REP> users_repository;
+
+    unique_ptr<ModeratorCanvasWindow> mod_can_win;
 };
 
 #endif // MODERATORWINDOW_H
