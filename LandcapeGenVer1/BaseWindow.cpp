@@ -18,9 +18,11 @@ BaseWindow::BaseWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //user_repository = make_shared<UsersRepository>();
+#ifdef MYSQL
     setupMySQL();
-    user_repository = make_shared<UsersRepositoryMySQL>();
-    canvas_repository = make_shared<CanvasRepositoryMySQL>();
+#endif
+    user_repository = make_shared<USER_REP>();
+    canvas_repository = make_shared<CANVAS_REP>();
 
     main_window = make_unique<MainWindow>();
     connect(main_window.get(), SIGNAL(exit()), this, SLOT(resetBaseWindow()));

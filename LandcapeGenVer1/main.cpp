@@ -23,8 +23,7 @@ int main(int argc, char *argv[])
     //Устанавливаем конфиг файл
     QApplication::setOrganizationName("Organization name");
     QApplication::setApplicationName("App name");
-    //QFile cfgDefaults("./config/default.cfg");
-    QFile cfgDefaults("./config/mysql.cfg");
+    QFile cfgDefaults(FILENAME);
     cfgDefaults.open(QIODevice::ReadOnly);
     Settings::setDefaults(cfgDefaults.readAll());
     /*qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();

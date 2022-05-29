@@ -9,6 +9,8 @@
 #include "Repositorys/UsersRepositoryMySQL.h"
 #include "Repositorys/CanvasRepositoryMySQL.h"
 
+#include "defines.h"
+
 namespace Ui {
 class ModeratorWindow;
 }
@@ -46,8 +48,8 @@ private:
     Ui::ModeratorWindow *ui;
 
     unique_ptr<ModeratorController> moderator_controller;
-    shared_ptr<CanvasRepositoryMySQL> canvas_repository;
-    shared_ptr<UsersRepositoryMySQL> users_repository;
+    shared_ptr<CANVAS_REP> canvas_repository;
+    shared_ptr<USER_REP> users_repository;
 };
 
 #endif // MODERATORWINDOW_H

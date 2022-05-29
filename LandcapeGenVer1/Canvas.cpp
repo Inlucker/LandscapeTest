@@ -7,8 +7,8 @@
 Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
 {
     user_controller = make_unique<UserController>();
-    users_repository = make_shared<UsersRepositoryMySQL>();
-    canvas_repository = make_shared<CanvasRepositoryMySQL>();
+    users_repository = make_shared<USER_REP>();
+    canvas_repository = make_shared<CANVAS_REP>();
     //users_repository = users_rep;
     //canvas_repository = canvas_rep;
 

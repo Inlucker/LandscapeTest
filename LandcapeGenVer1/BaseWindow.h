@@ -16,6 +16,8 @@ using namespace std;
 #include "Repositorys/CanvasRepositoryMySQL.h"
 #include "LoggingCategories.h"
 
+#include "defines.h"
+
 namespace Ui {
 class BaseWindow;
 }
@@ -44,8 +46,8 @@ private:
     unique_ptr<MainWindow> main_window;
     unique_ptr<ModeratorWindow> moderator_window;
     //shared_ptr<UsersRepository> user_repository;
-    shared_ptr<UsersRepositoryMySQL> user_repository;
-    shared_ptr<CanvasRepositoryMySQL> canvas_repository;
+    shared_ptr<USER_REP> user_repository;
+    shared_ptr<CANVAS_REP> canvas_repository;
 
     unique_ptr<QSqlDatabase> db;
 };

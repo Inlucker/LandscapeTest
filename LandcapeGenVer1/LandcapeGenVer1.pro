@@ -99,6 +99,7 @@ HEADERS += \
     ZBuffer/FrameBuffer.h \
     ZBuffer/ZBuffer.h \
     ZBuffer/ZBufferAlg.h \
+    defines.h \
     mainwindow.h
 
 FORMS += \
