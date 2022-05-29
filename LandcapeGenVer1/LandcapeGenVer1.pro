@@ -17,6 +17,7 @@ SOURCES += \
     Controllers/ModeratorCanvasesController.cpp \
     Controllers/ModeratorController.cpp \
     Controllers/UserControllerTest.cpp \
+    Essensities/ParamsBL.cpp \
     Essensities/UserBL.cpp \
     Controllers/UserController.cpp \
     HeightsMap/HeightsMap.cpp \
@@ -33,7 +34,9 @@ SOURCES += \
     Repositorys/CanvasRepositoryMySQL.cpp \
     Repositorys/CanvasRepositoryTest.cpp \
     Repositorys/ICanvasRepository.cpp \
+    Repositorys/IParamsRepository.cpp \
     Repositorys/IUsersRepository.cpp \
+    Repositorys/ParamsRepository.cpp \
     Repositorys/UsersRepository.cpp \
     Repositorys/UsersRepositoryMySQL.cpp \
     Settings.cpp \
@@ -59,6 +62,7 @@ HEADERS += \
     Controllers/ModeratorController.h \
     Controllers/UserControllerTest.h \
     Errors/RepositoryErrors.h \
+    Essensities/ParamsBL.h \
     Essensities/UserBL.h \
     Controllers/UserController.h \
     Errors/ArrayErrors.h \
@@ -90,7 +94,9 @@ HEADERS += \
     Repositorys/CanvasRepositoryMySQL.h \
     Repositorys/CanvasRepositoryTest.h \
     Repositorys/ICanvasRepository.h \
+    Repositorys/IParamsRepository.h \
     Repositorys/IUsersRepository.h \
+    Repositorys/ParamsRepository.h \
     Repositorys/UsersRepository.h \
     Repositorys/UsersRepositoryMySQL.h \
     Settings.h \

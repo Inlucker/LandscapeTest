@@ -26,12 +26,12 @@ int main(int argc, char *argv[])
     QFile cfgDefaults(FILENAME);
     cfgDefaults.open(QIODevice::ReadOnly);
     Settings::setDefaults(cfgDefaults.readAll());
-    qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();
+    /*qDebug() << Settings::get(Settings::DBHost, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBPort, Settings::DataBase).toInt();
     qDebug() << Settings::get(Settings::DBName, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBUser, Settings::DataBase).toString();
     qDebug() << Settings::get(Settings::DBPass, Settings::DataBase).toString();
-    qDebug() << Settings::get(Settings::Schema, Settings::DataBase).toString();
+    qDebug() << Settings::get(Settings::Schema, Settings::DataBase).toString();*/
 
     // Устанавливаем файл логирования,
     // внимательно сверьтесь с тем, какой используете путь для файла
@@ -57,11 +57,11 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
     // По типу определяем, к какому уровню относится сообщение
     switch (type)
     {
-    //case QtInfoMsg:     out << "INF "; break;
-    case QtInfoMsg:     out << "UAC "; break;
+    case QtInfoMsg:     out << "INF "; break;
+    //case QtInfoMsg:     out << "UAC "; break;
     case QtDebugMsg:    out << "DBG "; break;
-    //case QtWarningMsg:  out << "WRN "; break;
-    case QtWarningMsg:  out << "EXC "; break;
+    case QtWarningMsg:  out << "WRN "; break;
+    //case QtWarningMsg:  out << "EXC "; break;
     case QtCriticalMsg: out << "CRT "; break;
     case QtFatalMsg:    out << "FTL "; break;
     }

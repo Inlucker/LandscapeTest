@@ -9,6 +9,7 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent) //old constructor
     user_controller = make_unique<UserController>();
     users_repository = make_shared<USER_REP>();
     canvas_repository = make_shared<CANVAS_REP>();
+    params_repository = make_shared<PARAMS_REP>();
     //users_repository = users_rep;
     //canvas_repository = canvas_rep;
 
@@ -56,7 +57,7 @@ void Canvas::deleteCanvas(int id)
     canvas_repository->deleteCanvas(id);
 }
 
-void Canvas::selectCanvas(int id)
+shared_ptr<ParamsBL> Canvas::selectCanvas(int id)
 {
     cleanQImage();
 
@@ -72,7 +73,19 @@ void Canvas::selectCanvas(int id)
     //zbuffer_alg = user_controller->getZBufferAlg();
     //frame_buffer = zbuffer_alg->getFrameBuffer();
 
+//#ifdef PARAMS
+    shared_ptr<ParamsBL> params_bl = params_repository->getParams(id);
+
+    user_controller->setWidth(params_bl->getWidth());
+    user_controller->setHeight(params_bl->getHeight());
+    user_controller->setRange(params_bl->getRange());
+    user_controller->setSmoothing(params_bl->getSmooth());
+    user_controller->setMult(params_bl->getMult());
+
+//#endif
+
     drawLandScape();
+    return params_bl;
 }
 
 void Canvas::updateCanvas(int id)

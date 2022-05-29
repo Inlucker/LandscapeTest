@@ -3,6 +3,7 @@ create schema PPO;
 
 --drop table PPO.Users cascade;
 --drop table PPO.Canvas cascade;
+--drop table PPO.Params cascade;
 
 --Создание таблиц
 create table if not exists PPO.Users
@@ -83,3 +84,25 @@ ALTER SEQUENCE users_id_seq RESTART WITH 1;
 select setval(pg_get_serial_sequence('PPO.Canvas', 'id'), 1);
 select setval(pg_get_serial_sequence('PPO.Canvas', 'id'), (select max(id) from PPO.Canvas));
 */
+
+--Новая Таблица
+create table if not exists PPO.Params
+(
+	canvas_id int unique,
+	FOREIGN KEY (canvas_id) REFERENCES PPO.Canvas (id),
+	width int,
+	height int,
+	range float,
+	smooth bool,
+	mult int,
+	red int,
+	green int,
+	blue int,
+	size int
+);
+
+insert into PPO.Params values (1, 960, 540, 24.75, true, 1, 120, 31, 150, 33);
+insert into PPO.Params values (2, 768, 432, 24.75, false, 4, 120, 31, 150, 33);
+insert into PPO.Params values (3, 960, 540, 24.75, true, 1, 120, 31, 150, 33);
+insert into PPO.Params values (4, 960, 540, 24.75, true, 1, 120, 31, 150, 33);
+				

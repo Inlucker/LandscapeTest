@@ -504,7 +504,31 @@ void MainWindow::on_load_canvas_btn_clicked()
         QList list = ui->my_canvases_listWidget->selectedItems();
         if (list.size()>0)
         {
-            canvas->selectCanvas(list[0]->statusTip().toInt());
+            shared_ptr<ParamsBL> params_bl = canvas->selectCanvas(list[0]->statusTip().toInt());
+
+            QString res_str = QString::number(params_bl->getWidth()) + "x" + QString::number(params_bl->getHeight());
+            if (ui->resolution_comboBox->findText(res_str) != -1)
+                ui->resolution_comboBox->setCurrentIndex(ui->resolution_comboBox->findText(res_str));
+            else
+            {
+                ui->resolution_comboBox->addItem(res_str);
+                ui->resolution_comboBox->setCurrentIndex(ui->resolution_comboBox->count()-1);
+            }
+
+            ui->range_doubleSpinBox->setValue(params_bl->getRange());
+
+            if (params_bl->getSmooth())
+                ui->checkBox->setCheckState(Qt::Checked);
+            else
+                ui->checkBox->setCheckState(Qt::Unchecked);
+
+            ui->mult_spinBox->setValue(params_bl->getMult());
+
+            QString color_str = QString("background-color: rgb(%1, %2, %3)").arg(params_bl->getRed()).arg(params_bl->getGreen()).arg(params_bl->getBlue());
+            ui->color_label->setStyleSheet(color_str);
+
+            ui->size_value_label->setText(QString::number(params_bl->getSize()));
+
         }
     }
     catch (BaseError &er)

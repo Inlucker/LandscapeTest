@@ -16,6 +16,7 @@ using namespace std;
 #include "Repositorys/UsersRepository.h"
 #include "Repositorys/UsersRepositoryMySQL.h"
 #include "Repositorys/CanvasRepositoryMySQL.h"
+#include "Repositorys/ParamsRepository.h"
 
 #include "defines.h"
 
@@ -37,7 +38,7 @@ public:
 
     void createCanvas();
     void deleteCanvas(int id);
-    void selectCanvas(int id);
+    shared_ptr<ParamsBL> selectCanvas(int id);
     void updateCanvas(int id);
 
     void generateNewLandscape(int size);
@@ -112,6 +113,7 @@ private:
     unique_ptr<UserController> user_controller;
     shared_ptr<CANVAS_REP> canvas_repository;
     shared_ptr<USER_REP> users_repository;
+    shared_ptr<PARAMS_REP> params_repository;
 
     shared_ptr<HeightsMapPoints> heights_map_points;
 
