@@ -42,14 +42,30 @@ Canvas::~Canvas()
         painter->end();*/
 }
 
-void Canvas::createCanvas()
+void Canvas::createCanvas(double range, bool smooth, string name)
 {
     int r, g, b, u_id;
     user_controller->getColor(r, g, b);
     u_id = user_controller->getUser()->getId();
-    string name = "CanvasName";
-    CanvasBL cbl = CanvasBL(u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    //string name = "CanvasName";
+    CanvasBL cbl = CanvasBL(0, u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
     canvas_repository->addCanvas(cbl);
+    updateCanvasesList();
+
+    shared_ptr<CanvasBL> cbl_new = canvas_repository->getCanvas(name);
+    qDebug() << QString::fromStdString(name);
+    qDebug() << cbl_new->getId();
+    //int r, g, b;
+    user_controller->getColor(r, g, b);
+    ParamsBL params_bl(cbl_new->getId(),
+                       user_controller->getImgWidth(),
+                       user_controller->getImgHeight(),
+                       range,
+                       smooth,
+                       user_controller->getMult(),
+                       r, g, b,
+                       user_controller->getHeightsMap()->getSize());
+    params_repository->addParams(params_bl);
 }
 
 void Canvas::deleteCanvas(int id)
@@ -94,7 +110,7 @@ void Canvas::updateCanvas(int id)
     user_controller->getColor(r, g, b);
     u_id = user_controller->getUser()->getId();
     string name = "CanvasName";
-    CanvasBL canvas_bl = CanvasBL(u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
+    CanvasBL canvas_bl = CanvasBL(id, u_id, name, *(user_controller->getHeightsMap()), *heights_map_points, r, g, b);
     canvas_repository->updateCanvas(canvas_bl, id);
 }
 

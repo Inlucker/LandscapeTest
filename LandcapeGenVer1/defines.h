@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 //#define POSTGRESQL
-#define MYSQL
+//#define MYSQL
 //#define PARAMS
 
 #ifdef MYSQL

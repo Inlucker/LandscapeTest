@@ -16,13 +16,14 @@ shared_ptr<CanvasBL> CanvasRepositoryMySQL::getCanvas(int id)
     q.exec(QString::fromStdString(query));
     if (q.next())
     {
+        int id = q.value(0).toInt();
         int u_id = q.value(1).toInt();
         string name = q.value(2).toString().toStdString();
         string hm = q.value(3).toString().toStdString();
         string tpa = q.value(4).toString().toStdString();
         string c = q.value(5).toString().toStdString();
 
-        return make_shared<CanvasBL>(u_id, name, hm, tpa, c);
+        return make_shared<CanvasBL>(id, u_id, name, hm, tpa, c);
     }
     else
     {

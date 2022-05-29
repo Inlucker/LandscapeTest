@@ -23,7 +23,7 @@ create table if not exists PPO.Canvas
 	id serial primary key,
 	user_id int,
 	FOREIGN KEY (user_id) REFERENCES PPO.Users (id),
-	name text,
+	name text unique,
 	HeightsMap text,
 	TriPolArray text,
 	--Params text,

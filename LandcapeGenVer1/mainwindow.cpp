@@ -551,7 +551,11 @@ void MainWindow::on_write_file_btn_2_clicked()
         //canvas->getHeightsMapPoints()->writeToFile("tpa.txt");
         //canvas->getLandscapeCanvas()->writeColorToFile("color.txt");
 
-        canvas->createCanvas();
+        double range = ui->range_doubleSpinBox->value();
+        bool smooth = false;
+        if (ui->checkBox->isChecked())
+            smooth = true;
+        canvas->createCanvas(range, smooth);
         updateCanvasesList();
     }
     catch (BaseError &er)

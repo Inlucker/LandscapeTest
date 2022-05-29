@@ -37,7 +37,7 @@ public:
     Canvas(QWidget *parent = nullptr);
     ~Canvas();
 
-    void createCanvas();
+    void createCanvas(double range, bool smooth, string name = "CnavasName");
     void deleteCanvas(int id);
     shared_ptr<ParamsBL> selectCanvas(int id);
     void updateCanvas(int id);

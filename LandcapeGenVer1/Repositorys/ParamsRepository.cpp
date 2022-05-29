@@ -74,7 +74,11 @@ void ParamsRepository::addParams(ParamsBL &params)
     query += std::to_string(width) + ", ";
     query += std::to_string(height) + ", ";
     query += std::to_string(range) + ", ";
-    query += std::to_string(smooth) + ", ";
+    if (smooth)
+        query += "TRUE, ";
+    else
+        query += "FALSE, ";
+    //query += std::to_string(smooth) + ", ";
     query += std::to_string(mult) + ", ";
     query += std::to_string(red) + ", ";
     query += std::to_string(green) + ", ";
