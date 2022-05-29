@@ -555,7 +555,9 @@ void MainWindow::on_write_file_btn_2_clicked()
         bool smooth = false;
         if (ui->checkBox->isChecked())
             smooth = true;
-        canvas->createCanvas(range, smooth);
+        string name = ui->canvas_lineEdit->text().toStdString();
+
+        canvas->createCanvas(range, smooth, name);
         updateCanvasesList();
     }
     catch (BaseError &er)
