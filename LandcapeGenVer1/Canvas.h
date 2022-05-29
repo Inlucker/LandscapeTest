@@ -17,6 +17,7 @@ using namespace std;
 #include "Repositorys/UsersRepositoryMySQL.h"
 #include "Repositorys/CanvasRepositoryMySQL.h"
 #include "Repositorys/ParamsRepository.h"
+#include "Repositorys/ParamsRepositoryMySQL.h"
 
 #include "defines.h"
 

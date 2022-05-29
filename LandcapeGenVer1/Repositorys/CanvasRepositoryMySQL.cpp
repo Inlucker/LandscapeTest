@@ -12,7 +12,6 @@ shared_ptr<CanvasBL> CanvasRepositoryMySQL::getCanvas(int id)
 {
     string query = "SELECT * FROM " + m_schema + ".Canvas where id=" + to_string(id) + ";";
 
-    vector<pair<int, string>> vec;
     QSqlQuery q;
     q.exec(QString::fromStdString(query));
     if (q.next())

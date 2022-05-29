@@ -37,6 +37,7 @@ SOURCES += \
     Repositorys/IParamsRepository.cpp \
     Repositorys/IUsersRepository.cpp \
     Repositorys/ParamsRepository.cpp \
+    Repositorys/ParamsRepositoryMySQL.cpp \
     Repositorys/UsersRepository.cpp \
     Repositorys/UsersRepositoryMySQL.cpp \
     Settings.cpp \
@@ -97,6 +98,7 @@ HEADERS += \
     Repositorys/IParamsRepository.h \
     Repositorys/IUsersRepository.h \
     Repositorys/ParamsRepository.h \
+    Repositorys/ParamsRepositoryMySQL.h \
     Repositorys/UsersRepository.h \
     Repositorys/UsersRepositoryMySQL.h \
     Settings.h \
