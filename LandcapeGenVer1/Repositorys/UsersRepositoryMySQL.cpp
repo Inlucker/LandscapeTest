@@ -64,7 +64,7 @@ vector<string> UsersRepositoryMySQL::getFreeCanvasUsers()
 
     QSqlQuery q;
     q.exec(QString::fromStdString(query));
-    if (q.size())
+    if (q.isActive())
         while (q.next())
         {
             string login = q.value(0).toString().toStdString();
@@ -81,19 +81,97 @@ vector<string> UsersRepositoryMySQL::getFreeCanvasUsers()
 
 vector<string> UsersRepositoryMySQL::getCanvasUsersByMid(int m_id)
 {
+    string query = "select login FROM PPO.Users where moderator_id = " + std::to_string(m_id) + ";";
+    vector<string> vec;
+
+    QSqlQuery q;
+    q.exec(QString::fromStdString(query));
+    if (q.isActive())
+        while (q.next())
+        {
+            string login = q.value(0).toString().toStdString();
+            vec.push_back(login);
+        }
+    else
+    {
+        time_t t_time = time(NULL);
+        throw GetUsersError(q.lastError().text().toStdString(), __FILE__, __LINE__, ctime(&t_time));
+    }
+
+    return vec;
 }
 
 void UsersRepositoryMySQL::addUser(UserBL &user_bl)
 {
+    string login = user_bl.getLogin();
+    string password = user_bl.getPassword();
+    string role = user_bl.getRole();
 
+    string query = "insert into " + m_schema + ".Users(login, password, role, moderator_id) values('";
+    //string query = "insert into " + m_dbschema + ".Canvas values(-1, 1, 'CanvasName', '";
+    query += login + "', '";
+    query += password + "', '";
+    query += role + "', NULL);";
+
+    QSqlQuery q;
+    q.exec(QString::fromStdString(query));
+    if (q.isActive())
+        while (q.next())
+        {
+            //OK?
+        }
+    else
+    {
+        time_t t_time = time(NULL);
+        throw RegistrateUserError(q.lastError().text().toStdString(), __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void UsersRepositoryMySQL::deleteUser(int id)
 {
+    string query = "delete from " + m_schema + ".Users where id=" + to_string(id) + ";";
 
+    QSqlQuery q;
+    q.exec(QString::fromStdString(query));
+    if (q.isActive())
+        while (q.next())
+        {
+            //OK?
+        }
+    else
+    {
+        time_t t_time = time(NULL);
+        throw DeleteUserError(q.lastError().text().toStdString(), __FILE__, __LINE__, ctime(&t_time));
+    }
 }
 
 void UsersRepositoryMySQL::updateUser(UserBL &user_bl, int id)
 {
+    string login, password, role, m_id;
+    login = user_bl.getLogin();
+    password = user_bl.getPassword();
+    role = user_bl.getRole();
+    if (user_bl.getModeratorId() == -1)
+        m_id = "NULL";
+    else
+        m_id = "'" + std::to_string(user_bl.getModeratorId()) + "'";
+    string query = "update " + m_schema + ".Users set login = '" + login;
+    query += "', password = '" + password;
+    query += "', role = '" + role;
+    query += "', moderator_id = " + m_id;
+    query += " where id = " + to_string(id) + ";";
 
+
+    QSqlQuery q;
+    q.exec(QString::fromStdString(query));
+    if (q.isActive())
+        while (q.next())
+        {
+            //OK?
+        }
+    else
+    {
+        time_t t_time = time(NULL);
+        throw UpdateUserError(q.lastError().text().toStdString(), __FILE__, __LINE__, ctime(&t_time));
+    }
 }
