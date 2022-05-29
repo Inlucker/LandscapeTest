@@ -53,8 +53,8 @@ void Canvas::createCanvas(double range, bool smooth, string name)
     updateCanvasesList();
 
     shared_ptr<CanvasBL> cbl_new = canvas_repository->getCanvas(name);
-    qDebug() << QString::fromStdString(name);
-    qDebug() << cbl_new->getId();
+    //qDebug() << QString::fromStdString(name);
+    //qDebug() << cbl_new->getId();
     //int r, g, b;
     user_controller->getColor(r, g, b);
     ParamsBL params_bl(cbl_new->getId(),
@@ -292,10 +292,10 @@ void Canvas::login(shared_ptr<UserBL> user_bl)
     //canvas_repository->setRole(user_bl->getRole(), user_bl->getRole());
     //users_repository->setRole(user_bl->getRole(), user_bl->getRole());
     QVariant r(QString::fromStdString(user_bl->getRole()));
-    qDebug() << "before" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
+    //qDebug() << "before" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
     Settings::set(Settings::DBUser, Settings::DataBase) = r;
     Settings::set(Settings::DBPass, Settings::DataBase) = r;
-    qDebug() << "after" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
+    //qDebug() << "after" << Settings::get(Settings::DBUser, Settings::DataBase).toString();
 }
 
 void Canvas::logout()

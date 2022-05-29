@@ -147,7 +147,7 @@ void BaseWindow::setupMySQL()
 
     if(db->open())
     {
-        qDebug() << "Connected!!";
+        //qDebug() << "Connected!!";
         QSqlQuery query;
         query.exec("SELECT * FROM PPO.Users;");
         while (query.next())
@@ -155,7 +155,7 @@ void BaseWindow::setupMySQL()
     }
     else
     {
-        qDebug() << "Disconnected!";
+        //qDebug() << "Disconnected!";
     }
 }
 
